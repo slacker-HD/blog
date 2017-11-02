@@ -85,3 +85,4 @@ deploy:
 stylus:
   compress: true
   
+comments: false

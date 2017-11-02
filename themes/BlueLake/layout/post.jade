@@ -8,8 +8,8 @@ block content
     h1.post-title= page.title
     .post-meta
       if theme.comment
-        include _partial/comment_count
-        +comment-count(page.path)
+        //- include _partial/comment_count
+        //- +comment-count(page.path)
       p
         span.date= page.date.format(theme.date_formats.post)
         if page.categories.length > 0
