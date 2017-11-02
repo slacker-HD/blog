@@ -72,7 +72,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape 
+# theme: landscape 
+theme: BlueLake
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -80,4 +81,7 @@ deploy:
      type: git
      repo: https://github.com/slacker-HD/slacker-hd.github.io.git
      branch: master
-
+#生成压缩后的csc
+stylus:
+  compress: true
+  
