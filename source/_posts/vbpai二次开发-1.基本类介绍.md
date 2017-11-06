@@ -3,7 +3,7 @@ title: vbapi-1.基本类介绍
 date: 2017-09-16 10:20
 tags: [CREO,VBAPI]
 category: CREO二次开发
-comments: true
+comments: false
 ---
 
 首先请安装VS2008和CREO2.0(M060)以及VB API工具包，如果安装过程有疑问，请自行在网络搜索，本文不再赘述相关内容。安装完成之后，需对VB API工具包进行配置，具体步骤如下。
