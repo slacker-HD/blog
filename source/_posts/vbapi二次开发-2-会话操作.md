@@ -20,12 +20,12 @@ asyncConnection = (NewCCpfcAsyncConnection).Connect(Nothing, Nothing, Nothing, N
 
 记得上节的介绍吗？CCpfcAsyncConnection为Compact Data Classes类，所以是New CCpfcAsyncConnection。该类的Connect方法返回了一个Creo Parametric-Related Classes对象IpfcAsyncConnection，将其赋值给asyncConnection。
 
-补充其内容，在Module_vbapi新增Creo_Connect函数，内容如下：
+补充其内容，在Module_vbapi新增Creo_Connect函数，实现连接到已打开的Creo会话，内容如下：
 
 ```vb
-Public Function Creo_Connect() As Boolea
+Public Function Creo_Connect() As Boolean
   Try
-    If asyncConnection Is NothingOrElse NotasyncConnection.IsRunning Then
+    If asyncConnection Is Nothing OrElse NotasyncConnection.IsRunning Then
       asyncConnection = (New CCpfcAsyncConnection).Connect(Nothing, Nothing, Nothing, Nothing)
       Pro_ Connect = True
     End If
@@ -43,7 +43,41 @@ CCpfcAsyncConnection.Start方法需要2个参数，第2个参数可选，为程�
     <img src="/img/proe/vbapi2.1.png" style="width:65%" align="center"/>
     <p>图 2-1 添加System.Configuration引用</p>
 </div>
-进行界面设计工作，修改界面如图2-2所示，添Ï加两个按钮的click代码：
+
+app.config文件不能自动生成，手动在项目中添加一个文件，将其改名为App.config并修改内容如下：
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration
+  <appSettings>
+	<add key ="CmdLine" value ="C:\PTC\Creo 2.0\Parametric\bin\parametric.exe"/>
+  </appSettings
+</configuration>
+```
+
+这样读取app.config即可获取CCpfcAsyncConnection.Start方法需要的参数并启动CREO。代码如下：
+
+```vb
+Dim cmdLine As String =ConfigurationManager.AppSettings("CmdLine").ToString()
+asyncConnection = (NewCCpfcAsyncConnection).Start(cmdLine, "")
+```
+
+补充其内容，在Module_vbapi新增Creo_new函数，实现打开新的Creo会话，内容如下：
+
+```VB
+Public Function Creo_New() As Boole
+   Try
+    Dim cmdLine AsString = ConfigurationManager.AppSettings("CmdLine").ToString()
+    asyncConnection = (NewCCpfcAsyncConnection).Start(CmdLine, "")
+    Creo_New = True
+   Catch ex AsException
+    Creo_New = False
+    MsgBox(ex.Message.ToString + Chr(13) + ex.StackTrace.ToString)
+  End Try
+End Function
+```
+
+进行界面设计工作，修改界面如图2-2所示，添加两个按钮的click代码：
 
 ```vb
 Private Sub Btn_new_Click(ByVal sender AsSystem.Object, ByVal e AsSystem.EventArgs) Handles Btn_new.Click
