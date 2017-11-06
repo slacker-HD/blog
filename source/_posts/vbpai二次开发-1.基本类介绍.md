@@ -1,6 +1,6 @@
 ---
 title: vbapi-1.基本类介绍
-date: 2017-09-16 10:20
+date: 2017-09-16
 tags: [CREO,VBAPI]
 category: CREO二次开发
 comments: false
