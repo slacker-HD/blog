@@ -1,12 +1,14 @@
 ---
-title: vbapi二次开发建立工程项目
+title: vbapi二次开发-1.建立工程项目
 date: 2017-09-15 10:20
 tags: [CREO,VBAPI]
 category: CREO二次开发
+comments: true
 ---
 
 按照上一篇文章我们的开发环境配置完毕。VB API并不像ProToolkit那样与VS有着比较严格的对应关系，即使vba环境也能对CREO2.0进行二次开发。如前所述，本文采用VS2008环境。工程项目配置具体步骤如下：
 
+62905112
 
 #### 1、新建一个项目
 

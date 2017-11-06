@@ -1,8 +1,9 @@
 ---
-title: vbapi二次开发环境设置
+title: vbapi二次开发-1.环境设置
 date: 2017-09-10 10:20
 tags: [CREO,VBAPI]
 category: CREO二次开发
+comments: true
 ---
 
 根据上一篇文章介绍，我们已可开始代码的编写。在代码正式编写之前，最后对VB API的编程方式做一个简要说明。VB API采用面向对象的方法对CREO操作进行了封装，在编写程序过程中只需调用这些类即可。VB API帮助文档中指出，这些类的主要类型包括：

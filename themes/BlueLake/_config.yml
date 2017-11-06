@@ -100,7 +100,7 @@ busuanzi: true ## If you want to use Busuanzi page views please set the value to
 
 # About page
 about:
-  photo_url: http://obzf7z93c.bkt.clouddn.com/themeauthor.jpg ## Your photo e.g. http://obzf7z93c.bkt.clouddn.com/themeauthor.jpg
+  photo_url:  ## Your photo e.g. http://obzf7z93c.bkt.clouddn.com/themeauthor.jpg
   items:
   - label: 电子邮件
     url: mailto:hudi@linuxmail.org
@@ -136,3 +136,8 @@ links:
   #   url: http://www.example2.com/
   # - title: site-name3
   #   url: http://www.example3.com/
+highlight:
+  enable: true
+  auto_detect: true
+  line_number: true
+  tab_replace:
