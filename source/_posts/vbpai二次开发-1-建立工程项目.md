@@ -6,11 +6,11 @@ tags: [CREO,VBAPI]
 category: CREO二次开发
 ---
 
-按照上一篇文章我们的开发环境配置完毕。VB API并不像protoolkit与vs版本有着严格的对应关系，VB API实质是对proe二次开发函数的的COM封装，即使vba环境也能对CREO2.0进行二次开发。本文采用VS2017环境。工程项目配置具体步骤如下：
+按照上一篇文章我们的开发环境配置完毕。VB API并不像protoolkit与vs版本有着严格的对应关系，VB API实质是对proe二次开发函数的的COM封装，即使vba环境也能对CREO2.0进行二次开发。本文采用VS2017进行开发。工程项目配置具体步骤如下：
 
 #### 1、新建一个项目
 
-选择windows窗体应用程序模板即可，如图1‑3所示。项目名称我们起名为Aux-Drawing，将来我们每一章都会对其添加内容，直至完成一个初步的辅助标注系统。
+选择windows窗体应用程序模板，如图1‑3所示。将来我们每一章都会对其添加内容，直至完成一个初步的辅助标注系统。
 
 <div align="center">
     <img src="/img/proe/vbapi1.3.png" style="width:60%" align="center"/>
