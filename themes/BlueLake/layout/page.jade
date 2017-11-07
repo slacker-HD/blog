@@ -19,13 +19,13 @@ block content
               i(class="fa fa-" + item.label) #{item.label}：
               a(href=item.url,target="_blank")= item.title
       != page.content
-    //- if theme.comment && page.comments
-    //-   #comments
-    //-     include _partial/comments
+    if theme.comment && page.comments
+      #comments
+        include _partial/comments
 block pageOnly
   script(type='text/javascript', src=url_for(theme.js) + '/totop.js' + '?v=' + theme.version, async)
-  //- if theme.comment
-  //-   include _partial/comments_js
+  if theme.comment
+    include _partial/comments_js
 block uyan_frame
   script(type='text/javascript', src="http://v2.uyan.cc/code/uyan.js?uid=2147918", async)
 

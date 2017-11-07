@@ -71,7 +71,7 @@ comment:
   duoshuo: #chaooo ## duoshuo_shortname
   disqus: ## disqus_shortname
   livere: ## 来必力(data-uid)
-  uyan: ##
+  uyan: 2147918
   cloudTie: ## 网易云跟帖(productKey)
   changyan: ## 畅言需在下方配置两个参数，此处不填。
     appid: ## 畅言(appid)
@@ -103,7 +103,7 @@ about:
   photo_url:  ## Your photo e.g. http://obzf7z93c.bkt.clouddn.com/themeauthor.jpg
   items:
   - label: 电子邮件
-    url: mailto:hudi@linuxmail.org
+    url: 
     title: hudi@linuxmail.org
 
   - label: qq
