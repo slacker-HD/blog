@@ -1,12 +1,12 @@
 ---
-title: vbapi-1.基本类介绍
-date: 2017-09-16
+title: vbpai二次开发-1.vbapi二次开发环境设置
+comments: true
+date: 2017-09-07
 tags: [CREO,VBAPI]
 category: CREO二次开发
-comments: true
 ---
 
-首先请安装VS2008和CREO2.0(M060)以及VB API工具包，如果安装过程有疑问，请自行在网络搜索，本文不再赘述相关内容。安装完成之后，需对VB API工具包进行配置，具体步骤如下。
+本文采用VS202017和CREO2.0(M060)进行讲解。如果安装过程有疑问，请自行在网络搜索，本文不再赘述相关内容。安装完成之后，需对VB API工具包进行配置，具体步骤如下。
 
 #### 1、设置系统环境变量
 
