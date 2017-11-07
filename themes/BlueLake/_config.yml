@@ -48,8 +48,8 @@ date_formats:
 # Extensions
 Plugins:
   hexo-generator-feed
-  # hexo-generator-sitemap
-  # hexo-generator-baidu-sitemap
+  hexo-generator-sitemap
+  hexo-generator-baidu-sitemap
 
 #Feed Atom
 feed:
@@ -58,10 +58,10 @@ feed:
   limit: 20
 
 #sitemap
-# sitemap:
-#   path: sitemap.xml
-# baidusitemap:
-#   path: baidusitemap.xml
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
 
 #Local search
 local_search: true ## Use a javascript-based local search engine, true/false.
@@ -91,7 +91,7 @@ addToAny_share: # AddToAny share. Empty list hides. List items are service name 
 
 # Analytics
 google_analytics: ## Your Google Analytics tracking id, e.g. UA-42025684-2
-baidu_analytics: ## Your Baidu Analytics tracking id, e.g. 1006843030519956000
+baidu_analytics: 2ecf5c43e38a12375b3964f51346f686 ## Your Baidu Analytics tracking id, e.g. 1006843030519956000
 
 # Miscellaneous
 show_category_count: true ## If you want to show the count of categories in the sidebar widget please set the value to true.
