@@ -36,7 +36,7 @@ Public Function Creo_Connect() As Boolean
 End Function
 ```
 
-CCpfcAsyncConnection.Start方法需要2个参数，第2个参数可选，为程序的信息文件，类似于Toolkit中dat文件的“text_dir”字段加msg文件，详见VB API帮助文档。由于不同计算机上CREO的安装目录不同，故参数应该是保存在硬盘中可修改后供程序读取。简化起见，本文直接采用app.config存储参数。
+CCpfcAsyncConnection.Start方法需要2个参数，第2个参数可选，为程序的信息文件，类似于Toolkit中dat文件的“text_dir”字段加msg文件，详见VB API帮助文档。由于不同计算机上CREO的安装目录不同，故参数应该是保存在硬盘中可修改后供程序读取。简化起见，本文直接采用App.config存储参数。
 
 添加.NET引用System.Configuration，如图2‑1所示。
 <div align="center">
@@ -44,14 +44,15 @@ CCpfcAsyncConnection.Start方法需要2个参数，第2个参数可选，为程�
     <p>图 2-1 添加System.Configuration引用</p>
 </div>
 
-app.config文件不能自动生成，手动在项目中添加一个文件，将其改名为App.config并修改内容如下：
+修改App.config内容添加appSettings字段如下：
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration
   <appSettings>
-	<add key ="CmdLine" value ="C:\PTC\Creo 2.0\Parametric\bin\parametric.exe"/>
-  </appSettings
+    <add key="CmdLine" value="C:\PTC\Creo 2.0\Parametric\bin\parametric.exe" />
+    <add key="TextPath" value="" />
+  </appSettings>
 </configuration>
 ```
 

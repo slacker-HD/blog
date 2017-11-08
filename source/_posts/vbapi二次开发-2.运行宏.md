@@ -29,12 +29,12 @@ mapkey(continued) ~ Activate `ribbon_options_dialog` `env_layouts.Env_MapkeySet_
 ll ~Trail `UI Desktop` `UI Desktop` `PREVIEW_POPUP_TIMER` `main_dlg_w1:PHTLeft.AssyTree:<NULL>`;~Select `main_dlg_cur` `appl_casc`; ~ Close `main_dlg_cur` `appl_casc`;~ Command`ProCmdRibbonOptionsDlg` ; ~ Select `ribbon_options_dialog``PageSwitcherPageList` 1 `env_layouts`; ~ Activate `ribbon_options_dialog``env_layouts.Env_MapkeySet_Btn`;
 ```
 
-注意，与Protoolkit不同，RunMacro运行宏时宏字符串前表示快捷键的字符串必须保留。如上面的“ll”。记得前文说的重生的问题吗？这个功能可以通过宏来完成，代码如下：
+注意，与Protoolkit不同，RunMacro运行宏时宏字符串前表示快捷键的字符串必须保留。如上面的“ll”。记得前文说的重生的问题吗 重生零件的功能可以通过宏来完成，代码如下：
 
 ```vb
-Public Sub M_Refresh()
+Public Sub Refresh()
   Try
-    asyncConnection.Session.RunMacro("imi  ~Command `ProCmdDwgRegenModel` ;")
+    asyncConnection.Session.RunMacro("imi  ~Command `ProCmdRegenPart` ;")
   Catch ex As Exception
     MsgBox(ex.Message.ToString + Chr(13) +ex.StackTrace.ToString)
   End Try
