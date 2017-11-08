@@ -15,4 +15,8 @@ category: CREO二次开发
 + Enumeration Classes。枚举类。  
 + Module-Level Classes。包含静态方法用于初始化某些VB对象。  
 + ActionListener Classes。用于处理CREO中事件类，针对事件驱动编程。  
+  
+    
 Creo Parametric-Related Classes和Compact Data Classes是VB API中最常用也最不易理解的两种类。简单来说，Creo Parametric-Related Classes类似C语言的指针的概念，对其操作相当于直接操作CREO的内存数据。Compact Data Classes相当于重新New一段内存，对其操作仅修改新申请的内存数据而不影响原始CREO的内存数据。利用VB API二次开发主要就是对这两种类进行操作，Creo Parametric-Related Classes可能有Compact Data Classes类型的属性或方法，而Compact Data Classes也可能有Creo Parametric-Related Classes类型的属性或方法，使用时要加以注意。
+
+
