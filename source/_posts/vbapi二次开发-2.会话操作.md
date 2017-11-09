@@ -27,10 +27,10 @@ Public Function Creo_Connect() As Boolean
   Try
     If asyncConnection Is Nothing OrElse NotasyncConnection.IsRunning Then
       asyncConnection = (New CCpfcAsyncConnection).Connect(Nothing, Nothing, Nothing, Nothing)
-      Pro_ Connect = True
+      Creo_Connect = True
     End If
   Catch ex As Exception
-    Pro_ Connect = False
+    Creo_Connect = False
     MsgBox(ex.Message.ToString + Chr(13) +ex.StackTrace.ToString)
   End Try
 End Function
