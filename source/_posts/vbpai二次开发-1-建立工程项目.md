@@ -1,6 +1,6 @@
 ---
 title: vbpai二次开发-1.建立工程项目
-comments: true
+comments: false
 date: 2017-09-15
 tags: [CREO,VBAPI]
 category: CREO二次开发

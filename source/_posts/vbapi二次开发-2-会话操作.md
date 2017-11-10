@@ -3,7 +3,7 @@ title: vbapi二次开发-2.会话操作
 date: 2017-11-02
 tags: [CREO,VBAPI]
 category: CREO二次开发
-comments: true
+comments: false
 ---
 
 本节正式开始代码编写。首先是将程序与CREO会话相连接。VB API只能采用同步的方式与CREO进行交互。程序与CREO会话连接有两种方式，一种是与现有CREO会话相联接，连接后VB程序可操作现有CREO会话；另一种则是打开新会话进行操作。
