@@ -1,10 +1,13 @@
 ---
 title: vbapi二次开发-2.文件操作
-date: 2017-11-14
-tags: [CREO,VBAPI]
+tags:
+  - CREO
+  - VBAPI
+comments: false
 category: CREO二次开发
-comments: true
+date: 2017-11-14 00:00:00
 ---
+
 
 
 本节介绍打开模型和保存模型两个最常见的操作。
