@@ -16,9 +16,9 @@ date: 2017-11-14 00:00:00
 
 打开文件的操作包括以下3个步骤：
 
-- (1)、通过打开文件对话框，选择要打开的文件路径;
-- (2)、初始化打开文件操作需要的参数(CCpfc类初始化Ipfc类再对Ipfc类的属性赋值);
-- (3)、载入模型并显示。
+(1). 通过打开文件对话框，选择要打开的文件路径;
+(2). 初始化打开文件操作需要的参数(CCpfc类初始化Ipfc类再对Ipfc类的属性赋值);
+(3). 载入模型并显示。
 
 Creo的文件的命名方式为".类型.版本数字"进行，使用windows通用的FileDialog很难指定其后缀名，故本节采用VB API自带的对话框打开模型。调用Creo打开文件对话框只需要调用Session.UIOpenFile方法即可。Session.UIOpenFile的参数为IpfcFileOpenOptions类，老习惯用CCpfcFileOpenOptions.Create对其进行初始化即可，关键代码如下：
 
