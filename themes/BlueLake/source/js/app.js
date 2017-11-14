@@ -29,7 +29,6 @@ particlesJS("particles-js", {
             "type": ["circle",
                 "edge",
                 "triangle",
-                "polygon",
                 "star"
             ],
             "stroke": {

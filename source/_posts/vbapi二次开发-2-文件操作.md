@@ -58,3 +58,13 @@ Creo的文件的命名方式为".类型.版本数字"进行，使用windows通�
 ```vb
   asyncConnection.Session.CurrentModel.Save()
 ```
+
+#### 3.枚举文件
+
+枚举文件需要调用IpfcBaseSession。ListFiles方法。我们得到的asyncConnection.Session为IpfcBaseSession的子类IpfcSession，可以调用父类的方法进行操作。IpfcBaseSession。ListFiles有三个参数，第一个为文件类型，第二个为文件版本(EpfcFileListOpt,枚举类)，第三个需要枚举文件夹。枚举文件夹下所有指定文件的代码如下：
+
+```vb
+  Files = CType(asyncConnection.Session, IpfcBaseSession).ListFiles("*.prt", EpfcFileListOpt.EpfcFILE_LIST_LATEST, asyncConnection.Session.GetCurrentDirectory)
+```
+
+
