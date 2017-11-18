@@ -1,6 +1,6 @@
 ---
 title: vbpai二次开发-1.vbapi二次开发环境设置
-comments: false
+comments: true
 date: 2017-09-07
 tags: [CREO,VBAPI]
 category: CREO二次开发
