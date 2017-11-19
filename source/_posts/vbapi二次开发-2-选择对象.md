@@ -47,7 +47,7 @@ Dim selectionOptions As IpfcSelectionOptions
     <p>图 2-3 主动选择对象的调用流程</p>
 </div>
 
-#### 2、读取Creo系统中已选取的对象
+## 2、读取Creo系统中已选取的对象
 
 读取Creo系统中已选取的对象相对简单，直接读取Session的CurrentSelectionBuffer即可获得IpfcSelectionBuffer这个对象。IpfcSelectionBuffer中Contents属性即为读取到的用户已选择对象。关键代码如下：
 

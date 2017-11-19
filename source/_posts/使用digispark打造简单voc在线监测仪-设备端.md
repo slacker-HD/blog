@@ -13,9 +13,9 @@ category: Arduino
     <p>图 1 最终产品</p>
 </div>
   
-#### 一、硬件部分
+## 一、硬件部分
 
-##### 1.1  包含设备  
+### 1.1  包含设备  
 
 设备端包括如下设备：
 
@@ -34,7 +34,7 @@ category: Arduino
     <p>图 4 IIC接口voc传感器(KQM2801A)1个/p>
 </div>
   
-##### 1.2  接口连线  
+### 1.2  接口连线  
 
 各设备接线如下表所示：
 
@@ -47,7 +47,7 @@ category: Arduino
 
 
 
-#### 二、软件部分
+## 二、软件部分
 
 采用arduino IDE，使用digispark库编译。由于digispark可用内存只有6K，因此必须考虑程序的体积。为减少最终编译程序的体积，采用如下措施：
 
@@ -55,7 +55,7 @@ category: Arduino
 
 2)使用digiusb而没用采用digicdc。
 
-##### 2.1 VOC IIC接口传感器(KQM2801A)数据的读取
+### 2.1 VOC IIC接口传感器(KQM2801A)数据的读取
 
 根据淘宝卖家提供的资料，KQM2801A地址为0x2F，数据格式如下表所示。
 
@@ -128,7 +128,7 @@ VOCDATA KQM2801A::get_data(void)
 }
 ```
 
-##### 2.2 digiusb传输数据
+### 2.2 digiusb传输数据
 
 DigiUSB每次向上位机上传读取到传感器的数据，主要代码如下：
 
@@ -138,7 +138,7 @@ DigiUSB每次向上位机上传读取到传感器的数据，主要代码如下�
     DigiUSB.write(value.bvalue[1]);
     DigiUSB.refresh();
 ```
-##### 2.3 12832 oled屏显示
+### 2.3 12832 oled屏显示
 
 digiusb已占用约4k的内存，使用DigisparkOLED库内存导致整个项目内存超标。故精简了DigisparkOLED库中本项目不需要的函数，特别是将***font8x16.h***中小写字母等内容删除。
 

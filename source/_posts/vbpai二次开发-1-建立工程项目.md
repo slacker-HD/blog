@@ -8,7 +8,7 @@ category: CREO二次开发
 
 按照上一篇文章我们的开发环境配置完毕。VB API并不像protoolkit与vs版本有着严格的对应关系，VB API实质是对proe二次开发函数的的COM封装，即使vba环境也能对CREO2.0进行二次开发。本文采用VS2017进行开发。工程项目配置具体步骤如下：
 
-#### 1、新建一个项目
+## 1、新建一个项目
 
 选择windows窗体应用程序模板，如图1‑3所示。将来我们每一章都会对其添加内容，直至完成一个初步的辅助标注系统。
 
@@ -17,7 +17,7 @@ category: CREO二次开发
     <p>图1‑3 新建VB项目</p>
 </div>
 
-#### 2、配置工程项目
+## 2、配置工程项目
 
 首先添加COM引用CREO VB API，如图1‑4所示。在解决方案中添加两个模块Module_VB API.vb和Module_win.vb，如图1‑5所示。Module_VB API.vb用于编写我们利用VB API写的函数与过程，Module_win.vb则用于编写一些常规的函数与过程。
 <div align="center">
