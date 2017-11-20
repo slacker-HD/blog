@@ -8,7 +8,7 @@ date: 2017-11-19 00:00:00
 
 
 
-本节介绍VBAPI的导出功能。查看VB API帮助手册可知，文件的导出通过调用IpfcModel类的Export方法完成。Export方法有两个参数，第一个FIleName为导出文件的文件名，注意要指定正确的后缀名。第二个参数ExportData为IpfcExportInstructions类型，表示以何种文件类型、何种方式导出。IpfcExportInstructions为所有导出选项的父类，针对不用的格式如Dwg、Pdf等均有不同的的子类继承于IpfcExportInstructions，这样Export方法调用针对不同文件格式对应的IpfcExportInstructions子类即可完成各种文件格式的导出。
+本节介绍VBAPI的导出功能。查看VB API帮助手册可知，文件的导出通过调用IpfcModel类的Export方法完成。Export方法有两个参数，第一个FileName为导出文件的文件名，注意要指定正确的后缀名。第二个参数ExportData为IpfcExportInstructions类型，表示以何种文件类型、何种方式导出。IpfcExportInstructions为所有导出选项的父类，针对不用的格式如Dwg、Pdf等均有不同的的子类继承于IpfcExportInstructions，这样Export方法调用针对不同文件格式对应的IpfcExportInstructions子类即可完成各种文件格式的导出。
 
 ## 1.导出Dwg  
 
