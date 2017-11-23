@@ -6,8 +6,6 @@ category: CREO二次开发
 date: 2017-11-14
 ---
 
-
-
 本节介绍打开模型和保存模型两个最常见的操作。
 
 ## 1.打开文件
@@ -64,5 +62,3 @@ Creo的文件的命名方式为".类型.版本数字"进行，使用windows通�
 ```vb
   Files = CType(asyncConnection.Session, IpfcBaseSession).ListFiles("*.prt", EpfcFileListOpt.EpfcFILE_LIST_LATEST, asyncConnection.Session.GetCurrentDirectory)
 ```
-
-

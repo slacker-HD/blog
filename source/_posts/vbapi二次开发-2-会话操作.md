@@ -39,6 +39,7 @@ End Function
 CCpfcAsyncConnection.Start方法需要2个参数，第2个参数可选，为程序的信息文件，类似于Toolkit中dat文件的“text_dir”字段加msg文件，详见VB API帮助文档。由于不同计算机上CREO的安装目录不同，故参数应该是保存在硬盘中可修改后供程序读取。简化起见，本文直接采用App.config存储参数。
 
 添加.NET引用System.Configuration，如图2‑1所示。
+
 <div align="center">
     <img src="/img/proe/vbapi2.1.png" style="width:65%" align="center"/>
     <p>图 2-1 添加System.Configuration引用</p>
@@ -93,6 +94,7 @@ Private Sub Btn_Connect_Click(ByVal sender AsSystem.Object, ByVal e AsSystem.Eve
   End If
 End Sub
 ```
+
 <div align="center">
     <img src="/img/proe/vbapi2.2.png" style="width:25%" align="center"/>
     <p>图 2-2 启动界面</p>

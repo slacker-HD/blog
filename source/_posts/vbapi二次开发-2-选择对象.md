@@ -10,7 +10,7 @@ date: 2017-11-12 18:45:42
 
 ## 1、主动要求用户进行选择对象
 
-主动要求用户进行选择对象通过IpfcBaseSession.Select这个方法来实现。(记得基本类介绍里面的说明吗？会话操作我们得到的是IpfcSession对象，如果要进行选择，用其父类IpfcBaseSession的方法。）IpfcBaseSession.Select为一个典型的VB API的函数：  
+主动要求用户进行选择对象通过IpfcBaseSession.Select这个方法来实现。(记得基本类介绍里面的说明吗？会话操作我们得到的是IpfcSession对象，如果要进行选择，用其父类IpfcBaseSession的方法。）IpfcBaseSession.Select为一个典型的VB API的函数：
 
 ```vb
 Function Select (Options as IpfcSelectionOptions, InitialSels as IpfcSelections [optional]) as IpfcSelections [optional]·
