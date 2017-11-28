@@ -12,7 +12,7 @@ date: 2017-11-28
 实现批量格式化转化需要三个参数，包括Creo程序路径、包含需要导出的文件目录以及导出的目录。我们通过命令行参数实现，通过给定Main函数正确的string[] args参数即可。具体实现包括连接会话、枚举文件、导出等三个主要步骤，在之前的教程均已涉及，在此不在赘述。控制台程序执行导出step文件例子如下:
 
 ```Cmd
-D:>CreoDirExportStep.exe “c:\PTC\Creo 2.0\Parametric\bin\parametric.exe” d:\ProeRes\ d:\test\
+D:>CreoDirExportStep.exe "c:\PTC\Creo 2.0\Parametric\bin\parametric.exe" ":\ProeRes\" "d:\test\"
 ```
 
 使用C#将Prt转为Iges代码如下：
