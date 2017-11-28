@@ -80,7 +80,10 @@ theme: BlueLake
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
      type: git
-     repo: https://github.com/slacker-HD/slacker-hd.github.io.git
+    #  repo: https://github.com/slacker-HD/slacker-hd.github.io.git
+     repo:
+      github: git@github.com:slacker-HD/slacker-hd.github.io.git,master
+      coding: git@git.coding.net:slacker_HD/blog.git,master
      branch: master
 #生成压缩后的csc
 stylus:
