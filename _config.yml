@@ -83,7 +83,6 @@ deploy:
     #  repo: https://github.com/slacker-HD/slacker-hd.github.io.git
      repo:
       github: https://github.com/slacker-HD/slacker-hd.github.io.git
-      coding: https://git.coding.net/slacker_HD/blog.git
     #  repo:
     #   github: git@github.com:slacker-HD/slacker-hd.github.io.git,master
     #   # coding: git@git.coding.net:slacker_HD/blog.git,master
