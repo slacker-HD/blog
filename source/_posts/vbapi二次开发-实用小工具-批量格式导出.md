@@ -1,6 +1,6 @@
 ---
 title: vbapi二次开发-实用小工具.批量格式导出
-tags: [CREO, VBAPI]
+tags: [CREO, VBAPI,CREO小工具]
 comments: true
 category: CREO二次开发
 date: 2017-11-28
