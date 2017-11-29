@@ -21,13 +21,13 @@ CreoDirExportIges [CREO APPLICATION FULLNAME] [DIR CONTAINS PRT FILES] [DIR TO E
 控制台程序执行导出step文件例子如下:
 
 ```Cmd
-D:>CreoDirExportStep.exe "c:\PTC\Creo 2.0\Parametric\bin\parametric.exe" ":\ProeRes\" "d:\test\"
+D:>CreoDirExportStep.exe "c:\PTC\Creo 2.0\Parametric\bin\parametric.exe" "d:\ProeRes\" "d:\test\"
 ```
 
 使用C#将Prt转为Iges代码如下：
 
 ```c#
-private static void ConvertToIges(IpfcAsyncConnection AsyncConnection, string FileFullName, string Outputdir)  
+private static void ConvertToIges(IpfcAsyncConnection AsyncConnection, string FileFullName, string Outputdir)
 {
   IpfcModelDescriptor descmodel;
   IpfcRetrieveModelOptions options;
