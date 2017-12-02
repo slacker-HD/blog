@@ -1,7 +1,9 @@
 ---
 title: vbapi二次开发-2.会话操作
 date: 2017-11-02
-tags: [CREO,VBAPI]
+tags:
+  - CREO
+  - VBAPI
 category: CREO二次开发
 comments: true
 ---

@@ -1,6 +1,8 @@
 ---
 title: vbapi二次开发-3.参数操作
-tags:tags: [CREO, VBAPI]
+tags:
+  - CREO
+  - VBAPI
 comments: true
 category: CREO二次开发
 date: 2017-11-17

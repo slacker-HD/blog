@@ -1,6 +1,8 @@
 ---
 title: vbapi二次开发-3.关系操作
-tags: [CREO,VBAPI]
+tags:
+  - CREO
+  - VBAPI
 comments: true
 category: CREO二次开发
 date: 2017-11-18

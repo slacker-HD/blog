@@ -1,6 +1,8 @@
 ---
 title: vbapi二次开发-2.文件操作
-tags: [CREO, VBAPI]
+tags:
+  - CREO
+  - VBAPI
 comments: true
 category: CREO二次开发
 date: 2017-11-14
