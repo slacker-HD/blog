@@ -1,6 +1,8 @@
 ---
 title: vbapi二次开发-2.选择对象
-tags: [CREO, VBAPI]
+tags:
+  - CREO
+  - VBAPI
 comments: true
 category: CREO二次开发
 date: 2017-11-12 18:45:42
