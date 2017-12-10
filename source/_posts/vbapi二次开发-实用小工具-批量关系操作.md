@@ -22,7 +22,7 @@ CreoDirRelRemove [CREO APPLICATION FULLNAME] [DIR CONTAINS PRT FILES]
 
 <div align="center">
     <img src="/img/proe/CreoRelationTool.png" style="width:75%" align="center"/>
-    <p>图 简易操作界面</ptu>
+    <p>图 简易操作界面</p>
 </div>
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

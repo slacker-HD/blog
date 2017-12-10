@@ -20,82 +20,16 @@ CreoDirExportStep [CREO APPLICATION FULLNAME] [DIR CONTAINS PRT FILES] [DIR TO E
 CreoDirExportIges [CREO APPLICATION FULLNAME] [DIR CONTAINS PRT FILES] [DIR TO EXPORT IGES FILES ]
 ```
 
-控制台程序执行导出step文件例子如下:
-
-```Cmd
-D:>CreoDirExportStep.exe "c:\PTC\Creo 2.0\Parametric\bin\parametric.exe" "d:\ProeRes\" "d:\test\"
-```
-
-使用C#将Prt转为Iges代码如下：
-
-```c#
-private static void ConvertToIges(IpfcAsyncConnection AsyncConnection, string FileFullName, string Outputdir)
-{
-  IpfcModelDescriptor descmodel;
-  IpfcRetrieveModelOptions options;
-  IpfcModel model;
-  IpfcIGES3DExportInstructions igesinstructions;
-  IpfcGeomExportFlags flags;
-  Console.WriteLine("打开" + FileFullName + "...");
-  try
-  {
-    Console.WriteLine("开始转换" + FileFullName + "...");
-    descmodel = (new CCpfcModelDescriptor()).Create((int)EpfcModelType.EpfcMDL_PART, "", null);
-    escmodel.Path = FileFullName;
-    options = (new CCpfcRetrieveModelOptions()).Create();
-    options.AskUserAboutReps = false;
-    model = ((IpfcBaseSession)(AsyncConnection.Session)).RetrieveModelWithOpts(descmodel, options);
-  }
-  catch
-  {
-    Console.WriteLine("无法打开" + FileFullName + "...");
-    return;
-  }
-  try
-  {
-    flags = (new CCpfcGeomExportFlags()).Create();
-    igesinstructions = (new CCpfcIGES3DExportInstructions()).Create( flags);
-    model.Export(Outputdir + model.InstanceName.ToLower() + ".igs", (IpfcExportInstructions)igesinstructions);
-  }
-  catch
-  {
-    Console.WriteLine("无法转换" + FileFullName + "...");
-    return;
-  }
-  Console.WriteLine(FileFullName + "转换完毕...");
-  try
-  {
-    model.Erase();
-  }
-  catch
-  {
-  }
-}
-```
-
 <div align="center">
     <img src="/img/proe/CreoTool1.png" style="width:75%" align="center"/>
-    <p>图 批量转Iges运行界面</ptu>
+    <p>图 批量转Iges运行界面</p>
 </div>
 
-用VB.net给所有控制台程序做了一个壳，调用控制台程序时要注意防止目录里有空格，应将所有参数用引号包围起来，使用Process.Start()调用程序，关键代码如下：
-
-```vb
-Private Sub Export(Cmd as String)
-  Dim p As New Process
-  p.StartInfo.CreateNoWindow = True
-  Try
-    p.Start(Application.StartupPath + "\" + Cmd, """" + Tb_exe.Text + """  """ + Tb_inputDir.Text + """  """ + Tb_outputDir.Text + """").WaitForExit()
-    MessageBox.Show("转化完成。")
-  Catch ex As Exception
-    MessageBox.Show(ex.Message.ToString + Chr(13) + ex.StackTrace.ToString)
-  End Try
-End Sub
-```
+用VB.net给所有控制台程序做了一个壳，如需自行编写代码调用控制台程序时要注意防止目录里有空格，应将所有参数用引号包围起来，
 
 <div align="center">
-    <img src="/img/proe/CreoTool2.png" style="width:75%" align="center"/>
-    <p>图 简易操作界面</ptu>
+    <img src="/img/proe/CreoTool2.png" style="width:65%" align="center"/>
+    <p>图 简易操作界面</p>
 </div>
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。
