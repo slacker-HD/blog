@@ -6,3 +6,11 @@ tags: [CREO, VBAPI]
 comments: true
 category: CREO二次开发
 ---
+
+
+
+## 1. 插入一个零件
+
+
+
+## 2. 增加约束
