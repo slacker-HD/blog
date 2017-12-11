@@ -8,6 +8,8 @@ category: CREO二次开发
 comments: true
 ---
 
+## 1. 创建会话
+
 本节正式开始代码编写。首先是将程序与CREO会话相连接。VB API只能采用同步的方式与CREO进行交互。程序与CREO会话连接有两种方式，一种是与现有CREO会话相联接，连接后VB程序可操作现有CREO会话；另一种则是打开新会话进行操作。
 VBAPI提供CCpfcAsyncConnection类（注意CCpfc类）完成CREO会话连接，CCpfcAsyncConnection的Connect方法用于连接现有会话，Start方法用于启动新会话。两种方法均返回一个IpfcAsyncConnection对象（注意Ipfc类）。VB API二次开发对CREO进行的修改基本都是对这个IpfcAsyncConnection对象及其子对象进行修改。
 首先在Module_vbapi中新建一个全局变量IpfcAsyncConnection，用于存储当前连接对象的句柄。代码如下：
@@ -101,3 +103,13 @@ End Sub
     <img src="/img/proe/vbapi2.2.png" style="width:25%" align="center"/>
     <p>图 2-2 启动界面</p>
 </div>
+
+## 2. 结束会话
+
+在退出程序时，应该要同时结束Creo会话。如果没有正常结束会话，再次运行VBAPI程序时，通常都会出现服务器错误等无法打开程序。结束会话的代码很简单，只需调用IpfcAsyncConnection的End方法即可：
+
+```vb
+asyncConnection.End()
+```
+
+如果在调试过程或者其他原因不慎没有在程序正常结束会话，可以打开任务管理器，手动结束名为***pfclscom.exe***和***pro_comm_msg.exe***的进程。
