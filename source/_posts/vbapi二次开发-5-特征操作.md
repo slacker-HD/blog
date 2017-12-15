@@ -50,6 +50,8 @@ Next
     <p>图5.2 遍历零件所有特征流程</p>
 </div>
 
+*P.S.vbapi没有像tookit那样提供了getdefaultname这样的方法，所以特征名只能获取到用户自己更改后的名字，故feature.getname()基本等于无效。*
+
 ## 3.删除/隐含特征
 
 删除/隐含特征均由操作由IpfcSolid的ExecuteFeatureOps方法完成，同样还有Resume、Reorder、CompModelReplace等操作，均由该函数完成。ExecuteFeatureOps有两个参数，第一个Ops为IpfcFeatureOperations类型。IpfcFeatureOperations为IpfcFeatureOperation类型的序列（序列类型，见上文的介绍），表示对特征的操作序列，即一次可以对特征进行多个操作，只要在Ops序列里插入对应的IpfcFeatureOperation对象即可。IpfcFeatureOperation类表示对特征的操作方法。具体到删除、隐含等操作均有从IpfcFeatureOperations派生的子类对应，例如删除、隐含对应的类分别为IpfcDeleteOperation和IpfcSuppressOperation。IpfcFeatureOperations及其派生的子类由IpfcFeature.CreateDeleteOp等相关方法初始化，生成后修改其对应的属性即可。ExecuteFeatureOps方法第二个参数为IpfcRegenInstructions类型，由CCpfcRegenInstructions.Create方法生成，表示进行特殊操作后的重生选项。一般设置为Nothing使用默认值即可，也可以根据实际情况自己设定其属性。删除和隐含特征的流程几乎一致，仅需要替换对应的类及修改相关属性，这里仅给出删除特征的函数调用流程，如图5-3所示。删除特征的示例代码如下：
