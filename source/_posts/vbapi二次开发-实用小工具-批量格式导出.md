@@ -25,7 +25,7 @@ CreoDirExportIges [CREO APPLICATION FULLNAME] [DIR CONTAINS PRT FILES] [DIR TO E
     <p>图 批量转Iges运行界面</p>
 </div>
 
-用VB.net给所有控制台程序做了一个壳，如需自行编写代码调用控制台程序时要注意防止目录里有空格，应将所有参数用引号包围起来，
+用VB.net给所有控制台程序做了一个壳，如需自行编写代码调用控制台程序时要注意防止目录里有空格，应将所有参数用引号包围起来。
 
 <div align="center">
     <img src="/img/proe/CreoTool2.png" style="width:65%" align="center"/>
