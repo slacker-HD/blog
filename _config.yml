@@ -91,7 +91,7 @@ deploy:
 stylus:
   compress: true
   
-comments: false
+comments: true
 
 
 jsonContent:
@@ -106,7 +106,7 @@ jsonContent:
     content: false
     slug: false
     updated: false
-    comments: false
+    comments: true
     link: false
     permalink: false
     excerpt: false

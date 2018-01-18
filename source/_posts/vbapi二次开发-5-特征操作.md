@@ -17,7 +17,7 @@ date: 2017-12-10 11:28:24
 
 <div align="center">
     <img src="/img/proe/vbapi5.1.png" style="width:75%" align="center"/>
-    <p>图5.1 创建特征函数说明</p>
+    <p>图5-1 创建特征函数说明</p>
 </div>
 
 ## 2.遍历零件所有特征
@@ -47,7 +47,7 @@ Next
 
 <div align="center">
     <img src="/img/proe/vbapi5.2.png" style="width:55%" align="center"/>
-    <p>图5.2 遍历零件所有特征流程</p>
+    <p>图5-2 遍历零件所有特征流程</p>
 </div>
 
 *P.S.vbapi没有像tookit那样提供了getdefaultname这样的方法，所以特征名只能获取到用户自己更改后的名字，故feature.getname()基本等于无效。*
@@ -95,13 +95,12 @@ asyncConnection.Session.CurrentWindow.Refresh()
 
 <div align="center">
     <img src="/img/proe/vbapi5.3.png" style="width:75%" align="center"/>
-    <p>图5.3 删除特征流程</p>
+    <p>图5-3 删除特征流程</p>
 </div>
 
 ## 4.导入Step特征
 
-VBAPI可以直接导入Step、Iges等特征到当前模型。导入这些特征通过调用IpfcSolid的CreateImportFeat方法完成。CreateImportFeat有三个参数，第一个
-IntfData为IpfcIntfDataSource类型，与上文删除隐含操作IpfcFeatureOperation类类似，通过对其派生生成对应的子类完成不同格式的特征的导入，故本节采用Step文件进行说明，读者可以自行查找手册完成Iges等其它格式的导入。导入Step文件需要采用IpfcIntfDataSource的派生类IpfcIntfStep，其初始化很简单只需给定Step文件的路径并调用CCpfcIntfStep.Create函数即可。第二个参数CoordSys为IpfcCoordSystem类型，表示导入特征时特征参考的的坐标系，可以用IpfcSelection交互选取获得，也可以设置为Nothing采用默认坐标系。第三个参数FeatAttr为IpfcImportFeatAttr类型，设定导入特征的相关属性，类的初始化由CCpfcImportFeatAttr.Create完成。导入Step特征的函数调用流程如图5-4所示，示例代码如下：
+VBAPI可以直接导入Step、Iges等特征到当前模型。导入这些特征通过调用IpfcSolid的CreateImportFeat方法完成。CreateImportFeat有三个参数，第一个IntfData为IpfcIntfDataSource类型，与上文删除隐含操作IpfcFeatureOperation类类似，通过对其派生生成对应的子类完成不同格式的特征的导入，故本节采用Step文件进行说明，读者可以自行查找手册完成Iges等其它格式的导入。导入Step文件需要采用IpfcIntfDataSource的派生类IpfcIntfStep，其初始化很简单只需给定Step文件的路径并调用CCpfcIntfStep.Create函数即可。第二个参数CoordSys为IpfcCoordSystem类型，表示导入特征时特征参考的的坐标系，可以用IpfcSelection交互选取获得，也可以设置为Nothing采用默认坐标系。第三个参数FeatAttr为IpfcImportFeatAttr类型，设定导入特征的相关属性，类的初始化由CCpfcImportFeatAttr.Create完成。导入Step特征的函数调用流程如图5-4所示，示例代码如下：
 
 ```vb
 Dim datasource As IpfcIntfStep
@@ -142,5 +141,5 @@ asyncConnection.Session.CurrentWindow.Refresh()
 
 <div align="center">
     <img src="/img/proe/vbapi5.4.png" style="width:85%" align="center"/>
-    <p>图5.4 导入Step特征流程</p>
+    <p>图5-4 导入Step特征流程</p>
 </div>
