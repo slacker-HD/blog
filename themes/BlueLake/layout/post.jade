@@ -21,15 +21,21 @@ block content
             i#busuanzi_container_page_pv
               i#busuanzi_value_page_pv
               i= '' + __('hits')
+
     .post-content
       != page.content
     include _partial/tag
+    h1(class="post-nav") 自愿付费
+    p 有价值的事物，值得付出时间，也值得付出金钱。
+    br
+    p 觉得文章有用的人可自愿付费，当然也可以不付费。
+    br
+    center <img src="/img/money/wechat.png"  width="30%" align="center" />
     .post-share
       include _partial/share
     include _partial/post_nav
     //- #comments
     //-   include _partial/comments
-
 block tocmodel
   if theme.toc.enable == true 
     .widget(id='toc')
@@ -42,4 +48,4 @@ block pageOnly
     script(type='text/javascript', src=url_for(theme.js) + '/toctotop.js' + '?v=' + theme.version, async)
   else 
     script(type='text/javascript', src=url_for(theme.js) + '/totop.js' + '?v=' + theme.version, async)
-  include _partial/comments_js
+  //- include _partial/comments_js
