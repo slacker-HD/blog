@@ -15,12 +15,12 @@ block content
         a(href=url_for(post.path))
           +title(post)
       .post-meta
-        if theme.comment.changyan.appid && theme.comment.changyan.appkey
-          a.comment-count(href=url_for(post.path) + '#comments')
-            span.cy_cmt_count(id = 'url::' + config.url +'/'+ post.path)
-            = ''+ __('guestbook') + ','
-            span.cy_cmt_participate(id = 'url::' + config.url +'/'+ post.path)
-            = ''+ __('participate')
+        //- if theme.comment.changyan.appid && theme.comment.changyan.appkey
+        //-   a.comment-count(href=url_for(post.path) + '#comments')
+        //-     span.cy_cmt_count(id = 'url::' + config.url +'/'+ post.path)
+        //-     = ''+ __('guestbook') + ','
+        //-     span.cy_cmt_participate(id = 'url::' + config.url +'/'+ post.path)
+        //-     = ''+ __('participate')
         p
           span.date= post.date.format(config.date_format)
           if post.categories.length > 0
@@ -53,5 +53,5 @@ block pageOnly
   //- script(type='text/javascript', src='/js/app.js')
 
   script(type='text/javascript', src=url_for(theme.js) + '/totop.js' + '?v=' + theme.version, async)
-  if theme.comment.changyan.appid && theme.comment.changyan.appkey
-    script(id="cy_cmt_num", src='http://changyan.sohu.com/upload/plugins/plugins.list.count.js' + '?clientId=' + theme.comment.changyan.appid)
+  //- if theme.comment.changyan.appid && theme.comment.changyan.appkey
+  //-   script(id="cy_cmt_num", src='http://changyan.sohu.com/upload/plugins/plugins.list.count.js' + '?clientId=' + theme.comment.changyan.appid)
