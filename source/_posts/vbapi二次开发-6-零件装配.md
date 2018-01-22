@@ -1,20 +1,22 @@
 ---
 layout: darft
 title: vbapi二次开发-6.零件装配
-date: 2017-11-23 14:46:27
-tags: [CREO, VBAPI]
+tags:
+  - CREO
+  - VBAPI
 comments: true
 category: CREO二次开发
+date: 2018-1-22
 ---
 
-本节介绍VBAPI如何向装配体中插入组件并添加约束。整个装配体由IpfcAssembly类进行描述，其父类为IpfcSolid类。IpfcAssembly类提供了AssembleComponent等方法完成组件的装配等操作。至于装配体中的组件，VBAPI使用IpfcComponentPath类描述其装配树信息，提供了如ComponentIds、GetTransform等属性或方法描述在装配树中的ID，获取位姿矩阵等信息；提供IpfcComponentFeat描述各组件的相关特征信息，通过CompType、GetConstraints等属性或方法获得或修改其相关特性，其父类为IpfcFeature。组件间的约束由IpfcComponentConstraint类进行描述。  
 
-在进行Creo的装配体二次开发前必须对装配树和位姿矩阵等内容进行了解，在很多toolkit的介绍书籍以及vbapi手册已有了详细介绍，在此不在对这些概念进行展开。
+本节介绍VBAPI如何向装配体中插入组件并添加约束。整个装配体由IpfcAssembly类进行描述，其父类为IpfcSolid类。IpfcAssembly类提供了AssembleComponent等方法完成组件的装配等操作。至于装配体中的组件，VBAPI使用IpfcComponentPath类描述其装配树信息，提供了如ComponentIds、GetTransform等属性或方法描述在装配树中的ID及获取位姿矩阵等；提供IpfcComponentFeat描述各组件的相关特征信息，通过CompType、GetConstraints等属性或方法获得或修改其相关特性，其父类为IpfcFeature。组件间的约束由IpfcComponentConstraint类进行描述。  
+
+在进行Creo的装配体二次开发前必须对装配树和位姿矩阵等内容进行了解，在很多toolkit的介绍书籍以及vbapi手册已有了详细介绍，在此不再对这些概念进行展开。
 
 ## 1. 插入一个零件
 
-向当前打开的装配体插入一个组件由IpfcAssembly的AssembleComponent方法完成。IpfcAssembly为IpfcSolid的子类(IpfcSolid为IpfcModel的子类)，表示一个装配体。AssembleComponent方法有两个参数，第一个参数Model为IpfcSolid类。Model可以是一个零件也可以是一个装配体，可以通过Session的RetrievemodelWithOpts方法加载，通过文件路径打开返回IpfcSolid的方法已在“vbapi二次开发-2-文件操作”中介绍过，在此不在重复介绍。第二个参数
-Position为IpfcTransform3D类。IpfcTransform3D类为包含了坐标系统转换的信息，提供诸如GetOrigin、GetXAxis等方法获取相关信息。IpfcTransform3D由CCpfcTransform3D.Create方法生成。CCpfcTransform3D.Create有一个可选参数Matrix为IpfcMatrix3D类，对应生成后的IpfcTransform3D的属性Matrix。IpfcMatrix3D类用一个4X4的二维数组位姿矩阵信息，同时提供了如Item、Set等方法获取或设定位姿矩阵信息。向装配体插入一个零件如图6-1所示，示例代码如下：
+向当前装配体插入一个组件由IpfcAssembly的AssembleComponent方法完成。IpfcAssembly为IpfcSolid的子类(IpfcSolid为IpfcModel的子类)，表示一个装配体。AssembleComponent方法有两个参数，第一个参数Model为IpfcSolid类。Model可以是一个零件也可以是一个装配体，可以通过Session的RetrievemodelWithOpts方法加载，通过文件路径打开返回IpfcSolid的方法已在前文介绍过，在此不在重复说明。第二个参数Position为IpfcTransform3D类。IpfcTransform3D类为包含了坐标系统转换的信息，提供诸如GetOrigin、GetXAxis等方法获取相关信息。IpfcTransform3D由CCpfcTransform3D.Create方法生成。CCpfcTransform3D.Create有一个可选参数Matrix为IpfcMatrix3D类，对应生成后的IpfcTransform3D的属性Matrix。IpfcMatrix3D类用一个4X4的二维数组位姿矩阵信息，同时提供了如Item、Set等方法获取或设定位姿矩阵信息。向装配体插入一个零件如图6-1所示，示例代码如下：
 
 ```vb
 Dim model As IpfcModel
@@ -53,25 +55,17 @@ assembly.AssembleComponent(componentModel, transform3D)
 ```
 
 <div align="center">
-    <img src="/img/proe/vbapi6.1.png" style="width:55%" align="center"/>
-    <p>图6.1 插入一个零件流程</p>
+    <img src="/img/proe/vbapi6.1.png" style="width:75%" align="center"/>
+    <p>图6-1 插入一个零件流程</p>
 </div>
 
 ## 2. 零件的删除和隐含
 
 在Creo中，零件可以认为是装配体的一个特征，故零件的删除和隐含等操作与特征的删除和隐含相同，在第五节已介绍，在此不再赘述。
 
-## 3. 增加约束
+## 3. 设置约束
 
-VBAPI提供了IpfcComponentFeat类描述装配体中的零件并提供了对应的一些操作方法，IpfcComponentFeat类继承自IpfcFeature类。IpfcComponentFeat类提供了SetConstraints方法设定零件的约束，
-
-SetConstraints (Constraints as IpfcComponentConstraints [optional], ReferenceAssembly as IpfcComponentPath [optional])
-
-
-
-
-IpfcFeature 
-IpfcComponentConstraint类描述约束，
+VBAPI提供了IpfcComponentFeat类描述装配体中的组件(零件或子装配体)。IpfcComponentFeat类继承自IpfcFeature类，提供了SetConstraints方法设定零件的约束。SetConstraints方法有两个参数，第一个Constraints为IpfcComponentConstraints类型，为IpfcComponentConstraint表示一个IpfcComponentConstraint类型的序列。第二个参数ReferenceAssembly为IpfcComponentPath类型，表述零件约束的参考装配体。一般如果约束仅应用于本装配体组件, 则此参数的值设为null。如果约束针对装配体中某一子装配体中的某一个零件，则此参数为针对零件的IpfcComponentPath。本例中我们默认约束仅针对于本装配体组件，设为null。IpfcComponentConstraint类表示一个约束，由CCpfcComponentConstraint.Create方法生成。CCpfcComponentConstraint.Create方法的参数Type为IpfcComponentConstraintType类，表示约束的类型，是一个枚举类。IpfcComponentConstraint另外还有ComponentReference和AssemblyReference两个重要属性，其均为IpfcSelection类，可通过前文所述的选择对象方法获取，分别表述该组件和装配体中的约束参照。如果IpfcComponentConstraintType为EpfcASM_CONSTRAINT_MATE_OFF等类型，还需设定约束的值Offset(Double类型)。向装配体中一个组件设置约束如图6-2所示，示例代码如下：
 
 ```vb
 Dim selectionOptions As IpfcSelectionOptions
@@ -123,3 +117,9 @@ If selections.Count > 0 Then
   componentFeat.SetConstraints(compConstraints, Nothing)
 End If
 ```
+
+<div align="center">
+    <img src="/img/proe/vbapi6.2.png" style="width:55%" align="center"/>
+    <p>图6-2 设置约束流程</p>
+</div>
+
