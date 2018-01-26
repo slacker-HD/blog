@@ -7,11 +7,11 @@ comments: true
 category: CREO二次开发
 ---
 
-本节介绍VBAPI中装配体组件的干涉及间隙检测。VBAPI提供了IpfcGlobalEvaluator和IpfcSelectionEvaluator分别计算组件的全局干涉以及指定组件间干涉。干涉和间隙的求解方法和流程是一致的，只需要分别调用interference或clearance的相关属性和方法即可获得，故本文只对干涉检测进行说明，如果需要间隙检测，只需查手册将对应干涉检测函数替换为间隙检测函数即可。
+本节介绍VBAPI中装配体组件的干涉检测。VBAPI提供了IpfcGlobalEvaluator和IpfcSelectionEvaluator分别计算装配体中组件的全局干涉以及指定组件间干涉。
 
 ## 1. 全局干涉检测
 
-向当前装配体插入一个组件由IpfcAssembly的AssembleComponent方法完成。IpfcAssembly为IpfcSolid的子类(IpfcSolid为IpfcModel的子类)，表示一个装配体。AssembleComponent方法有两个参数，第一个参数Model为IpfcSolid类。Model可以是一个零件也可以是一个装配体，可以通过Session的RetrievemodelWithOpts方法加载，通过文件路径打开返回IpfcSolid的方法已在前文介绍过，在此不在重复说明。第二个参数Position为IpfcTransform3D类。IpfcTransform3D类为包含了坐标系统转换的信息，提供诸如GetOrigin、GetXAxis等方法获取相关信息。IpfcTransform3D由CCpfcTransform3D.Create方法生成。CCpfcTransform3D.Create有一个可选参数Matrix为IpfcMatrix3D类，对应生成后的IpfcTransform3D的属性Matrix。IpfcMatrix3D类用一个4X4的二维数组位姿矩阵信息，同时提供了如Item、Set等方法获取或设定位姿矩阵信息。向装配体插入一个零件如图6-1所示，示例代码如下：
+IpfcGlobalEvaluator类计算装配体的全局干涉，由CMpfcInterference类的CreateGlobalEvaluator方法生成。CMpfcInterference的CreateGlobalEvaluator方法的参数Assem为IpfcAssembly，表示需要计算的装配体。IpfcGlobalEvaluator类的ComputeGlobalInterference方法可计算得到的装配体中存在的所有干涉情况，其参数SolidOnly为Boolean类型，表示是否只对实体进行计算，返回值为IpfcGlobalInterference类型的的序列IpfcGlobalInterferences对象。IpfcGlobalInterference类记录了干涉的详细信息，提供了两个重要属性SelParts和Volume。SelParts为IpfcSelectionPair类，IpfcSelectionPair类又提供两个为IpfcSelection类的属性Sel1和Sel2分别记录了存在干涉的两个组件信息，使用时只需将其转化为对应的Model类型即可获取组件的详细信息。Volume为IpfcInterferenceVolume类，提供了ComputeVolume方法可计算得到干涉量。这样通过遍历IpfcGlobalEvaluator类的ComputeGlobalInterference方法即可获取装配体的全部干涉信息。装配体全局干涉检测如图6-3所示，示例代码如下：
 
 ```vb
 Dim asm As IpfcModel
@@ -49,5 +49,36 @@ End If
     <p>图6-3 全局干涉检测流程</p>
 </div>
 
-## 2. 指定组件间干涉监测
+## 2. 指定组件间干涉检测
 
+IpfcSelectionEvaluator类计算某两个选择的组件的干涉情况，由CMpfcInterference类的CreateSelectionEvaluator方法生成。
+CMpfcInterference的CreateSelectionEvaluator方法的参数Selections为IpfcSelectionPair，表示需要计算的两个组件，可通过SessionIpfcBaseSession.Select方法获得选择对象并对其属性赋值初始化。IpfcSelectionEvaluator类提供ComputeInterference计算干涉值，其参数方法与全局干涉检测类似，在此不再赘述。指定组件间干涉检测如图6-3所示，示例代码如下：
+
+```vb
+Dim selectionOptions As IpfcSelectionOptions
+Dim selections As CpfcSelections
+Dim selectionspair As IpfcSelectionPair
+Dim selectionEvaluator As IpfcSelectionEvaluator
+Dim asm As IpfcModel
+Dim interferenceVolume As IpfcInterferenceVolume
+Dim ret As String = ""
+asm = asyncConnection.Session.CurrentModel
+'初始化selection选项
+selectionOptions = (New CCpfcSelectionOptions).Create("part") '设置可选特征的类型，这里为零件
+selectionOptions.MaxNumSels = 2 '设置一次可选择特征的数量，这里判断两个零件的干涉，所以为2
+selections = asyncConnection.Session.Select(selectionOptions, Nothing)
+'确定选择了两个对象
+If selections.Count = 2 Then
+  selectionspair = (New CCpfcSelectionPair).Create(selections.Item(0), selections.Item(1))
+  selectionEvaluator = (New CMpfcInterference).CreateSelectionEvaluator(selectionspair)
+  interferenceVolume = selectionEvaluator.ComputeInterference(True)
+  ret = "干涉量为：" + interferenceVolume.ComputeVolume().ToString() + Chr(13)
+Else
+  ret = "用户未完成选择！"
+End If
+```
+
+<div align="center">
+    <img src="/img/proe/vbapi6.4.png" style="width:75%" align="center"/>
+    <p>图6-4 指定组件间干涉检测流程</p>
+</div>
