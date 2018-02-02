@@ -1,10 +1,12 @@
 ---
 layout: darft
 title: vbapi二次开发-6.干涉检测
-date: 2017-11-23 14:37:05
-tags: [CREO, VBAPI]
+tags:
+  - CREO
+  - VBAPI
 comments: true
 category: CREO二次开发
+date: 2018-2-2
 ---
 
 本节介绍VBAPI中装配体组件的干涉检测。VBAPI提供了IpfcGlobalEvaluator和IpfcSelectionEvaluator分别计算装配体中组件的全局干涉以及指定组件间干涉。
