@@ -1,11 +1,14 @@
 ---
 layout: darft
 title: vbapi二次开发-6.装配树信息
-date: 2017-11-23 14:55:52
-tags: [CREO, VBAPI]
+tags:
+  - CREO
+  - VBAPI
 comments: true
 category: CREO二次开发
+date: 2018-02-07
 ---
+
 
 本节介绍VBAPI如何获取装配树信息。  
 
