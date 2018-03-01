@@ -5,7 +5,7 @@ tags:
   - VBAPI
 comments: true
 category: CREO二次开发
-date: 2018-02-25
+date: 2018-03-01
 ---
 
 本节介绍VBAPI尺寸公差标注功能。
