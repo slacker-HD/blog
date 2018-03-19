@@ -5,8 +5,9 @@ tags:
   - VBAPI
 comments: true
 category: CREO二次开发
-date: 2018-02-28
+date: 2018-03-19 00:00:00
 ---
+
 
 本节介绍VBAPI工程图注解相关功能。
 
