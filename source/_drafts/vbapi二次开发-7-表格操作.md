@@ -45,8 +45,68 @@ End Function
 
 ## 2. 读取、修改表格内容
 
-vbapi提供了IpfcTable类和IpfcTableCell类分表描述表格和表格中的单元格。获取表格IpfcTable对象可由上文所述的IpfcTableOwner类的方法或者通过交互选取的方式获得。
+vbapi提供了IpfcTable类和IpfcTableCell类分表描述表格和表格中的单元格。IpfcTableCell类表示单元格，提供了RowNumber和ColumnNumber两个属性表示所在行和列。IpfcTable类表示一个表格，提供了诸如SetText、GetText等方法获取表格单元格信息等，相关属性和方法很简单，在此不在赘述。比较遗憾的是IpfcBaseSession.Select这个方法通过"tab_Cell"选择单元格后得到的IpfcSelection对象我没有找到获取对应IpfcTable的属性或方法，并且也没有找到通过IpfcTableCell类获取其所在表格的pfcTableCell类方法，如果有人知道相关方法非常欢迎告知我。本文
+
+
+获取表格IpfcTable对象可由上文所述的IpfcTableOwner类的方法或者通过交互选取的方式获得。
 
 ```vb
-Public asyncConnection As IpfcAsyncConnection = Nothing
+Public Sub SetTableInfo(ByVal content As String， ByVal row As Integer, ByVal col As Integer)
+  Dim tableOwner As IpfcTableOwner
+  Dim table As IpfcTable
+  Dim tablecell As IpfcTableCell
+  Dim Lines As New Cstringseq
+  Try
+    If Isdrawding() = True Then
+      tableOwner = CType(asyncConnection.Session.CurrentModel, IpfcTableOwner)
+      If HasTable() = True Then
+        table = SelectObject("dwg_table").SelItem
+        tablecell = (New CCpfcTableCell).Create(row, col)
+        Lines.Append(content)
+        table.SetText(tablecell, Lines)
+        Reg_Csheet()
+      End If
+    End If
+  Catch ex As Exception
+    MsgBox(ex.Message.ToString + Chr(13) + ex.StackTrace.ToString)
+  End Try
+End Sub
+```
+
+```vb
+Public Function GetTableInfo(ByVal row As Integer, ByVal col As Integer) As String
+  Dim tableOwner As IpfcTableOwner
+  Dim table As IpfcTable
+  Dim tablecell As IpfcTableCell
+  Dim cellnote As IpfcModelItem
+  Dim detailNoteItem As IpfcDetailNoteItem
+  Dim detailNoteInstructions As IpfcDetailNoteInstructions
+  Dim i As Integer
+  GetTableInfo = "未能读取到内容。"
+  Try
+    If Isdrawding() = True Then
+      tableOwner = CType(asyncConnection.Session.CurrentModel, IpfcTableOwner)
+      If HasTable() = True Then
+        table = SelectObject("dwg_table").SelItem
+        tablecell = (New CCpfcTableCell).Create(row, col)
+        cellnote = table.GetCellNote(tablecell)
+        If cellnote IsNot Nothing Then
+          If cellnote.Type = EpfcModelItemType.EpfcITEM_DTL_NOTE Then
+            detailNoteItem = CType(cellnote, IpfcDetailNoteItem)
+            detailNoteInstructions = detailNoteItem.GetInstructions(True)
+            GetTableInfo = “”
+            If detailNoteInstructions.TextLines.Item(0).Texts.Count > 0 Then
+              For i = 0 To detailNoteInstructions.TextLines.Count - 1
+                GetTableInfo += detailNoteInstructions.TextLines.Item(0).Texts.Item(0).Text
+              Next
+            End If
+          End If
+        End If
+      End If
+    End If
+  Catch ex As Exception
+    MsgBox(ex.Message.ToString + Chr(13) + ex.StackTrace.ToString)
+  End Try
+  Return GetTableInfo
+End Function
 ```
