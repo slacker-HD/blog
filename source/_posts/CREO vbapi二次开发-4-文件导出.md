@@ -1,8 +1,9 @@
 ---
-title: vbapi二次开发-4.文件导出
+title: CREO vbapi二次开发-4.文件导出
 tags:
   - CREO
   - VBAPI
+  - CREO二次开发
 comments: true
 category: CREO二次开发
 date: 2017-11-19 00:00:00

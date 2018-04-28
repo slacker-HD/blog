@@ -1,9 +1,10 @@
 ---
-title: vbapi二次开发-实用小工具.批量参数操作
+title: CREO vbapi二次开发-实用小工具.批量参数操作
 tags:
   - CREO
   - VBAPI
   - CREO小工具
+  - CREO二次开发
 comments: true
 category: CREO二次开发
 date: 2017-12-02

@@ -1,11 +1,12 @@
 ---
-title: vbapi二次开发-实用小工具-零件参数化设计系统
+title: CREO vbapi二次开发-实用小工具-零件参数化设计系统
 comments: true
 date: 2017-12-14
 tags:
   - CREO
   - VBAPI
   - CREO小工具
+  - CREO二次开发
 category: CREO二次开发
 ---
 

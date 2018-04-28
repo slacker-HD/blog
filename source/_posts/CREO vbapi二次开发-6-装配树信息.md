@@ -1,9 +1,10 @@
 ---
 layout: darft
-title: vbapi二次开发-6.装配树信息
+title: CREO vbapi二次开发-6.装配树信息
 tags:
   - CREO
   - VBAPI
+  - CREO二次开发
 comments: true
 category: CREO二次开发
 date: 2018-02-07

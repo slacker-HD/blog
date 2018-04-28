@@ -1,8 +1,9 @@
 ---
-title: vbapi二次开发-7.层管理
+title: CREO vbapi二次开发-7.层管理
 tags:
   - CREO
   - VBAPI
+  - CREO二次开发
 comments: true
 category: CREO二次开发
 date: 2018-04-17

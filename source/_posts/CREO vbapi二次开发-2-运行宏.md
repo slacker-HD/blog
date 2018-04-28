@@ -1,9 +1,10 @@
 ---
-title: vbapi二次开发-2.运行宏
+title: CREO vbapi二次开发-2.运行宏
 date: 2017-11-07
 tags:
   - CREO
   - VBAPI
+  - CREO二次开发
 category: CREO二次开发
 comments: true
 ---

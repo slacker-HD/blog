@@ -1,8 +1,9 @@
 ---
-title: vbapi二次开发-7-尺寸公差标注
+title: CREO vbapi二次开发-7-尺寸公差标注
 tags:
   - CREO
   - VBAPI
+  - CREO二次开发
 comments: true
 category: CREO二次开发
 date: 2018-03-01

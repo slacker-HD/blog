@@ -1,8 +1,9 @@
 ---
-title: vbapi二次开发-5.特征操作
+title: CREO vbapi二次开发-5.特征操作
 tags:
   - CREO
   - VBAPI
+  - CREO二次开发
 comments: true
 category: CREO二次开发
 date: 2017-12-10 11:28:24

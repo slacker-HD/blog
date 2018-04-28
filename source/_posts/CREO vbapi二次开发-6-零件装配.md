@@ -1,9 +1,10 @@
 ---
 layout: darft
-title: vbapi二次开发-6.零件装配
+title: CREO vbapi二次开发-6.零件装配
 tags:
   - CREO
   - VBAPI
+  - CREO二次开发
 comments: true
 category: CREO二次开发
 date: 2018-1-22
