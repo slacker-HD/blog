@@ -29,20 +29,20 @@ Function CCpfcSelectionOptions.Create (inOptionKeywords as String) as IpfcSelect
 
 ```vb
 Dim selectionOptions As IpfcSelectionOptions
-  Dim selections As CpfcSelections
-  Dim selectFeats As IpfcSelection
-  Dim selectedfeat As IpfcModelItem
-  Try
-    '初始化selection选项
-    selectionOptions = (New CCpfcSelectionOptions).Create("feature") '设置可选特征的类型，这里为特征对象
-    selectionOptions.MaxNumSels = 1 '设置一次可选择特征的数量
-    selections = asyncConnection.Session.Select(selectionOptions, Nothing)
-    '确定选择了一个对象
-    If selections.Count > 0 Then
-        selectFeats = selections.Item(0)
-        selectedfeat = selectFeats.SelItem
-        MessageBox.Show(String.Format("内部特征ID : {0}", selectedfeat.Id))
-    End If
+Dim selections As CpfcSelections
+Dim selectFeats As IpfcSelection
+Dim selectedfeat As IpfcModelItem
+Try
+  '初始化selection选项
+  selectionOptions = (New CCpfcSelectionOptions).Create("feature") '设置可选特征的类型，这里为特征对象
+  selectionOptions.MaxNumSels = 1 '设置一次可选择特征的数量
+  selections = asyncConnection.Session.Select(selectionOptions, Nothing)
+  '确定选择了一个对象
+  If selections.Count > 0 Then
+    selectFeats = selections.Item(0)
+    selectedfeat = selectFeats.SelItem
+    MessageBox.Show(String.Format("内部特征ID : {0}", selectedfeat.Id))
+  End If
 ```
 
 <div align="center">
@@ -55,11 +55,11 @@ Dim selectionOptions As IpfcSelectionOptions
 读取Creo系统中已选取的对象相对简单，直接读取Session的CurrentSelectionBuffer即可获得IpfcSelectionBuffer这个对象。IpfcSelectionBuffer中Contents属性即为读取到的用户已选择对象。关键代码如下：
 
 ```vb
-  Dim Selections As IpfcSelections
-  Selections = asyncConnection.Session.CurrentSelectionBuffer.Contents
-  If (Selections.Count > 0) Then
-    For i = 0 To Selections.Count - 1
-        MessageBox.Show(String.Format("内部特征ID : {0}", Selections.Item(i).SelItem.Id))
-    Next
-  End If
+Dim Selections As IpfcSelections
+Selections = asyncConnection.Session.CurrentSelectionBuffer.Contents
+If (Selections.Count > 0) Then
+  For i = 0 To Selections.Count - 1
+    MessageBox.Show(String.Format("内部特征ID : {0}", Selections.Item(i).SelItem.Id))
+  Next
+End If
 ```

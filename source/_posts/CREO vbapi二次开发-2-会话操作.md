@@ -73,11 +73,11 @@ asyncConnection = (NewCCpfcAsyncConnection).Start(cmdLine, "")
 
 ```VB
 Public Function Creo_New() As Boole
-   Try
+  Try
     Dim cmdLine AsString = ConfigurationManager.AppSettings("CmdLine").ToString()
     asyncConnection = (NewCCpfcAsyncConnection).Start(CmdLine, "")
     Creo_New = True
-   Catch ex AsException
+  Catch ex AsException
     Creo_New = False
     MsgBox(ex.Message.ToString + Chr(13) + ex.StackTrace.ToString)
   End Try
