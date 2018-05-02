@@ -1,14 +1,14 @@
 ---
 title: CREO vbapi二次开发-7-球标操作
-layout: darft
 tags:
   - CREO
   - VBAPI
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date: 2018-05-05
+date: 2018-05-02
 ---
+
 
 本节介绍VBAPI中球标的操作。vbapi针对球标和BOM并未仅提供了IpfcBOMExportInstructions类用于BOM表的导出，但是我们仍可以通过宏的方式对球标进行部分操作。
 
@@ -21,7 +21,7 @@ asyncConnection.Session.RunMacro("GBBALLOON ~ Command `ProCmdDwgTblProperties` ;
 ```
 
 <div align="center">
-    <img src="/img/proe/vbapi7.4.png" style="width:60%" align="center"/>
+    <img src="/img/proe/vbapi7.4.png" style="width:40%" align="center"/>
     <p>图 7-4 国标球标操作</p>
 </div>
 
@@ -119,6 +119,9 @@ End Try
 ```
 
 ## 2. 排列球标
+
+生成的球标经过修改之后可能位置不齐，为了美观一般都需要将球标对其到一行或一列。球标在未国标化之前其对象无法访问，但国标化之后所有国标为IpfcDetailSymbolInstItem对象，就可以对其直接访问了。修改国标化后球标的位置只需要设定attachment.AttachmentPoint属性即可，在“CREO vbapi二次开发-7-插入符号”文中已经详细介绍，在此不在赘述，仅给出排列球标的代码：
+
 
 ```vb
 ''' <summary>
