@@ -1,5 +1,4 @@
 ---
-layout: darft
 title: CREO vbapi二次开发-6.装配树信息
 tags:
   - CREO
