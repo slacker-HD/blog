@@ -64,9 +64,15 @@ html(lang='#{config.language}')
         include _partial/footer
       include _partial/after_footer
       block pageOnly
+    canvas#reactive-bg-canvas
     //- #particles-js
     //- script(type='text/javascript', src='/js/particles.min.js')
     //- script(type='text/javascript', src='/js/app.js')
     script(type='text/javascript', src='/js/ggk.js')
+    //- script(type='text/javascript', src='/js/jquery.min.js')
+    //- script(type='text/javascript', src='/js/TweenLite.min.js')
+    //- script(type='text/javascript', src='/js/magic-canvas.min.js')
+    //- script(type='text/javascript', src='/js/effect.js')
+
     script(type='text/javascript', src='/js/baidupush.js')
 
