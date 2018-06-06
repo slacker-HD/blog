@@ -1,12 +1,13 @@
 ---
 title: CREO weblink二次开发-实用小工具.批量导出和层设置工具
-date: 2018-03-05
+tags:
   - CREO
   - WEBLINK
   - CREO小工具
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2018-03-05
 ---
 
 更新了weblink工具，添加了批量导出以及层设置工具。
