@@ -1,12 +1,12 @@
 ---
-title: CREO vbapi二次开发-7.草绘
+title: CREO vbapi二次开发-7-草绘
 tags:
   - CREO
   - VBAPI
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date: 2018-06-07 00:00:00
+date: 2018-06-06 00:00:00
 ---
 
 
