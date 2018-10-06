@@ -16,11 +16,11 @@ VBAPI有简单异步模式（Simple Asynchronous Mode）和完全异步模式（
 
 > Full asynchronous mode is identical to the simple asynchronous mode except in the way the VB API application handles requests from Creo Parametric. In simple asynchronous mode, it is not possible to process these requests. In full asynchronous mode, the application implementsa control loop that ‘‘listens’’ for messages from Creo Parametric. As a result, Creo Parametric can call functions in the application, including callback functions for menu buttons and notifications.
 >
-> **Note**
+> Note
 >
-> *Using full asynchronous mode requires starting or connecting to Creo Parametric using the methods described in the previous sections. The difference is that the application must provide an event loop toprocess calls from menu buttons and listeners.*
+> Using full asynchronous mode requires starting or connecting to Creo Parametric using the methods described in the previous sections. The difference is that the application must provide an event loop toprocess calls from menu buttons and listeners.
 >
->**Note**
+>Note
 >
 >ActionListeners are not supported from VBA.
 
