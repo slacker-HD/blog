@@ -1,5 +1,5 @@
 ---
-title: vbapi二次开发-8.事件操作
+title: CREO vbapi二次开发-8.事件操作
 tags:
   - CREO
   - VBAPI
@@ -179,7 +179,7 @@ End Sub
 
 ## 3.取消事件
 
-VBAPI不仅允许侦听相关事件，也可以取消由动作监听器注册的某些通知事件。VBAPI提供了CCpfcXCancelProEAction类的Throw方法实现取消事件。该方法必须在自定义事件侦听类定义的方法中执行，应用程序不能捕获VBAPI异常，，即CCpfcXCancelProEAction.Throw()不要放在Try Catch代码段内。并不是所有的事件都能被取消，VBAPI参考文档给出了可以被取消的事件列表：
+VBAPI不仅允许侦听相关事件，也可以取消由动作监听器注册的某些通知事件。VBAPI提供了CCpfcXCancelProEAction类的Throw方法实现取消事件。该方法必须在自定义事件侦听类定义的方法中执行，应用程序不能捕获VBAPI异常，即CCpfcXCancelProEAction.Throw()不要放在Try Catch代码段内。并不是所有的事件都能被取消，VBAPI参考文档给出了可以被取消的事件列表：
 
 + IpfcSessionActionListener.OnBeforeModelErase()
 + IpfcSessionActionListener.OnBeforeModelDelete()
