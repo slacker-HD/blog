@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2018-10-09 22:04:57
 ---
+
 
 VBAPI存在一定的功能限制，如在前文中特征的很多操作是无法用VBAPI实现的。针对这种局限性，我们可以通过在VBAPI程序中调用Toolkit程序扩展VBAPI的功能。VBAPI提供了调用Toolkit程序的功能函数，Toolkit也提供了相关函数导出功能供VBAPI调用。
 
