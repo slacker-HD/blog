@@ -20,7 +20,7 @@ toolkit开发文档对于Dll程序导出可被调用的函数的说明如下：
 
 可被导出的函数原型为：
 
->ProError (*ProTkdllFunction) (ProArgument* inputs  , ProArgument** outputs);
+>ProError (\*ProTkdllFunction) (ProArgument\* inputs  , ProArgument\*\* outputs);
 
 简单来说，在Dll中定义可导出使用的Toolkit函数必须使用PRO_TK_DLL_EXPORT导出宏声明，并且参数为 (ProArgument* inputs  , ProArgument** outputs)，返回值为ProError。用一个例子加以说明。定义一个返回整形数值的平方数函数MyPow。在Cpp文件中加如下代码：
 
