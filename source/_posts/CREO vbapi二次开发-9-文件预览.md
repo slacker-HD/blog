@@ -12,7 +12,7 @@ date: 2018-10-12 21:18:24
 
 严格意义来说，Creo的文件预览并不能算Creo的二次开发。PTC公司提供了Creo View Express这个程序实现快速浏览Creo的模型、图纸等。Creo View Express提供了pview.ocx这个Com组件，实现文件预览功能就是调用这个OCX来实现。
 
-以VB.net程序开发进行说明。首先确保Creo View Express已正确安装。之后一个工程，在工程的工具箱中添加COM组件"pview control"，如图9-1所示。
+以VB.net程序开发进行说明。首先确保Creo View Express已正确安装。之后新建一个工程，在工程的工具箱中添加COM组件"pview control"，如图9-1所示。
 
 <div align="center">
     <img src="/img/proe/vbapi9.1.png" style="width:65%" align="center"/>
