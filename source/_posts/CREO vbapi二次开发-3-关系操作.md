@@ -57,3 +57,5 @@ End If
     <img src="/img/proe/vbapi3.5.png" style="width:30%" align="center"/>
     <p>图 3-5 清空关系流程</p>
 </div>
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

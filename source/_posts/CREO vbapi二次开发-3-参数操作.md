@@ -89,3 +89,5 @@ End If
     <img src="/img/proe/vbapi3.3.png" style="width:20%" align="center"/>
     <p>图 3-3 删除参数流程</p>
 </div>
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

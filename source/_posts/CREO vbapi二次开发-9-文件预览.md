@@ -33,3 +33,5 @@ date: 2018-10-12 21:18:24
     <img src="/img/proe/vbapi9.2.png" style="width:65%" align="center"/>
     <p>图 9-2 程序界面</p>
 </div>
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

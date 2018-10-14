@@ -121,3 +121,5 @@ Public Function GetTableInfo(ByVal row As Integer, ByVal col As Integer) As Stri
   Return GetTableInfo
 End Function
 ```
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

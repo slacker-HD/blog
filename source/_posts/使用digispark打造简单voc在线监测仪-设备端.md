@@ -31,7 +31,7 @@ category: Arduino
 
 <div align="center">
     <img src="/img/arduino/2017-09-10kqm.jpg" style="width:65%" align="center"/>
-    <p>图 4 IIC接口voc传感器(KQM2801A)1个/p>
+    <p>图 4 IIC接口voc传感器(KQM2801A)1个</p>
 </div>
 
 ### 1.2  接口连线

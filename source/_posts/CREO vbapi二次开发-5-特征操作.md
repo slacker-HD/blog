@@ -144,3 +144,5 @@ asyncConnection.Session.CurrentWindow.Refresh()
     <img src="/img/proe/vbapi5.4.png" style="width:85%" align="center"/>
     <p>图5-4 导入Step特征流程</p>
 </div>
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

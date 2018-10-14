@@ -86,3 +86,5 @@ model.Export(model.InstanceName + ".igs", igsinstructions)
     <img src="/img/proe/vbapi4.4.png" style="width:75%" align="center"/>
     <p>图 4-4 导出Igs流程</p>
 </div>
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

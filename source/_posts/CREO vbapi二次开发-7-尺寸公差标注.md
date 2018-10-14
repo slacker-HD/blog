@@ -81,3 +81,5 @@ dimension.Tolerance = limitstab
 ## 4.基轴制/基孔制配合公差标注
 
 CREO和VBAPI并未提供基轴制/基孔制配合公差标注方法，但是只需通过前一节尺寸修饰的方法通过修改尺寸的后缀文字即可。CREO提供了如"@#"、"@-+" 等转义字符描述尺寸的上下标，读者可自行百度确定相关字符串格式。而公差值可通过读取CREO公差表Text文件获取，其方法在此不在赘述。
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

@@ -47,3 +47,5 @@ End If
 texts(0) = "imicharmfer ~ Activate `main_dlg_cur` `page_Annotate_control_btn`0 ;~ Command `ProCmdDwgCreateNote` ;#ISO LEADER;#ENTER;#HORIZONTAL;#TANGENT LEADER;#DEFAULT;#MAKE NOTE;#NO ARROW;@PAUSE_FOR_SCREEN_PICK;#PICK PNT;@PAUSE_FOR_SCREEN_PICK;" & texts(0) & ";;#DONE/RETURN;"
 asyncConnection.Session.RunMacro(texts(0))
 ```
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

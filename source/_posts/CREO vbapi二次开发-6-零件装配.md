@@ -124,3 +124,4 @@ End If
     <p>图6-2 设置约束流程</p>
 </div>
 
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

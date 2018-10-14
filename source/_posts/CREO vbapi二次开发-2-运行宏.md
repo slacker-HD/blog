@@ -44,3 +44,5 @@ End Sub
 ```
 
 当然这个函数在执行重生的时候有很大局限性，没有使用代码进行重生功能强大，但是在一些特定场合也足够使用了。试试运行一下！
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。

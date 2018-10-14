@@ -54,3 +54,5 @@ End Sub
     <img src="/img/proe/vbapi7.1.png" style="width:45%" align="center"/>
     <p>图7-1 尺寸修饰流程</p>
 </div>
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。
