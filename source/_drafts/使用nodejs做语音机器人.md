@@ -18,10 +18,10 @@ var quetystring = require("querystring");
 var http = require("http");
 var Player = require('player');
 var AipSpeechClient = require("baidu-aip-sdk").speech;
-var BAIDU_APP_ID = "7885576";
-var BAIDU_API_KEY = "GUyg1Qg15KZHZssvDfEFcwOY";
-var BAIDU_SECRET_KEY = "p2jnrUbGGrr5veOHK6v3NXuZWHHqAU6w";
-var TULING_APIKEY = "f3741a9288cd4fc2b328039b45f3da7c";
+var BAIDU_APP_ID = "替换成自己的";
+var BAIDU_API_KEY = "替换成自己的";
+var BAIDU_SECRET_KEY = "替换成自己的";
+var TULING_APIKEY = "替换成自己的";
 var client = new AipSpeechClient(BAIDU_APP_ID, BAIDU_API_KEY, BAIDU_SECRET_KEY);
 var HttpClient = require("baidu-aip-sdk").HttpClient;
 
@@ -102,6 +102,7 @@ micInstance.start();
 ```
 
 Package.json文件如下：
+
 ```Json
 {
   "name": "sound",
@@ -122,4 +123,3 @@ Package.json文件如下：
   }
 }
 ```
-

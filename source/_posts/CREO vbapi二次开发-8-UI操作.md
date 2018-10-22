@@ -77,7 +77,7 @@ End Class
 
 ### 1.3 IpfcAsyncActionListener
 
-IpfcAsyncActionListener负责会话层级的相应，只需实现IpfcAsyncActionListener的OnTerminate方法即可。代码如下：
+IpfcAsyncActionListener负责会话层级的响应，只需实现IpfcAsyncActionListener的OnTerminate方法即可。代码如下：
 
 ```vb
 Private Class MyAsyncActionListener
