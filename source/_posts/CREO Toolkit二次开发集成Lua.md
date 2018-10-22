@@ -21,7 +21,7 @@ Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码
 - 新建一个MFC DLL工程，按照正常的Creo Toolkit程序配置工程。另需在设置中c++————预编译头————预编译头设置为"不使用预编译头"，如图1所示。
 
 <div align="center">
-    <img src="/img/proe/ToolkitLua1.png" style="width:30%" align="center"/>
+    <img src="/img/proe/ToolkitLua1.png" style="width:80%" align="center"/>
     <p>图1 工程设置</p>
 </div>
 
