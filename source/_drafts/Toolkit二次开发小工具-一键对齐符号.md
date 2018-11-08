@@ -9,19 +9,11 @@ comments: true
 category: CREO二次开发
 ---
 
-
-本文试水使用weblink对Creo二次开发，功能与之前vbapi开发的小工具功能雷同，不同的是程序运行在Creo内置浏览器内。weblink配置相对简单并且暂时不考虑写weblink的教程，这里就不再详细说明了。小工具页面采用本博客框架，如下图所示：
-
-<div align="center">
-    <img src="/img/proe/weblinktool1.png" style="width:80%" align="center"/>
-    <p>图 weblink小工具主界面</p>
-</div>
+编译了一个一键对齐符号的功能插件，可以实现将选中的尺寸、符号水平或垂直对齐，在出工程图的时候好看些。代码同样公开，需要的人可以随便根据自己的环境修改编译。
 
 <div align="center">
-    <img src="/img/proe/weblinktool2.png" style="width:80%" align="center"/>
-    <p>图 批量参数操作运行主界面</p>
+    <img src="/img/proe/OneKeyalign.gif" style="width:40%" align="center"/>
+    <p>图 一键对齐符号</p>
 </div>
 
-项目已上传至[http://slackerhd.3vkj.net/](http://slackerhd.3vkj.net/)。直接在Creo内建浏览器打开链接即可试用，注意IE对网站的权限以及weblink的设置需要设置正确。
-
-项目源码可在<a href="https://github.com/slacker-HD/creo_weblink" target="_blank">Github.com</a>下载。
+完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
