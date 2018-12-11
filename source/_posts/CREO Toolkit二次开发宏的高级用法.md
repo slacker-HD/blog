@@ -28,7 +28,6 @@ void FunAfterMacro()
   AfxMessageBox(_T("运行完宏后跑mfc的代码！"));
   AfxMessageBox(_T("再来一次！"));
   AfxMessageBox(_T("再来第二次！"));
-  hint = About;
 }
 
 void RunmacroW()
@@ -70,7 +69,6 @@ ProError ShowDialog(wchar_t *Message)
 
 void about()
 {
-  AFX_MANAGE_STATE(AfxGetStaticModuleState());
   ShowDialog(_T("如何在运行完宏后再跑mfc代码。\n访问我的博客获得更多信息：\nhttp://www.hudi.site"));
 }
 
@@ -138,7 +136,7 @@ typedef enum _hint
 HINT hint;
 ```
 
-"About_Act"菜单的响应函数可以根据根据hint的值实现对应的功能，变更如下：
+"About_Act"菜单的响应函数可以根据hint的值实现对应的功能，变更如下：
 
 ```c
 void about()
@@ -159,7 +157,7 @@ void about()
 
 **注意：根据业务逻辑，只有在点击"Runmacro_Act"菜单时hint值才能为Fun，一旦点击后hint值必须为About。**
 
-最后"Runmacro_Act"菜单对应的函数runMacro则修改如下：
+最后"Runmacro_Act"菜单对应的函数runMacro修改如下：
 
 ```c
 void runMacro()
