@@ -10,9 +10,9 @@ date: 2018-12-25
 ---
 
 
-Creo Toolkit提供了很详细的二次开发代码示例，但是直接使用makefile编译，并不像我们常规的使用visual studio工程完成项目的编译，所以很少看到网上有人说明如何编译使用。自带的例子其实已经包含了我们常见功能的实现，学习自带的示例代码对我们二次开发很有帮助。本文说明如何编译并运行Creo自带的示例代码。
+Creo Toolkit提供了很详细的二次开发代码示例，但是直接使用makefile编译，并不像我们常规的使用visual studio工程完成项目，所以很少看到网上有人说明如何使用。自带的例子包含了很多常见功能的实现，对我们学习二次开发很有帮助。本文说明如何编译并运行Creo自带的示例代码。
 
-本文的Creo版本为2.0 M060 X64位版本，安装目录为"C:\PTC\Creo 2.0\"。为方便讲解，以下使用的目录均以本机的版本和目录为主，读者可以根据自己机子的情况自行调整。
+本文的Creo版本为2.0 M060 X64位版本，安装目录为"C:\PTC\Creo 2.0\"。为方便讲解，以下使用的目录均以本机的版本和目录为主，读者可以根据自己系统的情况自行调整。
 
 ## 1. 目录和文件说明
 
@@ -28,9 +28,9 @@ Toolkit的安装目录为"C:\PTC\Creo 2.0\Common Files\M060\protoolkit"。编译
 
 ## 2. 编译代码
 
-1. obj目录下诸如make_XXX的文件均为protk_appls目录下对应的项目编译文件，想编译的项目首先需要将其改名为makefile。例如将make_geardesign改为makefile，这样就可以编译"pt_geardesign"这个示例项目。
+（1）obj目录下诸如make_XXX的文件均为protk_appls目录下对应的项目编译文件，想编译的项目首先需要将其改名为makefile。例如将make_geardesign改为makefile，这样就可以编译"pt_geardesign"这个示例项目。
 
-2. 开始菜单找到"Visual Studio x64 Win64 命令提示(2010)"并打开。依次输入如下代码即可完成项目的编译：
+（2）开始菜单找到"Visual Studio x64 Win64 命令提示(2010)"并打开。依次输入如下代码即可完成项目的编译：
 
 ```
 cd C:\PTC\Creo 2.0\Common Files\M060\protoolkit\x86e_win64\obj
