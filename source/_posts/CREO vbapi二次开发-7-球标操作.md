@@ -10,7 +10,7 @@ date: 2018-05-02
 ---
 
 
-本节介绍VBAPI中球标的操作。vbapi针对球标和BOM并未仅提供了IpfcBOMExportInstructions类用于BOM表的导出，但是我们仍可以通过宏的方式对球标进行部分操作。
+本节介绍VBAPI中球标的操作。vbapi针对球标和BOM仅提供了IpfcBOMExportInstructions类用于BOM表的导出，但是我们仍可以通过宏的方式对球标进行部分操作。
 
 ## 1. 国标球标
 
