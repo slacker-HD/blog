@@ -64,7 +64,7 @@ micInputStream.on('silence', function () {
             method: 'POST',
             rejectUnauthorized: false,
             headers: {
-                "Content-Type": 'application/x-www-form-urlencoded', //这个一定要有
+                "Content-Type": 'application/x-www-form-urlencoded',
             }
         };
         var req = http.request(options, function (res) {

@@ -13,7 +13,7 @@ category: CREO二次开发
 
 ## 1、新建一个项目
 
-选择windows窗体应用程序模板，如图1‑3所示。将来我们每一章都会对其添加内容，直至完成一个初步的辅助标注系统。
+选择windows窗体应用程序模板，如图1‑3所示。~~将来我们每一章都会对其添加内容，直至完成一个初步的辅助标注系统~~。
 
 <div align="center">
     <img src="/img/proe/vbapi1.3.png" style="width:60%" align="center"/>
