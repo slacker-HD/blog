@@ -17,7 +17,7 @@ input:-webkit-autofill
 div
   box-sizing: border-box
 a, button.submit
-  color: #40759b
+  color: #003366
   text-decoration: none
   -webkit-transition: all .1s ease-in
   -moz-transition: all .1s ease-in
@@ -27,7 +27,7 @@ a
   &:focus
     outline: none
   &:hover,&:active
-    color: #40759b
+    color: #336699
 .clear
   clear: both
 .hide 
@@ -41,7 +41,7 @@ blockquote,.stressed
   padding: 10px
   color: #555
   border: 1px solid #e6e6e6
-  border-left: 5px solid #40759b
+  border-left: 5px solid #006699
 strong, b, em
   font-weight: bold
 .hidden1
@@ -105,14 +105,16 @@ strong, b, em
   
 /* layout */
 body
-  font-family: "微软雅黑","Source Code Pro", Tahoma, "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei Light", "Microsoft YaHei", "Source Han Sans CN", "WenQuanYi Micro Hei", Arial, sans-serif
+  font-family: "华文苹方", "PingFang", "微软雅黑","Source Code Pro", Tahoma, "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei Light", "Microsoft YaHei", "Source Han Sans CN", "WenQuanYi Micro Hei", Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   font-size: 14px
   color: #333
   width:100%
   height:100%
-  background: #D8E2EB url(../img/bg.jpg) no-repeat top center
+  background: #006699
+  background: linear-gradient(to right bottom, #006699, rgba(255,255,255,1));
+
 .layout-g 
   letter-spacing: -.31em
   *letter-spacing normal
@@ -188,8 +190,8 @@ body
     border: 1px solid transparent
     &:hover,&.current
       border-bottom: 1px solid #fff
-      -webkit-box-shadow: 0 0 10px #adc2d7 inset
-      box-shadow: 0 0 10px #adc2d7 inset
+      -webkit-box-shadow: 0 0 10px #6699CC inset
+      box-shadow: 0 0 10px #6699CC inset
 /* sidebar */      
 #sidebar 
   word-wrap: break-word
@@ -199,17 +201,17 @@ body
     margin-bottom: 20px
     padding: 10px 20px 20px 20px
     border-radius: 4px
-    -webkit-box-shadow: 1px 2px 3px #adc2d7
-    box-shadow: 1px 2px 3px #adc2d7
-    border: 1px solid #adc2d7
+    -webkit-box-shadow: 1px 2px 3px #6699CC
+    box-shadow: 1px 2px 3px #6699CC
+    border: 1px solid #6699CC
     background: #FFF
     a 
       color:#333
       &:hover 
-        color: #40759b
+        color: #006699
         text-decoration underline
     .widget-title,.comments-title
-      color: #40759b
+      color: #003366
       line-height: 2.7
       margin-top: 0
       font-size: 16px
@@ -233,7 +235,7 @@ body
         text-overflow: ellipsis
     .category-list-count
       padding-left: 5px
-      color: #40759b
+      color: #1231231
       &:before
         content: "("
       &:after
@@ -268,9 +270,9 @@ body
     width: 100%
     border-radius: 15px
     background: #FFF
-    -webkit-box-shadow: 1px 2px 3px #adc2d7;
-    box-shadow: 1px 2px 3px #adc2d7;
-    border: 1px solid #adc2d7;
+    -webkit-box-shadow: 1px 2px 3px #6699CC;
+    box-shadow: 1px 2px 3px #6699CC;
+    border: 1px solid #6699CC;
 #result-wrap 
   position: absolute
   top: 56px
@@ -281,16 +283,16 @@ body
   background: #FFF
   color: #333
   border-radius: 4px
-  -webkit-box-shadow: 1px 2px 3px #adc2d7
-  box-shadow: 1px 2px 3px #adc2d7
-  border: 1px solid #adc2d7
+  -webkit-box-shadow: 1px 2px 3px #6699CC
+  box-shadow: 1px 2px 3px #6699CC
+  border: 1px solid #6699CC
   &:before
     content ''
     position: absolute
     display: inline-block
     border-width: 0 12px 12px 12px
     border-style: solid
-    border-color: #adc2d7 transparent
+    border-color: #6699CC transparent
     left: 56px
     top: -12px
   &:after 
@@ -333,7 +335,7 @@ body
       white-space: nowrap
       text-overflow: ellipsis
       font-size: 14px
-      color: #40759b
+      color: #003366
       &:hover 
         text-decoration underline
     .time
@@ -356,13 +358,13 @@ body
   padding: 25px
   background: #FFF
   border-radius: 4px
-  -webkit-box-shadow: 1px 2px 3px #ADC2D7
-  box-shadow: 1px 2px 3px #ADC2D7
-  border: 1px solid #ADC2D7
+  -webkit-box-shadow: 1px 2px 3px #6699CC
+  box-shadow: 1px 2px 3px #6699CC
+  border: 1px solid #6699CC
   margin-bottom: 40px
   .post-title
     margin: 0
-    color: #40759b
+    color: #333
     text-align: left
     border-bottom: 1px solid #D8E2EB
     padding-bottom: 10px
@@ -370,7 +372,7 @@ body
     font-size 22px 
     line-height: 1.1
     a
-      color: #40759B
+      color: #333 //主页文章标题
       &:hover 
         text-decoration underline
   .post-meta
@@ -396,10 +398,10 @@ body
         &:after
           content: ' '
     a
-      color: #40759b
+      color: #003366
     a:hover
-      color: #40759b
-      border-bottom: 1px solid #40759b
+      color: #006699
+      border-bottom: 1px solid #006699
     .category
       &:before
         font-family: "iconfont"!important
@@ -427,8 +429,8 @@ body
       content: "\e006"
       padding-right: 0.3em
     &:hover
-      color: #40759b
-      border-bottom: 1px solid #40759b
+      color: #006699
+      border-bottom: 1px solid #006699
     span:after
         content: ''
         display: none
@@ -436,7 +438,7 @@ body
     clear: left
     font-size: 15px
     line-height: 1.77
-    color: #333
+    color: #333333 //文字颜色
     padding-top: 15px
     text-align: justify
     text-justify: distribute
@@ -461,13 +463,13 @@ body
         background: #eee
         font-size: .95em
       a
-        color: #40759b
+        color: #006699
         padding-bottom: 2px
         word-break: break-all
         &:hover
           text-decoration: underline
       .caption
-        color: #40759b
+        color: #006699
         display: block
         font-size: 0.9em
         margin-top: 0.1em
@@ -497,7 +499,7 @@ body
         background: #eee
         font-size: .95em
       a 
-        color: #40759b
+        color: #006699
         padding-bottom: 2px
         word-break: break-all
         &:hover
@@ -528,13 +530,13 @@ body
     font-weight bold
     font-size 24px 
     letter-spacing: -1px;
-    background: #D8E2EB
+    background: #ABCDEF //归档的原点背景
     height: 100px;
     width: 100px;
     border-radius: 50%;
     text-align center
     line-height: 100px;
-    color: #5483B1
+    color: #003366 //归档的原点字体
     &:before 
       font-family: "iconfont" !important;
       font-weight normal
@@ -542,7 +544,7 @@ body
       margin-right .1em
 .archive-wrap
   position: relative
-  border-left: 2px solid #D8E2EB
+  border-left: 2px solid #006699//归档的竖线
   margin-left: 140px
   padding: 3em 0;
   &.tag-cat
@@ -554,7 +556,7 @@ body
     width: 10px
     height: 10px
     border-radius: 50%
-    background: #D8E2EB
+    background: #fff
   &:before
     top: 0
   &:after
@@ -564,9 +566,9 @@ body
       margin-bottom 50px
       position: relative
       a
-        color #333
+        color #003366//超链的颜色
         &:hover
-          color: #5483B1
+          color: #336699 //超链接划过的颜色
         &:before
           content:''
           position: absolute
@@ -594,17 +596,17 @@ body
           box-shadow: 0 0 3px #D8E2EB inset
     li:hover 
       a:before 
-        border 1px solid #5483B1
-        -webkit-box-shadow: 0 0 4px #5483B1 inset
-        box-shadow: 0 0 4px #5483B1 inset 
+        border 1px solid #ABCDEF
+        -webkit-box-shadow: 0 0 4px #ABCDEF inset
+        box-shadow: 0 0 4px #ABCDEF inset 
       a:after
-        background: #5483B1
+        background: #ABCDEF
       .tite 
-        border-bottom: 1px solid #5483B1
+        border-bottom: 1px solid #ABCDEF
         &:after
-          background: #5483B1
+          background: #ABCDEF
       .date
-        border: 1px solid #5483B1     
+        border: 1px solid #ABCDEF     
   .tite
     position:relative
     bottom: -4px
@@ -643,11 +645,11 @@ body
   padding: 30px 0
   .footer-info
     line-height: 2
-    color: #333
+    color: #fff
     text-align: center 
     font-size .925em
     a
-      color: #40759b
+      color: #fff
       margin 0 6px
     span
       margin 0 6px 
@@ -682,7 +684,7 @@ body
   .current
     background: #FFF
     &:hover
-      border-bottom-color: #adc2d7
+      border-bottom-color: #6699CC
   .page-number,.extend
     display: inline-block
     margin: 0 5px 5px 0
@@ -692,9 +694,9 @@ body
     line-height: 25px
     padding: 5px 9px
     text-align: center
-    -webkit-box-shadow: 1px 2px 3px #adc2d7
-    box-shadow: 1px 2px 3px #adc2d7
-    border: 1px solid #adc2d7
+    -webkit-box-shadow: 1px 2px 3px #6699CC
+    box-shadow: 1px 2px 3px #6699CC
+    border: 1px solid #6699CC
     &:hover
       border-bottom-color: #FFF
     &.prev:before
@@ -714,7 +716,7 @@ body
   .fa 
     display: inline-block
     background: #F2F7FB
-    color #5483b1
+    color #ABCDEF
     padding: 0 10px
     border-radius: 30px 0 0 30px
     margin: 0 5px
@@ -723,7 +725,7 @@ body
 .readmore
   a
     font-size: 14px
-    color: #40759b
+    color: #006699
     margin: -20px 0 0
     padding: 5px 10px
     float: right
@@ -731,8 +733,8 @@ body
       content: ">>"
       padding-left: 0.15em
     &:hover
-      -webkit-box-shadow: 0 -1px 4px #5483B1 inset
-      box-shadow: 0 -1px 4px #5483B1 inset   
+      -webkit-box-shadow: 0 -1px 4px #336699 inset
+      box-shadow: 0 -1px 4px #336699 inset   
 /* post navigator*/
 .post-nav
   overflow: hidden
@@ -763,7 +765,7 @@ body
         content: "\e00f"
         padding-right: 0.3em
     &:hover
-      color: #40759b
+      color: #006699
     &.next
       float: right
       text-align right
@@ -786,9 +788,9 @@ body
   height: 54px;
   line-height: 56px;
   overflow: hidden
-  color: #40759b;
+  color: #006699;
   text-align center
-  text-shadow: 0px 2px 2px #40759b
+  text-shadow: 0px 2px 2px #006699
   opacity: 0
   -webkit-transition: visibility 0.6s cubic-bezier(0.6, 0.04, 0.98, 0.335), opacity 0.6s cubic-bezier(0.6, 0.04, 0.98, 0.335), -webkit-transform 0.6s cubic-bezier(0.6, 0.04, 0.98, 0.335)
   -moz-transition: visibility 0.6s cubic-bezier(0.6, 0.04, 0.98, 0.335), opacity 0.6s cubic-bezier(0.6, 0.04, 0.98, 0.335), -moz-transform 0.6s cubic-bezier(0.6, 0.04, 0.98, 0.335)
@@ -829,8 +831,8 @@ body
       padding 0
       margin 0
       border-radius: 50%
-      -webkit-box-shadow: 1px 2px 3px #adc2d7
-      box-shadow: 1px 2px 3px #adc2d7
+      -webkit-box-shadow: 1px 2px 3px #6699CC
+      box-shadow: 1px 2px 3px #6699CC
   .author
     font-size 16px
     white-space: nowrap
@@ -915,8 +917,8 @@ table
       color:#FFF
       background: transparent
       border: 1px solid #e2eaf1;
-      -webkit-box-shadow: 0 0 10px #adc2d7 inset;
-      box-shadow: 0 0 10px #adc2d7 inset;
+      -webkit-box-shadow: 0 0 10px #6699CC inset;
+      box-shadow: 0 0 10px #6699CC inset;
       &:-ms-input-placeholder
         color: #FFF
       &:-moz-placeholder
@@ -1018,9 +1020,9 @@ table
 #ds-reset
   a
     &:hover
-      color: #40759b !important
+      color: #006699 !important
   .ds-post-button 
-    background: #40759b !important
+    background: #006699 !important
     &:hover 
       background: #608CB7 !important
 
