@@ -24,7 +24,7 @@ VBAPI有简单异步模式（Simple Asynchronous Mode）和完全异步模式（
 >
 >ActionListeners are not supported from VBA.
 
-简单来说，完全异步模式可实现从CREO参数消息中“侦听”的控制循环，**注意：完全异步模式不能在VBA环境下运行。**针对Creo的时间，VBAPI在IpfcAsyncConnection类中给出了以下四个方法进行操作：
+简单来说，完全异步模式可实现从CREO参数消息中“侦听”的控制循环，**注意：完全异步模式不能在VBA环境下运行。**针对Creo的事件，VBAPI在IpfcAsyncConnection类中给出了以下四个方法进行操作：
 
 ```vb
 IpfcAsyncConnection.EventProcess()
