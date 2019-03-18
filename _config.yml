@@ -112,3 +112,5 @@ jsonContent:
     excerpt: false
     categories: false
     tags: true
+
+all_minifier: true
