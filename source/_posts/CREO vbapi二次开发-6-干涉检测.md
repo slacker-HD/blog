@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-6.干涉检测
+title: CREO vbapi二次开发-6-干涉检测
 tags:
   - CREO
   - VBAPI

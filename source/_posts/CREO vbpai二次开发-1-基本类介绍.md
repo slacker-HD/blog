@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-1.基本类介绍
+title: CREO vbapi二次开发-1-基本类介绍
 comments: true
 date: 2017-10-10 22:48:56
 tags:

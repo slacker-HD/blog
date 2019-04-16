@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-2.选择对象
+title: CREO vbapi二次开发-2-选择对象
 tags:
   - CREO
   - VBAPI

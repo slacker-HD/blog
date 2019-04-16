@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-7.层管理
+title: CREO vbapi二次开发-7-层管理
 tags:
   - CREO
   - VBAPI

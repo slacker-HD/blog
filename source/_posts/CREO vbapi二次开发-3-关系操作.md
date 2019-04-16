@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-3.关系操作
+title: CREO vbapi二次开发-3-关系操作
 tags:
   - CREO
   - VBAPI

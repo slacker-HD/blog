@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-1.vbapi二次开发环境设置
+title: CREO vbapi二次开发-1-vbapi二次开发环境设置
 comments: true
 date: 2017-09-07
 tags:

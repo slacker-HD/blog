@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-4.文件导出
+title: CREO vbapi二次开发-4-文件导出
 tags:
   - CREO
   - VBAPI

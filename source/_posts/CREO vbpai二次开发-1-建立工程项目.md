@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-1.建立工程项目
+title: CREO vbapi二次开发-1-建立工程项目
 comments: true
 date: 2017-09-15
 tags:

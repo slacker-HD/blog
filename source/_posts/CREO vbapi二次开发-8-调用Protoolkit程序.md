@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-8.调用Protoolkit程序
+title: CREO vbapi二次开发-8-调用Protoolkit程序
 tags:
   - CREO
   - VBAPI

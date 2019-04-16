@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-8.事件操作
+title: CREO vbapi二次开发-8=事件操作
 tags:
   - CREO
   - VBAPI

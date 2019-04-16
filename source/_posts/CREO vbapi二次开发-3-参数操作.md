@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-3.参数操作
+title: CREO vbapi二次开发-3-参数操作
 tags:
   - CREO
   - VBAPI

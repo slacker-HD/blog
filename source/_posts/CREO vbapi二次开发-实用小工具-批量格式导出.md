@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-实用小工具.批量格式导出
+title: CREO vbapi二次开发-实用小工具-批量格式导出
 tags:
   - CREO
   - VBAPI

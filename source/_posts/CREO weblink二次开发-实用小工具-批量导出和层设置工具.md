@@ -1,5 +1,5 @@
 ---
-title: CREO weblink二次开发-实用小工具.批量导出和层设置工具
+title: CREO weblink二次开发-实用小工具-批量导出和层设置工具
 tags:
   - CREO
   - WEBLINK

@@ -1,5 +1,5 @@
 ---
-title: CREO weblink二次开发-实用小工具.批量关系参数操作
+title: CREO weblink二次开发-实用小工具-批量关系参数操作
 tags:
   - CREO
   - WEBLINK

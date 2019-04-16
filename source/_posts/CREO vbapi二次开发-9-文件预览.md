@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-9.文件预览
+title: CREO vbapi二次开发-9-文件预览
 tags:
   - CREO
   - VBAPI
