@@ -10,7 +10,7 @@ category: CREO二次开发
 date: 2019-05-08
 ---
 
-VBAPI实际是对Toolkit函数的COM封装，所以一般Windows下可以调用COM组件的语言其实都可以利用VBAPI进行CREO的二次开发，包括C#甚至PYTHON等。本文介绍使用C#调用VBAPI对CREO进行二次开发。
+VBAPI实际是对Toolkit函数的COM封装，所以一般Windows下可以调用COM组件的语言其实都可以利用VBAPI进行CREO的二次开发，包括C#、vba等。本文介绍使用C#调用VBAPI对CREO进行二次开发。
 
 ## 1.工程配置
 
