@@ -7,9 +7,10 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2019-05-08
 ---
 
-正如之前说的，VBAPI实际是对Toolkit函数的COM封装，所以一般Windows下可以调用COM组件的语言其实都可以利用VBAPI进行CREO的二次开发，包括C#、PYTHON等。本文介绍使用C#调用VBAPI对CREO进行二次开发。
+VBAPI实际是对Toolkit函数的COM封装，所以一般Windows下可以调用COM组件的语言其实都可以利用VBAPI进行CREO的二次开发，包括C#甚至PYTHON等。本文介绍使用C#调用VBAPI对CREO进行二次开发。
 
 ## 1.工程配置
 
@@ -19,7 +20,7 @@ category: CREO二次开发
 
 代码撰写其实与VB的写法基本一致，按照C#语法来即可，等于是进行一个从VB到C#的转换。还是按照第一个程序实现的功能来，提供连接会话和新建会话的功能，代码如下：
 
-```C#
+```c
 using pfcls;
 namespace CreoCSharp
 {
@@ -80,11 +81,13 @@ namespace CreoCSharp
 
 使用C#开发还是有一些与VB不同的地方，主要包括以下几点：
 
+1. 某些时候使用C#调用VBAPI的函数的参数类型与VBAPI不一致，例如VBAPI里面的Enum类型在C#中认为是int类型，使用该参数需要进行强制类型转化；
+2. 调用父类方法有时需要一个显式的类型转化，将子类转化为父类才能调用父类的方法；
+3. 某些类的属性可能无法直接调用，但IDE会给出详细提示，将其改为“get_属性名”这样的方法进行调用即可。
 
+下面是一个调用CREO自带对话框打开prt的代码，对上述三个不同处已用注释标明：
 
-用实例说明。下面是使用CREO自带对话框打开一个prt的代码，不同处已用注释标明：
-
-```C#
+```c
 public bool Openprt()
 {
   IpfcModelDescriptor modelDesc;
@@ -117,8 +120,5 @@ public bool Openprt()
   }
 }
 ```
-
-
-
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。
