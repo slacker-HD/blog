@@ -6,9 +6,10 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2019-05-23
 ---
 
-本文试水使用Jlink对Creo二次开发，尝试搭建CREO Jlink二次开发代码编写和调试的环境。
+本文试水使用Jlink对Creo二次开发，尝试搭建CREO Jlink二次开发代码编写和调试的环境。代码以及dat文件的撰写官方文档以及网上已经有了很详细的说明，在此不再赘述。
 
 ## 1.开发环境介绍
 
@@ -40,26 +41,26 @@ category: CREO二次开发
 > 变量值：C:\Program Files (x86)\Java\jdk1.8.0_211       // 要根据自己的实际路径配置
 >
 > 变量名：CLASSPATH  
-> 变量值：.;%JAVA_HOME%\lib;         //记得前面有个"."
+> 变量值：.;%JAVA_HOME%\lib;
 >
 > 变量名：Path  
 > 变量值：添加%JAVA_HOME%\bin;
+
+**注意:**
+*以上设置只是针对同步模式。如果打算使用异步模式开发，则要设置环境变量PRO_COMM_MSG_EXE，并且环境变量Path还要添加"C:\PTC\Creo 2.0\Common Files\M060\x86e_win64\lib"(要根据自己的实际路径配置)以便快速加载pfcasyncmt。*
 
 ## 4.Jlink的安装和设置
 
 首先确保已安装Jlink。需要在Creo中设置以下几个选项：
 
 > jlink_java2: on  
-> 启用Jlink。
->
-> jlink_java_command: C:\Program Files\Java\jdk1.8.0_211\jre\bin\java.exe
-> 自定义Java程序路径，要根据自己的实际路径配置。
->
-> regen_failure_handling: resolve_mode  
-> 可选，和VB API一样，防止重生时出错。
+>  
+> jlink_java_command: C:\Program Files\Java\jdk1.8.0_211\jre\bin\java.exe //根据自己的实际路径配置
+>  
+> regen_failure_handling: resolve_mode //可选，和VB API一样，防止重生时出错。
 
 **注意**
-*注意：给jlink_java_command设定好参数参数才可以对同步程序进行调试，具体内容将在后文介绍，这里的设置只是确保Jlink程序能运行。*
+*给jlink_java_command设定好参数参数可以对同步程序进行调试，具体内容将在后文介绍，这里的设置只是确保Jlink程序能运行。*
 
 ## 5.VSCode工程设置
 
@@ -68,7 +69,7 @@ category: CREO二次开发
 在VSCode中先ctrl+shift+p,弹出命令面板中输入命令">java: Create Java Project"，根据提示即可生成一个java工程，如图1所示。
 
 <div align="center">
-    <img src="/img/proe/jlink1.png" style="width:80%" align="center"/>
+    <img src="/img/proe/jlink1.png" style="width:40%" align="center"/>
     <p>图1 生成java工程</p>
 </div>
 
@@ -89,7 +90,7 @@ category: CREO二次开发
 **注意**
 *引用的包根据项目是异步还是同步进行调整，路径也要设置成本机的。*
 
-src文件夹下面新建了app文件夹和App.java,根据自己的情况对其修改。我这里直接全部删除，然后在src文件夹下面新建HelloJlink.java文件作为项目开始。
+src文件夹下面新建了app文件夹和App.java,根据自己的情况对其修改。这里直接全部删除，然后在src文件夹下面新建HelloJlink.java文件作为项目开始。
 
 根据实际情况新建protk.dat注册文件以及text文件夹。项目默认设置将所有生成的class文件放到了bin文件夹下，所以设置下"java_app_classpath"选项。注册文件的选项参考官方文档，如果英语不好也可以通过搜索引擎进行搜索，很多人已经介绍的很详细了，这里直接给出：
 
@@ -107,12 +108,12 @@ end
 ```
 
 **注意**
-*注册文件的路径我使用了相对路径的写法，使用时必须将工作目录切换到工程路径。最好使用绝对路径进行注册，和Toolkit一样。*
+*注册文件的路径使用了相对路径的写法，使用时必须将工作目录切换到工程路径。最好使用绝对路径进行注册，和Toolkit一样。*
 
 最终配置好的工程如图2所示：
 
 <div align="center">
-  <img src="/img/proe/jlink2.png" style="width:80%" align="center"/>
+  <img src="/img/proe/jlink2.png" style="width:40%" align="center"/>
   <p>图2 配置好的工程</p>
 </div>
 
@@ -129,7 +130,6 @@ public class hellojlink {
     try {
       Session session = pfcGlobal.GetProESession();
       session.UIShowMessageDialog("程序启动。", null);
-      session.UIShowMessageDialog("开始调试了", null);
     } catch (Exception e) {
     }
   }
@@ -149,9 +149,10 @@ public class hellojlink {
 ### 7.1异步程序调试
 
 异步程序调试相对简单，和普通java程序调试过程一样。在VSCode的调试栏中选择添加配置文件或者直接在代码页中直接按F5，会弹出图3所示对话框对调试过程进行配置。选择java，在工程中生成.vscode目录及配置文件launch.json。
+
 launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Launch)-hellojlink&#60;hellojlink>"两个选项用于调试当前打开的文件和工程。如果没有，可以在调试页中添加相关选项，如图4所示。
 
-我们使用"Java: Launch Program"用于生成调试文件选项，根据自己的工程设置好"mainClass"以及"projectName"两个选项，对应包含main函数的类以及当前工程名。设定完成后即可对项目进行调试。VSCode调试过程和Visual studio调试方式类似，打断点、变量和表达式的监视等均可实现。一个典型的调试配置文件如下：
+使用"Java: Launch Program"用于生成调试文件选项，根据自己的工程设置好"mainClass"以及"projectName"两个选项，对应包含main函数的类以及当前工程名。设定完成后即可对项目进行调试。VSCode调试过程和Visual studio调试方式类似，打断点、变量和表达式的监视等均可实现。一个典型的调试配置文件如下：
 
 ```json
 {
@@ -167,14 +168,13 @@ launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Lau
   ]
 }
 ```
-
 <div align="center">
-  <img src="/img/proe/jlink3.png" style="width:80%" align="center"/>
+
+  <img src="/img/proe/jlink3.png" style="width:40%" align="center"/>
   <p>图3 设置调试工程为java</p>
 </div>
-
 <div align="center">
-  <img src="/img/proe/jlink4.png" style="width:80%" align="center"/>
+  <img src="/img/proe/jlink4.png" style="width:40%" align="center"/>
   <p>图4 VSCode设置生成调试选项</p>
 </div>
 
@@ -182,9 +182,21 @@ launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Lau
 
 #### 7.2.1 Creo设置
 
-同步模式稍微麻烦，官方文档的说明如下：
+同步模式的调试稍微麻烦一点，官方文档的说明如下：
 
-首先在将jlink_java_command设置值为:
+> **Debugging a Synchronous Mode Application**
+>
+> As Creo Parametric has control over the start and stop of Java processes used by J-Link, you must use special controls to be able to debug an application. The most typical deployment should do the following:
+>
+> 1. Use the appropriate javac compiler flags to build the application debuggable.
+>
+> 2. Use the technique described in the section Overriding the Java command used by Synchronous J-Link to set the Java command to the appropriate debug command line, for example, [JDK_HOME]/bin/java.exe -Xdebug
+>
+> 3. Start Creo Parametric and let it invoke the Java application.
+>
+> 4. Attach your Java debugger to the process that was started by Creo Parametric.
+
+意思主要是必须设置Creo中的jlink_java_command选项加上-Xdebug参数才能调试。调试的方式是先加载运行jlink程序后再将java的debug与之相连。根据VSCode java插件的文档以及java命令说明，要进行调试则可以将jlink_java_command设置值为:
 
 > jlink_java_command C:\Program Files\Java\jdk1.8.0_211\bin\java.exe -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
 
@@ -195,7 +207,7 @@ launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Lau
 
 #### 7.2.2 VSCode设置
 
-与异步调试过程类似，在VSCode中添加调试配置选项，选择"Java: Attach"即可生成调试模板，设置"port"为Creo上文Creo中设置的端口即可。一个典型的调试配置文件如下：
+与异步调试过程类似，在VSCode中添加调试配置选项，选择"Java: Attach"即可生成调试模板，设置"port"为上文Creo中设置的端口即可。一个典型的调试配置文件如下：
 
 ```json
 {
@@ -212,15 +224,19 @@ launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Lau
 }
 ```
 
-#### 7.2.3 一些调试技巧
+#### 7.2.3 同步程序调试过程
 
-异步调试时，首先启动Creo并加载要调试的Jlink工程。之后在VSCode中按F5启动调试，在需要调试的地方打上断点，运行到该段代码后自动会启动调试。同步工程的调试如图5所示。
-异步调试需要首先加载Jlink工程，所以很难调试Jlink程序的初始化函数。官方文件给出了解决办法：
-也就是说在如果要调试启动函数，使用一个类似的方法即可。
+按照上述说明设置好后即可对同步程序进行调试。调试时首先启动Creo并加载要调试的Jlink工程。之后在VSCode中按F5即可，在需要调试的地方打上断点，运行到该段代码后自动会启动调试即可。
+
+由于同步程序调试需要首先加载Jlink工程，所以很难保证调试Jlink程序的初始化函数。官方文件给出了解决办法：
+
+> If you need to debug within the application start method, you can make the first invocation within that method a UI popupdialog box (javax.swing.JOptionPane) which will allow time to attach the debugger to the process.
+
+也就是说在如果要调试启动函数，可以使用弹出对话框的方法将程序手工暂停，等在VSCode启动调试后，点击取消该对话框即可对后续代码进行调试。
 
 <div align="center">
-  <img src="/img/proe/jlink5.png" style="width:80%" align="center"/>
-  <p>图5 同步模式的调试</p>
+  <img src="/img/proe/jlink5.png" style="width:95%" align="center"/>
+  <p>图5 同步程序调试</p>
 </div>
 
-完整代码可在<a href="https://github.com/slacker-HD/creo_jlink" target="_blank">Github.com</a>下载。代码在Creo 2.0 M060 X64下编译通过。
+至此CREO Jlink二次开发环境搭建结束。完整代码可在<a href="https://github.com/slacker-HD/creo_jlink" target="_blank">Github.com</a>下载。代码在Creo 2.0 M060 X64下编译通过。
