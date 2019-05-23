@@ -43,7 +43,7 @@ category: CREO二次开发
 > 变量值：.;%JAVA_HOME%\lib;         //记得前面有个"."
 >
 > 变量名：Path  
-> 变量值：%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;
+> 变量值：添加%JAVA_HOME%\bin;
 
 ## 4.Jlink的安装和设置
 
@@ -53,10 +53,12 @@ category: CREO二次开发
 > 启用Jlink。
 >
 > jlink_java_command: C:\Program Files\Java\jdk1.8.0_211\jre\bin\java.exe
-> 自定义Java路径，要根据自己的实际路径配置。
+> 自定义Java程序路径，要根据自己的实际路径配置。
+>
 > regen_failure_handling: resolve_mode  
 > 可选，和VB API一样，防止重生时出错。
 
+**注意**
 *注意：给jlink_java_command设定好参数参数才可以对同步程序进行调试，具体内容将在后文介绍，这里的设置只是确保Jlink程序能运行。*
 
 ## 5.VSCode工程设置
@@ -84,13 +86,14 @@ category: CREO二次开发
 </classpath>
 ```
 
-引用的包根据项目是异步还是同步进行调整，路径也要设置成本机的。
+**注意**
+*引用的包根据项目是异步还是同步进行调整，路径也要设置成本机的。*
 
 src文件夹下面新建了app文件夹和App.java,根据自己的情况对其修改。我这里直接全部删除，然后在src文件夹下面新建HelloJlink.java文件作为项目开始。
 
 根据实际情况新建protk.dat注册文件以及text文件夹。项目默认设置将所有生成的class文件放到了bin文件夹下，所以设置下"java_app_classpath"选项。注册文件的选项参考官方文档，如果英语不好也可以通过搜索引擎进行搜索，很多人已经介绍的很详细了，这里直接给出：
 
-```
+``` c
 name     hellojlink
 startup  java
 java_app_class  hellojlink
@@ -103,6 +106,7 @@ text_dir        .\text
 end
 ```
 
+**注意**
 *注册文件的路径我使用了相对路径的写法，使用时必须将工作目录切换到工程路径。最好使用绝对路径进行注册，和Toolkit一样。*
 
 最终配置好的工程如图2所示：
@@ -145,7 +149,8 @@ public class hellojlink {
 ### 7.1异步程序调试
 
 异步程序调试相对简单，和普通java程序调试过程一样。在VSCode的调试栏中选择添加配置文件或者直接在代码页中直接按F5，会弹出图3所示对话框对调试过程进行配置。选择java，在工程中生成.vscode目录及配置文件launch.json。
-launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Launch)-hellojlink< hellojlink >"两个选项用于调试当前打开的文件和工程。如果没有，可以在调试页中添加相关选项，如图4所示。
+launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Launch)-hellojlink&#60;hellojlink>"两个选项用于调试当前打开的文件和工程。如果没有，可以在调试页中添加相关选项，如图4所示。
+
 我们使用"Java: Launch Program"用于生成调试文件选项，根据自己的工程设置好"mainClass"以及"projectName"两个选项，对应包含main函数的类以及当前工程名。设定完成后即可对项目进行调试。VSCode调试过程和Visual studio调试方式类似，打断点、变量和表达式的监视等均可实现。一个典型的调试配置文件如下：
 
 ```json
@@ -173,7 +178,6 @@ launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Lau
   <p>图4 VSCode设置生成调试选项</p>
 </div>
 
-
 ### 7.2同步程序调试
 
 #### 7.2.1 Creo设置
@@ -186,6 +190,7 @@ launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Lau
 
 这样就开启了调试功能，并且设置调试端口为8000，也可以根据实际情况调整。
 
+**注意**
 *注意：如果本机装有防火墙，需要允许java访问网络。*
 
 #### 7.2.2 VSCode设置
@@ -217,7 +222,5 @@ launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Lau
   <img src="/img/proe/jlink5.png" style="width:80%" align="center"/>
   <p>图5 同步模式的调试</p>
 </div>
-
-
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_jlink" target="_blank">Github.com</a>下载。代码在Creo 2.0 M060 X64下编译通过。
