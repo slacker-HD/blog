@@ -60,7 +60,7 @@ date: 2019-05-23
 > regen_failure_handling: resolve_mode //可选，和VB API一样，防止重生时出错。
 
 **注意**
-*给jlink_java_command设定好参数参数可以对同步程序进行调试，具体内容将在后文介绍，这里的设置只是确保Jlink程序能运行。*
+*给jlink_java_command设定好参数可以对同步程序进行调试，具体内容将在后文介绍，这里的设置只是确保Jlink程序能运行。*
 
 ## 5.VSCode工程设置
 
