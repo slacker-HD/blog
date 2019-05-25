@@ -14,7 +14,7 @@ VBAPI实际是对Toolkit函数的COM封装，所以一般Windows下可以调用C
 
 ## 1.工程配置
 
-首先保证VBAPI已正确安装并配置。新建一个C#的Windows Form工程，加入CREO VBAPI的引用，其过程与之前介绍的VB配类似，这里不在赘述。
+首先保证VBAPI已正确安装并配置。新建一个C#的Windows Form工程，加入CREO VBAPI的引用，其过程与之前介绍的VB配置类似，这里不在赘述。
 
 ## 2. 代码编写
 
