@@ -133,13 +133,16 @@ links:
   - title: 所有VB API的源码
     url: https://github.com/slacker-HD/creo_vbapi
     
-  - title: 所有WEBLINK的源码
+  - title: 所有WebLink的源码
     url: https://github.com/slacker-HD/creo_weblink
 
   - title: 所有Toolkit的源码
     url: https://github.com/slacker-HD/creo_toolkit
 
-  - title: WEBLINK工具（仅在Creo内置浏览器打开）
+  - title: 所有Jlink的源码
+    url: https://github.com/slacker-HD/creo_jlink
+
+  - title: WebLink工具（仅在Creo内置浏览器打开）
     url: http://slackerhd.3vkj.net
   # - title: site-name2
   #   url: http://www.example2.com/
