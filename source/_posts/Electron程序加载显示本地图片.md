@@ -1,14 +1,13 @@
 ---
-title: Electron程序加载本地图片
+title: Electron程序加载显示本地图片
 tags:
   - electron
   - javascript
   - nodejs
 comments: true
 category: Electron
-date: 2019-05-26 09:37:52
+date: 2019-06-03
 ---
-
 
 最近使用ELectron开发工程，有一个简单的需求是加载本地图片并显示。本以为很简单，直接设置img标签的src即可，发现在调试时img可以显示图片，打包后则无法显示图片。
 
