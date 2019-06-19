@@ -13,8 +13,7 @@ category: CREO二次开发
 
 ## 1、设置系统环境变量
 
-添加PRO_COMM_MSG_EXE到环境变量。变量值填写pro_comm_msg.exe所在的路径加文件全名，如图1‑1所示。pro_comm_msg.exe位于CREO安装目录中Common
-Files\datecode\machine type\obj目录下。
+添加PRO_COMM_MSG_EXE到环境变量。变量值填写pro_comm_msg.exe所在的路径加文件全名，如图1‑1所示。pro_comm_msg.exe位于CREO安装目录中Common Files\datecode\machine type\obj目录下。
 
 <div align="center">
     <img src="/img/proe/vbapi1.1.png" style="width:65%" align="center"/>
