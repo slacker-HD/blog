@@ -1,5 +1,5 @@
 ---
-title: CREO Toolkit二次开发-非模式对话框显示tooltip
+title: CREO Toolkit二次开发-对话框显示tooltip
 tags:
   - CREO
   - TOOLKIT
@@ -8,12 +8,20 @@ comments: true
 category: CREO二次开发
 ---
 
-Tooltip文字提示
+为了提高用户体验，在对话框上可以使用Tooltip文字提示，当鼠标处于某个位置的时候有提示框显示。本文介绍如何在二次开发中使用tooltip。
+
+## 1.模态对话框使用
+
+模态对话框实现起来很简单，主要包括以下3步：
+
+1. 首先在Dialog类中添加一个成员对象：
 
 ```cpp
 public:
   CToolTipCtrl m_ToolTipCtrl;
 ```
+
+2. 在OnInitDialog()函数中创建消息提示框：
 
 ```cpp
 m_ToolTipCtrl.Create(this);
