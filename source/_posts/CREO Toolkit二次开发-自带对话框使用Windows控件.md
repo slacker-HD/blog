@@ -96,7 +96,7 @@ void CMyEbdDialog::OnCancel()
 
 ### 3.2 嵌入的时机
 
-嵌入MFC窗体的实际，可以通过原生对话框的按钮等实现手动嵌入。如果需要在原生对话框启动时自动加载MFC窗体，则需要在原生对话框通过ProUIDialogPostmanagenotifyActionSet注册事件中加载嵌入MFC对话框的代码。
+可以通过原生对话框的按钮等实现手动嵌入。如果需要在原生对话框启动时自动加载MFC窗体，则需要在原生对话框通过ProUIDialogPostmanagenotifyActionSet注册事件中加载嵌入MFC对话框的代码。
 
 做了一个例子，嵌入了一个EditControl和Month Canlendar控件，演示效果如下图所示，读者也可以考虑将控件更换成Creo预览控件：
 
