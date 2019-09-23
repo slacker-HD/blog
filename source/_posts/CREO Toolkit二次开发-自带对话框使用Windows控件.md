@@ -76,9 +76,6 @@ SetWindowLong(hwndChild, GWL_STYLE, style);
 ::ShowWindow(hwndChild, SW_SHOW);
 ```
 
-最终
-
-
 ## 3.其余事项
 
 ### 3.1 屏蔽Alt+F4热键
@@ -88,12 +85,12 @@ SetWindowLong(hwndChild, GWL_STYLE, style);
 ```cpp
 void CMyEbdDialog::OnOK()
 {
-	//CDialog::OnOK();
+  //CDialog::OnOK();
 }
 
 void CMyEbdDialog::OnCancel()
 {
-	//CDialog::OnCancel();
+  //CDialog::OnCancel();
 }
 ```
 
