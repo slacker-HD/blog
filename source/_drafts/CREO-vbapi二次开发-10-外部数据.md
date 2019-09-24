@@ -9,7 +9,7 @@ comments: true
 category: CREO二次开发
 ---
 
-二次开发时有时可能需要在模型中存储自己程序的相关信息，使用外部数据（External Data）可以让程序将一些信息保存到模型文件中。外部数据通过四层进行描述，顶层为IpfcExternalDataAccess类，可以用它来判断模型中是否存在外部数据
+二次开发时有时可能需要在模型中存储自己程序的相关信息，使用外部数据（External Data）可以让程序将一些信息保存到模型文件中。外部数据通过四层进行描述，顶层为IpfcExternalDataAccess类，首先访问模型的这个对象用来判断模型中是否存在外部数据。第二层是IpfcExternalDataClass类，每个二次开发的程序都可以通过创建IpfcExternalDataClass类的对象建立自己的外部数据。IpfcExternalDataClass类可以包含多个IpfcExternalDataSlot用于存储相关数据，而每个IpfcExternalDataSlot对象则可以包含多个IpfcExternalData对象。IpfcExternalData可以存储整形、浮点、字符串三种不同的数据类型。对于访问外部外部对象以及可存储的数据对象类型，官方文档给出结束如下：
 
 表10.2 外部数据相关类
 
@@ -20,9 +20,7 @@ category: CREO二次开发
 | IpfcExternalDataSlot   | This is a container for one item of data. Each slot is stored in a class. |
 | IpfcExternalData       | This is a compact data structure that contains either an integer, double or string value. |
 
-
-
-表10.1 外部数据可存储的数据类型
+表10.2 外部数据可存储的数据类型
 
 | VB API类型          | 数据类型 |
 | ------------------- | -------- |
@@ -30,182 +28,84 @@ category: CREO二次开发
 | EpfcEXTDATA_DOUBLE  | double   |
 | EpfcEXTDATA_STRING  | string   |
 
+## 1.访问外部数据
 
-
-
-
-
-插入符号与插入注解类似，本质也是设置符号的IpfcDetailSymbolInstInstructions后再调用IpfcDrawing类及IpfcDetailSymbolInstItem类的相关方法创建并显示。由于注解、符号、草绘等均派生于IpfcDetailItem类，故插入符号的方式方法与插入注解的方式方法在很多地方是相通的。符号由IpfcDetailSymbolInstItem类进行描述，而创建IpfcDetailSymbolInstItem类的选项则由IpfcDetailSymbolInstInstructions类进行描述。只要设定好IpfcDetailSymbolInstInstructions类的相关属性，即可完成插入符号操作，关键步骤如图7-2所示。
-
-<div align="center">
-    <img src="/img/proe/vbapi7.2.png" style="width:70%" align="center"/>
-    <p>图 7-2 插入符号关键步骤</p>
-</div>
-
-## 1.获取符号对象
-
-符号本身作为一个文件保存在硬盘上，首先需要加载该文件，调用IpfcDrawing类的RetrieveSymbolDefinition方法即可，之后便可调用CCpfcDetailSymbolInstInstructions类的Create方法初始化IpfcDetailSymbolInstInstructions类，代码如下：
+访问外部数据只需要根据上文所述自顶向下依次访问对应的对象即可。获取IpfcExternalDataAccess对象只需调用IpfcModel对象的AccessExternalData方法即可，代码如下：
 
 ```vb
-Dim symbolDefinition As IpfcDetailSymbolDefItem
-Dim symInstructions As IpfcDetailSymbolInstInstructions
-'加载符号文件，注意这里没有进行校验
-symbolDefinition = drawing.RetrieveSymbolDefinition(Symbolfile, CObj(Symbolpath), Nothing, True)
-'初始化并设置symInstructions的值
-symInstructions = (New CCpfcDetailSymbolInstInstructions).Create(symbolDefinition)
+Dim model As IpfcModel
+Dim dataAccess As IpfcExternalDataAccess
+dataAccess = model.AccessExternalData()
 ```
 
-## 2.设置符号文字
-
-如果符号包含可选文字，则需要设定其可选文字的值，如粗糙度符号的粗糙度值等。符号是否包含可选文字及可选文字的名称和值，可在Creo中查看符号的相关属性获取，如图7-3所示。可选文字由CpfcDetailVariantTexts类进行描述，该序列中的IpfcDetailVariantText类通过调用CCpfcDetailVariantText类的Create方法指定可选文本的名称和值即可生成。为便于描述，本文用了一个字典描述可变文本的名称和值，生成CpfcDetailVariantTexts对象的方法如下所示：
+IpfcExternalDataClass、IpfcExternalDataSlot以及IpfcExternalData的访问也相对简单，分别调用上层对象的形如listXXXs以及GetXXXByName方法即可完成遍历和根据名称查找功能，这三个类均提供了Name属性。访问对象的示例代码如下：
 
 ```vb
-Dim Texts As New Dictionary(Of String, String) From {
-  {"roughness_height", "6.3"}
-}
-Private Function SetDetailVariantTexts(ByVal Dicts As Dictionary(Of String, String)) As CpfcDetailVariantTexts
-  Dim varText As IpfcDetailVariantText
-  If Dicts.Count > 0 Then
-    SetDetailVariantTexts = New CpfcDetailVariantTexts
-    For Each text As KeyValuePair(Of String, String) In Dicts
-      varText = (New CCpfcDetailVariantText).Create(text.Key, text.Value)
-      SetDetailVariantTexts.Append(varText)
-    Next
-  Else
-    SetDetailVariantTexts = Nothing
-  End If
-  Return SetDetailVariantTexts
-End Function
+Dim dataAccess As IpfcExternalDataAccess
+Dim classes As IpfcExternalDataClasses
+Dim extClass As IpfcExternalDataClass
+Dim extSlots As IpfcExternalDataSlots
+Dim estSlot As IpfcExternalDataSlot
+Dim data As IpfcExternalData
+'……
+classes = dataAccess.ListClasses()
+'……
+extSlots = extClass.ListSlots()
+'……
+data = estSlot.Value
 ```
 
-<div align="center">
-    <img src="/img/proe/vbapi7.3.png" style="width:40%" align="center"/>
-    <p>图 7-3 可选文字</p>
-</div>
-
-## 3.摆放符号
-
-与插入注解操作类似，摆放符号中西设定IpfcDetailSymbolInstInstructions参数即可。IpfcDetailSymbolInstInstructions主要需要设定TextValues、AttachOnDefType、DefAttachment、InstAttachment四个重要参数。  
-TextValues为符号的文字选项，上文已说明，只要设置其值就好：  
+IpfcExternalData提供了discr属性用于判断数据类型，其取值如表10.2所示，获得IpfcExternalData存储数据代码如下：
 
 ```vb
-symInstructions.TextValues = SetDetailVariantTexts(Texts)
-```
-
-AttachOnDefType为一个EpfcSymbolDefAttachmentType枚举类型，表示符号的放置类型，本文主要用包括:
-
-```vb
-EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_FREE '自由放置
-EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_LEFT_LEADER, EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_RIGHT_LEADER, EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_RADIAL_LEADER'引线
-EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_ON_ITEM, EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_NORMAL_TO_ITEM'垂直于图元
-```
-
-根据不同的放置类型，需要设定DefAttachment和InstAttachment，与注解的定义类似。生成DefAttachment和InstAttachment主要包括通过鼠标获得位置、选取对象、对象生成等操作，主要代码如下：
-
-```vb
-''' <summary>
-''' 设置IpfcDetailSymbolInstInstructions的SymbolDefAttachment
-''' </summary>
-''' <param name="AttachOnDefType">符号放置方式</param>
-''' <param name="selectedObject">放置点</param>
-''' <returns>SymbolDefAttachment对象</returns>
-Private Function SetSymbolDefAttachment(ByVal AttachOnDefType As EpfcSymbolDefAttachmentType, ByVal selectedObject As IpfcSelection) As IpfcSymbolDefAttachment
-  Return (New CCpfcSymbolDefAttachment).Create(AttachOnDefType, selectedObject.Point)
-End Function
-
-''' <summary>
-''' 选择获取一个对象,这里为简化代码，未进行有效性检测
-''' </summary>
-''' <param name="filter">选择对象类型，默认为边</param>
-''' <returns>选择对象</returns>
-Private Function SelectObject(Optional ByVal filter As String = "edge") As IpfcSelection
-  Dim selections As CpfcSelections
-  Dim selectionOptions As IpfcSelectionOptions
-  '======================================================================
-  '这里为简化代码，未对selectEdge进行检测
-  '======================================================================
-  selectionOptions = (New CCpfcSelectionOptions).Create(filter)
-  selectionOptions.MaxNumSels = 1
-  selections = asyncConnection.Session.Select(selectionOptions, Nothing)
-  SelectObject = selections.Item(0)
-  Return SelectObject
-End Function
-
-''' <summary>
-''' 获取鼠标点击位置
-''' </summary>
-''' <returns></returns>
-Private Function MousePosAttatchement() As IpfcAttachment
-  Dim point As CpfcPoint3D
-  Dim mouse As IpfcMouseStatus
-  point = New CpfcPoint3D
-  mouse = asyncConnection.Session.UIGetNextMousePick(EpfcMouseButton.EpfcMOUSE_BTN_LEFT)
-  point = mouse.Position
-  MousePosAttatchement = (New CCpfcFreeAttachment).Create(point)
-  Return MousePosAttatchement
-End Function
-
-''' <summary>
-''' 生成Leaders
-''' </summary>
-''' <param name="leader"></param>
-''' <param name="position"></param>
-''' <returns>生成的leaders</returns>
-Private Function SetAttatchements(ByVal leader As IpfcAttachment, ByVal position As IpfcAttachment) As IpfcDetailLeaders
-  Dim attachments As CpfcAttachments
-  SetAttatchements = (New CCpfcDetailLeaders).Create()
-  SetAttatchements.ItemAttachment = position
-  SetAttatchements.ElbowLength = Nothing
-  If (leader IsNot Nothing) Then
-    attachments = New CpfcAttachments
-    attachments.Insert(0, leader)
-    SetAttatchements.Leaders = attachments
-  End If
-  Return SetAttatchements
-End Function
-```
-
-最终插入符号代码如下：
-
-```vb
-Select Case AttachOnDefType
-  Case EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_FREE '自由放置，所以不需要选择边等对象操作，但是需要鼠标点击选择
-    '鼠标左键点选符号放置的位置
-    position = MousePosAttatchement()
-  Case EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_LEFT_LEADER, EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_RIGHT_LEADER, EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_RADIAL_LEADER
-    '动态选择一个边,或者作为引出线，或者作为垂直于图元上的点
-    selectedObj = SelectObject()
-    '鼠标左键点选符号放置的位置
-    position = MousePosAttatchement()
-    '初始化leader
-    leader = (New CCpfcParametricAttachment).Create(selectedObj)
-    '设置SymbolDefAttachment
-    symbolDefAttachment = SetSymbolDefAttachment(EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_NORMAL_TO_ITEM, selectedObj)
-  Case EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_ON_ITEM, EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_NORMAL_TO_ITEM
-    '动态选择一个边,或者作为引出线，或者作为垂直于图元上的点
-    selectedObj = SelectObject()
-    '设置位置
-    position = (New CCpfcParametricAttachment).Create(selectedObj)
-    CType(position, IpfcParametricAttachment).AttachedGeometry = selectedObj '为了代码通用性，使用父类IpfcAttachment定义position，这里应该用子类IpfcParametricAttachment，故强制类型转化下
-    '设置SymbolDefAttachment
-    symbolDefAttachment = SetSymbolDefAttachment(EpfcSymbolDefAttachmentType.EpfcSYMDEFATTACH_NORMAL_TO_ITEM, selectedObj)
-  Case Else
-    Throw New NotImplementedException() '其余的未处理
+Dim value As Object
+Dim data As IpfcExternalData
+data = slot.Value
+'根据类型判断slot的值
+Select Case data.discr
+  Case EpfcExternalDataType.EpfcEXTDATA_STRING
+    value = CType(data.StringValue, Object)'装箱保持数据类型一致
+  Case EpfcExternalDataType.EpfcEXTDATA_INTEGER
+    value = CType(data.IntegerValue, Object)'装箱保持数据类型一致
+  Case EpfcExternalDataType.EpfcEXTDATA_DOUBLE
+    value = CType(data.DoubleValue, Object) '装箱保持数据类型一致
 End Select
-'设置Attachments
-allAttachments = SetAttatchements(leader, position)
-'加载符号文件，注意这里没有进行校验
-symbolDefinition = drawing.RetrieveSymbolDefinition(Symbolfile, CObj(Symbolpath), Nothing, True)
-'初始化并设置symInstructions的值
-symInstructions = (New CCpfcDetailSymbolInstInstructions).Create(symbolDefinition)
-'设置文字
-symInstructions.TextValues = SetDetailVariantTexts(Texts)
-'设置高度
-symInstructions.ScaledHeight = 3.5
-'设置三个显示方式的重要属性
-symInstructions.DefAttachment = symbolDefAttachment
-symInstructions.InstAttachment = allAttachments
-symInstructions.AttachOnDefType = AttachOnDefType
+```
+
+## 2.添加修改外部数据
+
+创建IpfcExternalDataClass和IpfcExternalDataSlot只需要调用其上层类的CreateXXX方法即可，参数为一个字符串，表示其名称。IpfcExternalData则需要使用CMpfcExternal根据数据类型分别调用CreateIntExternalData、CreateDoubleExternalData以及CreateStringExternalData方法生成对应的数值。添加修改外部数据示例代码如下：
+
+```vb
+Dim model As IpfcModel
+Dim dataAccess As IpfcExternalDataAccess
+Dim dataClass As IpfcExternalDataClass
+Dim value As Object
+Dim data As IpfcExternalData
+Dim slot As IpfcExternalDataSlot
+'……
+dataAccess = model.AccessExternalData()
+'获取以className名存储的数据
+dataClass = GetClassByName(dataAccess, className)
+'如果没有就新建一个class
+If dataClass Is Nothing Then
+  dataClass = dataAccess.CreateClass(className)
+End If
+If value.GetType.ToString = "System.Int16" Or value.GetType.ToString = "System.Int32" Or value.GetType.ToString = "System.Byte" Then
+  data = (New CMpfcExternal).CreateIntExternalData(value)
+ElseIf value.GetType Is Type.GetType("System.Double") Then
+  data = (New CMpfcExternal).CreateDoubleExternalData(value)
+Else
+  data = (New CMpfcExternal).CreateStringExternalData(value.ToString)
+End If
+'判断是否存在该slot
+slot = GetSlotByName(dataClass, row.Key.ToString)
+'不存在则新建
+If slot Is Nothing Then
+  slot = dataClass.CreateSlot(row.Key.ToString)
+End If
+'更新值
+slot.Value = data
 ```
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。
