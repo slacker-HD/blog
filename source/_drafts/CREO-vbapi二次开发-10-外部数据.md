@@ -15,10 +15,10 @@ category: CREO二次开发
 
 | VB API类型             | 说明                                                         |
 | ---------------------- | ------------------------------------------------------------ |
-| IpfcExternalDataAccess | This is the top level object and is created when attempting to access external data. |
-| IpfcExternalDataClass  | This is a class of external data and is identified by a unique name. |
-| IpfcExternalDataSlot   | This is a container for one item of data. Each slot is stored in a class. |
-| IpfcExternalData       | This is a compact data structure that contains either an integer, double or string value. |
+| IpfcExternalDataAccess | Object that represents a conduit to the external data stored in the Creo Parametric file.  |
+| IpfcExternalDataClass  | A class that represents a named "bin" for external data so other applications will not use the data by mistake. An application usually needs one class.  |
+| IpfcExternalDataSlot   | Represents a single data item stored in external data  |
+| IpfcExternalData       | A union class that represents a single data value that may be stored in external data. The type of the value is identified by the dicsriminator.  |
 
 表10.2 外部数据可存储的数据类型
 
