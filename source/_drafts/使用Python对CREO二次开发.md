@@ -70,7 +70,6 @@ e2.insert(0, INPUT_DIR)
 st3 = scrolledtext.ScrolledText(win, width=85, height=13)
 st3.grid(row=3, column=0, padx=5, pady=5, columnspan=3, sticky='W')
 
-
 def addrel():
     rel_contents = (st3.get("0.0", "end").replace(" ", "")).split("\n")
     rel_contents.pop()
@@ -96,7 +95,6 @@ def addrel():
     AsyncConnection.End()
     messagebox.showinfo('提示', '关系已全部清空')
 
-
 def delrel():
     cAC = client.Dispatch(VBAPI.CCpfcAsyncConnection)
     AsyncConnection = cAC.Start(CREO_APP + ' -g:no_graphics -i:rpc_input', '')
@@ -114,7 +112,6 @@ def delrel():
     AsyncConnection.End()
     messagebox.showinfo('提示', '关系已全部清空')
 
-
 def chooseapp():
     filename = filedialog.askopenfilename()
     if filename != '':
@@ -122,14 +119,12 @@ def chooseapp():
         e1.delete('0', 'end')
         e1.insert(0, CREO_APP)
 
-
 def choosedir():
     dirname = filedialog.askdirectory()
     if dirname != '':
         INPUT_DIR = dirname
         e2.delete('0', 'end')
         e2.insert(0, INPUT_DIR)
-
 
 Button(win, text="选择文件", command=chooseapp).grid(row=0, column=2, padx=5, pady=5, sticky='E')
 Button(win, text="选择路径", command=choosedir).grid(row=1, column=2, padx=5, pady=5, sticky='E')
@@ -143,6 +138,5 @@ win.mainloop()
     <img src="/img/proe/python1.png" style="width:45%" align="center"/>
     <p>图 程序运行界面</p>
 </div>
-
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_python" target="_blank">Github.com</a>下载。
