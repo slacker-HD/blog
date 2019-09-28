@@ -1,5 +1,5 @@
 ---
-title: CREO vbapi二次开发-1-vbapi二次开发环境设置
+title: CREO vbapi二次开发-1-VBAPI二次开发环境设置
 comments: true
 date: 2017-09-07
 tags:
@@ -21,6 +21,7 @@ category: CREO二次开发
 </div>
 
 ## 2、注册COM服务器
+
 以管理员权限运行CREO安装目录下Parametric/bin中的vb_api_register.bat文件即可。如需反注册，以管理员权限运行vb_api_unregister.bat即可。
 
 ## 3、设置proe（可选）

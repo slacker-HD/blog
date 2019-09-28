@@ -1,12 +1,14 @@
 ---
 title: 使用digispark打造简单voc在线监测仪-设备端
 comments: true
-date: 2017-9-10
+date: 2017-09-10
 tags: 
   - Arduino
   - Digispark
 category: Arduino
 ---
+
+以下介绍一个使用digispark制作的voc在线监测仪，最终产品如图1所示。
 
 <div align="center">
     <img src="/img/arduino/2017-09-10product.png" style="width:65%" align="center"/>
