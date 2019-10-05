@@ -1,10 +1,14 @@
 ---
 title: CREO Toolkit二次开发-UNICODE下非模态对话框控件中文输入
-comments: true
-date: 2019-08-15 15:26:38
 tags:
-category:
+  - CREO
+  - TOOLKIT
+  - CREO二次开发
+comments: true
+category: CREO二次开发
+date: 2019-10-05 20:58:22
 ---
+
 
 使用MFC二次开发CREO时，通常我们会使用设置字符集为多字节进行编程。这样编程好处是非模态对话框中中文输入不会乱码，但是带来的问题是对话框显示的是老式的win32界面，无论是与当今的系统界面还是CREO界面均不搭。本文介绍如何在UNICODE下设置非模态对话框控件中文输入。
 
