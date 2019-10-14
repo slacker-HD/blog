@@ -7,7 +7,7 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date: 2019-06-20 15:34:18
+date:
 ---
 
 
@@ -31,7 +31,7 @@ VB API按照之前的文章安装配置即可。
 python -m pip install pypiwin32
 ```
 
-生成VB API工具包的中间层，保证python可以顺利调用VB API。首先运行Python安装目录下子目录“Lib\site-packages\win32com\client\”的makepy.py程序，弹出如图2所示的对话框。选择“Creo VB API Type Library Creo Parametric”点击OK按钮即可生成。系统会提示在临时目录生成了形如“176453F2-6934-4304-8C9D-126D98C1700Ex0x1x0.py”的文件，一些关键的函数和变量、常量等信息均记录在此文件中。
+生成VB API工具包的中间层，保证python可以顺利调用VB API。首先运行Python安装目录下子目录“Lib\site-packages\win32com\client\”的makepy.py程序，选择“Creo VB API Type Library Creo Parametric”点击OK按钮即可生成。系统会提示在临时目录生成了形如“176453F2-6934-4304-8C9D-126D98C1700Ex0x1x0.py”的文件，一些关键的函数和变量、常量等信息均记录在此文件中。
 
 ### 1.4 注意点
 
@@ -58,7 +58,6 @@ win.resizable(0, 0)
 Label(win, text="Creo程序路径", padx=5, pady=5).grid(row=0, column=0, sticky='W')
 Label(win, text="包含prt文件的目录", padx=5, pady=5).grid(row=1, column=0, sticky='W')
 Label(win, text="在此编辑关系：", padx=5, pady=5).grid(row=2, column=0, sticky='W', columnspan=3)
-
 
 e1 = Entry(win, width="55")
 e2 = Entry(win, width="55")
