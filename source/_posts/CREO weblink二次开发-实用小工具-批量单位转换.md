@@ -17,7 +17,7 @@ date: 2019-11-04 14:50:54
 
 <div align="center">
     <img src="/img/proe/weblinktool11.png" style="width:80%" align="center"/>
-    <p>图 了批量单位转换主界面</p>
+    <p>图 批量单位转换主界面</p>
 </div>
 
 项目已上传至[本网站](http://www.hudi.site/weblink.html)。直接在Creo内建浏览器打开链接即可试用，注意IE对网站的权限以及weblink的设置需要设置正确。
