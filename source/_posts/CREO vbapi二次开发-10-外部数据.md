@@ -3,7 +3,6 @@ title: CREO vbapi二次开发-10-外部数据
 tags:
   - CREO
   - VBAPI
-  - CREO小工具
   - CREO二次开发
 comments: true
 category: CREO二次开发
