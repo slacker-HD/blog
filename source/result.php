@@ -1,5 +1,6 @@
 <?php
 header("Content-Type: text/html; charset=utf8");//防止界面乱码
+echo"<meta name='viewport' content='width=320px, user-scalable=yes'>";
 
 mysql_connect("qdm723417486.my3w.com:3306", "qdm723417486", "Xiao1Ban");//连接MySQL
 mysql_select_db("qdm723417486_db");//选择数据库
@@ -26,8 +27,8 @@ echo "<table border='1'>
 $result = mysql_query($sql);//借SQL语句插入数据
 while ($row = mysql_fetch_array($result)) {
     echo "<tr>";
-    echo "<td>" . $row['ID']. "</td>";
-    echo "<td>" . $row['mname']. "</td>";
+    echo "<td style='width:20px;'>" . $row['ID']. "</td>";
+    echo "<td style='width:65px;'>" . $row['mname']. "</td>";
     echo "<td>" . $row['things'] . "</td>";
     echo "</tr>";
 }
