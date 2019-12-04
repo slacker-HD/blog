@@ -7,9 +7,32 @@ mysql_query("set names utf8"); //**设置字符集***
 
 $sql = "UPDATE kindergarten SET things='" . $_POST['things'] . "' WHERE mname='" . $_POST['mname'] . "' AND ID=" .$_POST['ID'];
 $result = mysql_query($sql);//借SQL语句插入数据
-mysql_close();
 
 echo "修改成功";
 echo "<br>";
 echo "<a href='xiaoyiban.php'>点击返回</a>";
+
+
+$sql = "select * from kindergarten order by ID asc";
+
+echo "<h1>小一班的统计表</h1>";
+echo "<table border='1'>
+<tr>
+<th>序号</th>
+<th>姓名</th>
+<th>统计要求</th>
+</tr>";
+
+$result = mysql_query($sql);//借SQL语句插入数据
+while ($row = mysql_fetch_array($result)) {
+    echo "<tr>";
+    echo "<td>" . $row['ID']. "</td>";
+    echo "<td>" . $row['mname']. "</td>";
+    echo "<td>" . $row['things'] . "</td>";
+    echo "</tr>";
+}
+
+mysql_close();
+
+echo "</table>";
 ?>

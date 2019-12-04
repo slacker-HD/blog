@@ -30,6 +30,7 @@ while ($row = mysql_fetch_array($result)) {
     echo "</form>";
 
 }
+mysql_close();
 
 echo "</table>";
 echo "<br>";
