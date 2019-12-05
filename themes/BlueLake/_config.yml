@@ -96,7 +96,7 @@ baidu_analytics: 767e3ea52a6b4f3c656cdd4119c87e62 ## Your Baidu Analytics tracki
 # Miscellaneous
 show_category_count: true ## If you want to show the count of categories in the sidebar widget please set the value to true.
 widgets_on_small_screens: true ## Set to true to enable widgets on small screens.
-busuanzi: false ## If you want to use Busuanzi page views please set the value to true.
+busuanzi: true ## If you want to use Busuanzi page views please set the value to true.
 
 # About page
 about:
