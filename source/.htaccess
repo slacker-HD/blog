@@ -9,3 +9,11 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /weblink/$1
 RewriteCond %{HTTP_HOST} ^weblink.hudi.site$
 RewriteRule ^(/)?$ weblink/index.html [L]
+
+RewriteCond %{HTTP_HOST} ^huyunxiao.hudi.site$
+RewriteCond %{REQUEST_URI} !^/huyunxiao/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /huyunxiao/$1
+RewriteCond %{HTTP_HOST} ^huyunxiao.hudi.site$
+RewriteRule ^(/)?$ huyunxiao/index.html [L]
