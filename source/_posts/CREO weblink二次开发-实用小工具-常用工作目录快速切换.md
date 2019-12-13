@@ -20,6 +20,6 @@ date: 2019-04-30 08:45:04
     <p>图 常用工作目录快速切换</p>
 </div>
 
-项目已上传至~~[http://slackerhd.3vkj.net/](http://slackerhd.3vkj.net/)~~ [本网站](http://www.hudi.site/weblink.html)。直接在Creo内建浏览器打开链接即可试用，注意IE对网站的权限以及weblink的设置需要设置正确。
+项目已上传至~~[http://slackerhd.3vkj.net/](http://slackerhd.3vkj.net/)~~ [本网站](http://weblink.hudi.site)。直接在Creo内建浏览器打开链接即可试用，注意IE对网站的权限以及weblink的设置需要设置正确。
 
 项目源码可在<a href="https://github.com/slacker-HD/creo_weblink" target="_blank">Github.com</a>下载。
