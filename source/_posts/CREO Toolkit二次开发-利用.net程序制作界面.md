@@ -126,7 +126,7 @@ public static extern void SaveFile();
 
 <div align="center">
     <img src="/img/proe/toolkitcsharp.gif" style="width:75%" align="center"/>
-    <p>图1 Nodemcu模块1个</p>
+    <p>图 调用.net窗体</p>
 </div>
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
