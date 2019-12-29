@@ -168,8 +168,8 @@ launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Lau
   ]
 }
 ```
-<div align="center">
 
+<div align="center">
   <img src="/img/proe/jlink3.png" style="width:40%" align="center"/>
   <p>图3 设置调试工程为java</p>
 </div>
@@ -203,7 +203,7 @@ launch.json中应该会自动添加"Debug (Launch) - Current File"和"Debug (Lau
 这样就开启了调试功能，并且设置调试端口为8000，也可以根据实际情况调整。
 
 **注意**
-*注意：如果本机装有防火墙，需要允许java访问网络。*
+*如果本机装有防火墙，需要允许java访问网络。*
 
 #### 7.2.2 VSCode设置
 
