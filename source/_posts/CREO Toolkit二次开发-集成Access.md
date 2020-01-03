@@ -6,8 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date: 
+date: 2020-01-03 11:13:51
 ---
+
 
 尽管微软已经开始边缘化Access，但是Access作为单机小数据库来说，仍有其自身的优势，本文还是介绍下如何在Toolkit二次开发使用Access，数据库采用ADO接口进行访问。
 
