@@ -15,7 +15,7 @@ MFC在窗体UI方面确实已经落后于时代了，本文介绍如何在TOOLKI
 ## 1. 系统整体框架
 
 自.NET Framework 2.0之后，微软提供了CLRDataCreateInstance函数，可以让C/C++程序调用.net生成的托管代码，让TOOLKIT二次开发程序调用.net代码成为了可能，详见<a href="https://docs.microsoft.com/zh-cn/dotnet/framework/unmanaged-api/debugging/clrdatacreateinstance-function?redirectedfrom=MSDN" target="_blank">Windows 开发人员中心</a>。
-而.net采用也在System.Runtime.InteropServices命名空间下提供了属性类DllImport用于.net程序调用外部Dll，详见<a href="https://docs.microsoft.com/zh-cn/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&view=netframework-4.8" target="_blank">Windows 开发人员中心</a>。因此本文的思路是，使用C#实现对应的界面操作，利用CLRDataCreateInstance函数让Toolkit程序调用c#程序中对应的窗体；Toolkit程序将窗体需要调用的函数封装导出，C#窗体通过DllImport调用，实现Toolkit程序与C#程序之间的交互。
+而.net也在System.Runtime.InteropServices命名空间下提供了属性类DllImport用于.net程序调用外部Dll，详见<a href="https://docs.microsoft.com/zh-cn/dotnet/api/system.runtime.interopservices.dllimportattribute?redirectedfrom=MSDN&view=netframework-4.8" target="_blank">Windows 开发人员中心</a>。因此本文的思路是，使用C#实现对应的界面操作，利用CLRDataCreateInstance函数让Toolkit程序调用c#程序中对应的窗体；Toolkit程序将窗体需要调用的函数封装导出，C#窗体通过DllImport调用，实现Toolkit程序与C#程序之间的交互。
 
 ## 2.Toolkit函数调用C#函数
 
