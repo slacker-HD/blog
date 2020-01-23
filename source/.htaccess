@@ -17,3 +17,10 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /huyunxiao/$1
 RewriteCond %{HTTP_HOST} ^huyunxiao.hudi.site$
 RewriteRule ^(/)?$ huyunxiao/index.html [L]
+
+
+<Files ~ "^.(htaccess|htpasswd)$">
+deny from all
+</Files>
+ErrorDocument 404 /404.html
+order deny,allow
