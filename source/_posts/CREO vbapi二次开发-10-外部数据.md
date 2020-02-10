@@ -12,7 +12,7 @@ date: 2019-10-14 09:56:39
 
 二次开发时有时可能需要在模型中存储自己程序的相关信息，使用外部数据（External Data）可以让程序将一些信息保存到模型文件中。外部数据通过四层进行描述，顶层为IpfcExternalDataAccess类，首先访问模型的这个对象用来判断模型中是否存在外部数据。第二层是IpfcExternalDataClass类，每个二次开发的程序都可以通过创建IpfcExternalDataClass类的对象建立自己的外部数据。IpfcExternalDataClass类可以包含多个IpfcExternalDataSlot用于存储相关数据，而每个IpfcExternalDataSlot对象则可以包含多个IpfcExternalData对象。IpfcExternalData可以存储整形、浮点、字符串三种不同的数据类型。对于访问外部外部对象以及可存储的数据对象类型，官方文档给出结束如下：
 
-表10.2 外部数据相关类
+表10.1 外部数据相关类
 
 | VB API类型             | 说明                                                         |
 | ---------------------- | ------------------------------------------------------------ |
