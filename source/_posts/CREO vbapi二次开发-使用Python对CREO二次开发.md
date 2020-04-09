@@ -1,5 +1,5 @@
 ---
-title: 使用Python对CREO二次开发
+title: CREO vbapi二次开发-使用Python对CREO二次开发
 tags:
   - CREO
   - VBAPI
@@ -7,8 +7,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date:
+date: 2020-04-09 10:59:19
 ---
+
 
 
 ## 1.开发环境配置
