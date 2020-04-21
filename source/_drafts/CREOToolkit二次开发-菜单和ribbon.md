@@ -121,16 +121,16 @@ int RadioButtonActFn(uiCmdCmdId command, uiCmdValue *p_value)
 status = ProCmdOptionAdd("RadioButtonMenu_Act", (uiCmdCmdActFn)RadioButtonActFn, PRO_B_FALSE, (uiCmdCmdValFn)RadioButtonValFn, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &RadioMenuID);
 status = ProCmdRadiogrpDesignate(RadioMenuID, 4, radio_group_items, radio_group_labels, radio_group_help,radio_group_icons,"RadioButtonGroupDescription",MSGFILE);
 ```
-
 ## 4.CheckBox菜单和Ribbon按钮
 
-CheckBox菜单的添加同时集合了普通菜单和Radio菜单的添加方式。
+CheckBox菜单如下图所示，其添加方式集合了普通菜单和Radio菜单的添加方式。
 
 <div align="center">
     <img src="/img/proe/ToolkitCustomRibbon4.png" style="width:30%" align="center"/>
     <p>图 带复选框的菜单</p>
 </div>
 
+首先定义一个结构体，用于存储CheckBox菜单项的ID以及状态，代码如下：
 ```cpp
 typedef struct procheckbuttonstruct
 {
@@ -139,7 +139,9 @@ typedef struct procheckbuttonstruct
 } ProCheckButton;
 static ProCheckButton _checkbutton[1];
 ```
+**PS：经测试发现一个很奇怪的问题，必须用数组定义二次开发中所有的CheckBox菜单项，如果使用单独一个变量程序会直接死，不死掉知道哪里出错了。**
 
+使用ProCmdOptionAdd函数设定CheckBox菜单值变化响应函数CheckButtonValFn以及点击响应函数CheckButtonActFn，ProMenubarmenuChkbuttonAdd添加菜单项，与RadioBox和普通菜单的添加方式类似直接给出代码：
 
 ```cpp
 status = ProMenubarmenuMenuAdd("CreoMenuExample", "CheckButtonMenu", "CheckButtonMenu", NULL, PRO_B_TRUE, MSGFILE);
@@ -186,6 +188,8 @@ int CheckButtonValFn(uiCmdCmdId command, uiCmdValue *p_value)
 }
 ```
 
+使用Ribbon界面后，CheckBox按钮的添加也是普通菜单和RadioBox菜单的综合，示例代码如下：
+
 
 
 ```cpp
@@ -193,11 +197,55 @@ status = ProCmdOptionAdd("CheckButtonMenu_Act", (uiCmdCmdActFn)CheckButtonActfn,
 status = ProCmdDesignate(_checkbutton[0].command, "CheckButtonMenuItem", "CheckButtonMenuItem", "CheckButtonMenuItemtips", MSGFILE);
 //status = ProCmdRadiogrpDesignate(_checkbutton[0].command,1,check_group_items,check_group_labels,check_group_help,check_group_icons,"CheckButtonGroupDescription",MSGFILE);
 //status = ProCmdIconSet(_checkbutton[0].command, "Icon.png");
-//均无法添加图标，未找到添加的方法
 ```
 
-
-
-
+**P.S. ProCmdRadiogrpDesignate和ProCmdIconSet均无法为Checkbox设定图标，暂未找到添加的方法。**
 
 ## 5. 右键菜单
+
+右键菜单首先要注册监听事件，监听PRO_POPUPMENU_CREATE_POST事件，在右键产生前做相关操作以及添加菜单项：
+
+```cpp
+//注册右键菜单监听事件，功能与普通菜单一样
+status = ProNotificationSet(PRO_POPUPMENU_CREATE_POST,  (ProFunction)ProPopupMenuNotification);
+```
+
+使用ProPopupmenuButtonAdd函数可以添加右键菜单项，方法简单，不再赘述，直接给出代码：
+
+```cpp
+
+static uiCmdAccessState AccessPopupmenu(uiCmdCmdId command,ProAppData appdata, ProSelection* sel_buffer)
+{
+  //应该根据选择的对象确定右键菜单是否出现，这里默认都出现
+  return ACCESS_AVAILABLE;
+}
+
+ProError ProPopupMenuNotification(ProMenuName name)
+{
+  ProError status;
+  uiCmdCmdId MainMenuID;
+  ProPopupMenuId PopupMenuID;
+  ProLine label;
+  ProLine help;
+  
+  status = ProPopupmenuIdGet(name, &PopupMenuID);
+  status = ProCmdCmdIdFind("MainMenu_Act", &MainMenuID);
+  status = ProMessageToBuffer(label, MSGFILE,"MainMenuItem");
+  status = ProMessageToBuffer(help, MSGFILE,"MainMenuItemtips");
+  status = ProPopupmenuButtonAdd(PopupMenuID, PRO_VALUE_UNUSED, "HFUTGDM.MainMenu_Act",label, help,MainMenuID,AccessPopupmenu,NULL);
+
+   return PRO_TK_NO_ERROR;
+}
+```
+
+## 6. 演示效果
+
+最终各类菜单展示方式如下图所示：
+
+<div align="center">
+    <img src="/img/proe/ToolkitCustomRibbon5.gif" style="width:80%" align="center"/>
+    <p>图 效果展示</p>
+</div>
+
+
+代码公开，需要的人可以随便根据自己的环境修改编译。完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
