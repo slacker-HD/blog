@@ -1,5 +1,5 @@
 ---
-title: CREO Toolkit二次开发-菜单和ribbon
+title: CREO Toolkit二次开发-菜单和Ribbon
 tags:
   - CREO
   - TOOLKIT
@@ -15,7 +15,7 @@ Toolkit二次开发过程中，菜单项是我们进入程序的第一入口。�
 Creo在选项中提供了自定义Ribbon界面的方法，如下图所示。已加载Toolkit命令会在Toolkit Command一栏中显示，Creo同时提供了导入和导出自定义Ribbon功能。以上均为常规软件操作，这里不再赘述，读者可自行操作摸索或百度。
 
 <div align="center">
-    <img src="/img/proe/ToolkitCustomRibbon1.png" style="width:30%" align="center"/>
+    <img src="/img/proe/ToolkitCustomRibbon1.png" style="width:70%" align="center"/>
     <p>图 自定义Ribbon界面</p>
 </div>
 
@@ -43,7 +43,7 @@ status = ProCmdIconSet(MainMenuID, "Icon.png");
 添加普通菜单项和直接添加Ribbon按钮函数没有冲突，可以同时使用。带图标的菜单效果如下图所示，自定义Ribbon界面效果在本文最后会显示。
 
 <div align="center">
-    <img src="/img/proe/ToolkitCustomRibbon2.png" style="width:30%" align="center"/>
+    <img src="/img/proe/ToolkitCustomRibbon2.png" style="width:50%" align="center"/>
     <p>图 带图标的菜单</p>
 </div>
 
@@ -52,7 +52,7 @@ status = ProCmdIconSet(MainMenuID, "Icon.png");
 RadioBox菜单顾名思义，可以建立一组带单选框的菜单项，直接在菜单中供用户确定选项，如下图所示。
 
 <div align="center">
-    <img src="/img/proe/ToolkitCustomRibbon3.png" style="width:30%" align="center"/>
+    <img src="/img/proe/ToolkitCustomRibbon3.png" style="width:50%" align="center"/>
     <p>图 带单选框的菜单</p>
 </div>
 
@@ -126,7 +126,7 @@ status = ProCmdRadiogrpDesignate(RadioMenuID, 4, radio_group_items, radio_group_
 CheckBox菜单如下图所示，其添加方式集合了普通菜单和Radio菜单的添加方式。
 
 <div align="center">
-    <img src="/img/proe/ToolkitCustomRibbon4.png" style="width:30%" align="center"/>
+    <img src="/img/proe/ToolkitCustomRibbon4.png" style="width:50%" align="center"/>
     <p>图 带复选框的菜单</p>
 </div>
 
