@@ -8,59 +8,196 @@ comments: true
 category: CREO二次开发
 ---
 
+Toolkit二次开发过程中，菜单项是我们进入程序的第一入口。自进入Creo以来，Creo建议使用Ribbon界面进行开发，同时兼容了老版的菜单系统。本文介绍如何自定义Ribbon界面以及各种菜单的制作。
 
-Toolkit二次开发过程中，菜单项是我们进入程序的第一入口。自进入Creo以来，Creo建议使用Ribbon界面进行开发，同时兼容了老版的菜单系统。通常我们开发
+## 1.自定义Ribbon界面
 
-Creo Toolkit提供了很详细的二次开发代码示例，但是直接使用makefile编译，并不像我们常规的使用visual studio工程完成项目，所以很少看到网上有人说明如何使用。自带的例子包含了很多常见功能的实现，对我们学习二次开发很有帮助。本文说明如何编译并运行Creo自带的示例代码。
+Creo在选项中提供了自定义Ribbon界面的方法，如下图所示。已加载Toolkit命令会在Toolkit Command一栏中显示，Creo同时提供了导入和导出自定义Ribbon功能。以上均为常规软件操作，这里不再赘述，读者可自行操作摸索或百度。
 
-本文的Creo版本为2.0 M060 X64位版本，安装目录为"C:\PTC\Creo 2.0\"。为方便讲解，以下使用的目录均以本机的版本和目录为主，读者可以根据自己系统的情况自行调整。
-
-## 1. 目录和文件说明
-
-Toolkit的安装目录为"C:\PTC\Creo 2.0\Common Files\M060\protoolkit"。编译系统自带的示例代码，有两个目录需要注意：
-
-> C:\PTC\Creo 2.0\Common Files\M060\protoolkit\protk_appls
-
-该目录保存了所有源代码，以下为简便说明称呼该目录为protk_appls。
-
-> C:\PTC\Creo 2.0\Common Files\M060\protoolkit\x86e_win64\obj
-
-该目录保存了源码对的makefile，以下为简便说明称呼该目录为obj。
-
-## 2. 编译代码
-
-（1）obj目录下诸如make_XXX的文件均为protk_appls目录下对应的项目编译文件，想编译的项目首先需要将其改名为makefile。例如将make_geardesign改为makefile，这样就可以编译"pt_geardesign"这个示例项目。
-
-（2）开始菜单找到"Visual Studio x64 Win64 命令提示(2010)"并打开。依次输入如下代码即可完成项目的编译：
-
-```
-cd C:\PTC\Creo 2.0\Common Files\M060\protoolkit\x86e_win64\obj
-nmake dll
-```
-
-输入代码后经过编译后会提示编译成功，生成pt_geardesign.dll(这个文件可能已经存在，只是我们重新自己编译一下，但是并不是所有示例都编译过)，如下图所示。
 <div align="center">
-    <img src="/img/proe/ToolkitExample1.png" style="width:75%" align="center"/>
-    <p>图 编译程序</p>
+    <img src="/img/proe/ToolkitCustomRibbon1.png" style="width:30%" align="center"/>
+    <p>图 自定义Ribbon界面</p>
 </div>
 
-## 3. 运行示例代码
+## 2.普通菜单和Ribbon按钮
 
-dll文件已经生成，加载运行的方法和正常二次开发一样，无非是编写dat确定正确的目录，在此不在赘述。例如本文的dat文件如下：
+普通菜单项是所有二次开发的起点，早期Proe未使用Ribbon界面时，提供了ProMenubarMenuAdd、ProMenubarmenuMenuAdd、ProMenubarmenuPushbuttonAdd等函数用于普通菜单及子菜单的添加，ProCmdActionAdd用于定义菜单点击响应函数，ProCmdIconSet用于为命令项添加图标。以上操作基本所有的Creo程序示例都会包含，函数的使用方法在次不再赘述，只要注意各函数参数一些string须与消息文件对应，ProCmdActionAdd函数需要添加对应的响应函数以及访问权限函数。Creo目前仍兼容Proe形式的添加菜单的方式，Toolkit程序加载后，添加的菜单项可以在自定义Ribbon界面中的Toolkit Command栏中显示。直接给出添加菜单项的示例代码（这里省略了ProCmdActionAdd对应的消息响应函数以及访问函数）：
 
+```cpp
+status = ProMenubarMenuAdd("CreoMenuExample", "CreoMenuExample", "Help", PRO_B_TRUE, MSGFILE);
+status = ProMenubarmenuMenuAdd("CreoMenuExample", "MainMenu", "MainMenu", NULL, PRO_B_TRUE, MSGFILE);
+
+status = ProCmdActionAdd("MainMenu_Act", (uiCmdCmdActFn)MainMenuAct, uiProeImmediate, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &MainMenuID);
+status = ProMenubarmenuPushbuttonAdd("MainMenu", "MainMenuItem", "MainMenuItem", "MainMenuItemtips", NULL, PRO_B_TRUE, MainMenuID, MSGFILE);
+status = ProCmdIconSet(MainMenuID, "Icon.png");
 ```
-NAME       pt_geardesign
-EXEC_FILE  C:\PTC\Creo 2.0\Common Files\M060\protoolkit\x86e_win64\obj\pt_geardesign.dll
-TEXT_DIR   C:\PTC\Creo 2.0\Common Files\M060\protoolkit\protk_appls\pt_geardesign\text
-STARTUP    dll
-REVISION   18
-END
+
+使用Ribbon界面后，Creo推荐使用ProCmdDesignate添加Toolkit命令，添加后的命令不再在兼容的菜单中显示，而是只在自定义Ribbon界面中的Toolkit Command栏中显示。直接给出示例代码：
+
+```cpp
+status = ProCmdActionAdd("MainMenu_Act", (uiCmdCmdActFn)MainMenuAct, uiProeImmediate, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &MainMenuID);
+status = ProCmdDesignate(MainMenuID, "MainMenuItem", "MainMenuItem", "MainMenuItemtips", MSGFILE);
+status = ProCmdIconSet(MainMenuID, "Icon.png");
 ```
 
-这样我们就可以运行Creo Toolkit自带的齿轮设计工具了，如下图所示。
+添加普通菜单项和直接添加Ribbon按钮函数没有冲突，可以同时使用。带图标的菜单效果如下图所示，自定义Ribbon界面效果在本文最后会显示。
+
 <div align="center">
-    <img src="/img/proe/ToolkitExample2.png" style="width:60%" align="center"/>
-    <p>图 运行界面</p>
+    <img src="/img/proe/ToolkitCustomRibbon2.png" style="width:30%" align="center"/>
+    <p>图 带图标的菜单</p>
 </div>
 
-**注意：像pt_userguide.dll需要Toolkit 3D lic解锁的，一般不要自己重新编译！**
+## 3.RadioBox菜单和Ribbon按钮
+
+RadioBox菜单顾名思义，可以建立一组带单选框的菜单项，直接在菜单中供用户确定选项，如下图所示。
+
+<div align="center">
+    <img src="/img/proe/ToolkitCustomRibbon3.png" style="width:30%" align="center"/>
+    <p>图 带单选框的菜单</p>
+</div>
+
+使用RadioBox菜单，首先需要定义RadioBox菜单对应的name、label以及help等数组供添加菜单项函数使用。以上字符串数组的内容均需与消息文件对应，示例代码如下：
+
+```cpp
+static ProMenuItemName radio_group_items[] = {"RadioButtonMenu1", "RadioButtonMenu2","RadioButtonMenu3", "RadioButtonMenu4"};
+static ProMenuItemLabel radio_group_labels[] = {"RadioButtonMenuItem1", "RadioButtonMenuItem2","RadioButtonMenuItem3","RadioButtonMenuItem4"};
+static ProMenuLineHelp radio_group_help[] = {"RadioButtonMenuItem1tips", "RadioButtonMenuItem2tips","RadioButtonMenuItem3tips","RadioButtonMenuItem4tips"};
+  static ProCmdItemIcon radio_group_icons[]={"Icon.png", "Icon.png","Icon.png", "Icon.png"}; //供ProCmdRadiogrpDesignate使用，添加ribbon界面中的按钮图标
+```
+
+添加RadioBox菜单的方式ProMenubarmenuRadiogrpAdd，一组RadioBox菜单对应一个菜单点击响应函数，使用ProCmdOptionAdd函数设定，代码如下：
+
+````cpp
+status = ProMenubarmenuMenuAdd("CreoMenuExample", "RadioButtonMenu", "RadioButtonMenu", NULL, PRO_B_TRUE, MSGFILE);
+status = ProCmdOptionAdd("RadioButtonMenu_Act", (uiCmdCmdActFn)RadioButtonActFn, PRO_B_FALSE, (uiCmdCmdValFn)RadioButtonValFn, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &RadioMenuID);
+status = ProMenubarmenuRadiogrpAdd("RadioButtonMenu", "RadioButtonGroup",4, radio_group_items, radio_group_labels, radio_group_help,NULL, PRO_B_FALSE,RadioMenuID,MSGFILE);
+```
+
+ProCmdOptionAdd设定了该组RadioBox菜单值变化响应函数RadioButtonValFn以及点击响应函数RadioButtonActFn，示例代码如下：
+
+```cpp
+int RadioButtonValFn(uiCmdCmdId command, uiCmdValue *p_value)
+{
+  ProError status;
+  ProMenuItemName name;
+
+  status = ProMenubarMenuRadiogrpValueGet (p_value, name);
+  status = ProMenubarMenuRadiogrpValueSet(p_value, name);
+  return 0;
+}
+
+int RadioButtonActFn(uiCmdCmdId command, uiCmdValue *p_value)
+{
+  ProError status;
+  ProMenuItemName  name;
+  status = ProMenubarMenuRadiogrpValueGet(p_value, name);
+  if(strcmp(name,"RadioButtonMenu1") ==0)
+  {
+    ShowDialog(L"选择了RadioButton项1。本例功能仅只弹出此对话框。");
+  }
+  else if(strcmp(name,"RadioButtonMenu2") ==0)
+  {
+    ShowDialog(L"选择了RadioButton项2。本例功能仅只弹出此对话框。");
+  }
+  else if(strcmp(name,"RadioButtonMenu3") ==0)
+  {
+    ShowDialog(L"选择了RadioButton项3。本例功能仅只弹出此对话框。");
+  }
+  else if(strcmp(name,"RadioButtonMenu4") ==0)
+  {
+    ShowDialog(L"选择了RadioButton项4。本例功能仅只弹出此对话框。");
+  }
+  else
+  {
+    ShowDialog(L"出现了一个奇怪项，不应该存在的。");
+  }
+  return 0;
+}
+```
+
+使用Ribbon界面后，与添加普通菜单类似，直接使用ProCmdRadiogrpDesignate函数即可添加对应的Toolkit Command，同时ProCmdRadiogrpDesignate也提供了添加对应选项的图标功能，函数参数指定好对应的图标元素文件名数组即可，示例代码如下：
+
+````cpp
+status = ProCmdOptionAdd("RadioButtonMenu_Act", (uiCmdCmdActFn)RadioButtonActFn, PRO_B_FALSE, (uiCmdCmdValFn)RadioButtonValFn, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &RadioMenuID);
+status = ProCmdRadiogrpDesignate(RadioMenuID, 4, radio_group_items, radio_group_labels, radio_group_help,radio_group_icons,"RadioButtonGroupDescription",MSGFILE);
+```
+
+## 4.CheckBox菜单和Ribbon按钮
+
+CheckBox菜单的添加同时集合了普通菜单和Radio菜单的添加方式。
+
+<div align="center">
+    <img src="/img/proe/ToolkitCustomRibbon4.png" style="width:30%" align="center"/>
+    <p>图 带复选框的菜单</p>
+</div>
+
+```cpp
+typedef struct procheckbuttonstruct
+{
+  uiCmdCmdId command;
+  ProBoolean state;
+} ProCheckButton;
+static ProCheckButton _checkbutton[1];
+```
+
+
+```cpp
+status = ProMenubarmenuMenuAdd("CreoMenuExample", "CheckButtonMenu", "CheckButtonMenu", NULL, PRO_B_TRUE, MSGFILE);
+status = ProCmdOptionAdd("CheckButtonMenu_Act", (uiCmdCmdActFn)CheckButtonActfn, PRO_B_TRUE, (uiCmdCmdValFn)CheckButtonValFn, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &(_checkbutton[0].command));
+status = ProMenubarmenuChkbuttonAdd("CheckButtonMenu", "CheckButtonMenuItem", "CheckButtonMenuItem", "CheckButtonMenuItemtips", NULL, PRO_B_TRUE, _checkbutton[0].command, MSGFILE);
+```
+
+```cpp
+int CheckButtonActfn(uiCmdCmdId command, uiCmdValue *p_value, void *p_push_command_data)
+{
+  //应该做循环对应多个，这里测试只有一个菜单项所以简化了
+  if (command == _checkbutton[0].command)
+  {
+    if (_checkbutton[0].state == PRO_B_FALSE)
+    {
+      _checkbutton[0].state = PRO_B_TRUE;
+      ShowDialog(L"CheckButton已按下。本例功能仅只弹出此对话框。");
+    }
+    else
+    {
+      _checkbutton[0].state = PRO_B_FALSE;
+      ShowDialog(L"CheckButton已松开。本例功能仅只弹出此对话框。");
+    }
+  }
+  return 0;
+}
+
+int CheckButtonValFn(uiCmdCmdId command, uiCmdValue *p_value)
+{
+  ProError status;
+  ProBoolean value;
+  //应该做循环检测对应多个，这里测试只有一个菜单项所以简化了
+  if (_checkbutton[0].command == command)
+  {
+    status = ProMenubarmenuChkbuttonValueGet(p_value, &value);
+    if (value == _checkbutton[0].state)
+    {
+      return 0;
+    }
+    status = ProMenubarmenuChkbuttonValueSet(p_value, _checkbutton[0].state);
+    return 0;
+  }
+  return 0;
+}
+```
+
+
+
+```cpp
+status = ProCmdOptionAdd("CheckButtonMenu_Act", (uiCmdCmdActFn)CheckButtonActfn, PRO_B_TRUE, (uiCmdCmdValFn)CheckButtonValFn, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &(_checkbutton[0].command));
+status = ProCmdDesignate(_checkbutton[0].command, "CheckButtonMenuItem", "CheckButtonMenuItem", "CheckButtonMenuItemtips", MSGFILE);
+//status = ProCmdRadiogrpDesignate(_checkbutton[0].command,1,check_group_items,check_group_labels,check_group_help,check_group_icons,"CheckButtonGroupDescription",MSGFILE);
+//status = ProCmdIconSet(_checkbutton[0].command, "Icon.png");
+//均无法添加图标，未找到添加的方法
+```
+
+
+
+
+
+## 5. 右键菜单
