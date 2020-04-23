@@ -56,9 +56,9 @@ static ProMenuLineHelp radio_group_help[] = {"RadioButtonMenuItem1tips", "RadioB
   static ProCmdItemIcon radio_group_icons[]={"Icon.png", "Icon.png","Icon.png", "Icon.png"}; //供ProCmdRadiogrpDesignate使用，添加ribbon界面中的按钮图标
 ```
 
-添加RadioBox菜单的方式ProMenubarmenuRadiogrpAdd，一组RadioBox菜单对应一个菜单点击响应函数，使用ProCmdOptionAdd函数设定，代码如下：
+添加RadioBox菜单的方式ProMenubarmenuRadiogrpAdd，一组RadioBox菜单对应一个菜单点击响应函数，使用ProCmdOptionAdd函数设定，代码如下:  
 
-````cpp
+```cpp
 status = ProMenubarmenuMenuAdd("CreoMenuExample", "RadioButtonMenu", "RadioButtonMenu", NULL, PRO_B_TRUE, MSGFILE);
 status = ProCmdOptionAdd("RadioButtonMenu_Act", (uiCmdCmdActFn)RadioButtonActFn, PRO_B_FALSE, (uiCmdCmdValFn)RadioButtonValFn, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &RadioMenuID);
 status = ProMenubarmenuRadiogrpAdd("RadioButtonMenu", "RadioButtonGroup",4, radio_group_items, radio_group_labels, radio_group_help,NULL, PRO_B_FALSE,RadioMenuID,MSGFILE);
@@ -108,13 +108,14 @@ int RadioButtonActFn(uiCmdCmdId command, uiCmdValue *p_value)
 
 使用Ribbon界面后，与添加普通菜单类似，直接使用ProCmdRadiogrpDesignate函数即可添加对应的Toolkit Command，同时ProCmdRadiogrpDesignate也提供了添加对应选项的图标功能，函数参数指定好对应的图标元素文件名数组即可，示例代码如下：
 
-````cpp
+```cpp
 status = ProCmdOptionAdd("RadioButtonMenu_Act", (uiCmdCmdActFn)RadioButtonActFn, PRO_B_FALSE, (uiCmdCmdValFn)RadioButtonValFn, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &RadioMenuID);
 status = ProCmdRadiogrpDesignate(RadioMenuID, 4, radio_group_items, radio_group_labels, radio_group_help,radio_group_icons,"RadioButtonGroupDescription",MSGFILE);
 ```
+
 ## 3.CheckBox菜单和Ribbon按钮
 
-CheckBox菜单如下图所示，其添加方式集合了普通菜单和Radio菜单的添加方式。
+CheckBox菜单如下图所示，其添加方式集合了普通菜单和Radio菜单的添加方式。  
 
 <div align="center">
     <img src="/img/proe/ToolkitCustomRibbon4.png" style="width:50%" align="center"/>
@@ -122,6 +123,7 @@ CheckBox菜单如下图所示，其添加方式集合了普通菜单和Radio菜�
 </div>
 
 首先定义一个结构体，用于存储CheckBox菜单项的ID以及状态，代码如下：
+
 ```cpp
 typedef struct procheckbuttonstruct
 {
@@ -130,6 +132,7 @@ typedef struct procheckbuttonstruct
 } ProCheckButton;
 static ProCheckButton _checkbutton[1];
 ```
+
 **PS：经测试发现一个很奇怪的问题，必须用数组定义二次开发中所有的CheckBox菜单项，如果使用单独一个变量程序会直接死掉，不知道哪里出错了。**
 
 使用ProCmdOptionAdd函数设定CheckBox菜单值变化响应函数CheckButtonValFn以及点击响应函数CheckButtonActFn，ProMenubarmenuChkbuttonAdd添加菜单项，与RadioBox和普通菜单的添加方式类似直接给出代码：
@@ -180,8 +183,6 @@ int CheckButtonValFn(uiCmdCmdId command, uiCmdValue *p_value)
 ```
 
 使用Ribbon界面后，CheckBox按钮的添加也是普通菜单和RadioBox菜单的综合，示例代码如下：
-
-
 
 ```cpp
 status = ProCmdOptionAdd("CheckButtonMenu_Act", (uiCmdCmdActFn)CheckButtonActfn, PRO_B_TRUE, (uiCmdCmdValFn)CheckButtonValFn, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &(_checkbutton[0].command));
