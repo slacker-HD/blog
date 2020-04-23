@@ -10,18 +10,9 @@ category: CREO二次开发
 
 Toolkit二次开发过程中，菜单项是我们进入程序的第一入口。自进入Creo以来，Creo建议使用Ribbon界面进行开发，同时兼容了老版的菜单系统。本文介绍如何自定义Ribbon界面以及各种菜单的制作。
 
-## 1.自定义Ribbon界面
+## 1.普通菜单和Ribbon按钮
 
-Creo在选项中提供了自定义Ribbon界面的方法，如下图所示。已加载Toolkit命令会在Toolkit Command一栏中显示，Creo同时提供了导入和导出自定义Ribbon功能。以上均为常规软件操作，这里不再赘述，读者可自行操作摸索或百度。
-
-<div align="center">
-    <img src="/img/proe/ToolkitCustomRibbon1.png" style="width:70%" align="center"/>
-    <p>图 自定义Ribbon界面</p>
-</div>
-
-## 2.普通菜单和Ribbon按钮
-
-普通菜单项是所有二次开发的起点，早期Proe未使用Ribbon界面时，提供了ProMenubarMenuAdd、ProMenubarmenuMenuAdd、ProMenubarmenuPushbuttonAdd等函数用于普通菜单及子菜单的添加，ProCmdActionAdd用于定义菜单点击响应函数，ProCmdIconSet用于为命令项添加图标。以上操作基本所有的Creo程序示例都会包含，函数的使用方法在次不再赘述，只要注意各函数参数一些string须与消息文件对应，ProCmdActionAdd函数需要添加对应的响应函数以及访问权限函数。Creo目前仍兼容Proe形式的添加菜单的方式，Toolkit程序加载后，添加的菜单项可以在自定义Ribbon界面中的Toolkit Command栏中显示。直接给出添加菜单项的示例代码（这里省略了ProCmdActionAdd对应的消息响应函数以及访问函数）：
+普通菜单项是所有二次开发程序的入口，早期Proe未使用Ribbon界面时，提供了ProMenubarMenuAdd、ProMenubarmenuMenuAdd、ProMenubarmenuPushbuttonAdd等函数用于普通菜单及子菜单的添加，ProCmdActionAdd用于定义菜单点击响应函数，ProCmdIconSet用于为命令项添加图标。以上操作基本所有的Creo程序示例都会包含，函数的使用方法在次不再赘述，只要注意各函数参数一些string须与消息文件对应，ProCmdActionAdd函数需要添加对应的响应函数以及访问权限函数。Creo目前仍兼容Proe形式的添加菜单的方式，Toolkit程序加载后，添加的菜单项可以在自定义Ribbon界面中的Toolkit Command栏中显示。直接给出添加菜单项的示例代码（这里省略了ProCmdActionAdd对应的消息响应函数以及访问函数）：
 
 ```cpp
 status = ProMenubarMenuAdd("CreoMenuExample", "CreoMenuExample", "Help", PRO_B_TRUE, MSGFILE);
@@ -47,7 +38,7 @@ status = ProCmdIconSet(MainMenuID, "Icon.png");
     <p>图 带图标的菜单</p>
 </div>
 
-## 3.RadioBox菜单和Ribbon按钮
+## 2.RadioBox菜单和Ribbon按钮
 
 RadioBox菜单顾名思义，可以建立一组带单选框的菜单项，直接在菜单中供用户确定选项，如下图所示。
 
@@ -121,7 +112,7 @@ int RadioButtonActFn(uiCmdCmdId command, uiCmdValue *p_value)
 status = ProCmdOptionAdd("RadioButtonMenu_Act", (uiCmdCmdActFn)RadioButtonActFn, PRO_B_FALSE, (uiCmdCmdValFn)RadioButtonValFn, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &RadioMenuID);
 status = ProCmdRadiogrpDesignate(RadioMenuID, 4, radio_group_items, radio_group_labels, radio_group_help,radio_group_icons,"RadioButtonGroupDescription",MSGFILE);
 ```
-## 4.CheckBox菜单和Ribbon按钮
+## 3.CheckBox菜单和Ribbon按钮
 
 CheckBox菜单如下图所示，其添加方式集合了普通菜单和Radio菜单的添加方式。
 
@@ -139,7 +130,7 @@ typedef struct procheckbuttonstruct
 } ProCheckButton;
 static ProCheckButton _checkbutton[1];
 ```
-**PS：经测试发现一个很奇怪的问题，必须用数组定义二次开发中所有的CheckBox菜单项，如果使用单独一个变量程序会直接死，不死掉知道哪里出错了。**
+**PS：经测试发现一个很奇怪的问题，必须用数组定义二次开发中所有的CheckBox菜单项，如果使用单独一个变量程序会直接死掉，不知道哪里出错了。**
 
 使用ProCmdOptionAdd函数设定CheckBox菜单值变化响应函数CheckButtonValFn以及点击响应函数CheckButtonActFn，ProMenubarmenuChkbuttonAdd添加菜单项，与RadioBox和普通菜单的添加方式类似直接给出代码：
 
@@ -201,7 +192,7 @@ status = ProCmdDesignate(_checkbutton[0].command, "CheckButtonMenuItem", "CheckB
 
 **P.S. ProCmdRadiogrpDesignate和ProCmdIconSet均无法为Checkbox设定图标，暂未找到添加的方法。**
 
-## 5. 右键菜单
+## 4. 右键菜单
 
 右键菜单首先要注册监听事件，监听PRO_POPUPMENU_CREATE_POST事件，在右键产生前做相关操作以及添加菜单项：
 
@@ -238,7 +229,7 @@ ProError ProPopupMenuNotification(ProMenuName name)
 }
 ```
 
-## 6. 演示效果
+## 5. 演示效果
 
 最终各类菜单展示方式如下图所示：
 
