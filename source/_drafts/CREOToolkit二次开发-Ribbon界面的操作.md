@@ -38,7 +38,6 @@ status = ProRibbonDefinitionfileLoad(L"RibbonExample.rbn");
 
 Toolkit提供了ProNotificationSet函数用于监听各类事件，其中PRO_RIBBON_TAB_SWITCH对应Ribbon栏切换，其监听函数的参数分别对应切换前后的两个Ribbon栏名称。监听Ribbon栏切换直示例代码如下，直接记录每次切换后的Ribbon栏名称到变量_lastRibbonTab中：
 
-
 ```cpp
 CString _lastRibbonTab;
 ```
@@ -53,6 +52,7 @@ ProError ProRibbonTabSwitchNotification(char* from_tab, char* to_tab)
   _lastRibbonTab = CString(to_tab);
   return PRO_TK_NO_ERROR;
 }
+```
 
 ## 4.控制Ribbon栏切换
 
