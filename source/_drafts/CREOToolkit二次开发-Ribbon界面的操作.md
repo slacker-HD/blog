@@ -62,11 +62,7 @@ Toolkit没有提供控制Ribbon栏切换的函数，只能通过宏的方式实�
 void RightAct()
 {
   ProError status;
-  CString macro;
-  macro = _T("~ Activate `main_dlg_cur` `Page_View_control_btn` 1;");
-  wchar_t *p = macro.AllocSysString();
-  status = ProMacroLoad(p);
-  SysFreeString(p);
+  status = ProMacroLoad(L"~ Activate `main_dlg_cur` `Page_View_control_btn` 1;");
 }
 ```
 
@@ -90,7 +86,6 @@ void RightAct()
   ProError status;
   CString macro;
   macro = "~ Command `ProCmdDwgRegenModel` ; ~Command `ProCmdWinActivate`;";
-
   macro += _T("~ Activate `main_dlg_cur` `" + _lastRibbonTab + "_control_btn` 1;");
   wchar_t *p = macro.AllocSysString();
   status = ProMacroLoad(p);
