@@ -28,7 +28,7 @@ ProError status;
 status = ProRibbonDefinitionfileLoad(L"RibbonExample.rbn");
 ```
 
-该函数可以在运行时手动执行，也可以在user_initialize中调用实现在程序加载过程中自动加载Ribbon界面。自定义的rbn文件可以放到text/ribbon文件夹下。关于rbn文件的存放规则，Toolkit官方文件结束如下：
+该函数可以在运行时手动执行，也可以在user_initialize中调用实现在程序加载过程中自动加载Ribbon界面。自定义的rbn文件可以放到text/ribbon文件夹下。关于rbn文件的存放规则，Toolkit官方文件解释如下：
 
 >The function ProRibbonDefinitionfileLoad() loads a specified ribbon definition file from a default path into the Creo Parametric application. The input argument is as follows:  
 >file_name - Specify the name of the ribbon definition file including its extension. The default search path for this file is:  
