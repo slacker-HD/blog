@@ -8,6 +8,7 @@ comments: true
 category: CREO二次开发
 ---
 
+
 在Creo工程图出图过程中，常需要手动添加草绘的方式添加诸如中心线等内容。本文介绍如何在绘图中通过二次开发快速添加圆弧中心线。
 
 ## 1.圆弧信息
@@ -219,61 +220,61 @@ while (1)
     <p>图 中心线坐标的确定</p>
 </div>
 
-#### 3.2.21 预览的绘制
+#### 3.2.2 预览的绘制
 
 使用ProGraphicsPenPosition函数可以确定画笔的起点，ProGraphicsLineDraw函数则绘制从ProGraphicsPenPosition函数确定起点到制定终点的直线。为便于分辨，可以通过ProGraphicsColorModify函数设定画笔颜色，故实现实时预览示例代码如下：
 
 ```cpp
-  ProMouseButton expected_button = (ProMouseButton)(PRO_LEFT_BUTTON | PRO_MIDDLE_BUTTON);
-  ProMouseButton button_pressed;
-  ProColor Gray, OrigColor;
-  ProPoint3d positionmouse, positionto[4];
-  
-  Gray.method = PRO_COLOR_METHOD_RGB;
-  Gray.value.map.red = 0.5;
-  Gray.value.map.green = 0.5;
-  Gray.value.map.blue = 0.5;
+ProMouseButton expected_button = (ProMouseButton)(PRO_LEFT_BUTTON | PRO_MIDDLE_BUTTON);
+ProMouseButton button_pressed;
+ProColor Gray, OrigColor;
+ProPoint3d positionmouse, positionto[4];
 
-  status = ProGraphicsColorModify(&Gray, &OrigColor);
-  while (1)
-  {
-    status = ProMouseTrack(options, &button_pressed, positionmouse);
+Gray.method = PRO_COLOR_METHOD_RGB;
+Gray.value.map.red = 0.5;
+Gray.value.map.green = 0.5;
+Gray.value.map.blue = 0.5;
 
-    int wid = 0;
-    status = ProWindowCurrentGet(&wid);
-    status = ProWindowRefresh(wid);
+status = ProGraphicsColorModify(&Gray, &OrigColor);
+while (1)
+{
+  status = ProMouseTrack(options, &button_pressed, positionmouse);
 
-    if (button_pressed == PRO_LEFT_BUTTON)//点击左键跳出循环执行后续代码
-      break;
+  int wid = 0;
+  status = ProWindowCurrentGet(&wid);
+  status = ProWindowRefresh(wid);
 
-    if (button_pressed == PRO_MIDDLE_BUTTON)//点击中键直接返回，相当于取消
-      return;
+  if (button_pressed == PRO_LEFT_BUTTON)//点击左键跳出循环执行后续代码
+    break;
 
-    positionto[0][0] = positionmouse[0];
-    positionto[0][1] = centerinDrawing[1];
-    positionto[0][2] = positionmouse[2];
+  if (button_pressed == PRO_MIDDLE_BUTTON)//点击中键直接返回，相当于取消
+    return;
 
-    positionto[1][0] = centerinDrawing[0] - (positionmouse[0] - centerinDrawing[0]);
-    positionto[1][1] = centerinDrawing[1];
-    positionto[1][2] = positionmouse[2];
+  positionto[0][0] = positionmouse[0];
+  positionto[0][1] = centerinDrawing[1];
+  positionto[0][2] = positionmouse[2];
 
-    ProGraphicsPenPosition(positionto[0]);
-    ProGraphicsLineDraw(positionto[1]);
+  positionto[1][0] = centerinDrawing[0] - (positionmouse[0] - centerinDrawing[0]);
+  positionto[1][1] = centerinDrawing[1];
+  positionto[1][2] = positionmouse[2];
 
-    positionto[2][0] = centerinDrawing[0];
-    positionto[2][1] = positionmouse[1];
-    positionto[2][2] = positionmouse[2];
+  ProGraphicsPenPosition(positionto[0]);
+  ProGraphicsLineDraw(positionto[1]);
 
-    positionto[3][0] = centerinDrawing[0];
-    positionto[3][1] = centerinDrawing[1] - (positionmouse[1] - centerinDrawing[1]);
-    positionto[3][2] = positionmouse[2];
+  positionto[2][0] = centerinDrawing[0];
+  positionto[2][1] = positionmouse[1];
+  positionto[2][2] = positionmouse[2];
 
-    ProGraphicsPenPosition(positionto[2]);
-    ProGraphicsLineDraw(positionto[3]);
-  }
-  //记得把画笔颜色改回去
-  status = ProGraphicsColorModify(&OrigColor, &Gray);
-  //这里开始绘制草绘
+  positionto[3][0] = centerinDrawing[0];
+  positionto[3][1] = centerinDrawing[1] - (positionmouse[1] - centerinDrawing[1]);
+  positionto[3][2] = positionmouse[2];
+
+  ProGraphicsPenPosition(positionto[2]);
+  ProGraphicsLineDraw(positionto[3]);
+}
+//记得把画笔颜色改回去
+status = ProGraphicsColorModify(&OrigColor, &Gray);
+//这里开始绘制草绘
 ```
 
 ## 4.绘制草绘
@@ -300,9 +301,8 @@ status = ProDtlentitydataFree(edata);
 最终演示效果如下图所示：
 
 <div align="center">
-    <img src="/img/proe/transfToolkitAuxline.ormation_matrix.gif" style="width:75%" align="center"/>
+    <img src="/img/proe/ToolkitAuxline.gif" style="width:75%" align="center"/>
     <p>图 演示效果</p>
 </div>
-
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。
