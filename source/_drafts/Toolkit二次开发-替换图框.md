@@ -14,6 +14,45 @@ category: CREO二次开发
 
 ## 1.圆弧信息
 
+```cpp
+void SetSheet(CString Frm, BOOL Deltable)
+{
+  ProError status;
+  ProMdl mdl;
+  ProMdl format;
+  ProDwgtable *tables = NULL;
+  int num, Cur_Sheet;
+  ProBoolean from_format;
+  status = ProMdlCurrentGet(&mdl);
+  if (status != PRO_TK_NO_ERROR)
+    return;
+  status = ProDrawingCurrentSheetGet((ProDrawing)mdl, &Cur_Sheet);
 
+  if (Deltable)
+  {
+    status = ProDrawingTablesCollect((ProDrawing)mdl, &tables);
+    if (status == PRO_TK_NO_ERROR)
+    {
+      status = ProArraySizeGet((ProArray)tables, &num);
+      for (int i = 0; i < num; i++)
+      {
+        status = ProDwgtableIsFromFormat(&tables[i], &from_format);
+        if (from_format == PRO_B_TRUE)
+          status = ProDwgtableDelete(&tables[i], 1);
+      }
+      status = ProArrayFree((ProArray *)&tables);
+    }
+  }
+  wchar_t *p = Frm.AllocSysString();
+  status = ProMdlRetrieve(p, PRO_MDL_DWGFORM, &format);
+  SysFreeString(p);
+  if (status != PRO_TK_NO_ERROR)
+    return;
+  status = ProDrawingFormatAdd((ProDrawing)mdl, Cur_Sheet, NULL, format, 0);
+  if (status != PRO_TK_NO_ERROR)
+    return;
+  status = ProWindowRepaint(PRO_VALUE_UNUSED);
+}
+```
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。
