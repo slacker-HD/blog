@@ -45,9 +45,9 @@ status = ProSelect((char *)"edge", 1, NULL, NULL, NULL, NULL, &SelBuffer, &size)
 status = ProSelectionModelitemGet(SelBuffer[0], &Modelitem);
 ```
 
-### 1.2 圆弧对象信息的获取
+### 1.2 圆弧对象的信息
 
-Toolkit使用ProGeomitemdata表述ProGeomitem的信息，可以使用 ProGeomitemdataGet函数获取：
+Toolkit使用ProGeomitemdata表述ProGeomitem的信息，可以使用ProGeomitemdataGet函数获取：
 
 ```cpp
 status = ProGeomitemdataGet(&Modelitem, &geomitem_data);
