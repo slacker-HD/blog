@@ -2,6 +2,10 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^hudi.site [NC]
 RewriteRule ^(.*)$ http://www.hudi.site/$1 [L,R=301]
 
+
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule ^(.*)?$ https://%{SERVER_NAME}/$1 [L,R=301]
+
 RewriteCond %{HTTP_HOST} ^weblink.hudi.site$
 RewriteCond %{REQUEST_URI} !^/weblink/
 RewriteCond %{REQUEST_FILENAME} !-f
