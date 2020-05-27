@@ -50,4 +50,6 @@ material = part.RetrieveMaterial(MtlName)
 part.CurrentMaterial = material
 ```
 
+**P.S. 完成本文后，之前开发的<a href="./2019/12/23/CREO vbapi二次开发-实用小工具-批处理工具/" target="_blank">批处理工具</a>也更新了批量设定零件材料功能。**
+
 完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。
