@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2020-06-01 08:57:06
 ---
+
 
 Toolkit二次开发过程中，菜单项是我们进入程序的第一入口。自进入Creo以来，Creo建议使用Ribbon界面进行开发，同时兼容了老版的菜单系统。本文介绍如何自定义Ribbon界面以及各种菜单的制作。
 
