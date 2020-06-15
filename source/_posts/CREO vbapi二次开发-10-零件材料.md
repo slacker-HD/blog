@@ -4,9 +4,11 @@ tags:
   - CREO
   - VBAPI
   - CREO二次开发
-category: CREO二次开发
 comments: true
+category: CREO二次开发
+date: 2020-06-12 22:14:08
 ---
+
 
 材料在CREO中被看做零件的一个属性，vbapi中使用IpfcMaterial类进行描述。IpfcMaterial类中提供了如Name、MassDensity、Hardness等属性描述材料的名称、密度、硬度等属性，详见参考文档。以下介绍如何读取、修改零件的材料信息。
 
