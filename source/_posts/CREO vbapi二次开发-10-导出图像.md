@@ -1,11 +1,12 @@
 ---
 title: CREO vbapi二次开发-10-导出图像
-comments: true
 tags:
   - CREO
   - VBAPI
   - CREO二次开发
+comments: true
 category: CREO二次开发
+date: 2020-07-02 09:19:31
 ---
 
 
