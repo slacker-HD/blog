@@ -1,10 +1,13 @@
 ---
-title: CREOvbapi二次开发-10-模型重命名
+title: CREO vbapi二次开发-10-模型重命名
 tags:
+  - CREO
+  - VBAPI
+  - CREO二次开发
+comments: true
+category: CREO二次开发
+date: 2020-07-16 09:03:31
 ---
-
-
-
 
 本节介绍VBAPI的重命名功能。查看VB API帮助手册可知，重命名模型的功能由IpfcModel类的Rename方法完成。Rename方法有两个参数，第一个NewName为模型的新名称，第二个RenameFilesToo表示是否同时也重命名磁盘文件。
 
