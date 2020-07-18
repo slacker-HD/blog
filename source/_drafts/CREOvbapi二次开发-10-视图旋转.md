@@ -1,6 +1,11 @@
 ---
 title: CREO vbapi二次开发-10-视图旋转
 tags:
+  - CREO
+  - VBAPI
+  - CREO二次开发
+comments: true
+category: CREO二次开发
 ---
 
 本节介绍VBAPI的视图旋转的操作。旋转视图到特定的位置可方便进行截图等操作，常用的方法主要包括在当前视图的基础上进行增量旋转以及将视图旋转到指定位置两种操作。
