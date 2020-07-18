@@ -1,9 +1,18 @@
 ---
 title: Creo Toolkit二次开发-利用MF中CString对象简化字符串的操作
 tags:
+  - CREO
+  - TOOLKIT
+  - CREO二次开发
+comments: true
+category: CREO二次开发
 ---
 
-Toolkit主要涉及char和wchar_t两种字符串对象
+对于字符串，Toolkit提供了ProWstringx系列函数如ProWstringCopy、ProStringToWstring、ProWstringConcatenate等，可实现字符串的复制、连接、转换等基本操作。但是以上函数使用起来相较MFC提供的CString类还是麻烦许多，特别是在字符串的替换、连接以及格式化转化等操作体现的尤为明显。故本文介绍利用MFC中CString对象简化字符串的操作。
+
+## 1. Toolkit中字符串类型介绍
+
+Toolkit里面的字符串操作估计是最迷惑人的地方，主要是Toolkit使用了大量的宏定义了如ProPath、ProLine等。其实Toolkit的字符串只涉及char和wchar_t两种字符串对象，所有的字符串相关内容无非是这两种不同类型字符串数组，从官方帮助文件找出了相关定义如下：
 
 ```c
 /*  Sizes include a NULL terminator  */
@@ -49,22 +58,53 @@ typedef wchar_t ProMacro[PRO_MACRO_SIZE];
 typedef char ProCharLine[PRO_LINE_SIZE];
 ```
 
+## 2. CString与Toolkit中字符串互相转换
 
+### 2.1 wchar_t*与CString的互相转换
 
+#### 2.1.1 wchar_t*转CString
 
-wchar_t是C/C++的字符类型，是一种扩展的存储方式。wchar_t类型主要用在国际化程序的实现中，但它不等同于unicode编码。unicode编码的字符一般以wchar_t类型存储。
+wchar_t*转CString其实只需要使用CString的构造函数即可完成：
 
-将char*转换成wchar_t
-可以用TEXT()方法将char转换成wchar_t
-例如： wchar_t appName[5]=TEXT("test");
+```c
+wchar_t *p = "test";
+CString sz = CString(p);
+```
 
+#### 2.1.2 CString转wchar_t*
+
+CString转wchar_t*可使用CString的AllocSysString方法完成。需要注意的是，AllocSysString申请了新的内存空间，但转换的wchar_t*数据不再使用时，需要及时释放内存：
+
+```c
+CString sz = _T("test");
+wchar_t *p = sz.AllocSysString();
+//这里进行各种操作，p可等同于ProPath、ProLine等数据类型
+SysFreeString(p);//释放内存
+```
+
+### 2.2 char*与CString的互相转换
+
+#### 2.2.1 char*转CString
+
+char*转CString与wchar_t一样，使用CString的构造函数即可：
+
+```c
+char *p = "test";
+CString sz = CString(p);
+```
+
+#### 2.2.2 CString转char*
+
+CString转wchar_t*可使用CString的AllocSysString方法完成。需要注意的是，AllocSysString申请了新的内存空间，但转换的wchar_t*数据不再使用时，需要及时释放内存：
+
+```c
+CString sz = _T("test");
+wchar_t *p = sz.AllocSysString();
+//这里进行各种操作，p可等同于ProPath、ProLine等数据类型
+SysFreeString(p);//释放内存
+```
 
 
 char *p = string.c_str();
 
-wchart_t *p = string.AllocSysString();
-
-_T是一个宏，如果项目使用了Unicode字符集（定义了UNICODE宏），则自动在字符串前面加上L，否则字符串不变。因此，Visual C++里边定义字符串的时候，用_T来保证兼容性。VC支持ascii和unicode两种字符类型，用_T可以保证从ascii编码类型转换到unicode编码类型的时候，程序不需要修改。
-以下是别人的总结：
-一、在字符串前加一个L作用:  
-  如 L"我的字符串" 表示将ANSI字符串转换成unicode的字符串，就是每个字符占用两个字节。
+w
