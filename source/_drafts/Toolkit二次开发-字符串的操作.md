@@ -8,7 +8,7 @@ comments: true
 category: CREO二次开发
 ---
 
-对于字符串，Toolkit提供了ProWstringx系列函数如ProWstringCopy、ProStringToWstring、ProWstringConcatenate等，可实现字符串的复制、连接、转换等基本操作。但是以上函数使用起来相较MFC提供的CString类还是麻烦许多，特别是在字符串的替换、连接以及格式化转化等操作体现的尤为明显。故本文介绍利用MFC中CString对象简化字符串的操作。
+对于字符串，Toolkit提供了ProWstringx系列函数如ProWstringCopy、ProStringToWstring、ProWstringConcatenate等，可实现字符串的复制、连接、转换等基本操作。但是以上函数使用起来相较MFC提供的CString类还是麻烦许多，特别是在字符串的替换、连接、分割以及格式化转化等操作体现的尤为明显。故本文介绍利用MFC中CString对象简化字符串的操作。
 
 ## 1. Toolkit中字符串类型介绍
 
@@ -82,6 +82,9 @@ wchar_t *p = sz.AllocSysString();
 SysFreeString(p);//释放内存
 ```
 
+#### 2.1.3 简单实例
+
+
 ### 2.2 char*与CString的互相转换
 
 #### 2.2.1 char*转CString
@@ -107,4 +110,6 @@ SysFreeString(p);//释放内存
 
 char *p = string.c_str();
 
-w
+#### 2.2.3 简单实例
+
+
