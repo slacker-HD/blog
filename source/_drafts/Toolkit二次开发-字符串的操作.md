@@ -12,7 +12,7 @@ category: CREO二次开发
 
 ## 1. Toolkit中字符串类型介绍
 
-Toolkit里面的字符串操作估计是最迷惑人的地方，主要是Toolkit使用了大量的宏定义了如ProPath、ProLine等。其实Toolkit的字符串只涉及char和wchar_t两种字符串对象，所有的字符串相关内容无非是这两种不同类型字符串数组，从官方帮助文件找出了相关定义如下：
+Toolkit里面的字符串操作估计是最迷惑人的地方，各种诸如ProLine、ProPath等类型的字符串相当繁杂。这些不懂类型的ifuc其实都是针对char和wchar_t两种数据类型的宏定义，所有相关的字符串都是这两种类型不同长度的数组。从官方帮助文件找出了相关定义如下：
 
 ```c
 /*  Sizes include a NULL terminator  */
@@ -79,11 +79,8 @@ CString转wchar_t*可使用CString的AllocSysString方法完成。需要注意�
 CString sz = _T("test");
 wchar_t *p = sz.AllocSysString();
 //这里进行各种操作，p可等同于ProPath、ProLine等数据类型
-SysFreeString(p);//释放内存
+SysFreeString(p);//释放内存，p现在是野指针了
 ```
-
-#### 2.1.3 简单实例
-
 
 ### 2.2 char*与CString的互相转换
 
@@ -101,15 +98,22 @@ CString sz = CString(p);
 CString转wchar_t*可使用CString的AllocSysString方法完成。需要注意的是，AllocSysString申请了新的内存空间，但转换的wchar_t*数据不再使用时，需要及时释放内存：
 
 ```c
-CString sz = _T("test");
-wchar_t *p = sz.AllocSysString();
-//这里进行各种操作，p可等同于ProPath、ProLine等数据类型
-SysFreeString(p);//释放内存
+CString sz = _T("OnetoOneShow");
+char *p;
+//这里进行各种操作，p可等同于ProMenuName等数据类型
+sz.ReleaseBuffer(); //释放内存，p现在是野指针了
 ```
 
+## 3.简单实例
 
-char *p = string.c_str();
+用用的是之前“Ribbon界面的操作”一文的代码做实例进行讲解。下面的代码进行了大量的字符串拼接，想想如果使用Toolkit原生的一些函数应该如何处理：
 
-#### 2.2.3 简单实例
-
-
+```c
+CString macro;
+macro = "~ Command `ProCmdDwgRegenModel` ; ~Command `ProCmdWinActivate`;";
+macro += _T("~ Activate `main_dlg_cur` `" + _lastRibbonTab + "_control_btn` 1;");
+wchar_t *p = macro.AllocSysString();
+status = ProMacroLoad(p);
+SysFreeString(p);
+}
+```
