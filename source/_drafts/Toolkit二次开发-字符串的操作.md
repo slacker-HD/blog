@@ -67,7 +67,7 @@ typedef char ProCharLine[PRO_LINE_SIZE];
 wchar_t*转CString其实只需要使用CString的构造函数即可完成：
 
 ```c
-wchar_t *p = "test";
+wchar_t *p = L"test";
 CString sz = CString(p);
 ```
 
@@ -98,7 +98,7 @@ CString sz = CString(p);
 CString转wchar_t*可使用CString的AllocSysString方法完成。需要注意的是，AllocSysString申请了新的内存空间，但转换的wchar_t*数据不再使用时，需要及时释放内存：
 
 ```c
-CString sz = _T("OnetoOneShow");
+CString sz = _T("test");
 char *p;
 //这里进行各种操作，p可等同于ProMenuName等数据类型
 sz.ReleaseBuffer(); //释放内存，p现在是野指针了
