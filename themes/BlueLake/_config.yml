@@ -64,7 +64,7 @@ baidusitemap:
   path: baidusitemap.xml
 
 #Local search
-local_search: false ## Use a javascript-based local search engine, true/false.
+local_search: true ## Use a javascript-based local search engine, true/false.
 
 #Cmments
 comment:
