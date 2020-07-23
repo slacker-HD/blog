@@ -12,7 +12,7 @@ category: CREO二次开发
 
 ## 1. Toolkit中字符串类型介绍
 
-Toolkit里面的字符串操作估计是最迷惑人的地方，各种诸如ProLine、ProPath等类型的字符串相当繁杂。这些不懂类型的ifuc其实都是针对char和wchar_t两种数据类型的宏定义，所有相关的字符串都是这两种类型不同长度的数组。从官方帮助文件找出了相关定义如下：
+Toolkit里面的字符串操作估计是最迷惑人的地方，各种诸如ProLine、ProPath等类型的字符串相当繁杂。其实这些都是针对char和wchar_t两种数据类型的宏定义，所有相关的字符串都是这两种类型不同长度的数组。从官方帮助文件找出了相关定义如下：
 
 ```c
 /*  Sizes include a NULL terminator  */
@@ -106,7 +106,7 @@ sz.ReleaseBuffer(); //释放内存，p现在是野指针了
 
 ## 3.简单实例
 
-用用的是之前“Ribbon界面的操作”一文的代码做实例进行讲解。下面的代码进行了大量的字符串拼接，想想如果使用Toolkit原生的一些函数应该如何处理：
+用之前<a href="https://www.hudi.site/2020/05/02/CREO Toolkit二次开发-Ribbon界面的操作/" target="_blank">CREO Toolkit二次开发-Ribbon界面的操作</a>一文的代码做实例进行讲解。下面的代码进行了大量的字符串拼接，想想如果使用Toolkit原生的一些函数应该如何处理：
 
 ```c
 CString macro;
