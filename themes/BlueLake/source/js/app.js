@@ -15,14 +15,14 @@ particlesJS.load('particles-js', 'particles.json', function() {
 particlesJS("particles-js", {
     "particles": {
         "number": {
-            "value": 100,
+            "value": 70,
             "density": {
                 "enable": true,
                 "value_area": 800
             }
         },
         "color": {
-            "value": "#ffffff",
+            "value": "#fff",
 
         },
         "shape": {
@@ -45,7 +45,7 @@ particlesJS("particles-js", {
             // }
         },
         "opacity": {
-            "value": 0.8,
+            "value": 0.6,
             "random": true,
             "anim": {
                 "enable": false,
@@ -55,7 +55,7 @@ particlesJS("particles-js", {
             }
         },
         "size": {
-            "value": 20,
+            "value": 5,
             "random": true,
             "anim": {
                 "enable": false,
