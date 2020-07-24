@@ -169,6 +169,6 @@ int upload_data_yeelink(char* apikey, char* deviceid, char* sensorid,int value)
 }
 ```
 
-至此PC端程序完成，完整项目代码可在<a href="https://coding.net/u/slacker_HD/p/DigisparkEnvMon/git" target="_blank">coding.net</a>下载。
+至此PC端程序完成，完整项目代码可在<a href="https://slacker_hd.coding.net/public/DigisparkEnvMon/DigisparkEnvMon/git" target="_blank">coding.net</a>下载。
 
 ~~补充：Yeelink网站好像经常不稳定，想截图网站打不开了。~~

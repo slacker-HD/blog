@@ -176,4 +176,4 @@ oled屏显示voc数据关键代码如下：
     }
 ```
 
-至此设备端程序完成，完整项目代码可在<a href="https://coding.net/u/slacker_HD/p/DigisparkEnvMon/git" target="_blank">coding.net</a>下载。
+至此设备端程序完成，完整项目代码可在<a href="https://slacker_hd.coding.net/public/DigisparkEnvMon/DigisparkEnvMon/git" target="_blank">coding.net</a>下载。
