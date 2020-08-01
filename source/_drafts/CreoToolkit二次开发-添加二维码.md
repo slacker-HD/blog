@@ -120,7 +120,7 @@ void QRcodeSymdefCreate(ProDrawing drawing, CString name, CString message, ProVe
 
 ### 4.2 符号定义中绘制二维码
 
-为便于描述，我们设定在符号中画一个1mm长，线宽1mm的线段作为二维码中的点。在符号中创建草绘与在绘图中创建草绘过程基本一致，只是在调用ProDtlentityCreate函数的参数中的第二个参数需指定为二维码的符号定义对象。创建草绘以及设定其属性在之前**草绘中心线**一文中已经进行了描述，在此不在赘述，直接给出源码：
+为便于描述，我们设定在符号中画一个1mm长，线宽1mm的线段作为二维码中的点。在符号中创建草绘与在绘图中创建草绘过程基本一致，只是在调用ProDtlentityCreate函数的参数中的第二个参数需指定为二维码的符号定义对象。创建草绘以及设定其属性在之前<a href="https://www.hudi.site/2020/08/01/CREO Toolkit二次开发-草绘中心线/" target="_blank">CREO Toolkit二次开发-草绘中心线</a>一文中已经进行了描述，在此不在赘述，直接给出源码：
 
 ```cpp
 void PrintQRCodeDot(ProDtlsymdef *symdef, ProVector start, ProColortype color)
