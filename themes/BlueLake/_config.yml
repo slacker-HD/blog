@@ -31,7 +31,7 @@ widgets:
 
 # Toc
 toc:
-  enable: true
+  enable: false
   number: false
 
 # Static files
