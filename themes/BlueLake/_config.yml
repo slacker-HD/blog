@@ -42,7 +42,7 @@ css: css
 date_formats:
   archive: "MM月DD日"
   category: "YYYY/MM/DD"
-  post: "MMM DD, YYYY"
+  post: "YYYY-MM-DD"
   tag: "YYYY/MM/DD"
 
 # Extensions
