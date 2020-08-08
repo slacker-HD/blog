@@ -4,44 +4,84 @@ tags:
   - CREO
   - VBAPI
   - CREO二次开发
-comments: true
 category: CREO二次开发
+comments: true
 ---
 
-本节介绍VBAPI的视图旋转的操作。旋转视图到特定的位置可方便进行截图等操作，常用的方法主要包括在当前视图的基础上进行增量旋转以及将视图旋转到指定位置两种操作。
-
-## 1.增量旋转
-
-根据给定轴对当前视图进行旋转可使用IpfcView的Rotate方法完成。Rotate方法有两个参数，第一个参数为EpfcCoordAxis枚举类型，分别对应X、Y、Z三个轴，第二个参数Angle则表示旋转角度。旋转视图后，需要刷新当前窗口，实例代码如下：
-
 ```vb
-model = asyncConnection.Session.CurrentModel
-CType(model, IpfcViewOwner).GetCurrentView.Rotate(Axis, Angle)
-asyncConnection.Session.CurrentWindow.Refresh()
-asyncConnection.Session.CurrentWindow.Repaint()
+   ''' <summary>
+    ''' 计算默认坐标系下零件的outline
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function CurrentOutline() As Double()
+        Dim solid As IpfcSolid
+        Dim outline(3) As Double
+        Dim x1, x2, y1, y2, z1, z2 As Double
+
+        Try
+            If IsPrtorAsm() Then
+                solid = CType(asyncConnection.Session.CurrentModel, IpfcSolid)
+                x2 = solid.GeomOutline.Item(1).Item(0)
+                x1 = solid.GeomOutline.Item(0).Item(0)
+                y2 = solid.GeomOutline.Item(1).Item(1)
+                y1 = solid.GeomOutline.Item(0).Item(1)
+                z2 = solid.GeomOutline.Item(1).Item(2)
+                z1 = solid.GeomOutline.Item(0).Item(2)
+                outline(0) = Math.Abs(x2 - x1)
+                outline(1) = Math.Abs(y2 - y1)
+                outline(2) = Math.Abs(z2 - z1)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message.ToString + Chr(13) + ex.StackTrace.ToString)
+        End Try
+        Return outline
+    End Function
+    ''' <summary>
+    ''' 计算指定坐标系下零件的outline
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function CurrentOutlineCustom() As Double()
+        Dim selectionOptions As IpfcSelectionOptions
+        Dim selections As CpfcSelections
+        Dim coord As IpfcCoordSystem
+        Try
+            MessageBox.Show("请在模型图中选择一个坐标系用以计算。")
+            selectionOptions = (New CCpfcSelectionOptions).Create("csys")
+            selectionOptions.MaxNumSels = 1
+            selections = asyncConnection.Session.Select(selectionOptions, Nothing)
+            If selections.Count > 0 Then
+                coord = CType(selections.Item(0).SelItem, IpfcCoordSystem)
+                Return _CurrentOutlineCustom(coord.CoordSys)
+            End If
+        Catch
+            Return Nothing
+        End Try
+        Return Nothing
+    End Function
+    ''' <summary>
+    ''' 计算指定坐标系下零件的outline
+    ''' </summary>
+    ''' <returns>outline</returns>
+    Private Function _CurrentOutlineCustom(ByVal trf As IpfcTransform3D) As Double()
+        Dim solid As IpfcSolid
+        Dim outline(3) As Double
+        Dim outline3d As IpfcOutline3D
+        Dim excludeTypes As IpfcModelItemTypes
+
+        excludeTypes = New CpfcModelItemTypes
+        excludeTypes.Append(EpfcModelItemType.EpfcITEM_AXIS)
+        excludeTypes.Append(EpfcModelItemType.EpfcITEM_COORD_SYS)
+        Try
+            If IsPrtorAsm() Then
+                solid = CType(asyncConnection.Session.CurrentModel, IpfcSolid)
+                outline3d = solid.EvalOutline(trf, excludeTypes)
+                outline(0) = Math.Abs(outline3d.Item(1).Item(0) - outline3d.Item(0).Item(0))
+                outline(1) = Math.Abs(outline3d.Item(1).Item(1) - outline3d.Item(0).Item(1))
+                outline(2) = Math.Abs(outline3d.Item(1).Item(2) - outline3d.Item(0).Item(2))
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message.ToString + Chr(13) + ex.StackTrace.ToString)
+        End Try
+        Return outline
+    End Function
 ```
-
-## 2.指定位置
-
-将视图旋转到指定位置只需要设定当前视图的位姿矩阵即可，即设定当前视图的的Transform属性。以视图设为FRONT为例，代码如下：
-
-```vb
-Dim transform As IpfcTransform3D
-transform = (New CCpfcTransform3D).Create(Nothing)
-For i = 0 To 3
-  For j = 0 To 3
-    transform.Matrix.Set(i, j, 0)
-  Next
-Next
-transform.Matrix.Set(3, 3, 1)
-transform.Matrix.Set(0, 0, 1)
-transform.Matrix.Set(1, 1, 1)
-transform.Matrix.Set(2, 2, 1)
-
-model = asyncConnection.Session.CurrentModel
-CType(model, IpfcViewOwner).GetCurrentView.Transform = TransForm
-asyncConnection.Session.CurrentWindow.Refresh()
-asyncConnection.Session.CurrentWindow.Repaint()
-```
-
-完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。
