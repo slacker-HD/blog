@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2020-08-16 17:11:54
 ---
+
 
 二次开发做图文bom时，插入模型的截图是一个相对友好的操作，本文介绍如何使用Toolkit将模型导出图片。
 
