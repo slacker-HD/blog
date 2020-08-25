@@ -100,7 +100,7 @@ busuanzi: true ## If you want to use Busuanzi page views please set the value to
 
 # About page
 about:
-  photo_url:  ## Your photo e.g. http://obzf7z93c.bkt.clouddn.com/themeauthor.jpg
+  photo_url: /img/avatar/avator.jpg
   items:
   - label: 电子邮件
     url: 
