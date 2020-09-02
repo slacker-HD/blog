@@ -10,7 +10,7 @@
     "preview": "hexo s"
   },
   "dependencies": {
-    "hexo": "^5.0.2",
+    "hexo": "^5.1.1",
     "hexo-cli": "^4.2.0",
     "hexo-deployer-ftpsync": "^0.1.1",
     "hexo-deployer-git": "^2.1.0",
@@ -25,9 +25,9 @@
     "hexo-migrator-rss": "^1.0.0",
     "hexo-renderer-ejs": "^1.0.0",
     "hexo-renderer-jade": "^0.5.0",
-    "hexo-renderer-less": "^1.0.0",
-    "hexo-renderer-marked": "^3.0.0",
-    "hexo-renderer-stylus": "^1.1.0",
+    "hexo-renderer-less": "^2.0.1",
+    "hexo-renderer-marked": "^3.1.0",
+    "hexo-renderer-stylus": "^2.0.0",
     "hexo-server": "^2.0.0",
     "lodash": "^4.17.20",
     "particles.js": "^2.0.0"
