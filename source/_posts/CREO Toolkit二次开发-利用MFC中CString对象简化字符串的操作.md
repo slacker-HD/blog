@@ -1,12 +1,14 @@
 ---
-title: Creo Toolkit二次开发-利用MF中CString对象简化字符串的操作
+title: CREO Toolkit二次开发-利用MFC中CString对象简化字符串的操作
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2020-09-06 22:21:10
 ---
+
 
 对于字符串，Toolkit提供了ProWstringx系列函数如ProWstringCopy、ProStringToWstring、ProWstringConcatenate等，可实现字符串的复制、连接、转换等基本操作。但是以上函数使用起来相较MFC提供的CString类还是麻烦许多，特别是在字符串的替换、连接、分割以及格式化转化等操作体现的尤为明显。故本文介绍利用MFC中CString对象简化字符串的操作。
 
