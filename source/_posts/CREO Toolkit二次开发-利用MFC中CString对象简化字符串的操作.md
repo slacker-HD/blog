@@ -97,7 +97,7 @@ CString sz = CString(p);
 
 #### 2.2.2 CString转char*
 
-CString转wchar_t\*可使用CString的GetBuffer方法完成。需要注意的是，GetBuffer申请了新的内存空间，当转换的char\*数据不再使用时，需要及时释放内存：
+CString转char\*可使用CString的GetBuffer方法完成。需要注意的是，GetBuffer申请了新的内存空间，当转换的char\*数据不再使用时，需要及时释放内存：
 
 ```c
 CString sz = _T("test");
