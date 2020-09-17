@@ -6,13 +6,17 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2020-09-17 13:14:49
 ---
+
 
 在工程图中插入二维码可以方便机器扫描读取，易于将图纸与MES、ERP等系统结合。添加二维码一般可以考虑以下方式：
 
 1. 在工程图中插入图片等OLE内容。可以在Creo中导入外部程序生成的诸如jpg、png等图片格式的二维码文件。经测试，插入OLE内容暂时不仅未提供Toolkit接口，并且录制宏发现插入图片的操作也无法通过宏的方式实现，所以该方法只能由设计人员手动添加，无法进行二次开发。
 2. 在工程图中插入dxf。可以在Creo中导入外部程序生成的dxf格式的二维码文件。经测试，导入的dxf文件会转换为草绘对象，而且Toolkit提供了Pro2dImportAppend函数用于导入dxf文件，所以该方法不仅可以手动操作，也适合于二次开发。但该方法导入dxf后添加了一系列草绘图元，当需要修改时难以确定那些草绘时导入的dxf文件转换得到导致难以对二维码相关的草绘删除修改，故该方法仅适用于一次性导入二维码的操作。
-3. 生成包含二维码信息的符号。可以在绘图中添加一个符号，在符号中绘制对应的二维码图案，之后插入该符号。该方法手工操作较复杂，主要需要手动绘制对应的二维码符号，但易于插入修改及替换，而Toolkit也提供了绘制符号的方式，本文主要采用本方法在绘图中添加二维码。
+3. 生成包含二维码信息的符号。可以在绘图中添加一个符号，在符号中绘制对应的二维码图案，之后插入该符号。该方法手工操作较复杂，主要需要手动绘制对应的二维码符号，但易于插入修改及替换，而Toolkit也提供了绘制符号的方式，
+
+本文主要采用第三种方法在绘图中添加二维码。
 
 ## 1.添加二维码的基本流程
 
@@ -68,7 +72,7 @@ void DeletePreQrCodeDef()
 
 ## 3.字符串转二维码<sup>[1]</sup>
 
-生成QRCODE的数据我们直接使用了<a href="https://github.com/elicec/MFCQRcode" target="_blank">Github.com上MFCQRcode项目提供的LibQRCode库</a>。使用该库只需添加LibQRCode.lib以及对应头文件qrencode.h的引用，为常规的库文件引用操作，在此不在赘述。根据工程介绍，生成二维码并访问其信息的示例代码如下：
+生成QRCODE的数据我们直接使用了Github.com上<a href="https://github.com/elicec/MFCQRcode" target="_blank">MFCQRcode项目提供的LibQRCode库</a>。使用该库只需添加LibQRCode.lib以及对应头文件qrencode.h的引用，为常规的库文件引用操作，在此不在赘述。根据工程介绍，生成二维码并访问其信息的示例代码如下：
 
 ```cpp
 if (pQRC = QRcode_encodeString(message, 0, QR_ECLEVEL_L, QR_MODE_8, 1)) //根据实际调整对应的参数
@@ -233,6 +237,6 @@ void SymInstCreateFree(ProDrawing drawing, ProDtlsymdef *definition, ProVector p
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
 
-## 参考网站
+## 参考网址
 
-[1] elicec/MFCQRcode. 2020-XXX-XXX[引用日期XXXXXXXXXXXXXXXXXXXX],<a href="https://github.com/elicec/MFCQRcode" target="_blank">https://github.com/elicec/MFCQRcode</a>.
+[1] elicec/MFCQRcode. 2020-09-17[引用日期2020-09-17],<a href="https://github.com/elicec/MFCQRcode" target="_blank">https://github.com/elicec/MFCQRcode</a>.
