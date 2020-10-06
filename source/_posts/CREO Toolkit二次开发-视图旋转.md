@@ -1,14 +1,16 @@
 ---
-title: Creo Toolkit二次开发-视图旋转
+title: CREO Toolkit二次开发-视图旋转
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2020-10-06 22:14:08
 ---
 
-“Creo Toolkit二次开发-模型导出图片”一文中我们介绍了如何将视图导出图片。其实在导出图片之前，通常我们还需要将视图旋转到制定位置，本节介绍Toolkit的视图旋转的操作。与VBAPI一样，Toolkit同样提供了ProViewRotate和ProViewMatrixSet两个函数用于在当前视图的基础上进行增量旋转以及将视图旋转到指定位置两种操作，两个函数的参数相对简单，与VBAPI有类似之处，在此不再赘述了，直接给出代码供参考：
+
+<a href="https://www.hudi.site/2020/08/16/CREO Toolkit二次开发-模型导出图片/" target="_blank">Creo Toolkit二次开发-模型导出图片</a>一文中我们介绍了如何将视图导出图片。其实在导出图片之前，通常我们还需要将视图旋转到制定位置，本节介绍Toolkit的视图旋转的操作。与VBAPI一样，Toolkit同样提供了ProViewRotate和ProViewMatrixSet两个函数用于在当前视图的基础上进行增量旋转以及将视图旋转到指定位置两种操作，两个函数的参数相对简单，与VBAPI有类似之处，在此不再赘述了，直接给出代码供参考：
 
 ```c
 void _setView(ProRotate rotation_axis, double angle)
