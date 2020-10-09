@@ -10,7 +10,9 @@ comments: true
 
 本节介绍使用VBAPI计算零件的外形尺寸。外形尺寸的计算与参照坐标系密切相关，VBAPI在IpfcSolid的GeomOutline属性可获得默认坐标系下外形尺寸，EvalOutline方法获得选定坐标系下的外形尺寸。EvalOutline函数有两个参数，第一个为参照坐标系，第二个为计算外形尺寸时可以忽略的特征。
 
-计算默认坐标系下零件的轮廓尺寸示例代码如下：
+## 1.计算默认坐标系下外形尺寸
+
+GeomOutline属性为一个二维数组，记录对应外形矩形的对角两个坐标，故计算默认坐标系下零件的外形尺寸示例代码如下：
 
 ```vb
 Public Function CurrentOutline() As Double()
@@ -38,7 +40,9 @@ Return outline
 End Function
 ```
 
-计算指定坐标系下零件的轮廓尺寸示例代码如下：
+## 2.计算指定坐标系下零件的外形尺寸
+
+EvalOutline函数同样也是返回对应外形矩形的对角两个坐标，计算指定坐标系下零件的外形尺寸示例代码如下：
 
 ```vb
 Public Function CurrentOutlineCustom() As Double()
