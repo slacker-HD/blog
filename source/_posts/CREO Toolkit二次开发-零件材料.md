@@ -1,12 +1,14 @@
 ---
-title: Creo Toolkit二次开发-零件材料
+title: CREO Toolkit二次开发-零件材料
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2020-10-15 10:12:16
 ---
+
 
 其实这个功能也无非是读取属性和修改属性，不过既然vbapi的写了，toolkit也权当练练手了。
 
