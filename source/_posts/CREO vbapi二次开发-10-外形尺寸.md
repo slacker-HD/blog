@@ -1,12 +1,14 @@
 ---
 title: CREO vbapi二次开发-10-外形尺寸
 tags:
- - CREO
- - VBAPI
- - CREO二次开发
-category: CREO二次开发
+  - CREO
+  - VBAPI
+  - CREO二次开发
 comments: true
+category: CREO二次开发
+date: 2020-11-10 11:00:36
 ---
+
 
 本节介绍使用VBAPI计算零件的外形尺寸。外形尺寸的计算与参照坐标系密切相关，VBAPI在IpfcSolid的GeomOutline属性可获得默认坐标系下外形尺寸，EvalOutline方法获得选定坐标系下的外形尺寸。EvalOutline函数有两个参数，第一个为参照坐标系，第二个为计算外形尺寸时可以忽略的特征。
 
