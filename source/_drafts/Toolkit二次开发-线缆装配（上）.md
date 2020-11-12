@@ -10,7 +10,7 @@ category: CREO二次开发
 
 最近遇到个布线的需求，对这个行业不熟，通过搜索引擎搜索除了部分论文基本找不到相关内容，而且论文也仅是给出一些示例结构代码，参考意义不大，做了些预研，在此分享。由于完全没接触过这个行业，本文的叙述可能会有错误或者疏漏的地方，欢迎指正。
 
-布线的操作大体是如下图所示，大概分为4个步骤。首先是新建或读取线束（Harness）以及新建或读取线轴（Spool）。这两个操作没有前后顺序，都是为布线做准备。之后根据给定的线束（Harness）以及线轴（Spool），新建元件（Cable）。新建Cable后，根据给定的参数（如坐标系、轴等），完成布线（Route）。
+布线的操作大体是如下图所示，大概分为4个步骤。首先是新建或读取线束（Harness）以及新建或读取线轴（Spool）。这两个操作没有前后顺序，都是为布线做准备。之后根据给定的线束（Harness）以及线轴（Spool），新建元件（Cable）。新建元件（Cable）后，根据给定的参数（如坐标系、轴等），完成布线（Route）。
 
 <div align="center">
     <img src="/img/proe/CableRoute1.png" style="width:80%" align="center"/>
@@ -19,11 +19,7 @@ category: CREO二次开发
 
 ## 1.线束（Harness）的操作
 
-线束（Harness）在Toolkit描述为一个只能在装配体中打开的零件，官方描述如下：
-
-> A harness is a Creo Parametric part designed to contain cables. It appears in the cabling assembly as an assembly component. A harness cannot be retrieved in the Creo Parametric Part mode.
-
-线束的数据结构由ProHarness进行描述，其定义如下：
+线束（Harness）在Toolkit描述为一个只能在装配体中打开的零件，其数据结构由ProHarness进行描述，定义如下：
 
 ```cpp
 typedef struct sld_part* ProHarness;

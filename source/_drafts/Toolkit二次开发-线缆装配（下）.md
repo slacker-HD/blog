@@ -21,17 +21,37 @@ category: CREO二次开发
 
 根据测试，实际操作过程中布线需要确定对应的位置和参照，而对应的位置和参照一般都会超过一个，所以上面的2-4步可以循环调用，实际代码流程图如下所示：
 
+<div align="center">
+    <img src="/img/proe/CableRoute2.png" style="width:80%" align="center"/>
+    <p>图 布线的流程</p>
+</div>
 
+## 1.准备布线
 
+### 1.1 准备布线的位置引用（location reference）
 
+布线时需要的位置引用（location reference）在Toolkit中为ProCablelocationref对象，由ProCablelocationrefAlloc分配和初始化内存，根据操作顺序，ProCablelocationref对象的操作将在随后说明，由于ProCablelocationref对象的初始化需要对应的Selection对象并且ProSelect函数无法在ProCableRoutingStart后使用，所以如果是手动选择获取Selection对象必须在开始布线前获取。本文为简单说明，以两个坐标系(Csys)作为布线的起点和终点，采用手动选择的方式获取，自动化的时候遍历装配体可以使用ProSelectionAlloc函数程序自动添加坐标系到ProSelection对象，代码如下：
 
+```cpp
+int nSels = 0;
+ProSelection *sel_array;
+//选择两个坐标系用于布线，自动化的时候遍历装配体可以使用ProSelectionAlloc程序自动添加selection
+status = ProSelect("csys", 2, NULL, NULL, NULL, NULL, &sel_array, &nSels); //filter与ProCablelocationref类型一致
+if (status != PRO_TK_NO_ERROR || nSels <= 0)
+{
+  AfxMessageBox(_T("需要选择两个坐标系才能进行布线。\n这是一个测试程序，仅为演示使用。"));
+  return;
+}
+```
 
+### 1.2 进入布线操作
 
-## 1.开始布线
+调用ProCableRoutingStart函数即可开始布线。ProCableRoutingStart函数的参数有三个，第一个为装配体句柄，第二步为一个ProCable的ProArray数组，将上一篇文章中生成的ProCable结构体对象插入数组即可，第三个为ProRouting类型，作为输出用于后续的布线操作。官方给出ProCableRoutingStart的作用和使用说明如下：
 
-调用ProCableRoutingStart函数即可开始布线。ProCableRoutingStart函数的参数有三个，第一个为装配体句柄，第二步为一个ProCable的ProArray数组，将上一篇文章中生成的ProCable结构体对象插入数组即可，第三个为ProRouting句柄，作为输出用于后续的布线操作。开始布线的示例代码如下：
+> After the call to ProCableRoutingStart(), the information about the routing in progress is contained in an opaque data structure ProRouting that ProCableRoutingStart() provides. This pointer is then given as an input to the functions ProCableThruLocationRoute() and ProCableRoutingEnd().
+> The inputs to ProCableRoutingStart() are the cabling assembly and harness handles, and an array of cables.
 
-
+开始布线的示例代码如下，完成最开始所说布线6个步骤的第1个步骤：
 
 ```cpp
   status = ProArrayAlloc(0, sizeof(ProCable), 1, (ProArray *)&array_cable);
@@ -40,7 +60,6 @@ category: CREO二次开发
   if (status != PRO_TK_NO_ERROR)
   {
     status = ProArrayFree((ProArray *)&array_cable);
-    return;
   }
 ```
 
@@ -48,17 +67,44 @@ category: CREO二次开发
 
 ### 2.1 构建布线参考对象
 
+status = ProSelectionAsmcomppathGet(sel_array[i], &comp_path);
+status = ProConnectorDesignate(&comp_path, NULL);
+
+```cpp
+//2.Call ProCablelocationrefAlloc() to create a routing reference location structure.
+//初始化ProCablelocationrefAlloc第二个参数，选择的第一个坐标系作为起点,sel_array只添加了一个
+status = ProArrayAlloc(0, sizeof(ProSelection), 1, (ProArray *)&sel_array_route);
+status = ProArrayObjectAdd((ProArray *)&sel_array_route, -1, 1, &sel_array[i]);
+status = ProCablelocationrefAlloc(locType, sel_array_route, PRO_B_TRUE, offset, &cablelocationref);
+
+//3.Call ProCableThruLocationRoute() for each location through which to route the cables.
+status = ProCableThruLocationRoute(cable_route_data, cablelocationref, &p_location, &second_location);
+
+//4.Call ProCablelocationrefFree() to free the location reference.
+status = ProCablelocationrefFree(cablelocationref);
+status = ProArrayFree((ProArray *)&sel_array_route);
+```
+
 ### 2.2 布线
 
 ### 2.3 释放内存
 
+调用ProCableThruLocationRoute之后，对应的布线参考对象cablelocationref就不再需要，使用ProCablelocationrefFree释放其内存，同时记得释放构建cablelocationref时生成sel_array_route数组的内存，代码如下：
 
+```cpp
+status = ProCablelocationrefFree(cablelocationref);
+status = ProArrayFree((ProArray *)&sel_array_route);
+```
 
+## 3.结束布线
 
+结束布线只需调用ProCableRoutingEnd函数即可，其参数为之前ProCableRoutingStart生成的ProRouting数据。同时根据官方文档，需要调用ProSolidRegenerate和ProWindowRepaint才能显示生成的线缆。同时不要忘记在第一步中我们为array_cable申请了内存，记得释放，示例代码如下：
 
+```cpp
+  status = ProArrayFree((ProArray *)&array_cable);
+  status = ProCableRoutingEnd(cable_route_data);
+  status = ProSolidRegenerate((ProSolid)mdl, PRO_REGEN_NO_FLAGS);
+  status = ProWindowRepaint(PRO_VALUE_UNUSED);
+```
 
-
-<div align="center">
-    <img src="/img/proe/CableRoute2.png" style="width:80%" align="center"/>
-    <p>图 布线的</p>
-</div>
+完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
