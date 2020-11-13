@@ -145,7 +145,7 @@ status = ProArrayFree((ProArray *)&sel_array_route);
 
 重复上述操作，即可确定布线的所有位置。
 
-**P.S. 使用ProConnectorDesignate可以将Selection对应的组件指定为装配连接器（assembly connector），但是测试发现不做这部也能完成布线，给出一下代码，希望有人能够帮忙解惑：**
+**P.S. 使用ProConnectorDesignate可以将Selection对应的组件指定为装配连接器（assembly connector），但是测试发现不做这步也能完成布线，给出一下代码，希望有人能够帮忙解惑：**
 
 ```cpp
 status = ProSelectionAsmcomppathGet(sel_array[i], &comp_path);
