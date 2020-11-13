@@ -13,7 +13,7 @@ category: CREO二次开发
 布线的操作大体是如下图所示，大概分为4个步骤。首先是新建或读取线束（Harness）以及新建或读取线轴（Spool）。这两个操作没有前后顺序，都是为布线做准备。之后根据给定的线束（Harness）以及线轴（Spool），新建元件（Cable）。新建元件（Cable）后，根据给定的参数（如坐标系、轴等），完成布线（Route）。
 
 <div align="center">
-    <img src="/img/proe/CableRoute1.png" style="width:80%" align="center"/>
+    <img src="/img/proe/CableRoute1.png" style="width:40%" align="center"/>
     <p>图 布线的操作流程</p>
 </div>
 
