@@ -15,7 +15,7 @@ category: CREO二次开发
 
 计算默认坐标系下外形尺寸可以通过ProSolidOutlineGet函数获得。函数通过计算给出了与vbapi类似的两组坐标，给出示例代码如下：
 
-```c
+```cpp
 ProError status;
 ProMdl solid;
 Pro3dPnt outline[2];
@@ -30,7 +30,7 @@ AfxMessageBox(Msg);
 
 计算制定坐标系下外形尺寸可以使用ProSolidOutlineCompute函数完成。该函数相对复杂的地方在于第二个参数需要将给定的坐标系转化为对应的转置矩阵进行计算。在Toolkit的示例代码中提供了ProUtilVectorsToTransf和ProUtilMatrixInvert用于此计算，直接拷贝对应的函数，则对应的示例代码如下：
 
-```c
+```cpp
 ProError status;
 int sel_count;
 ProSelection *psels = NULL;
