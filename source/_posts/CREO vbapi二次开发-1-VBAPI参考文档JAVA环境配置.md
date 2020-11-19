@@ -19,8 +19,9 @@ VBAPI的帮助文档位于CREO安装目录中Common Files\datecode\machine type\
 
 第二步，修改java.policy文件。默认位置在“C:\Program Files\Java\jre1.8.0_45\lib\security”文件夹下。注意系统和jre的版本，64位系统安装32位jre则可能是“C:\Program Files (x86)\Java\jreXXXXX\lib\security”。添加如下内容：
 
-```
+```text
 // "standard" properies that can be read by anyone
 permission java.io.FilePermission "<<ALL FILES>>", "read,write";
 ```
+
 这样就可以通过32位的IE浏览器打开帮助文档了，每次JAVA更新后记得还需要修改java.policy文件。~~经个人测试，win10X64系统好像使用64位的IE配合64位的JAVA无法打开帮助文档。~~

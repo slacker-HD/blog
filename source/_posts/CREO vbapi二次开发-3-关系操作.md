@@ -38,7 +38,6 @@ End If
     <p>图 3-4 添加关系流程</p>
 </div>
 
-
 ## 2.清空关系
 
 清空关系很简单，直接调用IpfcRelationOwner的DeleteRelations方法即可，如何获得IpfcRelationOwner在上面已经介绍过了，这里不在赘述。清空关系的函数调用流程如图3-5所示，示例代码如下：

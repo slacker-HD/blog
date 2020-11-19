@@ -82,6 +82,7 @@ int Utf82Unicode(const char *utf, wchar_t *unicode, int nBuffSize)
 }
 
 ```
+
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。
 
 ## 参考文献

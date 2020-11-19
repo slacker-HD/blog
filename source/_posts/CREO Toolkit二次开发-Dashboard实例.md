@@ -16,7 +16,7 @@ Creo提供了一个名为仪表盘（Dashboard）的方式解决了上面的问�
 > A dashboard consists of the following components:  
 > •  A main dialog bar, which show the commonly used commands and entry fields. You perform most of your modeling tasks in thegraphics window and the dialog bar. When you activate a tool, the dialog bar displays commonly used options and collectors.  
 > •  Standard buttons for controlling the tool.  
-> •  Slide-down panels that open to reveal less commonly-used functionality. You can use them to perform advanced modeling actionsor retrieve comprehensive feature information. 
+> •  Slide-down panels that open to reveal less commonly-used functionality. You can use them to perform advanced modeling actionsor retrieve comprehensive feature information.
 > •  A bitmap identifies the tool (typically the same icon used on buttons that invoke the tool).  
 >  
 > Creo Parametric uses the dashboard to create features that involve extensive interaction with user interface components and geometry manipulation.You can use dashboards in Creo Parametric TOOLKIT applications:  
@@ -41,7 +41,7 @@ Dialog Bar和Slide-down Panels与原生对话框制作过程相同，通过写re
 
 如前文所述，Dialog Bar和原生对话框一样，通过写res文件的方式。本文仅做一个简单的实例，故只添加了一个按钮。此外，由于Standard Buttons暂时无法实现，故在Dialog Bar中添加了"确定"和"取消"两个按钮。res文件如下所示：
 
-```
+```text
 (Layout mainpage
   (Components
     (PushButton                     ok_btn)
@@ -226,7 +226,7 @@ status = DashboardSlidePageSetup(NULL, &slideup_panels[0]);
 
 slide1对应的资源文件如下，只设置了一个按钮：
 
-```
+```text
 (Layout slide1
   (Components
     (SubLayout                      Layout1)
@@ -390,6 +390,7 @@ static ProError MainPageNotification(ProUIDashboardPage page, ProUIDashboardPage
   return PRO_TK_NO_ERROR;
 }
 ```
+
 最终程序运行界面如图2所示。
 
 <div align="center">

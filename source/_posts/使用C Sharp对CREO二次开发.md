@@ -101,17 +101,17 @@ public bool Openprt()
     filename = asyncConnection.Session.UIOpenFile(fileOpenopts);
     // 注意点1
     // modelDesc = (New CCpfcModelDescriptor).Create(EpfcModelType.EpfcMDL_PART, Nothing, Nothing)
-    modelDesc = new CCpfcModelDescriptor().Create((int)EpfcModelType.EpfcMDL_PART, null, null); 
+    modelDesc = new CCpfcModelDescriptor().Create((int)EpfcModelType.EpfcMDL_PART, null, null);
     modelDesc.Path = filename;
     retrieveModelOptions = new CCpfcRetrieveModelOptions().Create();
     retrieveModelOptions.AskUserAboutReps = false;
     // 注意点2
     // model = asyncConnection.Session.RetrievemodelWithOpts(modelDesc, retrieveModelOptions)
-    model = ((IpfcBaseSession)(asyncConnection.Session)).RetrieveModelWithOpts(modelDesc, retrieveModelOptions);     
+    model = ((IpfcBaseSession)(asyncConnection.Session)).RetrieveModelWithOpts(modelDesc, retrieveModelOptions);
     model.Display();
     // 注意点3
     // asyncConnection.Session.CurrentWindow.Activate()
-    ((IpfcBaseSession)(asyncConnection.Session)).get_CurrentWindow().Activate(); 
+    ((IpfcBaseSession)(asyncConnection.Session)).get_CurrentWindow().Activate();
     return true;
   }
   catch

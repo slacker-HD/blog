@@ -53,7 +53,6 @@ End Function
 
 与获得表头类似，IpfcFamilyMember提供了ListRows等方法访问族表实例的参数，与获得族表表头的方法类似。IpfcFamilyMember类的GetCell可以通过给定表头和族表所在行获取对应的参数值，族表参数的类型为IpfcParamValue。由于表格的值与表头一一对应，所以要获得实例名称可以通过生成对应实例获取其InstanceName的方法获得。获取族表某一实例的信息代码如下：
 
-
 ```vb
 Public Function GetFamRow(ByVal row As Integer) As ArrayList
   Dim model As IpfcModel

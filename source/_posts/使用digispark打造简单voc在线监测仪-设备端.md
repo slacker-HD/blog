@@ -23,7 +23,7 @@ category: Arduino
 
 <div align="center">
     <img src="/img/arduino/2017-09-10digispark.jpg" style="width:65%" align="center"/>
-    <p>图 2 Digispark1个</p> 
+    <p>图 2 Digispark1个</p>
 </div>
 
 <div align="center">

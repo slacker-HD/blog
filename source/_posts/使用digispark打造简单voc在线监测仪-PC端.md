@@ -98,7 +98,7 @@ while(true)
 
 本例选择将数据上传至Yeelink平台，协议采用HTTP POST方式推送数据，协议内容如下：
 
-```
+```text
 POST /v1.0/device/YOU DEVICE ID/sensor/YOUR SENSOR ID/datapoints HTTP/1.1
 Host: api.yeelink.net
 U-ApiKey:YOUR APIKEY

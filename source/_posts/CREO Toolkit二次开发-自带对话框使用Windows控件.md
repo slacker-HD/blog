@@ -22,7 +22,7 @@ date: 2019-09-23 16:23:09
 
 首先在窗体中留出足够的位置用以放置MFC窗体，例如我们可以使用DrawingArea控件占用了一个400X400大小的空间：
 
-```
+```text
 (Layout Content
   (Components
     (DrawingArea Preview)

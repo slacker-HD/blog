@@ -32,7 +32,7 @@ Toolkit的安装目录为"C:\PTC\Creo 2.0\Common Files\M060\protoolkit"。编译
 
 （2）开始菜单找到"Visual Studio x64 Win64 命令提示(2010)"并打开。依次输入如下代码即可完成项目的编译：
 
-```
+```shell
 cd C:\PTC\Creo 2.0\Common Files\M060\protoolkit\x86e_win64\obj
 nmake dll
 ```
@@ -47,7 +47,7 @@ nmake dll
 
 dll文件已经生成，加载运行的方法和正常二次开发一样，无非是编写dat确定正确的目录，在此不在赘述。例如本文的dat文件如下：
 
-```
+```text
 NAME       pt_geardesign
 EXEC_FILE  C:\PTC\Creo 2.0\Common Files\M060\protoolkit\x86e_win64\obj\pt_geardesign.dll
 TEXT_DIR   C:\PTC\Creo 2.0\Common Files\M060\protoolkit\protk_appls\pt_geardesign\text

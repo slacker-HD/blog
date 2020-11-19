@@ -17,7 +17,7 @@ IpfcBaseSession.RunMacro (Macro as String )
 该方法主要用于运行CREO映射键字符串，即宏。注意宏只能在CREO获得控制权之后才能运行，也就是说宏只能在所有函数运行完后才能运行，并且如果CREO同时有J-Link程序在运行时，宏会等待J-Link程序执行完毕后再执行。尽管宏有多种限制，但是很多功能利用宏可以很简单的实现。此外，很多功能VBAPI并未给出对应的类和方法进行操作，只能通过宏的方式进行实现。在以后的章节我们会多次使用到宏。
 使用宏的时候需注意：录制一个宏可能会分为多行，以下代码表示打开宏录制窗口：
 
-```
+```text
 mapkey ll ~ Trail `UI Desktop` `UI Desktop` `PREVIEW_POPUP_TIMER` \
 mapkey(continued) `main_dlg_w1:PHTLeft.AssyTree:<NULL>`;~ Select `main_dlg_cur` `appl_casc`;\
 mapkey(continued) ~ Close `main_dlg_cur` `appl_casc`;~ Command `ProCmdRibbonOptionsDlg` ;\
@@ -27,7 +27,7 @@ mapkey(continued) ~ Activate `ribbon_options_dialog` `env_layouts.Env_MapkeySet_
 
 此时可以将宏中“mapkey”、“mapkey(continued)”文字及每段最后一个“\”符号删除合成一行，代码如下：
 
-```
+```text
 ll ~Trail `UI Desktop` `UI Desktop` `PREVIEW_POPUP_TIMER` `main_dlg_w1:PHTLeft.AssyTree:<NULL>`;~Select `main_dlg_cur` `appl_casc`; ~ Close `main_dlg_cur` `appl_casc`;~ Command`ProCmdRibbonOptionsDlg` ; ~ Select `ribbon_options_dialog``PageSwitcherPageList` 1 `env_layouts`; ~ Activate `ribbon_options_dialog``env_layouts.Env_MapkeySet_Btn`;
 ```
 

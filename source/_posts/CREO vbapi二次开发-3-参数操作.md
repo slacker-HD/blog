@@ -39,7 +39,6 @@ End If
 
 修改参数通过调用iParameter类的SetScaledValue方法实现(对应使用GetScaledValue可读取值)。第二个参数为Units为IpfcUnit，表示参数的单位，是一个可选参数，一般默认为模型的单位设置为Nothing即可。第一个参数value为IpfcParamValue值，直接调用iParameterOwner的GetParam方法即可得到，可以不要用CCpfc类再初始化一个变量。故修改参数的函数调用流程如图3-2所示，示例代码如下：  
 
-
 ```vb
 Dim model As IpfcModel
 Dim iParamValue As IpfcParamValue

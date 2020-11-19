@@ -30,7 +30,7 @@ model.Export(model.InstanceName + ".dwg", dwginstructions)'保存同名Dwg文件
 
 ## 2.导出Pdf
 
-导出Pdf与导出Dwg基本一样，只是将对应的导出选项换成IpfcPDFExportInstructions类并通过CCpfcPDFExportInstructions的Create方法生成。IpfcPDFExportInstructions有FilePath、Options和ProfilePath三个属性，请查看VB API帮助手册确定需要的值，本文使用其默认值不做修改，故导出Pdf的函数调用流程如图4-2所示，示例代码如下： 
+导出Pdf与导出Dwg基本一样，只是将对应的导出选项换成IpfcPDFExportInstructions类并通过CCpfcPDFExportInstructions的Create方法生成。IpfcPDFExportInstructions有FilePath、Options和ProfilePath三个属性，请查看VB API帮助手册确定需要的值，本文使用其默认值不做修改，故导出Pdf的函数调用流程如图4-2所示，示例代码如下：
 
 ```vb
 Dim model As IpfcModel
@@ -48,7 +48,7 @@ model.Export(model.InstanceName + ".pdf", pdfinstructions)
 
 ## 3.导出Stp
 
- 导出Stp与导出Pdf基本一样，只是将对应的导出选项换成IpfcSTEP3DExportInstructions类并通过CCpfcSTEP3DExportInstructions的Create方法生成。CCpfcSTEP3DExportInstructions的Create方法有两个参数，第一个inConfiguration为EpfcAssemblyConfiguration(帮助文档有误)，第二个参数inGeometry为IpfcGeometryFlags类型，可以通过对应的CCpfcGeometryFlags.Create生成。修改inGeometry的属性即可确定导出Stp文件的方式，本例设置导出为实体，即设定AsSolids为True。导出Stp的函数调用流程如图4-3所示，示例代码如下： 
+ 导出Stp与导出Pdf基本一样，只是将对应的导出选项换成IpfcSTEP3DExportInstructions类并通过CCpfcSTEP3DExportInstructions的Create方法生成。CCpfcSTEP3DExportInstructions的Create方法有两个参数，第一个inConfiguration为EpfcAssemblyConfiguration(帮助文档有误)，第二个参数inGeometry为IpfcGeometryFlags类型，可以通过对应的CCpfcGeometryFlags.Create生成。修改inGeometry的属性即可确定导出Stp文件的方式，本例设置导出为实体，即设定AsSolids为True。导出Stp的函数调用流程如图4-3所示，示例代码如下：
 
 ```vb
 Dim model As IpfcModel
@@ -68,7 +68,7 @@ model.Export(model.InstanceName + ".pdf", stepinstructions)
 
 ## 4.导出Igs
 
-导出Igs与导出Stp基本一样，只需替换对应导出选项类为IpfcIGES3DNewExportInstructions和CCpfcIGES3DNewExportInstructions类即可，CCpfcIGES3DNewExportInstructions的Create方法调用的参数也和导出Stp一致。故导出Igs的函数调用流程如图4-4所示，示例代码如下： 
+导出Igs与导出Stp基本一样，只需替换对应导出选项类为IpfcIGES3DNewExportInstructions和CCpfcIGES3DNewExportInstructions类即可，CCpfcIGES3DNewExportInstructions的Create方法调用的参数也和导出Stp一致。故导出Igs的函数调用流程如图4-4所示，示例代码如下：
 
 ```vb
 Dim model As IpfcModel
