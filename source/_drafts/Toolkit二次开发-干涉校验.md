@@ -7,28 +7,70 @@ tags:
 comments: true
 ---
 
+Creo的干涉检测分为全局干涉检测及指定组件间干涉检测，可完成干涉量计算，干涉部分高亮显示等功能。
 
-在Creo工程图出图过程中，常需要手动添加草绘的方式添加诸如中心线等内容。本文介绍如何在绘图中通过二次开发快速添加圆弧中心线。
+## 1. 基本数据
 
-## 1.圆弧信息
-
-### 1.1 圆弧对象的获取
-
-Toolkit中使用ProGeomitem这个结构体用于表述几何对象，根据官方文件，ProGeomitem主要包含以下类型：
-
-
-ProGeomitem定义为一个结构体类型：
+组件间的干涉信息由结构体ProInterferenceInfo进行描述，以ProSelection类型记录了两个干涉组件和干涉的信息：
 
 ```cpp
-typedef struct pro_model_item
+typedef struct ProInterferenceinfo
 {
-  ProType  type;
-  int      id;
-  ProMdl owner;
-} ProModelitem, ProGeomitem, ProExtobj, ProFeature, ProProcstep, ProSimprep, ProExpldstate, ProLayer, ProDimension, ProDtlnote, ProDtlsyminst, ProGtol, ProCompdisp, ProDwgtable, ProNote, ProAnnotationElem, ProAnnotation, ProAnnotationPlane, ProSymbol, ProSurfFinish, ProMechItem, ProMaterialItem, ProCombstate, ProLayerstate;
+  ProSelection part_1;
+  ProSelection part_2;
+  ProInterferenceData interf_data;
+}ProInterferenceInfo;
 ```
 
-由于ProGeomitem与ProModelitem为同一结构体类型，故可以通过ProSelect选取的方式获得:
+ProInterferenceData是一个不透明句柄，定义为一个不透明指针：
+
+```cpp
+typedef void *ProInterferenceData;  
+```
+
+干涉的体积可以ProFitInterferencevolumeCompute函数调用ProInterferenceData计算得出，高亮干涉区域也可以使用函数ProFitInterferencevolumeDisplay通过调用ProInterferenceData进行高亮显示。
+
+## 2. 全局干涉检测
+
+全局干涉检测通过ProFitGlobalinterferenceCompute计算出装配体中所有的干涉信息，给出一个ProInterferenceInfo的ProArray数组，使用完毕后须使用ProInterferenceInfoProarrayFree释放对应的内存，给出示例代码：
+
+```cpp
+ProError GToInterCal()
+{
+  ProError status;
+  int n_parts, i;
+  double volume;
+  ProMdl mdl;
+  ProModelitem part1, part2;
+  ProName name1, name2;
+  ProInterferenceInfo *interf_info_arr;
+  status = ProMdlCurrentGet(&mdl);
+  status = ProFitGlobalinterferenceCompute((ProAssembly)mdl, PRO_FIT_SUB_ASSEMBLY, PRO_B_FALSE, PRO_B_FALSE, PRO_B_FALSE, &interf_info_arr);
+  if (status != PRO_TK_NO_ERROR)
+    return PRO_TK_GENERAL_ERROR;
+
+  status = ProArraySizeGet(interf_info_arr, &n_parts);
+  for (i = 0; i < n_parts; i++)
+  {
+    status = ProSelectionModelitemGet(interf_info_arr[i].part_1, &part1);
+    status = ProMdlNameGet(part1.owner, name1);
+    status = ProSelectionModelitemGet(interf_info_arr[i].part_2, &part2);
+    status = ProMdlNameGet(part2.owner, name2);
+    status = ProFitInterferencevolumeCompute(interf_info_arr[i].interf_data, &volume);
+    CString a = CString(name1);
+    CString b = CString(name2);
+    CString c;
+    c.Format(_T("%lf"), volume);
+    AfxMessageBox(a + _T("和") + b + _T("发生干涉，干涉量为") + c);
+  }
+  status = ProInterferenceInfoProarrayFree(interf_info_arr);
+  return PRO_TK_NO_ERROR;
+}
+```
+
+## 3. 指定组件间干涉检测
+
+指定两个组件的干涉计算使用ProFitInterferenceCompute函数完成，调用时以ProSelection的方式给定两个组件即可，同时记得使用ProInterferenceDataFree释放内存，示例代码如下：
 
 ```cpp
 ProError SelpartInterference()
@@ -70,51 +112,4 @@ ProError SelpartInterference()
 }
 ```
 
-### 1.2 圆弧对象的信息
-
-Toolkit使用ProGeomitemdata表述ProGeomitem的信息，可以使用ProGeomitemdataGet函数获取：
-
-```cpp
-status = ProGeomitemdataGet(&Modelitem, &geomitem_data);
-```
-
-ProGeomitemdata为如下结构体，根据obj_type判断数据为联合体中的各信息：
-
-```cpp
-typedef struct geom_item_data_struct
-{
-  ProType obj_type;
-  union
-  {
-    ProCurvedata *p_curve_data;
-    ProSurfacedata *p_surface_data;
-    ProCsysdata *p_csys_data;
-  } data;
-} ProGeomitemdata;
-```
-
-圆弧采用ProCurvedata进行描述，定义为如下联合体：
-
-```cpp
-typedef union ptc_curve
-{
-  ProLinedata line;
-  ProArrowdata arrow;
-  ProArcdata arc;
-  ProSplinedata spline;
-  ProBsplinedata b_spline;
-  ProCircledata circle;
-  ProEllipsedata ellipse;
-  ProPointdata point;
-  ProPolygondata polygon;
-  ProTextdata text;
-  ProCompositeCurvedata comp_curve;
-  ProSurfcurvedata surf_curve;
-} ProCurvedata;
-```
-
-联合体中各类型的数据分别根据自身特点使用对应的结构体描述，在此不在赘述，请自行查找官方文件。如果确定上一步获取的是圆弧对象，则可以通过ProArcdataGet函数获得圆弧的相关信息：
-
-```cpp
-status = ProArcdataGet(geomitem_data->data.p_curve_data, vector1, vector2, centerinCsys, &p_start_angle, &p_end_angle, &p_radius);
-```
+完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。
