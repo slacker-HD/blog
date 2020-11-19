@@ -39,7 +39,7 @@ end
 
 - 包含头文件。在vs中的stdafx.h包含头文件，代码如下：
 
-```c
+```cpp
 extern "C"
 {
 #include "lua\lua.h"
@@ -50,13 +50,13 @@ extern "C"
 
 - 在工程中调用lua函数并返回值。首先是声明一个lua指针：
 
-```c
+```cpp
 lua_State *L;
 ```
 
 根据参考文献，打开我们建立的lua文件运行函数并返回值的代码如下：
 
-```c
+```cpp
   L = luaL_newstate();
   luaopen_base(L);
   luaL_openlibs(L);
@@ -69,7 +69,7 @@ lua_State *L;
 
 调用add.lua中的add函数并返回值的代码如下：
 
-```c
+```cpp
 int luaAdd(int x, int y)
 {
   int sum;

@@ -109,7 +109,7 @@ Dialog Bar和Slide-down Panels与原生对话框制作过程相同，通过写re
 
 初始化Dialog Bar对应的ProUIDashboardPageOptions主要由ProUIDashboardpageoptionsAlloc进行,可以设定Dialog Bar对应的名称、资源文件及各选项，示例代码如下：
 
-```c
+```cpp
 static ProError DashboardMainPageSetup(ProAppData data, ProUIDashboardPage *page_options, char *page_name, char *resource_name)
 {
   ProUIDashboardPage opts;
@@ -126,7 +126,7 @@ status = DashboardMainPageSetup(NULL, &mainpage_options, "pagename", "mainpage")
 
 初始化Dialog Bar对应的ProUIDashboardPageOptions后，必须使用ProUIDashboardpageoptionsNotificationSet设定Dialog Bar各事件的响应函数。Toolkit提供了ProUIDashboardpageCallbackFunction回调函数实现对各事件的响应，事件的类型可从官方帮助文档中查询。一般在PRO_UI_DASHBOARD_PAGE_CREATE事件中设定Dialog Bar中各控件的响应函数，与原生对话框的操作一致，在此不做详细说明，直接给出示例代码：
 
-```c
+```cpp
 static ProError MainPageNotification(ProUIDashboardPage page, ProUIDashboardPageEventType event_type, ProAppData appdata)
 {
   AFX_MANAGE_STATE(AfxGetStaticModuleState());
@@ -174,7 +174,7 @@ static ProError MainPageNotification(ProUIDashboardPage page, ProUIDashboardPage
 
 最后需要设定Dialog Bar各控件的响应函数，其中包括了"确定"和"取消"两个按钮的操作。一般通过ProUIDashboardpageDashboardGet函数返回Dialog Bar输入需要返回的相关信息，ProUIDashboardDestroy关闭Dialog Bar，其余操作方式与原生对话框则完全一致。示例代码如下：
 
-```c
+```cpp
 void mainpage_ok_btn(char *dialog, char *component, ProAppData appdata)
 {
   AFX_MANAGE_STATE(AfxGetStaticModuleState());
@@ -208,7 +208,7 @@ void mainpage_msg_btn(char *dialog, char *component, ProAppData appdata)
 
 Slide-down panels是一个可选项，如果不需要，则设置其为NULL即可。由于一个Dashboard可以包含多个Slide-down panel，故Slide-down panels对应的ProUIDashboardPageOptions是一个数组，可分别对数组中的各option其进行初始化即可。每一个Slide-down panel的初始化过程和Dialog Bar基本一致，都是通过ProUIDashboardPageOptions初始化并设定对应的Notification。本文为简单起见，只设置了一个Slide-down panel，示例代码如下：
 
-```c
+```cpp
 static ProError DashboardSlidePageSetup(ProAppData data, ProUIDashboardPage *page_options)
 {
   ProUIDashboardPage opts;
@@ -260,7 +260,7 @@ slide1对应的资源文件如下，只设置了一个按钮：
 
 设置slide1对应的Notification代码与Dialog Bar非常相似，这里不再详细说明直接给出代码：
 
-```c
+```cpp
 static ProError Slide1Notification(ProUIDashboardPage page, ProUIDashboardPageEventType event_type, ProAppData appdata)
 {
   AFX_MANAGE_STATE(AfxGetStaticModuleState());
@@ -299,7 +299,7 @@ static ProError Slide1Notification(ProUIDashboardPage page, ProUIDashboardPageEv
 
 slide1对应控件的相应函数代码如下：
 
-```c
+```cpp
 void slide1_msg_btn(char *dialog, char *component, ProAppData appdata)
 {
   AFX_MANAGE_STATE(AfxGetStaticModuleState());
@@ -312,7 +312,7 @@ void slide1_msg_btn(char *dialog, char *component, ProAppData appdata)
 
 整个Dashboard的初始化需要通过ProUIDashboardShowOptions变量完成。首先调用ProUIDashboardshowoptionsAlloc确定对应的前文已设定好了Dialog Bar和Slide-down Panels。ProUIDashboardshowoptionsTitleSet设置标题，ProUIDashboardshowoptionsNotificationSet则设定Dashboard对应的事件响应函数。当初始化完成后，只需调用ProUIDashboardShow即可显示Dashboard，代码如下：
 
-```c
+```cpp
 ProUIDashboardShowOptions dashboard_options = NULL;
 void ShowDashBoard()
 {
@@ -331,7 +331,7 @@ status = ProCmdActionAdd("ShowDashboard_Act", (uiCmdCmdActFn)ShowDashBoard, uiPr
 
 初始化Dashboard与初始化Dialog Bar过程基本一致，主要是调用ProUIDashboardpageoptionsAlloc和ProUIDashboardpageoptionsNotificationSet完成对应的选项，代码如下：
 
-```c
+```cpp
 static ProError DashboardMainPageSetup(ProAppData data, ProUIDashboardPage *page_options, char *page_name, char *resource_name)
 {
   ProUIDashboardPage opts;
@@ -345,7 +345,7 @@ static ProError DashboardMainPageSetup(ProAppData data, ProUIDashboardPage *page
 
 Dashboard的响应函数也是通过响应各事件完成，不再详细叙述，直接给出代码：
 
-```c
+```cpp
 static ProError MainPageNotification(ProUIDashboardPage page, ProUIDashboardPageEventType event_type, ProAppData appdata)
 {
   AFX_MANAGE_STATE(AfxGetStaticModuleState());

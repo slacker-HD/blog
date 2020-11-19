@@ -16,7 +16,7 @@ date: 2019-01-21 08:54:29
 
 本以为很简单，直接套用Arduino自带的SerialEvent例子即可，代码如下：
 
-```c
+```cpp
 #include <SoftwareSerial.h>
 String inputString = "";
 bool stringComplete = false;
@@ -59,7 +59,7 @@ void serialEvent()
 
 最终代码如下：
 
-```c
+```cpp
 #include <SoftwareSerial.h>
 SoftwareSerial SerialOut(7, 8);
 void setup()

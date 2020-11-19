@@ -21,7 +21,7 @@ Toolkit二次开发过程中，使用宏有时可以实现一些Toolkit未实现
 
 也就是说如果宏当中包括点击对话框的OK按键、激活窗口等宏时，ProMacroExecute是无法起作用的，宏只能在Toolkit的函数执行完成后才能执行。让我们看下面一个错误的例子：
 
-```c
+```cpp
 void FunAfterMacro()
 {
   AFX_MANAGE_STATE(AfxGetStaticModuleState());
@@ -55,7 +55,7 @@ void RunmacroW()
 
 首先新建一个Toolkit工程，添加两个菜单项，一个"Runmacro_Act"用于实现让宏在程序中间运行的功能，一个"About_Act"点击可显示关于对话框。以上都是常规操作，代码较为简单，不详细说明了，直接给出：
 
-```c
+```cpp
 ProError ShowDialog(wchar_t *Message)
 {
   ProUIMessageButton *buttons;
@@ -74,16 +74,16 @@ void about()
 
 extern "C" int user_initialize()
 {
-    AFX_MANAGE_STATE(AfxGetStaticModuleState());
-    ProError status;
-    uiCmdCmdId RunmacroId, RunmacroWId, AboutId;
-    status = ProMenubarMenuAdd("Toolkitmacro", "Toolkitmacro", "About", PRO_B_TRUE, MSGFILE);
-    status = ProMenubarmenuMenuAdd("Toolkitmacro", "Toolkitmacro", "OneKey", NULL, PRO_B_TRUE, MSGFILE);
-    status = ProCmdActionAdd("Runmacro_Act", (uiCmdCmdActFn)runMacro, uiProeImmediate, AccessPart, PRO_B_TRUE, PRO_B_TRUE, &RunmacroId);
-    status = ProMenubarmenuPushbuttonAdd("Toolkitmacro", "Runmacro", "Runmacro", "Runmacrotips", NULL, PRO_B_TRUE, RunmacroId, MSGFILE);
-    status = ProCmdActionAdd("About_Act", (uiCmdCmdActFn)about, uiProeImmediate, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &AboutId);
-    status = ProMenubarmenuPushbuttonAdd("Toolkitmacro", "About", "About", "Abouttips", NULL, PRO_B_TRUE, AboutId, MSGFILE);
-    return PRO_TK_NO_ERROR;
+  AFX_MANAGE_STATE(AfxGetStaticModuleState());
+  ProError status;
+  uiCmdCmdId RunmacroId, RunmacroWId, AboutId;
+  status = ProMenubarMenuAdd("Toolkitmacro", "Toolkitmacro", "About", PRO_B_TRUE, MSGFILE);
+  status = ProMenubarmenuMenuAdd("Toolkitmacro", "Toolkitmacro", "OneKey", NULL, PRO_B_TRUE, MSGFILE);
+  status = ProCmdActionAdd("Runmacro_Act", (uiCmdCmdActFn)runMacro, uiProeImmediate, AccessPart, PRO_B_TRUE, PRO_B_TRUE, &RunmacroId);
+  status = ProMenubarmenuPushbuttonAdd("Toolkitmacro", "Runmacro", "Runmacro", "Runmacrotips", NULL, PRO_B_TRUE, RunmacroId, MSGFILE);
+  status = ProCmdActionAdd("About_Act", (uiCmdCmdActFn)about, uiProeImmediate, AccessDefault, PRO_B_TRUE, PRO_B_TRUE, &AboutId);
+  status = ProMenubarmenuPushbuttonAdd("Toolkitmacro", "About", "About", "Abouttips", NULL, PRO_B_TRUE, AboutId, MSGFILE);
+  return PRO_TK_NO_ERROR;
 }
 ```
 
@@ -91,13 +91,13 @@ extern "C" int user_initialize()
 
 上面我们向Creo增加了两个菜单，尝试录制一下点击"About_Act"菜单的宏，得到如下代码：
 
-```c
+```cpp
 ~ Command `About_Act`;
 ```
 
 在Creo程序中测试一下能否用宏的方式模拟点击"About_Act"菜单，代码如下：
 
-```c
+```cpp
 status = ProMacroLoad(_T("~ Command `About_Act`;"));
 ```
 
@@ -105,7 +105,7 @@ status = ProMacroLoad(_T("~ Command `About_Act`;"));
 
 再尝试将拭除当前打开模型和点击"About_Act"菜单的宏合并起来，点击"Runmacro_Act"运行，代码如下：
 
-```c
+```cpp
 void runMacro()
 {
   ProError status;
@@ -127,7 +127,7 @@ void runMacro()
 
 首先定义一个枚举类型，表示"实现业务逻辑功能"和"实现菜单点击功能"。
 
-```c
+```cpp
 typedef enum _hint
 {
   Fun = 0, //实现业务逻辑功能
@@ -138,7 +138,7 @@ HINT hint;
 
 "About_Act"菜单的响应函数可以根据hint的值实现对应的功能，变更如下：
 
-```c
+```cpp
 void about()
 {
   AFX_MANAGE_STATE(AfxGetStaticModuleState());
@@ -159,7 +159,7 @@ void about()
 
 最后"Runmacro_Act"菜单对应的函数runMacro修改如下：
 
-```c
+```cpp
 void runMacro()
 {
   ProError status;

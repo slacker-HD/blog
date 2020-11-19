@@ -30,7 +30,7 @@ TOOLKIT是C语言写的库，这意味着：
 
 - 由于c语言没有对象这个概念，部分Creo数据采用结构体来描述。很多关键数据都必须在结构体成员中获得，通过手册可以查到。例如ProModelitem, ProGeomitem,  ProFeature等等其实都是pro_model_item类型的结构体，想要获得其类型，只要访问type这个结构体成员即可:
 
-```c
+```cpp
 struct pro_model_item
 {
   ProType type;

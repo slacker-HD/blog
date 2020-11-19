@@ -20,7 +20,7 @@ VBAPI实际是对Toolkit函数的COM封装，所以一般Windows下可以调用C
 
 代码撰写其实与VB的写法基本一致，按照C#语法来即可，等于是进行一个从VB到C#的转换。还是按照第一个程序实现的功能来，提供连接会话和新建会话的功能，代码如下：
 
-```c
+```cpp
 using pfcls;
 namespace CreoCSharp
 {
@@ -87,7 +87,7 @@ namespace CreoCSharp
 
 下面是一个调用CREO自带对话框打开prt的代码，对上述三个不同处已用注释标明：
 
-```c
+```cpp
 public bool Openprt()
 {
   IpfcModelDescriptor modelDesc;

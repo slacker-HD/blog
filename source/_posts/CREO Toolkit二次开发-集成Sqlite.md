@@ -28,13 +28,13 @@ SQLite 是一个软件库，实现了自给自足的、无服务器的、零配�
 
 - 首先包含头文件。在vs中的stdafx.h包含头文件，代码如下：
 
-```c
+```cpp
 #include "sqlite3.h"  
 ```
 
 Sqlite官方文件中提供了sqlite3_open和sqlite3_exec函数实现打开数据库和执行Sql语句操作，具体函数说明可在官网查看。打开数据库并执行Sql语句示例代码如下：
 
-```c
+```cpp
 sqlite3 *db;
 char *sql = "SELECT * FROM TEST";
 char *zErrMsg = 0;
@@ -48,7 +48,7 @@ sqlite3_close(db);
 
 上述代码中callback为执行Sql语句后执行的函数，做个测试显示检索到的所有结果，示例代码如下：
 
-```c
+```cpp
 int callback(void *, int nCount, char **pValue, char **pName)
 {
   String str = _T("");
@@ -68,7 +68,7 @@ int callback(void *, int nCount, char **pValue, char **pName)
 
 Sqlite默认采用UTF8编码，而我们的工程采用“使用多字节字符集”，故如果数据库中读写中文需要有个转码操作。MFC为我们提供了MultiByteToWideChar等函数进行转码，测试了一个UTF8转多字节的函数：
 
-```c
+```cpp
 int Utf82Unicode(const char *utf, wchar_t *unicode, int nBuffSize)
 {
     if (!utf || !strlen(utf))

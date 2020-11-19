@@ -16,7 +16,7 @@ date: 2020-09-06 22:21:10
 
 Toolkit里面的字符串操作估计是最迷惑人的地方，各种诸如ProLine、ProPath等类型的字符串相当繁杂。其实这些都是针对char和wchar_t两种数据类型的宏定义，所有相关的字符串都是这两种类型不同长度的数组。从官方帮助文件找出了相关定义如下：
 
-```c
+```cpp
 /*  Sizes include a NULL terminator  */
 #define   PRO_LINE_SIZE         81
 #define   PRO_PATH_SIZE         260
@@ -68,7 +68,7 @@ typedef char ProCharLine[PRO_LINE_SIZE];
 
 wchar_t*转CString其实只需要使用CString的构造函数即可完成：
 
-```c
+```cpp
 wchar_t *p = L"test";
 CString sz = CString(p);
 ```
@@ -77,7 +77,7 @@ CString sz = CString(p);
 
 CString转wchar_t\*可使用CString的AllocSysString方法完成。需要注意的是，AllocSysString申请了新的内存空间，但转换的wchar_t\*数据不再使用时，需要及时释放内存：
 
-```c
+```cpp
 CString sz = _T("test");
 wchar_t *p = sz.AllocSysString();
 //这里进行各种操作，p可等同于ProPath、ProLine等数据类型
@@ -90,7 +90,7 @@ SysFreeString(p);//释放内存，p现在是野指针了
 
 char*转CString与wchar_t一样，使用CString的构造函数即可：
 
-```c
+```cpp
 char *p = "test";
 CString sz = CString(p);
 ```
@@ -99,7 +99,7 @@ CString sz = CString(p);
 
 CString转char\*可使用CString的GetBuffer方法完成。需要注意的是，GetBuffer申请了新的内存空间，当转换的char\*数据不再使用时，需要及时释放内存：
 
-```c
+```cpp
 CString sz = _T("test");
 char *p;
 p = sz.GetBuffer();
@@ -111,7 +111,7 @@ sz.ReleaseBuffer(); //释放内存，p现在是野指针了
 
 用之前<a href="https://www.hudi.site/2020/05/02/CREO Toolkit二次开发-Ribbon界面的操作/" target="_blank">CREO Toolkit二次开发-Ribbon界面的操作</a>一文的代码做实例进行讲解。下面的代码进行了大量的字符串拼接，想想如果使用Toolkit原生的一些函数应该如何处理：
 
-```c
+```cpp
 CString macro;
 macro = "~ Command `ProCmdDwgRegenModel` ; ~Command `ProCmdWinActivate`;";
 macro += _T("~ Activate `main_dlg_cur` `" + _lastRibbonTab + "_control_btn` 1;");

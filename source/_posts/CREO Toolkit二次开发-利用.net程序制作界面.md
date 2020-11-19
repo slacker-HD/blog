@@ -26,13 +26,13 @@ MFC在窗体UI方面确实已经落后于时代了，本文介绍如何在TOOLKI
 1. 在链接器——输入——附加依赖项中添加mscoree.lib。
 2. 添加引用头文件：
 
-```c
+```cpp
 #include "MetaHost.h"
 ```
 
 Toolkit程序调用.net程序的过程基本如下：首先调用CLRCreateInstance获取一个ICLRMetaHost接口实例（就是一个指针），之后使用该接口的GetRuntime方法获得一个ICLRRuntimeInfo接口，再用ICLRRuntimeInfo的GetInterface方法获得ICLRRuntimeHost接口，最后使用ICLRRuntimeHost的ExecuteInDefaultAppDomain方法调用.net dll中的方法。根据流程直接给出调用.net程序的代码：
 
-```c
+```cpp
 DWORD CallCSharpFun(LPCWSTR DotNetVer, LPCWSTR DLLfile, LPCWSTR NameSpace, LPCWSTR FunctionName, LPCWSTR Param)
 {
   AFX_MANAGE_STATE(AfxGetStaticModuleState());
@@ -82,7 +82,7 @@ namespace CsharpDll
 
 以上面的函数为例。C#程序命名空间为CsharpDll，所在类名MyDialog，.net程序版本为v4.0.30319，在Toolkit程序中调用C#中ShowWindow函数的代码如下：
 
-```c
+```cpp
 void ShowCSharpDlg()
 {
   LPCWSTR DotNetVer, DLLfile, NameSpace, FunctionName, Param;
@@ -101,7 +101,7 @@ void ShowCSharpDlg()
 
 Toolkit程序配置相对简单，只需要将C#程序需要调用的函数设置为可导出即可，在函数前加修饰"_declspec(dllexport)"或者在Def文件中添加函数名均可，这里为做示例，写一个调用宏保存文件的函数：
 
-```c
+```cpp
 extern "C" _declspec(dllexport) void SaveFile()
 {
   AFX_MANAGE_STATE(AfxGetStaticModuleState());
