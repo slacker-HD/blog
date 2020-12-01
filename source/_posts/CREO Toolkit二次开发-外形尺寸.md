@@ -1,12 +1,14 @@
 ---
-title: Toolkit二次开发-外形尺寸
+title: CREO Toolkit二次开发-外形尺寸
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2020-12-01 17:15:00
 ---
+
 
 
 使用toolkit计算零件的外形尺寸相较VBAPI相对复杂些，主要在于计算选定坐标系下的外形尺寸时需要通过向量和矩阵的转换。
