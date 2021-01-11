@@ -5,7 +5,10 @@ tags:
   - TOOLKIT
   - CREO二次开发
 comments: true
+date: 2021-01-11 09:49:00
+category:
 ---
+
 
 Creo的干涉检测分为全局干涉检测及指定组件间干涉检测，可完成干涉量计算，干涉部分高亮显示等功能。
 
