@@ -1,12 +1,14 @@
 ---
-title: MacOS系统下Electron程序为Windows平台打包
+title: MacOS Catalina之后Electron程序为Windows平台打包
 tags:
   - electron
   - javascript
   - nodejs
 comments: true
 category: Electron
+date: 2021-02-02 20:08:11
 ---
+
 
 自从MacOS彻底放弃32位支持后，Electron程序一直无法使用Wine给Windows平台编译打包。虽然使用虚拟机或者换台电脑可以解决问题，但总是不如原来使用Wine直接打包编译方便。最近实在是觉得麻烦了，搜索了一下，发现官方已经给出了解决方案(<a href="https://github.com/electron/node-rcedit/issues/51" target="_blank">https://github.com/electron/node-rcedit/issues/51</a>)：
 
