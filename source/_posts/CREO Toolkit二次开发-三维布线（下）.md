@@ -24,7 +24,7 @@ date: 2021-02-17 20:53:10
 根据测试，实际操作过程中布线需要确定对应的位置和参照，而对应的位置和参照一般都会超过一个，所以上面的2-4步可以循环调用，实际代码流程图如下所示：
 
 <div align="center">
-    <img src="/img/proe/CableRoute2.png" style="width:30%" align="center"/>
+    <img src="/img/proe/CableRoute2.png" style="width:20%" align="center"/>
     <p>图 布线的流程</p>
 </div>
 
