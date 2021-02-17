@@ -1,12 +1,14 @@
 ---
-title: CREO Toolkit二次开发-线缆装配（下）
+title: CREO Toolkit二次开发-三维布线（下）
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2021-02-17 20:53:10
 ---
+
 
 上一篇文章已经完成了线束、线轴以及元件的操作，接下来可开始布线（Route）。Toolkit一共提供了ProCableRoutingStart、ProCableThruLocationRoute、roCableRoutingEnd、roCablelocationrefAlloc、roCablelocationrefFree五个函数用于对于布线操作。使用Toolkit进行布线操作官方文档给出解释如下，大致包括6个步骤：
 
