@@ -34,7 +34,8 @@ html(lang='#{config.language}')
     if config.feed
       link(rel='alternate', type=feed_type, href=url_for(config.feed.path))
     //- script(type='text/javascript', src='http://libs.baidu.com/jquery/2.0.0/jquery.min.js')
-    script(type='text/javascript', src='//cdn.bootcss.com/pace/1.0.2/pace.min.js')
+    //- pace特效
+    //- script(type='text/javascript', src='//cdn.bootcss.com/pace/1.0.2/pace.min.js')
     
   body
     //- canvas#reactive-bg-canvas
@@ -68,13 +69,16 @@ html(lang='#{config.language}')
         include _partial/footer
       include _partial/after_footer
       block pageOnly
-
+    //- 粒子特效
     script(type='text/javascript', src='/js/particles.min.js')
     script(type='text/javascript', src='/js/app.js')
+
     //- script(type='text/javascript', src='/js/ggk.js')
     //- script(type='text/javascript', src='http://libs.baidu.com/jquery/2.0.0/jquery.min.js')
-    script(type='text/javascript', src='/js/jquery.js')
-    script(type='text/javascript', src='/js/mouseeffect.js')
+    //- 鼠标特效
+    //- script(type='text/javascript', src='/js/jquery.js')
+    //- script(type='text/javascript', src='/js/mouseeffect.js')
+    
     //- script(type='text/javascript', src='/js/TweenLite.min.js')
     //- script(type='text/javascript', src='/js/magic-canvas.min.js')
     //- script(type='text/javascript', src='/js/effect.js')
