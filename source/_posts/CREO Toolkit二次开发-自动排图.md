@@ -43,8 +43,7 @@ status = ProFileSave(NULL, filter, NULL, NULL, NULL, NULL, savepath);
 status = ProMdlfileCopy(PRO_MDL_DRAWING, file_list[0], savepath);
 ```
 
-打开新建的文件通过宏或代码的方式都可以实现，这里用宏实现，，注意在宏里面目录使用两个反斜杠
-表示，需要处理下：
+打开新建的文件通过宏或代码的方式都可以实现，这里用宏实现，注意在宏里面目录使用两个反斜杠"\\\\"表示，需要处理下：
 
 ```cpp
 filename = CString(savepath);
