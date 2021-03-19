@@ -12,13 +12,13 @@ date: 2019-03-22
 
 本文成于2011年，但从未公开发表过，翻以前的文档找到了，发出来看有没有人需要吧，时间太久了估计很多软件都升级了或者找不到了吧。
 
-都是我在slackware12.1下面测试过的，有些软件可能版本进行了更新。首选程序均中良好支持文。本文所说的支持中文，是指在内核打了冲天飞豹的中文显示补丁或者使用了第一段中中文显示程序后可以正常显示中文。最好编译Gpm，这样可以使用鼠标。文本编译建议保留nano，vi不会用，哈哈。
+都是我在slackware12.1下面测试过的，有些软件可能版本进行了更新。首选程序均良好支持中文。本文所说的支持中文，是指在内核打了冲天飞豹的中文显示补丁或者使用了第一段中中文显示程序后可以正常显示中文。最好编译Gpm，这样可以使用鼠标。文本编译建议保留nano，vi不会用，哈哈。
 
 ## 1. 中文输入显示
 
 首选：ucimf+fbterm。
 地址：http://ucimf.googlecode.com/files/
-依赖项：framebuffer支持编译进内、中文字体、fontconfig、freetype
+依赖项：framebuffer支持、中文字体、fontconfig、freetype
 说明：locale必须为utf8，编译和使用参见http://ucimf.googlecode.com/files/UserManual.txt。
 
 备选：cce、zhcon。不详细介绍了，两者都支持gbk和utf8，但utf8下面均存在缺字现象。还有个unicon，不过太久远了，目前也只支持显示。
