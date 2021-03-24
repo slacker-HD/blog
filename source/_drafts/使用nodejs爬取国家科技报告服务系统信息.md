@@ -22,11 +22,11 @@ const cheerio = require("cheerio");
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: true });
 const Database = require('better-sqlite3');
-var vo = require('vo');
+const vo = require('vo');
 const db = new Database('nstrs.db', { verbose: console.log });//部门报告
 // const db = new Database('local.db', { verbose: console.log });//地方报告
 const myURL = "https://www.nstrs.cn/kjbg/navigation";
-var PageNum = 17567;//部门科技报告的报告共 175670，共 17567 页
+const PageNum = 17567;//部门科技报告的报告共 175670，共 17567 页
 //var PageNum = 9036 ;//地方科技报告的报告共 90358，共 9036 页
 var run = function* () {
     yield nightmare.goto(myURL)
