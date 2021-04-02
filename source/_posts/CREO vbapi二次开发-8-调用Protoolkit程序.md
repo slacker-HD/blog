@@ -91,7 +91,6 @@ Public Sub ExecuteFunction(ByVal input As Integer)
   argument = (New CCpfcArgument).Create("inputvalue", value)
   arguments.Append(argument)
   ret = toolkitdll.ExecuteFunction("MyPow", arguments)
-  MsgBox("函数返回错误代码：" + ret.FunctionReturn.ToString)
   If ret.FunctionReturn = 0 Then
       MsgBox("函数返回值：" + ret.OutputArguments(0).Value.IntValue.ToString())
   End If
