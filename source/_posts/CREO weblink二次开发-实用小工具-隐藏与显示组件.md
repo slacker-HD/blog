@@ -7,7 +7,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2021-05-06 10:04:48
 ---
+
 
 
 更新了weblink工具，添加了快速隐藏与显示组件的功能。
@@ -15,7 +17,7 @@ category: CREO二次开发
 这个功能其实就是运行两个宏命令，选中对应的零部件再点击按钮即可操作，如下图所示：
 
 <div align="center">
-    <img src="/img/proe/weblinktool9.png" style="width:80%" align="center"/>
+    <img src="/img/proe/weblinktool14.png" style="width:80%" align="center"/>
     <p>图 隐藏与显示组件</p>
 </div>
 
