@@ -3,12 +3,16 @@ title: 树莓派motion测试
 tags:
 ---
 
+其实是在orangepi pc plus下armbian做的测试，在此记录下来。
 
-1.安装motion 
-输入命令：
 
+首先是安装motion，输入以下命令即可：
+
+```bash
 sudo apt-get install motion
-1
+```
+
+
 2.然后配置motion daemon 守护进程 
 输入命令编辑motion：
 
@@ -50,20 +54,9 @@ sudo service motion start
 （2）输入以下命令开启motion：
 
 sudo motion
-————————————————
-版权声明：本文为CSDN博主「能跑就不休息」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/qq_39500821/article/details/80647600
-
 
 打开配置文件
 sudo nano /etc/motion/motion.conf
-
 找到 framerate 并设置成 50（或者更大，根据试验自己选择），延时可解决。
-
 如果卡顿则找到 stream_maxrate 将这个参数设置为 100 或者小点的（根据试验自己选择）
-
-最后保存，重启motion。
-————————————————
-版权声明：本文为CSDN博主「myhuisir」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/weixin_41945913/article/details/106063431
 
