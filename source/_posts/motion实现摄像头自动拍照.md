@@ -2,10 +2,12 @@
 title: motion实现摄像头自动拍照
 tags:
   - 树莓派
+  - Linux
 comments: true
 category: 树莓派
-date:
+date: 2021-06-03 08:59:41
 ---
+
 
 其实主要是在orangepi pc plus下armbian做的测试，但都是Linux软件，树莓派和X86等平台是通用的。
 
@@ -14,16 +16,16 @@ date:
 armbian是debian系，安装motion直接用apt即可，至于arch、redhat等可以用对应的包管理系统安装：
 
 ```bash
-sudo apt-get install motion
+sudo apt install motion
 ```
 
 ## 2.motion配置
 
-motion配置主要有两个文件，一是motion daemon守护进程设置文件，位于“/etc/default/motion”,主要修改start_motion_daemon字段，让motion可以一直在后台运行：
+motion配置主要有两个文件，一是motion daemon守护进程设置文件，位于`/etc/default/motion`,主要修改`start_motion_daemon`字段，让motion可以一直在后台运行：
 
 > start_motion_daemon=yes
 
-motion的默认配置文件的位置一般是在/etc/motion.conf，选项很多，可以参考motion官方文档以及配置文件的注释部分进行修改，这里只记录我修改的部分：
+motion的默认配置文件的位置一般是在`/etc/motion.conf`，选项很多，可以参考motion官方文档以及配置文件的注释部分进行修改，这里只记录我修改的部分：
 
 > \# 以后台方式运行
 > daemon on
