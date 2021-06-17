@@ -3,6 +3,7 @@ title: motion实现摄像头自动拍照
 tags:
   - 树莓派
   - Linux
+  - armbian
 comments: true
 category: 树莓派
 date: 2021-06-03 08:59:41
