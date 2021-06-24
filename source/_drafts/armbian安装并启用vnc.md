@@ -1,5 +1,6 @@
 ---
 title: armbian安装并启用vnc
+tags:
   - 树莓派
   - Linux
   - armbian
