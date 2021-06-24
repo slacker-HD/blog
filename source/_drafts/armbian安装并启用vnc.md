@@ -8,9 +8,9 @@ category: 树莓派
 date: 
 ---
 
-继续orangepi pc plus下armbian的基本配置。armbian并不想raspbian那样默认安装设置了vnc，搜索找到了解决方案，在此记录。
+继续orangepi pc plus下armbian的基本配置。armbian并不像raspbian那样默认安装设置了vnc，搜索再在官网论坛<sup>[1]</sup>找到了解决方案，在此记录。
 
-## 1.首先安装x11vnc
+## 1.安装x11vnc
 
 ```bash
 sudo apt install x11vnc
@@ -44,7 +44,7 @@ WantedBy=multi-user.target
 
 ## 4.起动服务
 
-起动服务比较简单，直接使用systemctl即可：
+起动服务直接使用systemctl即可：
 
 ```bash
 sudo systemctl daemon-reload
@@ -54,5 +54,4 @@ sudo systemctl start x11vnc
 
 ## 参考网址
 
-[1] e<a href="https://forum.armbian.com/topic/10330-remote-desktop-with-x11vnc/" target="_blank">Remote Desktop with X11VNC</a>.
-
+[1] <a href="https://forum.armbian.com/topic/10330-remote-desktop-with-x11vnc/" target="_blank">Remote Desktop with X11VNC</a>.
