@@ -18,7 +18,7 @@ category: 树莓派
 sudo apt install build-essential cmake gfortran wget curl graphicsmagick libgraphicsmagick1-dev libatlas-base-dev libavcodec-dev libavformat-dev libboost-all-dev libgtk2.0-dev libjpeg-dev liblapack-dev libswscale-dev pkg-config python3-dev python3-numpy python3-pip python3-opencv python3-setuptools python3-wheel python-opencv zip 
 ```
 
-剩下的就是安装Face Recognition库。由于armbian不像树莓派有提前编译好的依赖包，使用 pip3安装需要本机编译且armbian的tmpfs比较小，所以我把Face Recognition的依赖库提出来专门安装以减少编译时对tmpfs的压力，在树莓派上其实只要`pip3 install face_recognition`即可：
+剩下的就是安装Face Recognition库。由于armbian不像树莓派有提前编译好的依赖包，使用 pip3安装需要本机编译且armbian的tmpfs比较小，所以我把Face Recognition的依赖库提出来专门安装以减少编译时对tmpfs的压力，在树莓派上(mac个人测试也一样)其实只要`pip3 install face_recognition`即可：
 
 ```bash
 pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
@@ -106,4 +106,4 @@ cv2.destroyAllWindows()
 </div>
 
 
-项目源码可在<a href="https://github.com/slacker-HD/facerec_armbiantest" target="_blank">Github.com</a>下载。
+项目源码可在<a href="https://github.com/slacker-HD/facerec_armbiantest" target="_blank">Github.com</a>下载（mac下测试程序也可以运行）。
