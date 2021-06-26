@@ -8,17 +8,17 @@ comments: true
 category: 树莓派
 ---
 
-还是继续用orangepi pc plus下armbian做的测试，主要是用opencv+Face Recognition的方式进行实现。opencv大名鼎鼎没什么好介绍的，<a href="https://github.com/ageitgey/face_recognition" target="_blank">Face Recognition</a>则是由Adam Geitgey在GitHub上创建的一个强大、简单、易上手的人脸识别开源项目，并且配备了完整的开发文档和应用案例，兼容mac和Linux，特别是兼容树莓派系统，经个人测试发现也兼容armbian。
+还是在orangepi pc plus下armbian做的测试。使用motion已经完成了对进入房间人员的录像，本文用opencv+Face Recognition的方式实现对录制视频的人脸识别。opencv大名鼎鼎没什么好介绍的，<a href="https://github.com/ageitgey/face_recognition" target="_blank">Face Recognition</a>则是由Adam Geitgey在GitHub上创建的一个强大、简单、易上手的人脸识别开源项目，并且配备了完整的开发文档和应用案例，兼容mac和Linux，特别是兼容树莓派系统，经个人测试发现也兼容armbian。
 
 ## 1. 软件安装
 
-首先是安装必要的软件包，顺便把`python3-opencv`也装上，大致如下，其它的应该提前预装了：
+首先是安装Face Recognition必要的软件包，顺便把`python3-opencv`也装上，大致如下，其它的应该提前预装了：
 
 ```bash
 sudo apt install build-essential cmake gfortran wget curl graphicsmagick libgraphicsmagick1-dev libatlas-base-dev libavcodec-dev libavformat-dev libboost-all-dev libgtk2.0-dev libjpeg-dev liblapack-dev libswscale-dev pkg-config python3-dev python3-numpy python3-pip python3-opencv python3-setuptools python3-wheel python-opencv zip 
 ```
 
-剩下的就是安装Face Recognition库。由于armbian不像树莓派有提前编译好的依赖包，使用 pip3安装需要本机编译且armbian的tmpfs比较小，所以我把Face Recognition的依赖库提出来专门安装以减少编译时对tmpfs的压力，在树莓派上(mac个人测试也一样)其实只要`pip3 install face_recognition`即可：
+剩下的就是安装Face Recognition库。由于armbian不像树莓派有提前编译好的依赖包，使用pip3安装需要本机编译且armbian的tmpfs比较小，所以我把Face Recognition的依赖库提出来专门安装以减少编译时对tmpfs的压力，在树莓派上(mac个人测试也一样)其实只要`pip3 install face_recognition`即可：
 
 ```bash
 pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
@@ -104,6 +104,5 @@ cv2.destroyAllWindows()
     <img src="/img/raspberrypi/facerec.jpg" style="width:75%" align="center"/>
     <p>图 对视频进行人脸识别</p>
 </div>
-
 
 项目源码可在<a href="https://github.com/slacker-HD/facerec_armbiantest" target="_blank">Github.com</a>下载（mac下测试程序也可以运行）。
