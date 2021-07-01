@@ -6,7 +6,9 @@ tags:
   - armbian
 comments: true
 category: 树莓派
+date: 2021-07-01 07:39:15
 ---
+
 
 还是在orangepi pc plus下armbian做的测试。使用motion已经完成了对进入房间人员的录像，本文用opencv+Face Recognition的方式实现对录制视频的人脸识别。opencv大名鼎鼎没什么好介绍的，<a href="https://github.com/ageitgey/face_recognition" target="_blank">Face Recognition</a>则是由Adam Geitgey在GitHub上创建的一个强大、简单、易上手的人脸识别开源项目，并且配备了完整的开发文档和应用案例，兼容mac和Linux，特别是兼容树莓派系统，经个人测试发现也兼容armbian。
 
