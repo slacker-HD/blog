@@ -14,7 +14,7 @@ date:
     <img src="/img/others/worddarkmode.png" style="width:85%" align="center"/>
 </div>
 
-百度一下估计这也是刚更新完，也没见有人说这个问题。根据常理微软应该会留有设置选项，所以在word里面好好的找了下，最终找到了设置选项,终于该回了白底黑字：
+百度一下估计这也是刚更新完，也没见有人说这个问题。根据常理微软应该会留有设置选项，所以在Word里面好好的找了下，最终找到了设置选项,改回了白底黑字：
 
 <div align="center">
     <img src="/img/others/wordmacdarkmodesetting.png" style="width:85%" align="center"/>
