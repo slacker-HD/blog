@@ -6,10 +6,11 @@ tags:
   - armbian
 comments: true
 category: 树莓派
-date: 
+date: 2021-08-07 20:00:10
 ---
 
-继续orangepi pc plus下armbian的基本配置。armbian并不像raspbian那样默认安装设置了vnc，搜索再在官网论坛<sup>[1]</sup>找到了解决方案，在此记录。
+
+继续orangepi pc plus下armbian的基本配置。armbian并不像raspbian那样默认安装设置了vnc，搜索在官方论坛<sup>[1]</sup>找到了解决方案，在此记录。
 
 ## 1.安装x11vnc
 
