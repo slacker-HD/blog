@@ -11,7 +11,7 @@ date: 2021-08-02 08:59:28
 ---
 
 
-这个工具受VSCode的插件<a href="/marketplace.visualstudio.com/items?itemName=C-TEAM.thief-book" target="_blank">Thief-Book</a>启发开发，主要是利用Creo的状态栏的消息提示区显示~~小说~~学习资料。
+这个工具受VSCode的插件<a href="https://marketplace.visualstudio.com/items?itemName=C-TEAM.thief-book" target="_blank">Thief-Book</a>启发开发，主要是利用Creo的状态栏的消息提示区显示~~小说~~学习资料。
 
 ## 1.开发原理
 
