@@ -41,6 +41,10 @@ ProDrawingViewDetailCreate
 
 ProDrawingViewAuxiliaryCreate
 
+### 2.5 旋转视图
+
+ProDrawingViewRevolveCreate（）
+
 ## 3.比例和位置
 
 
