@@ -1,12 +1,13 @@
 ---
 title: Word的深色主题取消黑色页面
+tags:
+  - word
+  - office
 comments: true
 category: 电脑技术
-tags: 
-    - word 
-    - office
-date: 
+date: 2021-09-03 10:19:23
 ---
+
 
 最近office各平台陆续更新，突然发现一个脑残的问题，Word在适配系统深色模式的同时，居然整个文字页面也适配，默认打开文件居然是黑底白字，完全不能忍:
 
