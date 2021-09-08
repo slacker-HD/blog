@@ -31,6 +31,16 @@ status = ProMdlDataGet(mdl, &data);
 
 ### 2.1 主视图的创建
 
+在Creo中，主视图是投影视图的基础，确定主视图后俯视图以及左视图只需要通过投影的方式即可完成。在完成主视图的创建是，首先需要明确主视图的摆放方向。通常情况下一类零件的主视图方向是一定的，但存在宽高等特征的问题
+
+CREO Toolkit二次开发-外形尺寸
+
+
+```cpp
+	status = ProDrawingGeneralviewCreate(drawing, solid, sheet, PRO_B_FALSE, position, 1, matrix, &positive_view);
+```
+
+
 ### 2.2 投影视图的创建
 
 ### 2.3 详细视图的创建
@@ -45,7 +55,9 @@ ProDrawingViewAuxiliaryCreate
 
 ProDrawingViewRevolveCreate（）
 
-## 3.比例和位置
+## 3.视图的位置和方向
+
+
 
 
 
