@@ -34,14 +34,44 @@ Toolkit提供了ProPntTrfEval和ProVectorTrfEval用于点和向量的坐标变�
 
 ### 2.2 组件坐标转换为装配体坐标
 
-从组件（零件或子装配体）的坐标变换为装配体的坐标
+从组件（零件或子装配体）的坐标变换为装配体的坐标应该是最好理解的坐标变换。装配的过程必然伴随着组件经过平移和旋转，而组件上某一点的坐标相对装配体坐标系也相应发生了对应的变换。根据2.1节，计算组件上某一点在装配体坐标系下的坐标首先需要获取组件坐标系到装配体坐标系的转换矩阵，可以由ProAsmcomppathTrfGet函数获得。ProAsmcomppathTrfGet同时也可以获取装配体坐标系到组件坐标系的转换矩阵，示例代码如下：
+
+```cpp
+status = ProAsmcomppathTrfGet(&comppath,PRO_B_TRUE,transformation);
+status = ProPntTrfEval(pointCompCoord,transformation,pointAsmCoord);
+```
 
 ### 2.3 视图坐标变换为屏幕坐标
 
+通过ProDrawingViewTransformGet可以获取视图上的某一点在屏幕坐标系的位置的转换矩阵，示例代码如下：
 
+```cpp
+status = ProDrawingViewTransformGet(ProDrawing(mdl),view,PRO_B_TRUE,transViewtoDrawing);
+status = ProPntTrfEval(pointViewCoord,transViewtoDrawing,pointDrawingCoord);
+```
 
 ### 2.4 组件坐标转换为装配体坐标再转换为屏幕坐标
 
+坐标的变换也可以连续变换的。例如比较常见的功能是在绘图中通过装配体上的点进行定位以绘制相关的草绘，则此时点的坐标系可能需要进过如下变换：
 
+> 1.组件坐标转换为装配体坐标
+> 2.装配体坐标转换为屏幕坐标系
+> 3.
+
+```cpp
+status = ProSelectionPoint3dGet(sel[0], pointCompCoord);
+status = ProSelectionAsmcomppathGet(sel[0], &comppath);
+status = ProAsmcomppathTrfGet(&comppath,PRO_B_TRUE,transComptoAsm);
+status = ProPntTrfEval(pointCompCoord,transComptoAsm,pointAsmCoord);
+
+status = ProMdlCurrentGet(&mdl);
+status = ProDrawingCurrentsolidGet(ProDrawing(mdl),&solid);
+status = ProSelectionViewGet(sel[0],&view);
+status = ProViewMatrixGet(ProMdl(solid),view,transAsmtoDrawing);
+status = ProPntTrfEval(pointAsmCoord,transAsmtoDrawing,pointDrawingCoord);
+
+status = ProDrawingViewTransformGet(ProDrawing(mdl),view,PRO_B_FALSE,transDrawingtoView);
+status = ProPntTrfEval(pointDrawingCoord,transDrawingtoView,pointViewCoord);
+```
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
