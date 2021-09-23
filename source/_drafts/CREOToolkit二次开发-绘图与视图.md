@@ -165,7 +165,7 @@ if (status == PRO_TK_NO_ERROR)
 
 ### 2.5 详细视图的创建
 
-创建详细视图通过`ProDrawingViewDetailCreate`函数实现，具体操作与投影视图和辅助视图类似，只是函数参数的样条曲线的创建相对复杂一点。创建样条曲线需要指定
+创建详细视图通过`ProDrawingViewDetailCreate`函数实现，具体操作与投影视图和辅助视图类似，只是函数参数的样条曲线的创建相对复杂一点，直接从Toolkit的示例代码中找到创建样条曲线的方法，修改为选择边上下左右四个点，示例代码如下：
 
 ```cpp
 //下面两个函数直接拷贝官方帮助文件
@@ -291,7 +291,7 @@ if (status == PRO_TK_NO_ERROR)
     <p>图 创建详细视图</p>
 </div>
 
-**P.S. 本文也尝试生成旋转剖视图，但是没有解决，总是代码运行成功但提示**
+**P.S. 本文也尝试生成旋转剖视图，但是没有解决，总是代码运行成功但提示"因为非法视图指令，此视图已被冻结。"**
 
 ```cpp
 drawing = (ProDrawing)mdl;
@@ -306,7 +306,7 @@ status = ProSelect((char *)"dwg_view", 1, NULL, NULL, NULL, NULL, &sel, &n_sel);
 if (status == PRO_TK_NO_ERROR)
 {
   //如果直接都使用ProDrawingViewRevolveInfoGet得到的参数，以下函数返回-2
-  //使用ProSelect((char *)"dwg_view"返回的视图则下面函数返回值为PRO_TK_NO_ERROR，但Creo提示
+  //使用ProSelect((char *)"dwg_view"返回的视图则下面函数返回值为PRO_TK_NO_ERROR，但Creo提示"This view has been frozen because of illegal view instructions."
   status = ProDrawingViewRevolveCreate(drawing, NULL, *sel1, point, &revolveView);
   status = _setDisplayStyle(drawing, revolveView, PRO_DISPSTYLE_HIDDEN_LINE);
   status = ProDwgSheetRegenerate(drawing, sheet);
