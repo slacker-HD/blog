@@ -165,7 +165,20 @@ if (status == PRO_TK_NO_ERROR)
 
 ### 2.5 详细视图的创建
 
-创建详细视图通过`ProDrawingViewDetailCreate`函数实现，具体操作与投影视图和辅助视图类似，只是函数参数的样条曲线的创建相对复杂一点，直接从Toolkit的示例代码中找到创建样条曲线的方法，修改为选择边上下左右四个点，示例代码如下：
+创建详细视图通过`ProDrawingViewDetailCreate`函数实现，具体操作与投影视图和辅助视图类似，只是函数参数的样条曲线的创建相对复杂一点，样条曲线的在Toolkit的数据结构描述如下：
+
+```cpp
+typedef struct ptc_spline
+{
+  int         type;
+  double     *par_arr;        /* ProArray of spline parameters */
+  ProPoint3d *pnt_arr;        /* ProArray of spline interpolant points */
+  ProPoint3d *tan_arr;        /* ProArray of tangent vectors at each point */
+  int         num_points;     /* Size for all the arrays */
+} ProSplinedata;
+```
+
+利用`ProSplinedataInit`可以根据给定样条曲线参数、样条线插值点和各点的切线向量生成目标样条曲线，直接从Toolkit的示例代码中找到创建样条曲线的代码并修改为选择边上下左右格偏移20的四个点，示例代码如下：
 
 ```cpp
 //下面两个函数直接拷贝官方帮助文件
