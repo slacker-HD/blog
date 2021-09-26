@@ -35,10 +35,10 @@ date:
 > • 	Error—the Creo Parametric message is preceded by a broken square. This message type informs the user when a required task was not successfully completed. It may or may not require intervention or correction before work can continue, depending on the application. Whenever possible, provide a path to redress this situation. The classification code for prompt messages is %CE.
 > • 	Critical—the Creo Parametric message displayed is preceded by a red X. This message type informs the user of extremely serious situations, especially those which could cause the loss of user data. Options for redressing the situation (if available) should be provided with the message. The classification code for prompt messages is %CC.
 
-| 前缀 | 类型     | 说明                                           |
-| ---- | -------- | ---------------------------------------------- |
-| %CP  | Prompt   | 提示，提示信息前面添加一个绿色的箭头。         |
-| %CI  | Info     | 信息，提示信息前面添加一个蓝色的点。           |
-| %CW  | Warning  | 警告，提示信息前面添加一个包含感叹号的三角形。 |
-| %CE  | Error    | 错误，提示信息前面添加一个破碎的正方形。       |
-| %CC  | Critical | 严重错误，提示信息前面添加一个红色的×。        |
+| 前缀 | 类型     | 说明                                              |
+| ---- | -------- | ------------------------------------------------- |
+| %CP  | Prompt   | 提示，提示信息前面添加一个绿色的箭头。            |
+| %CI  | Info     | 信息，提示信息前面添加一个蓝色的点。              |
+| %CW  | Warning  | 警告，提示信息前面添加一个包含感叹号的三角形。    |
+| %CE  | Error    | 错误，提示信息前面添加一个破碎绿色+黄色的正方形。 |
+| %CC  | Critical | 严重错误，提示信息前面添加一个红色的×。           |
