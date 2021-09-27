@@ -13,18 +13,13 @@ date:
 
 
 
+## 1.消息文件
+
+### 1.1 消息文件的基础格式
 
 
-| Conversion Character | Data Type                                   | 说明                                   |
-| -------------------- | ------------------------------------------- | -------------------------------------- |
-| f                    | Float (or double)                           | 浮点型数据并且可以指定格式，如(5.3)f等 |
-| d                    | Decimal integer                             | 十进制整数                             |
-| s                    | Ordinary string (or type char[])            | 普通字符串（chars数组）                |
-| w                    | Wide character strings                      | wchar_t数组                            |
-| e                    | Exponential                                 | 指数形式数字，形如2.3e3                |
-| g                    | Either float or exponential, as appropriate | 浮点或指数形式的数字均可               |
 
-
+### 1.2 消息文件的前缀
 
 > Creo Parametric TOOLKIT applications can now display any or all of these message symbols:
 > • 	Prompt—the Creo Parametric message displayed is preceded by a green arrow. The user must respond to this message type (to either input information, accept the default value offered, or cancel the application). Without such action, no progress can be made. The response may be either textual or in the form of a selection. The classification code for prompt messages is %CP.
@@ -42,3 +37,19 @@ date:
 | %CW  | Warning  | 警告，提示信息前面添加一个包含感叹号的三角形。    |
 | %CE  | Error    | 错误，提示信息前面添加一个破碎绿色+黄色的正方形。 |
 | %CC  | Critical | 严重错误，提示信息前面添加一个红色的×。           |
+
+
+### 1.3 格式化字符串
+
+
+| Conversion Character | Data Type                                   | 说明                                   |
+| -------------------- | ------------------------------------------- | -------------------------------------- |
+| f                    | Float (or double)                           | 浮点型数据并且可以指定格式，如(5.3)f等 |
+| d                    | Decimal integer                             | 十进制整数                             |
+| s                    | Ordinary string (or type char[])            | 普通字符串（chars数组）                |
+| w                    | Wide character strings                      | wchar_t数组                            |
+| e                    | Exponential                                 | 指数形式数字，形如2.3e3                |
+| g                    | Either float or exponential, as appropriate | 浮点或指数形式的数字均可               |
+
+
+
