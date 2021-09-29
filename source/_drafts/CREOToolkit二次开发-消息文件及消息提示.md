@@ -9,26 +9,24 @@ category: CREO二次开发
 date:
 ---
 
-
-
-
+消息文件为于菜单、以及一些提示信息提供文本内容，本文介绍消息文件的组成及如何使用消息文件读取、显示消息。
 
 ## 1.消息文件
 
 ### 1.1 消息文件的基础格式
 
+消息文件其实是一个文本文件，保存在二次开发的程序注册文件(protk.dat)中以text_dir语句命名的目录或当前Creo工作目录。
 
+消息文件记录了所有当前Toolkit程序需要用的消息。每一条消息由四行组成，其中：
+
+> 第一行是标识消息的关键字的字符串，唯一，程序通过这行内容寻找消息的内容。
+> 第二行记录了消息显示的内容，通过修改消息文件中的这一行，您可以在不修改C代码的情况下修改消息的文本，一般用英文，当然作为中文用户使用中文也没有问题，这样默认英文环境下也显示中文。
+> 第三行记录了消息的翻译信息，我们自然是使用中文，这样如果Creo配置环境为中文则显示该行信息。
+>	有意为将来的扩展保留的空白行,一般直接使用#号即可。
 
 ### 1.2 消息文件的前缀
 
-> Creo Parametric TOOLKIT applications can now display any or all of these message symbols:
-> • 	Prompt—the Creo Parametric message displayed is preceded by a green arrow. The user must respond to this message type (to either input information, accept the default value offered, or cancel the application). Without such action, no progress can be made. The response may be either textual or in the form of a selection. The classification code for prompt messages is %CP.
-> • 	Info—the Creo Parametric message displayed is preceded by a blue dot. This message type contains information such as user requests or feedback from either Creo Parametric or the Creo Parametric TOOLKIT application. The classification code for prompt messages is %CI.
-> Note
-> Do not classify as Info any message which informs users of a problem with an operation or process. These messages should be classified as Warnings.
-> • 	Warning—the Creo Parametric message displayed is preceded by a triangle containing an exclamation point. Warnings alert the user to situations which may lead to potentially erroneous situations at a later stage, for example, possible process restrictions imposed or a suspected data problem. However, warnings do not prevent or interrupt task completion, nor should they be used to indicate a failed operation. Warnings only caution the user that the operation has been completed, but may not have been performed in a completely desirable way. The classification code for prompt messages is %CW.
-> • 	Error—the Creo Parametric message is preceded by a broken square. This message type informs the user when a required task was not successfully completed. It may or may not require intervention or correction before work can continue, depending on the application. Whenever possible, provide a path to redress this situation. The classification code for prompt messages is %CE.
-> • 	Critical—the Creo Parametric message displayed is preceded by a red X. This message type informs the user of extremely serious situations, especially those which could cause the loss of user data. Options for redressing the situation (if available) should be provided with the message. The classification code for prompt messages is %CC.
+消息文件的第一行可以使用前缀设置对应的图标，对应说明如下：
 
 | 前缀 | 类型     | 说明                                              |
 | ---- | -------- | ------------------------------------------------- |
@@ -38,8 +36,13 @@ date:
 | %CE  | Error    | 错误，提示信息前面添加一个破碎绿色+黄色的正方形。 |
 | %CC  | Critical | 严重错误，提示信息前面添加一个红色的×。           |
 
+**注意：Toolkit函数在查找消息时，前缀是默认忽略的，在代码中须删除对应的前缀才能查找到消息。**
+
 
 ### 1.3 格式化字符串
+
+•转换规范(%d， %s，等等)必须包含一个参数编号，对应于该参数在后续列表中的位置(从0开始)。例如，不是%d， %s，而是%0d，%1，等等。如果你想指定一个字段宽度，把它放在位置号和类型说明符之间的圆括号中;例如,% 0 f(5.3)。
+
 
 
 | Conversion Character | Data Type                                   | 说明                                   |
@@ -51,5 +54,18 @@ date:
 | e                    | Exponential                                 | 指数形式数字，形如2.3e3                |
 | g                    | Either float or exponential, as appropriate | 浮点或指数形式的数字均可               |
 
+### 1.4 消息输入的默认值
 
+
+
+
+**P.S.消息文件只在会话期间加载到Creo参数中一次，二次开发时如果在程序运行时对消息文件进行更改，则必须重新启动Creo才能使更改生效。**
+
+## 2.消息文件的使用
+
+### 2.1 在消息提示区显示消息
+
+### 2.2 清除消息提示区消息
+
+### 2.3 读取消息
 
