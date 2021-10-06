@@ -62,7 +62,7 @@ ProError ShowDialog(wchar_t *Message)
   ProUIMessageButton user_choice;
   ProArrayAlloc(1, sizeof(ProUIMessageButton), 1, (ProArray *)&buttons);
   buttons[0] = PRO_UI_MESSAGE_OK;
-  ProUIMessageDialogDisplay(PROUIMESSAGE_INFO, _T("提示"), Message, buttons, PRO_UI_MESSAGE_OK, &user_choice);
+  ProUIMessageDialogDisplay(PROUIMESSAGE_INFO, L"提示", Message, buttons, PRO_UI_MESSAGE_OK, &user_choice);
   ProArrayFree((ProArray *)&buttons);
   return PRO_TK_NO_ERROR;
 }
