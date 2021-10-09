@@ -94,6 +94,8 @@ status = ProMessageDisplay(MSGFILE, "IMI_ResultPrompt", wcharString, &intValue, 
 
 ### 2.3 读取消息
 
+Toolkit提供了 `ProMessageDoubleRead`, `ProMessageIntegerRead`, `ProMessagePasswordRead`, `ProMessageStringRead`等函数读取用户输入的数值。在这些读取函数前可以先调用ProMessageDisplay函数，这样函数显示的内容会出现在输入框上方便于理解。发现一个不方便的问题就是如果是默认值不在输入框进行鼠标键盘等操作，对应的读取函数竟然无法读取到默认值，所以需要程序自己处理下。读取字符串的测试代码如下：
+
 ```cpp
 status = ProMessageDisplay(MSGFILE, "IMI_WCharStringPrompt", wcharString);
 status = ProMessageStringRead(MAXMESSAGESTRINGLENGTH, wcharString);
