@@ -1,5 +1,5 @@
 ---
-title: CREO Toolkit二次开发小工具-字符串与数字互转函数
+title: CREO Toolkit二次开发小工具-字符串与数字互转函数字符串与数字互转函数
 tags:
   - CREO
   - TOOLKIT
@@ -15,7 +15,7 @@ date: 2019-01-02
 
 <div align="center">
     <img src="/img/proe/ToolkitRel.png" style="width:70%" align="center"/>
-    <p>图 一键对齐符号</p>
+    <p>图 字符串与数字互转函数</p>
 </div>
 
 代码公开，需要的人可以随便根据自己的环境修改编译。完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
