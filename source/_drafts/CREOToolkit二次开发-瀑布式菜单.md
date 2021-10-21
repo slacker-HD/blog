@@ -1,6 +1,12 @@
 ---
 title: CREOToolkit二次开发-瀑布式菜单
 tags:
+  - CREO
+  - TOOLKIT
+  - CREO二次开发
+comments: true
+category: CREO二次开发
+date:
 ---
 
 其实我很不喜欢Creo瀑布式菜单的方式，不过确实瀑布式菜单有其便捷性，所以也研究了下，在此记录。
@@ -17,12 +23,38 @@ tags:
 举例说明，如果我们希望在mnu文件中创建一个显示英文为"Show My Menu"、中文为"显示我的菜单"的菜单项，则内容可写成以下格式：
 
 ~~~
-Show#My#Menu 显示我的菜单
-Reference for menu.
-菜单功能说明。
+Show#Custom#Dialog 显示自定义对话框
+Show Custom Dialog.
+显示自定义对话框。
 ~~~
 
 ## 2.显示菜单
+
+先说明顺序，还有几个poppush。
+
+最后说明下done/return返回中键
+
+
+
+
+### 2.1 加载菜单文件
+
+加载菜单文件使用`ProMenuFileRegister`函数完成，与添加普通菜单类似，同时会对应的菜单ID：
+
+```cpp
+ProError status;
+int TestMenuId;
+status = ProMenuFileRegister("Show Custom Dialog", "ShowCustomDialog.mnu", &TestMenuId);
+```
+
+### 2.2 设定菜单项的响应函数
+
+设定菜单项的响应函数由`ProMenubuttonActionSet`完成。
+
+
+status = ProMenubuttonActionSet("Show Custom Dialog", "Dialog Style", (ProMenubuttonAction)ShowDialogStyle, NULL, 0);
+
+
 
 
 
