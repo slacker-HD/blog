@@ -63,7 +63,7 @@ ProError PaneActionInit()
 ```
 
 <div align="center">
-  <img src="/img/proe/jlink5.png" style="width:95%" align="center"/>
+  <img src="/img/proe/navpane.gif" style="width:95%" align="center"/>
   <p>图 自定义导航器栏</p>
 </div>
 
