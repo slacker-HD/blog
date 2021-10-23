@@ -74,7 +74,7 @@ status = ProViewMatrixGet(ProMdl(solid), view, transAsmtoScreen);
 status = ProPntTrfEval(pointAsmCoord, transAsmtoScreen, pointScreenCoord);
 ```
 
-根据上述说明，编写了一个示例程序，可以通过选择装配体上的点绘制冲绘图原点到选择点的预览直线，如下图所示：
+根据上述说明，编写了一个示例程序，可以通过选择装配体上的点绘制从绘图原点到选择点的预览直线，如下图所示：
 
 <div align="center">
     <img src="/img/proe/Coordtrf.gif" style="width:75%" align="center"/>
