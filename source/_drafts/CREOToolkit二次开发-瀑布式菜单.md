@@ -30,14 +30,9 @@ Show Custom Dialog.
 
 ## 2.菜单的使用
 
-### 2.1 基本函数
+菜单的使用主要流程为：
 
 
-
-
-先说明顺序，还有几个poppush。
-
-最后说明下done/return返回中键
 
 
 
@@ -56,16 +51,32 @@ status = ProMenuFileRegister("Show Custom Dialog", "ShowCustomDialog.mnu", &Test
 
 设定菜单项的响应函数由`ProMenubuttonActionSet`完成。
 
-
+```cpp
 status = ProMenubuttonActionSet("Show Custom Dialog", "Dialog Style", (ProMenubuttonAction)ShowDialogStyle, NULL, 0);
 
+int ShowContent(ProAppData app_data, int app_int)
+{
+	ProError status;
+	//add your code here
+	return 0;
+}
+```
+### 2.1 基本函数
 
+
+
+
+先说明顺序，还有几个poppush。
+
+最后说明下done/return返回中键
+
+使用`ProMenuPush`和`ProMenuPop`函数可以控制上层菜单的折叠和展开。
 
 
 
 <div align="center">
-    <img src="/img/proe/PopupMenu.gif" style="width:85%" align="center"/>
-    <p>图 瀑布式菜单测试</p>
+    <img src="/img/proe/CascadingMenu.png" style="width:85%" align="center"/>
+    <p>图 瀑布式菜单调用流程</p>
 </div>
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
