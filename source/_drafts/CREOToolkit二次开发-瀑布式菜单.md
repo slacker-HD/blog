@@ -9,7 +9,7 @@ category: CREO二次开发
 date:
 ---
 
-其实我很不喜欢Creo瀑布式菜单的方式，不过确实瀑布式菜单有其便捷性，所以也研究了下，在此记录。
+其实我很不喜欢Creo瀑布式菜单的方式，不过确实瀑布式菜单有其便捷性，所以也研究了下，在此简要记录。
 
 ## 1.瀑布式菜单的格式
 
@@ -28,18 +28,19 @@ Show Custom Dialog.
 显示自定义对话框。
 ~~~
 
-## 2.菜单的使用
+## 2.瀑布式菜单的使用
 
-菜单的使用主要流程为：
+瀑布式菜单的主要调用流程如下图所示，重点包括加载资源、设置响应函数、显示菜单以及处理菜单退出消息等。
 
-
-
-
+<div align="center">
+    <img src="/img/proe/CascadingMenu.png" style="width:85%" align="center"/>
+    <p>图 瀑布式菜单调用流程</p>
+</div>
 
 
 ### 2.1 加载菜单文件
 
-加载菜单文件使用`ProMenuFileRegister`函数完成，与添加普通菜单类似，同时会对应的菜单ID：
+加载菜单文件使用`ProMenuFileRegister`函数完成，与添加普通菜单类似，同时会生成对应的菜单ID供后续操作调用：
 
 ```cpp
 ProError status;
@@ -47,9 +48,11 @@ int TestMenuId;
 status = ProMenuFileRegister("Show Custom Dialog", "ShowCustomDialog.mnu", &TestMenuId);
 ```
 
+一个瀑布式菜单可以调用多个菜单，可以在菜单项的响应函数继续调用`ProMenuFileRegister`函数，实现瀑布式菜单的级联显示。
+
 ### 2.2 设定菜单项的响应函数
 
-设定菜单项的响应函数由`ProMenubuttonActionSet`完成。
+设定菜单项的响应函数由`ProMenubuttonActionSet`完成，同时可以在响应函数调用`ProMenuPush`和`ProMenuPop`函数控制菜单的折叠和展开。`ProMenubuttonActionSet`的第二个参数为`mnu`文件中英文部分，需要把`#`号替换为空格，而第三和第四个参数分别相应函数调用的参数，为ProAppData和int类型。响应函数固定为返回值为int整形类型的函数，且包含一个ProAppData和一个int类型的参数：
 
 ```cpp
 status = ProMenubuttonActionSet("Show Custom Dialog", "Dialog Style", (ProMenubuttonAction)ShowDialogStyle, NULL, 0);
@@ -57,26 +60,21 @@ status = ProMenubuttonActionSet("Show Custom Dialog", "Dialog Style", (ProMenubu
 int ShowContent(ProAppData app_data, int app_int)
 {
 	ProError status;
+  status = ProMenuPush();
 	//add your code here
 	return 0;
 }
 ```
-### 2.1 基本函数
+
+### 2.3 瀑布式菜单的退出
+
+瀑布式菜单退出可以调用
 
 
 
-
-先说明顺序，还有几个poppush。
-
-最后说明下done/return返回中键
-
-使用`ProMenuPush`和`ProMenuPop`函数可以控制上层菜单的折叠和展开。
+注意中键
 
 
 
-<div align="center">
-    <img src="/img/proe/CascadingMenu.png" style="width:85%" align="center"/>
-    <p>图 瀑布式菜单调用流程</p>
-</div>
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
