@@ -25,9 +25,15 @@ widgets:
   - recent_posts
   - category
   - tag
-  # - archive
+  - archive
   #- weibo
   - links
+
+# Widget behavior
+archive_type: 'yearly'   # defalut 'monthly'
+archive_format: 'YYYY年'
+show_count: false
+recent_posts_limits: 5
 
 # Toc
 toc:
