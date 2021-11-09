@@ -32,8 +32,13 @@ widgets:
 # Widget behavior
 archive_type: 'yearly'   # defalut 'monthly'
 archive_format: 'YYYY年'
-show_count: false
+show_archive_count: false
 recent_posts_limits: 5
+
+#tagcloud
+tagcloud_color: true
+tagcloud_start_color: RGB(0,102,153)
+tagcloud_end_color: RGB(0,0,0)
 
 # Toc
 toc:
