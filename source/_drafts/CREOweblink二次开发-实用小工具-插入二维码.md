@@ -12,7 +12,7 @@ date:
 
 更新了weblink工具，添加了插入二维码功能。
 
-二维码的生成使用了<a href="http://davidshimjs.github.io/qrcodejs/" target="_blank">QRCode.js</a>库，使用时点击按钮再在绘图中左键点击对一个的位置即可生成。
+二维码的生成使用了<a href="http://davidshimjs.github.io/qrcodejs/" target="_blank">QRCode.js</a>库，使用时点击按钮再在绘图中左键点击对应的位置即可生成。
 
 <div align="center">
     <img src="/img/proe/weblinktool16.png" style="width:80%" align="center"/>

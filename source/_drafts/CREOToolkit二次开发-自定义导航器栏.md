@@ -36,8 +36,7 @@ status = ProNavigatorpanePHolderAdd("MyApps1", "NavigatorpaneTest.res", "D:\\myd
 
 添加的对话框面板和普通对话框一样，需要设置自定义消息。在Creo中每次打开一个窗口都会对应的创建一个新的面板，所以每次Creo新建窗口都需要重新为这个窗口所包含面板设定对应的控件响应函数。同理如果窗口被关闭如有需要也需要添加对应的操作。
 
-因此设置对话框控件消息需要使用`ProNotificationSet`函数用于监听窗口事件，在`PRO_WINDOW_OCCUPY_POST`（新建窗口）事件中添加控件对应的响应函数和初始化操作，在
-`PRO_WINDOW_VACATE_PRE`（窗口关闭，对于最后一个窗口即主窗口则是清空）添加需要的扫尾操作。注册事件的代码如下：
+因此设置对话框控件消息需要使用`ProNotificationSet`函数用于监听窗口事件，在`PRO_WINDOW_OCCUPY_POST`（新建窗口）事件中添加控件对应的响应函数和初始化操作，在`PRO_WINDOW_VACATE_PRE`（窗口关闭，对于最后一个窗口即主窗口则是清空）添加需要的扫尾操作。注册事件的代码如下：
 
 ```cpp
 status = ProNotificationSet(PRO_WINDOW_OCCUPY_POST, (ProFunction)PaneActionInit);
