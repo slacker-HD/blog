@@ -1,5 +1,5 @@
 ---
-title: CREOweblink二次开发-实用小工具-插入条形码
+title: CREO weblink二次开发-实用小工具-插入条形码
 tags:
   - CREO
   - WEBLINK
@@ -7,8 +7,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date: 
+date: 2021-12-01 14:17:09
 ---
+
 
 更新了weblink工具，既然添加了插入二维码功能，顺便也把条形码功能也做了吧。
 
