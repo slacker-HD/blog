@@ -1,5 +1,5 @@
 ---
-title: CREO Toolkit二次开发-使用makefile创建异步工程
+title: CREO Toolkit二次开发-使用makefile（上）-创建异步工程
 tags:
   - CREO
   - TOOLKIT
@@ -81,6 +81,10 @@ Creo官方的makefile还定义了`PROTOOL_SYS`用于记录Creo库文件地址，
 INCS = -I. -I"C:/PTC/Creo 2.0/Common Files/M060/protoolkit/includes" -I$(PROTOOL_SRC)/includes
 ```
 
+**P.S.由于项目使用的是C工程，所以保持原有`CCFLAGS`不变，如果使用C++，则在此替换`CCFLAGS`为`CPPFLAGS`。此步为可选。**
+
+
+
 由于删除了`PROTOOL_SYS`，所以在`PTCLIBS`则修改对应的目录以确保找到对应的库文件：
 
 ```
@@ -113,13 +117,58 @@ $(CC) $(CFLAGS) $(PROTOOL_SRC)/Test.c
 
 至此makefile修改完毕。
 
-## 2.编译工程
+## 3.编译工程
 
-
-与编译运行Toolkit自带例子一样，开始菜单找到"Visual Studio x64 Win64 命令提示(2010)"并打开，`cd`进入当前目录输入如下代码即可完成项目的编译：
+与编译运行Toolkit自带例子一样，开始菜单找到"Visual Studio x64 Win64 命令提示(2010)"并打开，`cd进入当前目录输入如下代码即可完成项目的编译：
 
 ```shell
 nmake dll
+```
+
+## 4.调试工程
+
+### 4.1 生成调试版本
+
+以上修改makefile后生成的exe文件为Release版本。故如果需要调试，首先需要对其进行修改生成debug版本。生成Debug版本主要修改makefile两个地方，在make`CCFLAGS`后添加`/Od /Z7`（如果是C++工程则为`CPPFLAGS `）,并把`$(EXE) :  $(OBJS) $(PTCLIBS)`中`/debug:none`修改为`/debug`:
+
+```
+CCFLAGS = /wd4430  /TP -c -GS -fp:precise -D_WSTDIO_DEFINED -DPRO_USE_VAR_ARGS -DPRO_USE_VAR_ARG  /Od /Z7
+```
+
+```
+$(EXE) :  $(OBJS) $(PTCLIBS)
+#Executable applications compiled using WinMain() instead of main() should set the subsystem to windows instead of console.
+	$(LINK) /subsystem:console -out:$(EXE) /debug /debugtype:cv /machine:amd64 @<<longline.list 
+$(OBJS) $(PTCLIBS) $(LIBS)
+<<
+```
+
+调用`nmake`命令，生成debug版本。
+
+### 4.2 使用VScode调试程序
+
+个人喜欢使用VScode，所以以VScode为例说明如何调试程序，Atom和Sublime没使用过，估计大体的方式类似，VScode已安装了C/C++ Extension Pack插件。首先确保项目已在Debug模式下已生成。在VScode中打开Test.c，按下F5，选择"C++(Windows)"——"Default Configuration",生成`launch.json`文件。修改其`program`字段为需要调试的exe文件：
+
+```json
+"program": "${workspaceFolder}/AsyncProjectNOVS.exe",
+```
+
+修改完成成`launch.json`后，再次按下F5键，即进入调试模式，VScode的调试与Visual studio一样强大，如下图所示：
+
+<div align="center">
+    <img src="/img/proe/AsyncProjectNOVS2.png" style="width:75%" align="center"/>
+    <p>图 使用VScode调试工程</p>
+</div>
+
+## 5.使用VScode的代码补全功能
+
+这个功能其实与二次开发无关，完全是Vscode的设置说明了。安装好C/C++ Extension Pack插件的VScode的代码编辑功能比Visual Studio在格式化代码、代码提示等方面甚至更强。只需在c_cpp_properties.json配置文件`includePath`中加入Toolkit的头文件目录即可完成：
+
+```json
+"includePath": [
+  "${workspaceFolder}/**",
+  "C:/PTC/Creo 2.0/Common Files/M060/protoolkit/includes"
+],
 ```
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
