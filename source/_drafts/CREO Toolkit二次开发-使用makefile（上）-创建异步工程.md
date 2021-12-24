@@ -10,9 +10,9 @@ category: CREO二次开发
 
 Toolkit二次开发主流的教程都是在微软Visual Studio下进行，而官方文档给出的例子都是直接使用makefile创建。对使用makefile创建工程的方法进行了研究，在此记录。
 
-## 1.新建工程
+## 1.新建异步工程
 
-由于异步模式的代码和工程文件相对简单，所以从异步模式开始。首先拷贝Creo安装目录下`\protoolkit\x86e_win64\obj\make_async`文件到项目根目录并改名为`makefile`。
+由于异步模式的代码和工程文件相对简单，所以从异步模式的建立和调试开始说明。首先拷贝Creo安装目录下`\protoolkit\x86e_win64\obj\make_async`文件到项目根目录并改名为`makefile`。
 
 在工程根目录下建立子文件夹`src`用于存放项目源码，源码的头文件则保存在子文件夹`src\includes`。为项目添加一个`Test.c`文件和`Test.h`文件开始代码撰写，以之前<a href="https://github.com/slacker-HD/creo_toolkit/tree/master/AsyncProject" target="_blank">AsyncProject</a>工程的代码为例进行修改，添加代码如下：
 
@@ -119,17 +119,17 @@ $(CC) $(CFLAGS) $(PROTOOL_SRC)/Test.c
 
 ## 3.编译工程
 
-与编译运行Toolkit自带例子一样，开始菜单找到"Visual Studio x64 Win64 命令提示(2010)"并打开，`cd进入当前目录输入如下代码即可完成项目的编译：
+与编译运行Toolkit自带例子一样，开始菜单找到"Visual Studio x64 Win64 命令提示(2010)"并打开，`cd`进入当前目录输入如下代码即可完成项目的编译：
 
 ```shell
-nmake dll
+nmake
 ```
 
 ## 4.调试工程
 
 ### 4.1 生成调试版本
 
-以上修改makefile后生成的exe文件为Release版本。故如果需要调试，首先需要对其进行修改生成debug版本。生成Debug版本主要修改makefile两个地方，在make`CCFLAGS`后添加`/Od /Z7`（如果是C++工程则为`CPPFLAGS `）,并把`$(EXE) :  $(OBJS) $(PTCLIBS)`中`/debug:none`修改为`/debug`:
+以上修改makefile后生成的exe文件为Release版本，故首先需要对其进行修改以生成debug版本。生成Debug版本主要修改makefile两个地方，在make`CCFLAGS`后添加`/Od /Z7`（如果是C++工程则为`CPPFLAGS `）,并把`$(EXE) :  $(OBJS) $(PTCLIBS)`中`/debug:none`修改为`/debug`:
 
 ```
 CCFLAGS = /wd4430  /TP -c -GS -fp:precise -D_WSTDIO_DEFINED -DPRO_USE_VAR_ARGS -DPRO_USE_VAR_ARG  /Od /Z7
@@ -147,7 +147,7 @@ $(OBJS) $(PTCLIBS) $(LIBS)
 
 ### 4.2 使用VScode调试程序
 
-个人喜欢使用VScode，所以以VScode为例说明如何调试程序，Atom和Sublime没使用过，估计大体的方式类似，VScode已安装了C/C++ Extension Pack插件。首先确保项目已在Debug模式下已生成。在VScode中打开Test.c，按下F5，选择"C++(Windows)"——"Default Configuration",生成`launch.json`文件。修改其`program`字段为需要调试的exe文件：
+个人喜欢使用VScode，所以以VScode为例说明如何调试程序，Atom和Sublime没使用过，估计大体的方式类似，VScode已安装了C/C++ Extension Pack插件。首先确保项目已在Debug模式下已生成。在VScode中打开Test.c，按下F5，选择"C++(Windows)"-"Default Configuration",生成`launch.json`文件。修改其`program`字段为需要调试的exe文件：
 
 ```json
 "program": "${workspaceFolder}/AsyncProjectNOVS.exe",
