@@ -30,7 +30,7 @@ AfxMessageBox(Msg);
 
 ## 2.计算指定坐标系下零件的外形尺寸
 
-计算制定坐标系下外形尺寸可以使用ProSolidOutlineCompute函数完成。该函数相对复杂的地方在于第二个参数需要将给定的坐标系转化为对应的转置矩阵进行计算。在Toolkit的示例代码中提供了ProUtilVectorsToTransf和ProUtilMatrixInvert用于此计算，直接拷贝对应的函数，则对应的示例代码如下：
+计算制定坐标系下外形尺寸可以使用ProSolidOutlineCompute函数完成。该函数相对复杂的地方在于第二个参数需要将给定的坐标系转化为对应的转置矩阵进行计算。在Toolkit的示例代码中提供了ProUtilVectorsToTransf用于此计算，直接拷贝对应的函数，则对应的示例代码如下：
 
 ```cpp
 ProError status;
@@ -41,7 +41,7 @@ ProGeomitemdata *geom_data = NULL;
 ProCsysdata *p_csys = NULL;
 ProMdl solid;
 Pro3dPnt outline[2];
-ProMatrix transf, itranf;
+ProMatrix transf;
 ProSolidOutlExclTypes excludes[] = {PRO_OUTL_EXC_DATUM_PLANE, PRO_OUTL_EXC_DATUM_POINT, PRO_OUTL_EXC_DATUM_CSYS};
 status = ProMessageDisplay(MSGFILE, "entermsg");
 if ((ProSelect("csys", 1, NULL, NULL, NULL, NULL, &psels, &sel_count) != PRO_TK_NO_ERROR) || (sel_count < 1))
@@ -56,7 +56,6 @@ if (geom_data->obj_type != PRO_CSYS)
 }
 p_csys = geom_data->data.p_csys_data;
 ProUtilVectorsToTransf(p_csys->x_vector, p_csys->y_vector, p_csys->z_vector, p_csys->origin, transf);
-ProUtilMatrixInvert(transf, itranf);
 status = ProMdlCurrentGet(&solid);
 status = ProSolidOutlineCompute((ProSolid)solid, transf, excludes, 3, outline);
 CString Msg;
