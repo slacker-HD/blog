@@ -8,8 +8,6 @@ comments: true
 category: CREO二次开发
 ---
 
-
-
 本文续上一篇文章，说明同步模式的工程如何创建。
 
 ## 1.新建同步工程
@@ -96,6 +94,7 @@ nmake dll
 ## 4.调试工程
 
 生成调试版本的操作与异步模式一样，在此不再赘述。使用VScode调试程序时，在`launch.json`文件添加"C/C++ (Windows) Attach"选项，生成如下配置：
+
 ```json
 "configurations": [
   {
@@ -114,11 +113,9 @@ nmake dll
     <p>图 使用VScode调试工程</p>
 </div>
 
-
 ## 5.TODO LIST
 
-> 1.VScode尚未继承编译功能，需要单独打开Visual studio的命令行窗口输入命令进行编译，应该是可以通过修改环境变量写一个bat文件完成的；  
-> 2.如果完成上述操作，可以修改launch.json，特别实在异步工程实现调试前编译的功能。
-
+> 1.VScode尚未集成编译功能，需要单独打开Visual studio的命令行窗口输入命令进行编译，应该是可以通过修改环境变量写一个bat文件完成的；  
+> 2.如果完成上述操作，可以修改launch.json，特别是在异步工程实现调试前编译的功能。
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
