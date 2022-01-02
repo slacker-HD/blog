@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2022-01-02 13:02:08
 ---
+
 
 Toolkit二次开发主流的教程都是在微软Visual Studio下进行，而官方文档给出的例子都是直接使用makefile创建。对使用makefile创建工程的方法进行了研究，在此记录。
 
