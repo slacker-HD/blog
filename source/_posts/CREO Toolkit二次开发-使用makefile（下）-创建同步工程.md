@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2022-01-17 10:24:49
 ---
+
 
 本文续上一篇文章，说明同步模式的工程如何创建。
 
@@ -85,7 +87,7 @@ void user_terminate()
 
 ## 3.编译工程
 
-与异步模式略有差异，在"Visual Studio x64 Win64 命令提示(2010)"并打开，`cd进入当前目录输入如下代码即可完成项目的编译：
+与异步模式略有差异，在"Visual Studio x64 Win64 命令提示(2010)"并打开，`cd`进入当前目录输入如下代码即可完成项目的编译：
 
 ```shell
 nmake dll
