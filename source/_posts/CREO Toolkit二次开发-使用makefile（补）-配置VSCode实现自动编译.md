@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2022-02-06 10:50:22
 ---
+
 本文续上一篇文章TODOLIST，说明如何使用VSCode一键编译和调试。
 
 ## 1.修改makefile
@@ -39,7 +41,7 @@ clean_dll :
 
 这样直接运行`nmake clean`或者`nmake clean_dll`即可清除异步和同步工程对应生成的所有文件。
 
-**P.S. 同步模式不知道为什么还有EXE这个选项，其实也可以删除只保留生成dll的内容即可，详细可见[makefile](https://github.com/slacker-HD/creo_toolkit/blob/master/CreoTool/makefile)。**
+**P.S. 同步模式不知道为什么还有EXE这个选项，其实也可以删除只保留生成dll的内容，详细可见[makefile](https://github.com/slacker-HD/creo_toolkit/blob/master/CreoTool/makefile)。**
 
 ## 2.配置`task.json`
 
