@@ -86,7 +86,7 @@ comment:
   cloudTie: ## 网易云跟帖(productKey)
   changyan: ## 畅言需在下方配置两个参数，此处不填。
     appid: cytrKUm6t
-    appkey: a6e3132eb1e5e6ebd63f9871f9af8809
+    appkey: prod_158a59802f17fc4f7bb4d570898a8459
     
 #Share
 baidu_share: ## 百度分享

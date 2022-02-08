@@ -15,7 +15,7 @@ block content
         a(href=url_for(post.path))
           +title(post)
       .post-meta
-        if theme.comment.changyan.appid && theme.comment.changyan.appkey
+        if theme.comment.appid && theme.comment.changyan.appkey
           a.comment-count(href=url_for(post.path) + '#comments')
             span.cy_cmt_count(id = 'url::' + config.url +'/'+ post.path)
             = ''+ __('guestbook') + ','
