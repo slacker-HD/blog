@@ -21,18 +21,19 @@ block content
             i#busuanzi_container_page_pv
               i#busuanzi_value_page_pv
               i= '' + __('hits')
-
     .post-content
       != page.content
     include _partial/tag
-    h1(class="post-nav") 赞赏支持
-    p 我的博客上所有文章都是原创，如果觉得本文对您有所帮助，
-    br
-    p 请向我的钱包打款1分钱让我知晓，谢谢。
-    br
+    //- h1(class="post-nav") 赞赏支持
+    //- p 我的博客上所有文章都是原创，如果觉得本文对您有所帮助，
+    //- br
+    //- p 请向我的钱包打款1分钱让我知晓，谢谢。
+    //- br
     center 
-      dlv
-        img(src="/img/money/wechat.png" width="30%" align="center")
+      //- dlv
+      //-   img(src="/img/money/wechat.png" width="30%" align="center")
+      div(id="cyReward" role="cylabs" data-use="reward")
+      script(type='text/javascript', src=src="https://cy-cdn.kuaizhan.com/js/??lib/jquery.js,changyan.labs.https.js?appid=cytrKUm6t")
 
     .post-share
       include _partial/share
