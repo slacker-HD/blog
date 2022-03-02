@@ -6,8 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date:
+date: 2022-03-02 09:02:13
 ---
+
 
 Toolkit提供了自定义导航器栏的功能，相对VBAPI以及Weblink功能更强大，不仅可以加入网页，以也可以加入自定义对话框。
 
