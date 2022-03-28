@@ -7,7 +7,7 @@ comments: true
 category: 电脑技术
 ---
 
-Vivaldi的内置翻译功能一直不能使用是个很头疼的事，大概率是被屏蔽了。在官网论坛搜索发现Vivaldi翻译地址的网址`mimir.vivaldi.com`，而贴吧也有人说只要改Host文件把`mimir.vivaldi.com`改成Vivaldi的主页IP即可。尝试下可用，windows下修改`Windows\System32\drivers\etc\hosts`, Mac和Linux则是修改`/etc/hosts`：
+Vivaldi的内置翻译功能大概率是被屏蔽了，不能使用也无法停用是个很头疼的事。在官网论坛搜索发现Vivaldi翻译地址的网址`mimir.vivaldi.com`，而贴吧也有人说只要改Host文件把`mimir.vivaldi.com`改成Vivaldi的主页IP即可。尝试下可用，windows下修改`Windows\System32\drivers\etc\hosts`, Mac和Linux则是修改`/etc/hosts`：
 
 ```
 104.22.68.109 mimir.vivaldi.com
