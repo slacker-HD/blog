@@ -5,7 +5,9 @@ tags:
   - Vivaldi
 comments: true
 category: 电脑技术
+date: 2022-04-06 09:46:56
 ---
+
 
 Vivaldi的内置翻译功能大概率是被屏蔽了，不能使用也无法停用是个很头疼的事。在官网论坛搜索发现Vivaldi翻译地址的网址`mimir.vivaldi.com`，而贴吧也有人说只要改Host文件把`mimir.vivaldi.com`指向Vivaldi的主页IP即可。尝试下可用，windows下修改`Windows\System32\drivers\etc\hosts`, Mac和Linux则是修改`/etc/hosts`添加如下内容：
 
@@ -14,4 +16,4 @@ Vivaldi的内置翻译功能大概率是被屏蔽了，不能使用也无法停�
 172.67.21.222 mimir.vivaldi.com
 ```
 
-改完Host文件重启Vivaldi浏览器，内置翻译功能可用了。
+改完Host文件重启Vivaldi浏览器。唯一的缺陷是翻译面板的输入语言必须指定才能使用，但其余翻译功能基本可用，核心问题总算是解决了。
