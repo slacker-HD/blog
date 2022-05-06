@@ -1,13 +1,14 @@
 ---
-title: CREOToolkit二次开发-瀑布式菜单
+title: CREO Toolkit二次开发-瀑布式菜单
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date:
+date: 2022-05-06 09:10:07
 ---
+
 
 其实我很不喜欢Creo瀑布式菜单的方式，不过确实瀑布式菜单有其便捷性，所以也研究了下，在此简要记录。
 
