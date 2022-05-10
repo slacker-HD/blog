@@ -18,7 +18,7 @@ status = ProDirectoryCurrentGet(path);
 ShellExecute(NULL, NULL, _T("explorer"), CString(path), NULL, SW_SHOW);
 ```
 
-获取模型路径相对复杂点。模型的路径存在ProMdldata结构体数据中，可由`ProMdlDataGet`获取。路径数据也不是存在单独变量里，而是分别由`device`和`path`两个结构体成员中，分别表示其所在盘符和路径，故打开模型所在路径的代码如下：
+但有时候当前打开模型所在目录未必是工作目录。因此需获取模型路径。模型的路径存在ProMdldata结构体数据中，可由`ProMdlDataGet`获取。路径数据也不是存在单独变量里，而是分别由`device`和`path`两个结构体成员中，分别表示其所在盘符和路径，故打开模型所在路径的代码如下：
 
 ```cpp
 status = ProMdlDataGet(mdl, &mdldata);

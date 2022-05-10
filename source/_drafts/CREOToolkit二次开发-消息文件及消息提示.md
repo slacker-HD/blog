@@ -74,7 +74,7 @@ The input wide character string is %0w, integer is %1d， double with one signif
 #
 ```
 
-第一行包含了`%CI`的前缀，故在寻找时需要忽略，所以在ProMessageDisplay的第二个参数为`IMI_ResultPrompt`。
+第一行包含了`%CI`的前缀，在寻找时需要忽略，所以在ProMessageDisplay的第二个参数为`IMI_ResultPrompt`。
 第二行包含了三个转换规范，故可变参数对应有3个。三个转换规范分别为`%0w`，`%1d`，`%2(3.1)f`，`%`后对应的数字表示可变参数的位置（见1.3.1节），所以ProMessageDisplay后三个参数依次为`wchar_t`、`int`指针和`double`指针类型。最后一个浮点参数指定了格式，保留一位有效数字（系统自动四舍五入），示例代码如下：
 
 ```cpp
