@@ -2,6 +2,7 @@
 title: MacOS Mojave下CH340驱动解决方案
 tags:
   - Arduino
+  - Mac
 comments: true
 category: Arduino
 date: 2019-09-15 19:50:59
