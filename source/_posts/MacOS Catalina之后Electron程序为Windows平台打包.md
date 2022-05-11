@@ -4,7 +4,7 @@ tags:
   - electron
   - javascript
   - nodejs
-  -MACOS
+  - MACOS
 comments: true
 category: Electron
 date: 2021-02-02 20:08:11

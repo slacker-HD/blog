@@ -5,7 +5,7 @@ date: 2020-06-21 10:51:20
 tags:
   - Arduino
   - Digispark
-  -MACOS
+  - MACOS
 category: Arduino
 ---
 

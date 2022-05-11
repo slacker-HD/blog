@@ -1,7 +1,7 @@
 ---
 title: MacOS删除多余的Windows启动项
 tags:
-  -MACOS
+  - MACOS
 comments: true
 category: 电脑技术
 date: 
