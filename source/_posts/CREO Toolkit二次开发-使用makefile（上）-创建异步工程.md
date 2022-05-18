@@ -105,7 +105,7 @@ OBJS = Test.obj
 ```
 $(EXE) :  $(OBJS) $(PTCLIBS)
 #Executable applications compiled using WinMain() instead of main() should set the subsystem to windows instead of console.
-	$(LINK) /subsystem:console -out:$(EXE) /debug:none /debugtype:cv /machine:amd64 @<<longline.list 
+	$(LINK) /subsystem:console -out:$(EXE) /debugtype:cv /machine:amd64 @<<longline.list 
 $(OBJS) $(PTCLIBS) $(LIBS)
 <<
 ```
