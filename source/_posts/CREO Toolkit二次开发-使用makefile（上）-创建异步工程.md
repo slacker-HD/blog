@@ -105,7 +105,7 @@ OBJS = Test.obj
 ```
 $(EXE) :  $(OBJS) $(PTCLIBS)
 #Executable applications compiled using WinMain() instead of main() should set the subsystem to windows instead of console.
-	$(LINK) /subsystem:console -out:$(EXE) /debugtype:cv /machine:amd64 @<<longline.list 
+	$(LINK) /subsystem:console -out:$(EXE) /machine:amd64 @<<longline.list 
 $(OBJS) $(PTCLIBS) $(LIBS)
 <<
 ```
@@ -131,7 +131,7 @@ nmake
 
 ### 4.1 生成调试版本
 
-以上修改makefile后生成的exe文件为Release版本，故首先需要对其进行修改以生成debug版本。生成Debug版本主要修改makefile两个地方，在make`CCFLAGS`后添加`/Od /Z7`（如果是C++工程则为`CPPFLAGS `）,并把`$(EXE) :  $(OBJS) $(PTCLIBS)`中`/debug:none`修改为`/debug`:
+以上修改makefile后生成的exe文件为Release版本，故首先需要对其进行修改以生成debug版本。生成Debug版本主要修改makefile两个地方，在make`CCFLAGS`后添加`/Od /Z7`（如果是C++工程则为`CPPFLAGS `）,并把`$(EXE) :  $(OBJS) $(PTCLIBS)`中添加`/debug /debugtype:cv`:
 
 ```
 CCFLAGS = /wd4430  /TP -c -GS -fp:precise -D_WSTDIO_DEFINED -DPRO_USE_VAR_ARGS -DPRO_USE_VAR_ARG  /Od /Z7
