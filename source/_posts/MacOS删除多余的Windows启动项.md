@@ -4,9 +4,10 @@ tags:
   - MACOS
 comments: true
 category: 电脑技术
-date:
+date: 2022-05-23 15:53:25
 ---
-我的Macbook之前通过`BootCamp`安装了windows后又删除了，但是开机按住`option`键还是会出现`Windows 启动盘`选项，虽然没什么影响但还是觉得有问题，搜索一番找到删除方法，记录一下。主要问题是windows在Mac的EFI分区添加了相关内容，而删除`BootCamp`并未删除对应的记录，所以解决方案就是手动删除EFI分区的Windows的启动项。
+
+我的Macbook之前通过`BootCamp`安装了windows后又删除了，但是开机按住`option`键还是会出现`Windows 启动盘`选项，虽然没什么影响但还是觉得有问题，搜索一番找到删除方法，记录一下。主要问题是windows在Mac的EFI分区添加了相关内容，而删除`BootCamp`及分区并未删除对应的记录，所以解决方案就是手动删除EFI分区的Windows的启动项。
 
 首先通过diskutil查看磁盘信息。打开终端，运行以下命令：
 
