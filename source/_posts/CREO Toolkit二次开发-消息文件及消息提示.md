@@ -1,13 +1,14 @@
 ---
-title: CREOToolkit二次开发-消息文件及消息提示
+title: CREO Toolkit二次开发-消息文件及消息提示
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date:
+date: 2022-06-06 11:26:01
 ---
+
 
 消息文件为于菜单、以及一些提示信息提供文本内容。**需要注意的是，消息文件要使用UTF-8 with BOM编码才能正确显示中文。**本文介绍消息文件的组成及如何使用消息文件读取、显示消息。
 
