@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "5.4.2"
+    "version": "6.0.0"
   },
   "scripts": {
     "build": "hexo g",
@@ -11,7 +11,7 @@
     "PreviewDraft": "hexo server --draft"
   },
   "dependencies": {
-    "hexo": "^5.4.0",
+    "hexo": "^6.0.0",
     "hexo-cli": "^4.3.0",
     "hexo-deployer-ftpsync": "^0.1.1",
     "hexo-deployer-git": "^3.0.0",
