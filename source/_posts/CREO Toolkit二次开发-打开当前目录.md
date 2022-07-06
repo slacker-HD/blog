@@ -6,8 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date:
+date: 2022-07-06 09:51:27
 ---
+
 
 打开当前目录其实难度不大，重点是考虑当前打开模型和工作目录是否一致的问题。
 
