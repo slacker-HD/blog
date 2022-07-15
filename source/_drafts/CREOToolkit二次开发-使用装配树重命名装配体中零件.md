@@ -89,7 +89,7 @@ uiCmdAccessState renameMdlAccess(uiCmdAccessMode mode)
 
 重命名文件的操作其实是常规操作了。可使用`ProMdlDataGet`函数可获得选中组件的详细信息，包括模型名称、所在路径等，之后利用`ProMdlRetrieve`、`ProMdlRename`、`ProMdlSave`三个函数即可完成打开模型、重命名和保存的操作即可。需要注意的几个问题是:
 
-> 1.组件不一定与当前装配体保存在同意目录，所以需要用`ProMdlCurrentGet`和`ProDirectoryChange`切换工作目录防止保存出错；  
+> 1.组件不一定与当前装配体保存在一目录，所以需要用`ProMdlCurrentGet`和`ProDirectoryChange`切换工作目录防止保存出错；  
 > 2.组件重命名保存后应同时当前装配体，防止没有保存关闭后再打开出错。  
 
 直接给出重命名组件及同名工程图代码：
