@@ -1,5 +1,5 @@
 ---
-title: CREOToolkit二次开发-使用装配树重命名装配体中零件
+title: CREO Toolkit二次开发-使用装配树重命名装配体中零件
 tags:
   - CREO
   - TOOLKIT
@@ -91,6 +91,7 @@ uiCmdAccessState renameMdlAccess(uiCmdAccessMode mode)
 
 > 1.组件不一定与当前装配体保存在一目录，所以需要用`ProMdlCurrentGet`和`ProDirectoryChange`切换工作目录防止保存出错；  
 > 2.组件重命名保存后应同时当前装配体，防止没有保存关闭后再打开出错。  
+> 3.需要注意保存顺序，先保存绘图文件，再保存组件，最后保存当前装配体。
 
 直接给出重命名组件及同名工程图代码：
 
