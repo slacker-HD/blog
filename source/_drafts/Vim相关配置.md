@@ -172,9 +172,9 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-**P.S. raw.githubusercontent.com似乎是被屏蔽了，修改Host文件就可以访问了。**
+**P.S. raw.githubusercontent.com似乎是被屏蔽了。**
 
-安装完`vim-plug`后，`~/.vimrc`添加需要安装的插件，插件的名称遵循的规则是插件在github上的作者名+/+插件名，也就是插件的网址域名的后半部分，可以在github或者网络上找自己需要的插件。以下是我自己用的插件：
+安装完`vim-plug`后，在`~/.vimrc`添加需要安装的插件，插件的名称遵循的规则是插件在github上的作者名+/+插件名，也就是插件的网址域名的后半部分，可以在github或者网络上找自己需要的插件。以下是我自己用的插件：
 
 ```
 " 插件开始的位置
@@ -227,7 +227,7 @@ Plug 'skywind3000/asyncrun.vim'
 call plug#end()
 ```
 
-完成编辑`~/.vimrc`后，重启vim，在命令模式输入`:PlugInstall`即可安装插件。基本上所有的插件都是在Github上，所以可能会比较慢，或者不成功，多试几次就好。
+重启vim，在命令模式输入`:PlugInstall`即可安装插件。基本上所有的插件都是在Github上，所以可能会比较慢，或者不成功，多试几次就好。
 
 此外，更新插件可以使用`:PlugUpdate`命令，如果要卸载插件，则在`~/.vimrc`文件中删除对应的内容后，执行`:PlugClean`命令。
 
@@ -272,13 +272,13 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 ```
 
-'preservim/nerdcommenter'也需要安装对应的格式化代码软件才能正常工作，例如格式化C/C++，还需要安装Clang-format等相关软件才能完成格式化代码的操作。
+'preservim/nerdcommenter'也需要安装对应的格式化代码软件才能正常工作，例如格式化C/C++，还需要安装Clang-format等相关软件。
 
 ### 4.3  'ycm-core/YouCompleteMe'插件
 
-该插件实现代码提示功能，主要是安装略微复杂，安装时如果所有的依赖和网络都能满足，可以直接在`:PlugInstall`环节完成。如果未能满足要求，一般可以先进入`~/.vim/plugged/YouCompeleteMe`文件夹下面，执行'git submodule update --init --recursive'，完成代码的复制。
+该插件实现代码提示功能，主要是安装略微复杂，安装时如果所有的依赖和网络都能满足，可以直接在`:PlugInstall`环节完成。如果未能满足要求，一般可以先进入`~/.vim/plugged/YouCompeleteMe`文件夹，执行`git submodule update --init --recursive`，完成代码的复制。
 
-之后运行'python3 ./install.py',完成插件的安装，如系统未安装如`cmake`相关依赖项，程序会给出提示，可以根据具体提示安装。
+之后运行'python3 ./install.py'，如系统未安装如`cmake`相关依赖项，程序会给出提示，可以根据具体提示安装。
 
 另外YouCompeleteMe对vim有版本要求，一般是根据Ubuntu的LTS对应的vim版本号。我这里测试WSL的Ubuntu 20.04.5 LTS是可以满足要求的，但是在Raspbian和Armbian上Vim的版本均提示过低无法满足要求。
 
