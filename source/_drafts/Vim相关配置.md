@@ -6,6 +6,7 @@ tags:
 comments: true
 category: Linux
 ---
+
 ## 1.创建配置文件
 
 首先在Home目录生成vim配置文件：
@@ -296,8 +297,8 @@ map <C-K><C-F> :Neoformat<CR>
 配置文件中当然也运行自定义函数并绑定快捷键，根据网上的内容，我修改了下，实现了Python、Nodejs程序的一键运行以及简单的c程序的编译加运行，函数绑定快捷键为'F5',`F2`实现快速显示/隐藏QuickFix窗口：
 
 ```
-" F5 to run sh/python3
-map <F5> :call CompileRunGcc()<CR>
+" Shift + F5 to run sh/python3
+map <S-F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
     if &filetype == 'sh'
