@@ -36,7 +36,7 @@ cd ~/.vim/plugged/vimspector
 ./install_gadget.py --enable-python --enable-c --force-enable-node
 ```
 
-官方文档说明只要完成上述操作即可，但是经个人实践，在实际操作过程中，如果是初次调试还需要在Vim中继续执行`VimSpectorInstall`命令才能完成操作，不过好在这个过程是自动的，只要根据提示按回车即可。当然也可以手动执行，例如安装Python支持可运行：
+官方文档说明只要完成上述操作即可，但是经个人实践，在实际操作过程中，如果是初次调试似乎还需要在Vim中继续执行`VimSpectorInstall`命令才能完成操作，不过好在这个过程是自动的，只要根据提示按回车即可。当然也可以手动执行，例如安装Python支持可运行：
 
 ```
 :VimSpectorInstall debugpy-python
