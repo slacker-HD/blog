@@ -39,7 +39,7 @@ cd ~/.vim/plugged/vimspector
 官方文档说明只要完成上述操作即可，但是经个人实践，在实际操作过程中，如果是初次调试似乎还需要在Vim中继续执行`VimSpectorInstall`命令才能完成操作，不过好在这个过程是自动的，只要根据提示按回车即可。当然也可以手动执行，例如安装Python支持可运行：
 
 ```
-:VimSpectorInstall debugpy-python
+:VimSpectorInstall debugpy
 ```
 
 **P.S. 命令执行过程中有些软件下载比较慢，可以根据提示用迅雷下载好再复制到对应的目录。**
@@ -127,6 +127,7 @@ cd ~/.vim/plugged/vimspector
 
 以上配置文件我保存在`~/.vim/plugged/vimspector/gadgets/linux/.gadgets.d/`下，但是发现系统无法读取这些全局配置，没有找到好的解决办法，自己写了个函数完成复制配置文件到当前文件夹的操作，设置其快捷键为`F3`：
 
+```
 " F3 复制vimspector配置文件到当前目录
 map <F3> :call CopySpectorconfig()<CR>
 func! CopySpectorconfig()
@@ -140,6 +141,7 @@ func! CopySpectorconfig()
         exec "!cp ~/.vim/plugged/vimspector/gadgets/linux/.gadgets.d/python.json ./.vimspector.json"
     endif
 endfunc
+```
 
 ## 3.其它的配置
 
