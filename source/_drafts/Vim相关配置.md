@@ -285,12 +285,12 @@ let g:NERDToggleCheckAllLines = 1
 
 ## 5.函数与快捷键
 
-最后是设定自定义快捷键。使用map命令可以将命令模式下的命令与快捷键进行绑定，我这里将`F9`、`F8`以及'Ctrl + K Ctrl + F'设定为'scrooloose/nerdtree'、'preservim/tagbar'和'sbdchd/neoformat'三个插件的快捷键：
+最后是设定自定义快捷键。使用map命令可以将命令模式下的命令与快捷键进行绑定，我这里将`Ctrl + F9`、`Ctrl + F8`以及'Ctrl + K Ctrl + F'设定为'scrooloose/nerdtree'、'preservim/tagbar'和'sbdchd/neoformat'三个插件的快捷键：
 
 ```
-map <F9> :NERDTreeToggle<CR>
+map <C-F9> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
-map <F8> :TagbarToggle<CR>
+map <C-F8> :TagbarToggle<CR>
 map <C-K><C-F> :Neoformat<CR>
 ```
 
