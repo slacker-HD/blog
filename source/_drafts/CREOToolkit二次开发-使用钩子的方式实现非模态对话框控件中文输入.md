@@ -68,7 +68,7 @@ void CDialogMessageLoop::OnTimer(UINT_PTR nIDEvent)
 > * ComboBox这个控件会产生自动全选及输入位置错误，导致输入中文存在问题；  
 > * 这里只Hook了WM_IME_ENDCOMPOSITION的消息，导致如果输入法选字采用的是鼠标点击的方式会无法响应，一样会产生乱码。但如果同时Hook鼠标左键点击则又会产生很多其它问题。
 
-Unicode下非模态对话框控件中文输入确实很难解决，或许终极办法是将界面单独做成exe与dll通信吧，类似<a href="https://www.hudi.site/2019/12/20/CREO%20Toolkit%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91-%E5%88%A9%E7%94%A8.net%E7%A8%8B%E5%BA%8F%E5%88%B6%E4%BD%9C%E7%95%8C%E9%9D%A2/" target="_blank">CREO Toolkit二次开发-利用.net程序制作界面
+Unicode下非模态对话框控件中文输入确实很难解决，或许终极办法是将界面单独做成exe与dll通信，类似<a href="https://www.hudi.site/2019/12/20/CREO%20Toolkit%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91-%E5%88%A9%E7%94%A8.net%E7%A8%8B%E5%BA%8F%E5%88%B6%E4%BD%9C%E7%95%8C%E9%9D%A2/" target="_blank">CREO Toolkit二次开发-利用.net程序制作界面
 </a>文中所示方法或者直接使用Creo自带的ui对话框，这里的方法聊胜于无吧。
 
 代码公开，需要的人可以随便根据自己的环境修改编译。完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
