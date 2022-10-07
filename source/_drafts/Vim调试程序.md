@@ -48,80 +48,87 @@ cd ~/.vim/plugged/vimspector
 
 全局配置文件的路径看了很多文章和官方的文档均未搞定，所以我这边也不再深究，先写好了Linux下面的几个模板：
 
-这是调试当前打开C/C++的配置文件：
+这是调试当前打开C/C++的配置文件，如果不需要输入参数，可以删除`args`字段：
 
 ```JSON
 {
-    "configurations": {
-        "cpp:launch": {
-            "adapter": "vscode-cpptools",
-            "configuration": {
-                "name": "cpp",
-                "type": "cppdbg",
-                "request": "launch",
-                "program": "${fileDirname}/${fileBasenameNoExtension}",
-                "args": [
-                    "*${ProgramArgs}"
-                ],
-                "cwd": "${workspaceRoot}",
-                "environment": [],
-                "externalConsole": true,
-                "stopAtEntry": true,
-                "MIMode": "gdb",
-                "logging": {
-                    "engineLogging": false
-                }
-            }
-        }
-    }
-}
-```
-
-这是调试当前打开Nodejs的配置文件：
-
-```JSON
-{
-    "configurations": {
-        "<name>: Launch": {
-            "adapter": "debugpy",
-            "filetypes": [
-                "python"
-            ],
-            "configuration": {
-                "name": "<name>: Launch",
-                "type": "python",
-                "request": "launch",
-                "cwd": "${workspaceRoot}",
-                "stopOnEntry": true,
-                "console": "externalTerminal",
-                "debugOptions": [],
-                "program": "${workspaceRoot}/${fileBasename}"
-            }
-        }
-    }
-}
-```
-
-这是调试当前打开Python的配置文件：
-
-```JSON
-{
-    "configurations": {
-      "<name>: Launch": {
-        "adapter": "debugpy",
-        "filetypes": [ "python" ],
-        "configuration": {
-          "name": "<name>: Launch",
-          "type": "python",
-          "request": "launch",
-          "cwd": "${workspaceRoot}",
-          "stopOnEntry": true,
-          "console": "externalTerminal",
-          "debugOptions": [],
-          "program": "${workspaceRoot}/${fileBasename}"
+  "configurations": {
+    "cpp:launch": {
+      "adapter": "vscode-cpptools",
+      "configuration": {
+        "name": "cpp",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${fileDirname}/${fileBasenameNoExtension}",
+        "args": [
+          "*${ProgramArgs}"
+        ],
+        "cwd": "${workspaceRoot}",
+        "environment": [],
+        "externalConsole": true,
+        "stopAtEntry": true,
+        "MIMode": "gdb",
+        "logging": {
+          "engineLogging": false
         }
       }
     }
+  }
+}
+```
+
+这是调试当前打开Nodejs的配置文件，如果不需要输入参数，可以删除`args`字段：
+
+```JSON
+{
+  "configurations": {
+    "run": {
+      "adapter": "vscode-node",
+      "filetypes": [
+        "javascript",
+        "typescript"
+      ],
+      "configuration": {
+        "request": "launch",
+        "protocol": "auto",
+        "stopOnEntry": true,
+        "console": "integratedTerminal",
+        "program": "${workspaceRoot}/${fileBasename}",
+        "args": [
+          "*${ProgramArgs}"
+        ],
+        "cwd": "${workspaceRoot}"
+      }
+    }
+  }
+}
+```
+
+这是调试当前打开Python的配置文件，如果不需要输入参数，可以删除`args`字段：
+
+```JSON
+{
+  "configurations": {
+    "<name>: Launch": {
+      "adapter": "debugpy",
+      "filetypes": [
+        "python"
+      ],
+      "configuration": {
+        "name": "<name>: Launch",
+        "type": "python",
+        "request": "launch",
+        "cwd": "${workspaceRoot}",
+        "stopOnEntry": true,
+        "console": "externalTerminal",
+        "debugOptions": [],
+        "program": "${workspaceRoot}/${fileBasename}",
+        "args": [
+          "*${ProgramArgs}"
+        ]
+      }
+    }
+  }
 }
 ```
 
@@ -167,4 +174,4 @@ endfunc
 nnoremap <silent> <F4> :VimspectorReset<CR>
 ```
 
-至此Vim的调试工作搭建完成，应该可以作为一个比较完善的IDE使用了，调试工作有了早年使用Turbo C的味道了。
+至此Vim的调试工作搭建完成，应该可以作为一个比较完善的IDE使用，调试工作有了早年使用Turbo C的味道了。
