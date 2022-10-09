@@ -174,4 +174,10 @@ endfunc
 nnoremap <silent> <F4> :VimspectorReset<CR>
 ```
 
+
+<div align="center">
+    <img src="/img/others/vim2.png" style="width:85%" align="center"/>
+    <p>图 vimspector调试C程序</p>
+</div>
+
 至此Vim的调试工作搭建完成，应该可以作为一个比较完善的IDE使用，调试工作有了早年使用Turbo C的味道了。

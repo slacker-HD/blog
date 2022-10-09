@@ -323,6 +323,11 @@ function! ToggleQuickFix()
 endfunction
 ```
 
+<div align="center">
+    <img src="/img/others/vim1.png" style="width:85%" align="center"/>
+    <p>图 我的vim主界面</p>
+</div>
+
 ## 参考文献
 
 [1] Vimrc Configuration Guide - How to Customize Your Vim Code Editor with Mappings, Vimscript, Status Line, and More. 2021-06-02[引用日期2021-09-14],https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/
