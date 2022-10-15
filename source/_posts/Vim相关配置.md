@@ -5,7 +5,9 @@ tags:
   - Vim
 comments: true
 category: Linux
+date: 2022-10-15 20:12:20
 ---
+
 
 ## 1.创建配置文件
 
@@ -294,22 +296,27 @@ map <C-F8> :TagbarToggle<CR>
 map <C-K><C-F> :Neoformat<CR>
 ```
 
-配置文件中当然也运行自定义函数并绑定快捷键，根据网上的内容，我修改了下，实现了Python、Nodejs程序的一键运行以及简单的c程序的编译加运行，函数绑定快捷键为'Shift + F5',`F2`实现快速显示/隐藏QuickFix窗口：
+配置文件中当然也运行自定义函数并绑定快捷键，根据网上的内容，我修改了下，实现了Python、Nodejs程序的一键运行以及简单的c程序的编译加运行，函数绑定快捷键为'Ctrl + F5',`F2`实现快速显示/隐藏QuickFix窗口：
 
 ```
-" Shift + F5 to run sh/python3
-map <S-F5> :call CompileRunGcc()<CR>
+" Ctrl + F5 to run sh/python3
+map <C-F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
     if &filetype == 'sh'
         :!time bash %
     elseif &filetype == 'python'
         exec "!time python3 %"
+    elseif &filetype == 'go'
+        exec "!time go run %"
     elseif &filetype == 'javascript'
         exec "!node %"
     elseif &filetype == 'c'
-        exec "!gcc -Wall %"
-        exec "!time ./a.out"
+        exec "!gcc -Wall % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ -Wall % -o %<"
+        exec "!time ./%<"
     endif
 endfunc
 
@@ -330,8 +337,8 @@ endfunction
 
 ## 参考文献
 
-[1] Vimrc Configuration Guide - How to Customize Your Vim Code Editor with Mappings, Vimscript, Status Line, and More. 2021-06-02[引用日期2021-09-14],https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/
+[1] Vimrc Configuration Guide - How to Customize Your Vim Code Editor with Mappings, Vimscript, Status Line, and More. 2021-06-02[引用日期2022-10-15],https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/
 
-[2] 如何配置vim（设置快捷键，自定义主题，安装插件）.2022-02-06[引用日期2021-09-14],https://blog.csdn.net/m0_52383454/article/details/122798294?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166417768416782414948231%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166417768416782414948231&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-122798294-null-null.142%5Ev50%5Econtrol,201%5Ev3%5Eadd_ask&utm_term=%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AEvim%EF%BC%88%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%BB%E9%A2%98%EF%BC%8C%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6%EF%BC%89&spm=1018.2226.3001.4187
+[2] 如何配置vim（设置快捷键，自定义主题，安装插件）.2022-02-06[引用日期2022-10-15],https://blog.csdn.net/m0_52383454/article/details/122798294?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166417768416782414948231%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166417768416782414948231&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-122798294-null-null.142%5Ev50%5Econtrol,201%5Ev3%5Eadd_ask&utm_term=%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AEvim%EF%BC%88%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%BB%E9%A2%98%EF%BC%8C%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6%EF%BC%89&spm=1018.2226.3001.4187
 
-[3] VIM快速注释插件NERD Commenter 中文配置和操作说明.2021-09-14[引用日期2021-09-14],https://blog.51cto.com/u_15367276/3876369
+[3] VIM快速注释插件NERD Commenter 中文配置和操作说明.2021-09-14[引用日期2022-10-15],https://blog.51cto.com/u_15367276/3876369
