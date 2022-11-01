@@ -181,3 +181,9 @@ nnoremap <silent> <F4> :VimspectorReset<CR>
 </div>
 
 至此Vim的调试工作搭建完成，应该可以作为一个比较完善的IDE使用，调试工作有了早年使用Turbo C的味道了。
+
+**P.S. 如果是raspbian系统，默认安装的Vim是不带Python支持的，导致VimSpector插件无法使用，解决办法是安装带Python支持的Vim：**
+
+```bash
+sudo apt-get install vim-nox -y
+```

@@ -283,7 +283,7 @@ let g:NERDToggleCheckAllLines = 1
 
 之后运行'python3 ./install.py'，如系统未安装如`cmake`相关依赖项，程序会给出提示，可以根据具体提示安装。
 
-另外YouCompeleteMe对vim有版本要求，一般是Ubuntu的LTS对应的vim版本号。我这里测试WSL的Ubuntu 20.04.5 LTS是可以满足要求的，但是在Raspbian和Armbian上Vim的版本均提示过低无法满足要求。
+另外YouCompeleteMe对vim有版本要求，一般是Ubuntu的LTS对应的vim版本号。我这里测试WSL的Ubuntu 20.04.5 LTS是可以满足要求的。
 
 ## 5.函数与快捷键
 
