@@ -5,7 +5,9 @@ tags:
   - Vim
 comments: true
 category: Linux
+date: 2022-11-04 11:58:16
 ---
+
 
 本文介绍使用`vimspector`插件将Vim打造成一个可逐行调试的IDE。
 
@@ -187,3 +189,5 @@ nnoremap <silent> <F4> :VimspectorReset<CR>
 ```bash
 sudo apt-get install vim-nox -y
 ```
+
+**同时测试发现Raspbian尽管插件安装提示正常，但C和C++无法调试，Python和Node可用，看到官方的Github上Issue也有人提及但没有解决方案，不知道是不是架构的问题。**
