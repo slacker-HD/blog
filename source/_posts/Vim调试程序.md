@@ -205,6 +205,6 @@ sudo apt-get install vim-nox -y
 2. 将其重命名为`codelldb-x86_64-linux`并复制到`/home/pi/.vim/plugged/vimspector/gadgets/linux/download/CodeLLDB/v1.7.4/`。
 3. 修改`~/.vim/plugged/vimspector/python3/vimspector/gadgets.py`第534行，将checksum更换为`codelldb-arm-linux.vsix`的：`21f648e522696e9af4c90cf7fcaa82b7ae52a72431140459fab2ffb3228ceaa5`.
 4. 进入`/home/pi/.vim/plugged/vimspector/`,重新安装插件：` ./install_gadget.py --enable-c`。
-5. 将c调试的配置文件`c.json`中 ` "adapter": "vscode-cpptools"`字段修改为`"adapter": "codeLLDB"`,这样就可以在raspbian armhf中使用codelldb调试程序了。
+5. 将c调试的配置文件`c.json`中 ` "adapter": "vscode-cpptools"`字段修改为`"adapter": "CodeLLDB"`,这样就可以在raspbian armhf中使用codelldb调试程序了。
 
 vscode-cpptools应该也是同样的问题，但我不知道arm架构的下载地址，所以暂时不知道怎么改。Bug已经提交了，希望作者能够早点改进吧。
