@@ -3,6 +3,7 @@ title: Vim相关配置
 tags:
   - Linux
   - Vim
+  - 树莓派
 comments: true
 category: Linux
 date: 2022-10-15 20:12:20

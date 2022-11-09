@@ -3,6 +3,7 @@ title: Vim调试程序
 tags:
   - Linux
   - Vim
+  - 树莓派
 comments: true
 category: Linux
 date: 2022-11-04 11:58:16
@@ -191,3 +192,19 @@ sudo apt-get install vim-nox -y
 ```
 
 **同时测试发现Raspbian尽管插件安装提示正常，但C和C++无法调试，Python和Node可用，看到官方的Github上Issue也有人提及但没有解决方案，不知道是不是架构的问题。**
+
+---
+
+2022.11.9修改：
+
+确定是vimspector在Raspbian armhf中下载了错误的架构，Raspbian arm64则是正确的。
+
+以下是我做的一些工作：
+
+1. 下载`codelldb-arm-linux.vsix`，地址在<a href="https://github.com/vadimcn/vscode-lldb/releases" target="_blank">https://github.com/vadimcn/vscode-lldb/releases</a>。
+2. 将其重命名为`codelldb-x86_64-linux`并复制到`/home/pi/.vim/plugged/vimspector/gadgets/linux/download/CodeLLDB/v1.7.4/`。
+3. 修改`~/.vim/plugged/vimspector/python3/vimspector/gadgets.py`第534行，将checksum更换为`codelldb-arm-linux.vsix`的：`21f648e522696e9af4c90cf7fcaa82b7ae52a72431140459fab2ffb3228ceaa5`.
+4. 进入`/home/pi/.vim/plugged/vimspector/`,重新安装插件：` ./install_gadget.py --enable-c`。
+5. 将c调试的配置文件`c.json`中 ` "adapter": "vscode-cpptools"`字段修改为`"adapter": "codeLLDB"`,这样就可以在raspbian armhf中使用codelldb调试程序了。
+
+vscode-cpptools应该也是同样的问题，但我不知道arm架构的下载地址，所以暂时不知道怎么改。Bug已经提交了，希望作者能够早点改进吧。
