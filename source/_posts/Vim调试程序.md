@@ -213,3 +213,9 @@ sudo apt-get install vim-nox -y
 最后进入`/home/pi/.vim/plugged/vimspector/`,重新安装插件：` ./install_gadget.py --enable-c`，至此`codelldb`和`vscode-cpptools`插件在Raspbian armhf均可用了。
 
 Bug已经提交了，希望作者能够早点改进吧。
+
+---
+
+2022.11.14修改：
+
+作者动作很快，直接添加了支持，目前在源码armv7且测试功能完美，只待合并至主分支了。
