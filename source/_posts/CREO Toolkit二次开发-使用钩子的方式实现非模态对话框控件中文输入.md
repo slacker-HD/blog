@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2022-12-06 09:25:18
 ---
+
 使用MFC进行二次开发最大的问题就在于编码。使用的GB2312的编码虽然能保证常规的控件中文输入争取，但一些第三方控件或者新版MFC控件如ProPertyGrid等控件在GB2312中反而也会产生乱码。前文<a href="https://www.hudi.site/2019/10/05/CREO%20Toolkit%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91-MFC%E5%AF%B9%E8%AF%9D%E6%A1%86%E7%95%8C%E9%9D%A2%E7%BE%8E%E5%8C%96%E4%BB%A5%E5%8F%8AUNICODE%E4%B8%8B%E6%8E%A7%E4%BB%B6%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" target="_blank">CREO Toolkit二次开发-UNICODE下非模态对话框控件中文输入</a>提供了一种方法，但是存在如果在输入过程中弹出对话框会导致程序无法响应的严重Bug。本文尝试使用钩子的方式重新解决这个问题。
 
 钩子的使用方式在<a href="https://www.hudi.site/2019/08/27/CREO%20Toolkit%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91-%E9%9D%9E%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86%E6%98%BE%E7%A4%BAtooltip/" target="_blank">CREO Toolkit二次开发-非模态对话框显示tooltip</a>文中已经提及，这里不在赘述，写好钩子函数的模板：
