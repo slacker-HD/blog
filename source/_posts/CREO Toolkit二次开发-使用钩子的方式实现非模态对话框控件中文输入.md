@@ -28,7 +28,7 @@ LRESULT CALLBACK __stdcall GetMessageProc(int nCode, WPARAM wParam, LPARAM lPara
 }
 ```
 
-输入法对应的钩子消息有`WM_IME_STARTCOMPOSITION`、'WM_IME_COMPOSITION'以及'WM_IME_ENDCOMPOSITION'，我们主要Hook'WM_IME_ENDCOMPOSITION'，在完成输入后处理：
+输入法对应的钩子消息有`WM_IME_STARTCOMPOSITION`、`WM_IME_COMPOSITION`以及`WM_IME_ENDCOMPOSITION`，我们主要Hook`WM_IME_ENDCOMPOSITION`，在完成输入后处理：
 
 ```c
 LRESULT CALLBACK __stdcall GetMessageProc(int nCode, WPARAM wParam, LPARAM lParam)
