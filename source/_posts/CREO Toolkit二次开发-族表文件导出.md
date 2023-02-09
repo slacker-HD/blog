@@ -1,13 +1,14 @@
 ---
-title: CREOToolkit二次开发-族表文件导出
+title: CREO Toolkit二次开发-族表文件导出
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date:
+date: 2023-02-09 09:07:51
 ---
+
 
 族表文件导出在很多地方看到，基本属于一个刚需，之前vbapi和weblink都有涉及，这次用Toolkit完成。
 
