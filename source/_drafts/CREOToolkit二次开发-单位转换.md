@@ -31,34 +31,34 @@ ProUnitsystem;
 ```c
 void _convertUnit(ProUnitConvertType ConVertType)
 {
-    ProError status;
-    ProMdl mdl;
-    ProUnitsystem unitSystem;
-    ProUnitsystemType type;
-    wchar_t *p = NULL;
-    ProUnitsystem *unitSystem_array;
-    int num_unitSystem, i;
-    status = ProMdlCurrentGet(&mdl);
-    status = ProMdlPrincipalunitsystemGet(mdl, &unitSystem);
-    p = wcsstr(unitSystem.name, L"mmNs");
-    if (!p)
+  ProError status;
+  ProMdl mdl;
+  ProUnitsystem unitSystem;
+  ProUnitsystemType type;
+  wchar_t *p = NULL;
+  ProUnitsystem *unitSystem_array;
+  int num_unitSystem, i;
+  status = ProMdlCurrentGet(&mdl);
+  status = ProMdlPrincipalunitsystemGet(mdl, &unitSystem);
+  p = wcsstr(unitSystem.name, L"mmNs");
+  if (!p)
+  {
+    status = ProMdlUnitsystemsCollect(mdl, &unitSystem_array);
+    if (status != PRO_TK_NO_ERROR)
+      return;
+    status = ProArraySizeGet(unitSystem_array, &num_unitSystem);
+    for (i = 0; i < num_unitSystem; i++)
     {
-        status = ProMdlUnitsystemsCollect(mdl, &unitSystem_array);
-        if (status != PRO_TK_NO_ERROR)
-            return;
-        status = ProArraySizeGet(unitSystem_array, &num_unitSystem);
-        for (i = 0; i < num_unitSystem; i++)
-        {
-            p = wcsstr(unitSystem_array[i].name, L"mmNs");
-            if (p)
-            {
-                status = ProMdlPrincipalunitsystemSet(mdl, &unitSystem_array[i], ConVertType, PRO_B_TRUE, PRO_VALUE_UNUSED);
-                status = ProArrayFree((ProArray *)&unitSystem_array);
-                return;
-            }
-        }
+      p = wcsstr(unitSystem_array[i].name, L"mmNs");
+      if (p)
+      {
+        status = ProMdlPrincipalunitsystemSet(mdl, &unitSystem_array[i], ConVertType, PRO_B_TRUE, PRO_VALUE_UNUSED);
         status = ProArrayFree((ProArray *)&unitSystem_array);
+        return;
+      }
     }
+    status = ProArrayFree((ProArray *)&unitSystem_array);
+  }
 }
 ```
 

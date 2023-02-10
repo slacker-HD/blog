@@ -50,7 +50,7 @@ ProError famtableInstanceAction(ProFaminstance *instance, ProError status, ProAp
 
 **P.S. 如果模型的族表有错则`ProFaminstanceRetrieve`不会返回`PRO_TK_NO_ERROR`，真实情况下需要处理这种异常。**
 
-`ProFamtableInstanceVisit`函数并没有访问缺省模型，所有我们还要把缺省模型导出，注意Creo不能同时打开同名文件，所以需要给缺省文件重命名，这里默认在模型名后加"_orig"后缀，在当前模型中删除族表并另存即可：
+`ProFamtableInstanceVisit`函数并没有访问缺省模型，所以我们还要把缺省模型导出，注意Creo不能同时打开同名文件，需要给缺省文件重命名。这里默认在模型名后加"_orig"后缀，在当前模型中删除族表并另存即可：
 
 ```cpp
 status = ProFamtableErase(&famtab);
