@@ -6,15 +6,16 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
-date:
+date: 2023-03-10 09:23:49
 ---
+
 
 本文介绍如何使用Toolkit将绘图中的尺寸、表格、注释、符号、公差以及表面粗糙度添加到各自对应的层进行归类。
 
 
 ## 1.添加、删除层
 
-Toolkit中添加删除层的内容与VBAPI等类似，只是按照Toolkit的风格调用函数即可,'ProAddLayer'和'ProLayerDelete',参数中明确对应层名称即可，示例代码如下：
+Toolkit中添加删除层的内容与VBAPI等类似，只是按照Toolkit的风格调用函数即可,`ProAddLayer`和`ProLayerDelete`,参数中明确对应层名称即可，示例代码如下：
 
 ```c
 ProError AddLayer(ProMdl Mdl, ProName LayerName, ProLayer *Layer)
@@ -63,9 +64,9 @@ ProError ProAddItemstoLayer(ProMdl mdl, ProLayer Layer, ProModelitem Item)
 
 ## 3.遍历尺寸、符号等元素
 
-与Weblink、VBAPI不同，Toolkit更接近与Creo的底层设计，尺寸、符号等元素会根据配置选项分别保存在模型或者工程图下，因此在将元素添加到层中时，需要同时遍历模型和工程图两个文件统计后再添加。以将尺寸添加到层说明Toolkit中如何遍历所有尺寸。
+与Weblink、VBAPI不同，Toolkit更接近与Creo的底层设计，尺寸、符号等元素会根据配置选项分别保存在模型或者工程图下，因此在将元素添加到层中时，**需要同时遍历模型和工程图两个文件统计后再添加。**以将尺寸添加到层说明Toolkit中如何遍历所有尺寸。
 
-首先是遍历绘图中保存的所有尺寸，采取典型的Toolkit中遍历函数，需要遍历`PRO_DIMENSION`和`PRO_DIMENSION`两种类型：
+首先是遍历绘图中保存的所有尺寸，采取典型的Toolkit中遍历函数，需要遍历`PRO_DIMENSION`和`PRO_REF_DIMENSION`两种类型：
 
 ```c
 status = ProDrawingDimensionVisit((ProDrawing)mdl, PRO_DIMENSION, (ProDimensionVisitAction)DimensionVisitAction, NULL, (ProAppData)&dimensions);
