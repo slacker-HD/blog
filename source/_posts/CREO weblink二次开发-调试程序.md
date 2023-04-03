@@ -1,5 +1,5 @@
 ---
-title: CREOweblink二次开发-调试程序
+title: CREO weblink二次开发-调试程序
 tags:
   - CREO
   - WEBLINK
@@ -7,7 +7,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2023-04-03 15:05:15
 ---
+
 作为JavaScript编写的网页程序，Weblink应该是具备调试功能的，只是旧版Creo默认嵌入式浏览器内核为IE和Firefox暂时无法使用浏览器的调试工具。Creo在3.0版本后嵌入式浏览器内核加入了Chromium，自此官方说明可以使用Chrome/Chromium内核浏览器进行调试了。进行了一番尝试，在此记录。
 
 ## 1.环境设置
