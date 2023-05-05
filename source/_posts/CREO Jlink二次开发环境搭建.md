@@ -64,7 +64,7 @@ date: 2019-05-23
 
 ### 5.1 新建工程
 
-在VSCode中先ctrl+shift+p,弹出命令面板中输入命令">java: Create Java Project"，根据提示即可生成一个java工程，如图1所示。
+在VSCode中先ctrl+shift+p,弹出命令面板中输入命令`>java: Create Java Project`，根据提示即可生成一个java工程，如图1所示。
 
 <div align="center">
     <img src="/img/proe/jlink1.png" style="width:40%" align="center"/>
