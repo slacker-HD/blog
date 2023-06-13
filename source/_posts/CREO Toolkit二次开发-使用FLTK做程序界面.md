@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2023-06-13 08:56:30
 ---
+
 
 Creo Toolkit界面开发目前常见有自带的UI界面、MFC以及QT的UI库等。各种UI库各有优缺点，在此不在详细讨论。 本文介绍引入FLTK UI库做Creo Toolkit的二次开发，供开发者多一种选择。
 
