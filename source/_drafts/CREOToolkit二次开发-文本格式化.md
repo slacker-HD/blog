@@ -55,7 +55,6 @@ if (status == PRO_TK_NO_ERROR && size > 0)
 status = ProTextStyleFree(&textStyle);
 ```
 
-status = ProNoteTextStyleGet(&srcItem, &textStyle);
 **P.S.同理可以通过`ProAnnotationTextstyleGet`、`ProAnnotationTextstyleGet`等函数获取并设定 `Annotation`、`Dimension`等对象的文本格式，函数调用方法和参数与`ProNoteTextStyleGet`、`ProNoteTextStyleSet`一致，只是需要`TOOLKIT for 3D Drawings`许可。如果您有这个许可证，则可以在不同对象之间进行文本格式化的操作了。**
 
 
