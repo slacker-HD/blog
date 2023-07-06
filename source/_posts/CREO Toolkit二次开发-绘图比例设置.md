@@ -1,12 +1,14 @@
 ---
-title: CREOToolkit二次开发-绘图比例设置
+title: CREO Toolkit二次开发-绘图比例设置
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2023-07-06 08:29:52
 ---
+
 
 绘图文件默认比例获取与设定可使用`ProDrawingScaleGet`、`ProDrawingScaleSet`完成。方法的参数简单明了也没什么好解释的，直接给出设定当前sheet的绘图比例代码：
 
