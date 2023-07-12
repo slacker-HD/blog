@@ -31,6 +31,7 @@
     "hexo-renderer-marked": "^6.0.0",
     "hexo-renderer-stylus": "^2.0.1",
     "hexo-server": "^3.0.0",
+    "hexo-tag-ruby": "^1.0.2",
     "lodash": "^4.17.21",
     "particles.js": "^2.0.0"
   }
