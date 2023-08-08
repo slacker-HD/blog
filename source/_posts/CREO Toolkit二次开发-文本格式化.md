@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2023-08-08 08:57:59
 ---
+
 
 Creo中的文本采用富文本格式，可以设置其字体、大小、颜色等。Toolkit中，文本以`Annotation`、`Note`、`Dimension`等方式存储，但文本样式统一采用`ProTextStyle`进行存储，故各文本对象之间的格式可以通用。不过遗憾的是，除了修改`Note`的文本样式可以直接使用外，修改`Annotation`、`Dimension`等对象文本样式的函数需要需要`TOOLKIT for 3D Drawings`许可。
 

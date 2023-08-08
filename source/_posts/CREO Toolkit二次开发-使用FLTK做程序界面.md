@@ -16,7 +16,7 @@ Creo Toolkit界面开发目前常见有自带的UI界面、MFC以及QT的UI库�
 
 ### 1.1 FLTK库简介
 
-FLTK库是一个一用C++开发的跨平台GUI工具包,官方介绍如下：
+FLTK库是一个用C++开发的跨平台GUI工具包,官方介绍如下：
 
 > FLTK (pronounced "fulltick") is a cross-platform C++ GUI toolkit for UNIX®/Linux® (X11), Microsoft® Windows®, and MacOS® X. FLTK provides modern GUI functionality without the bloat and supports 3D graphics via OpenGL® and its built-in GLUT emulation.<sup>[1]</sup>
 
