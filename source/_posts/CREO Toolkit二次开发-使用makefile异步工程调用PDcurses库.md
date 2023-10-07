@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2023-10-07 09:07:21
 ---
+
 
 PDCurses是一个开源跨平台的curses库，可以看作是Ncurses的Windows的替代品，提供了一系列的函数去生成基于文本的用户界面，能够在字符模式下产生美观的界面<sup>[1]</sup>。本文介绍如何在使用makefile异步二次开发Creo工程中调用PDcurses库。
 
