@@ -130,8 +130,6 @@ ProError ProCblCableCreate(ProCblHarness *p_harness, ProSpool *p_spool, ProName 
   if (p_harness == NULL || p_cable == NULL)
     return PRO_TK_BAD_INPUTS;
   status = ProCableCreate(p_harness, p_spool, cable_name, p_cable);
-  if (status != PRO_TK_NO_ERROR)
-    return status;
   return status;
 }
 ```
