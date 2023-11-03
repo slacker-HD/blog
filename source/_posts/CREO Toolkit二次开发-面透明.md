@@ -1,12 +1,14 @@
 ---
-title: CREOToolkit二次开发-面透明
+title: CREO Toolkit二次开发-面透明
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2023-11-03 09:25:59
 ---
+
 
 面透明和设置装配体着色类似，通过设置面的`ProSurfaceAppearanceProps.transparency`即可。`transparency`是一个double类型的数据，取值范围在1-0之间，值越高，透明度越大。直接给出代码：
 
