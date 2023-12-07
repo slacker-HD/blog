@@ -1,12 +1,14 @@
 ---
-title: CREOToolkit二次开发-工程图插入注释
+title: CREO Toolkit二次开发-工程图插入注释
 tags:
   - CREO
   - TOOLKIT
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2023-12-07 14:21:02
 ---
+
 
 本文介绍如何使用Toolkit在工程图插入注释。在工程图插入注释功能是一个很好的二次开发进阶起点，涉及到多个函数的调用和数据的关联。
 
