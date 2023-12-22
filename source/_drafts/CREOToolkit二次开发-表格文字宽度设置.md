@@ -21,6 +21,9 @@ status = ProSelectionDwgtableGet(tableSels[0], &table);
 status = ProDwgtableCelltextWrap(&table, row + 1, column + 1);
 ```
 
+**P.S. Creo 4.0之后提供了`ProDtlnoteWrapTextSet`函数，应该可以设置取消文字自动换行，而Creo 2.0暂时无法取消自动换行。**
+
+
 ## 2.设置文字宽度因子
 
 Creo也可以通过设置文字的宽度因子调整文字的宽度。这里存在个问题，有些字体如`cal_grek`的宽度因子设置无效，可能会无法调整宽度，同时文字如果宽度过小也会很难看。
