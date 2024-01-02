@@ -6,7 +6,10 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2024-01-02 10:05:15
 ---
+
+
 本文介绍如何使用Toolkit在工程图中设置尺寸标注的文字。尺寸标注在Toolkit中与注释类似，同样采用`ProModelitem`结构体进行描述。尺寸标注的文字同样使用`ProArray`记录多行文字，每行文字使用`wchar_t*`类型的宽字符描述。
 
 ## 1.设置前缀和后缀
