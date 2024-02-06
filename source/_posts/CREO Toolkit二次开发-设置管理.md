@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2024-02-06 14:01:31
 ---
+
 
 本文介绍如何使用Toolkit修改Creo的配置。Creo在配置管理器里面可以添加修改相关配置，Toolkit也提供了相关函数进行修改。
 
