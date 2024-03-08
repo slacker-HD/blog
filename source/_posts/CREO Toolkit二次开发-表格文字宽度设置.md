@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2024-03-08 10:57:28
 ---
+
 
 本文介绍如何使用Toolkit修改Creo工程图中表格文字的宽度。表格文字宽度可以通过设置自动换行（Wrap）以及文字宽度因子两种方式设定，可以根据具体需求选择。
 
