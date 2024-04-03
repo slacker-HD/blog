@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2024-04-03 09:58:39
 ---
+
 
 本文介绍如何使用Toolkit设置表格文字的对齐方式。表格文字的对齐与Word类似，从水平和垂直两个维度包括九种方式。在Creo 4.0之前，对齐方式由`ProDtlnotedataJustifSet`函数设定，其第二个和第三个参数分别对应水平和垂直两种对齐方式，第一个选项是对应表格单元格内的`ProDtlnote`包含的 `ProDtlnotedata`。修改完`ProDtlnotedata`后，使用`ProDtlnoteModify`替换`ProDtlnote`对应的`ProDtlnotedata`即可，示例代码如下：
 
