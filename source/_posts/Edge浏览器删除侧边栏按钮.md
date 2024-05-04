@@ -4,7 +4,9 @@ tags:
   - Windows
 comments: true
 category: 电脑技术
+date: 2024-05-04 09:06:36
 ---
+
 
 
 Edge浏览器那个硕大的bing按钮看着实在有点突兀，在网上搜索了一番，将其删除，在此记录：
@@ -14,7 +16,7 @@ Edge浏览器那个硕大的bing按钮看着实在有点突兀，在网上搜索
 > reg add "HKEY_CURRENT_USER\Software\Policies\Microsoft\Edge" /f  
 > reg add "HKEY_CURRENT_USER\Software\Policies\Microsoft\Edge" /v "HubsSidebarEnabled" /t REG_DWORD /d 0 /f
 
-2、在edge浏览器中输入`edge://policy/`,确保刚才注册表中设置的策略`HubsSidebarEnabled`的值为`false`即可。
+2、在edge浏览器中输入`edge://policy/`,确保刚才注册表中设置的策略`HubsSidebarEnabled`的值为`false`。
 
 重启Edge浏览器，此时图标应该删除了。
 
