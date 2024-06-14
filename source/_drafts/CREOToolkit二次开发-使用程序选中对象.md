@@ -93,8 +93,8 @@ for (i = 0; i < n_size; i++)
 使用程序选中所有坐标系特征如图1所示：
 
 <div align="center">
-    <img src="/img/proe/ToolkitSelbufferprt.gif" style="width:70%" align="center"/>
-    <p>图1 使用程序选中所有坐标系特征</p>
+  <img src="/img/proe/ToolkitSelbufferprt.gif" style="width:70%" align="center"/>
+  <p>图1 使用程序选中所有坐标系特征</p>
 </div>
 
 ## 3.选择装配体的组件
@@ -191,22 +191,22 @@ status = ProArraySizeGet(p_comppaths, &n_pathsize);
 对比发现，两个数组长度不同，`p_comppaths`长度比`p_comps`长度多1，原因在于`p_comppaths`还记录了最上层装配体根节点。实际代码编写中发现，`ProSelectionAlloc`第一个参数是`p_comps`父节点的`ProAsmcomppath`而非其本身,所以`p_comppaths`数组第一个记录的根节点很重要不能删除。另外`ProSelectionAlloc`前两个参数如果不对应会返回`PRO_TK_BAD_INPUTS`，如果此时执行`ProSelbufferSelectionAdd`会导致Creo异常退出。在实际操作时，可以定义一个记录装配体树形结构数据结构同时保存节点位置和其对应的`p_comppaths`比`p_comps`以便完成选取对应的组件功能。本文仅做测试，没有记录`p_comppaths`和`p_comps`的对应关系，故使用双循环遍历后判断添加，效率很低，仅做演示，作为全选的功能够用了：
 
 ```c
-  for (j = 0; j < n_pathsize; j++)
+for (j = 0; j < n_pathsize; j++)
+{
+  for (i = 0; i < n_compsize; i++)
   {
-    for (i = 0; i < n_compsize; i++)
-    {
-      status = ProSelectionAlloc(&(p_comppaths[j]), &(p_comps[i]), &selection);
-      if (status == PRO_TK_NO_ERROR)
-        status = ProSelbufferSelectionAdd(selection);
-    }
+    status = ProSelectionAlloc(&(p_comppaths[j]), &(p_comps[i]), &selection);
+    if (status == PRO_TK_NO_ERROR)
+      status = ProSelbufferSelectionAdd(selection);
   }
+}
 ```
 
 使用程序选中所有组件如图2所示：
 
 <div align="center">
-    <img src="/img/proe/ToolkitSelbufferasm.gif" style="width:70%" align="center"/>
-    <p>图2 使用程序选中所有组件</p>
+  <img src="/img/proe/ToolkitSelbufferasm.gif" style="width:70%" align="center"/>
+  <p>图2 使用程序选中所有组件</p>
 </div>
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
