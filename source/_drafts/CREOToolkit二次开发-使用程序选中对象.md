@@ -10,7 +10,7 @@ category: CREO二次开发
 
 本文介绍如何使用程序完成对象选取的功能。
 
-Toolkit中使用`ProSelection`记录Creo运行过程中选择的对象。`ProSelect`是一个高频使用的选择对象的函数，但是需要用户自己操作选择，显然无法胜任自动化或者批处理相关工作的要求。所幸Toolkit还提供了`ProSelbufferClear`和`ProSelbufferSelectionAdd`函数用于清空和添加会话中的`ProSelection`，使得使用程序完成对象选取变得可能。
+Toolkit中使用`ProSelection`记录Creo运行过程中选择的对象。`ProSelect`是一个高频使用的选择对象函数，但是需要用户自己操作选择，显然无法胜任自动化或者批处理相关工作的要求。所幸Toolkit还提供了`ProSelbufferClear`和`ProSelbufferSelectionAdd`函数用于清空和添加会话中的`ProSelection`，使得使用程序完成对象选取变得可能。
 
 ## 1.函数说明
 
@@ -26,10 +26,7 @@ status = ProSelbufferClear();
 status = ProSelbufferSelectionAdd(selection);
 ```
 
-通常来说我们需要选取的特征（装配体中组件）以`ProModelitem`类型进行保存，Toolkit提供了`ProSelectionAlloc`函数完成了从`ProModelitem`到`ProSelection`的转换。该函数有三个参数，第一个参数`	ProAsmcomppath* p_cmp_path`仅在组件中需要指定，对应组件装配树路径，第二个参数`ProModelitem* p_mdl_itm`为需要转换的`ProModelitem`对象，第三个参数`	ProSelection* p_selection`对应转换得到的`ProSelection`对象，示例代码如下：
-
-
-`ProSelectionAlloc`
+通常来说我们需要选取的特征（装配体中组件）以`ProModelitem`类型进行保存，Toolkit提供了`ProSelectionAlloc`函数完成了从`ProModelitem`到`ProSelection`的转换。该函数有三个参数，第一个参数`	ProAsmcomppath* p_cmp_path`仅对装配体中组件中需要指定，对应组件装配树路径，第二个参数`ProModelitem* p_mdl_itm`为需要转换的`ProModelitem`对象，第三个参数`	ProSelection* p_selection`对应转换得到的`ProSelection`对象，示例代码如下：
 
 ```c
 //零件状态下使用
@@ -40,7 +37,7 @@ status = ProSelectionAlloc(&asmcomppath, &component, &selection);
 
 ## 2.选择零件的特征
 
-选择零件的特征必须要获得其对应的ProModelitem对象。本文作为测试，以选定所有的坐标系特征为例，首选通过`ProSolidFeatVisit`获取所有坐标系特征：
+选择零件的特征必须要获得其对应的`ProModelitem`对象。本文作为测试，以选定所有的坐标系特征为例，首选通过`ProSolidFeatVisit`获取所有坐标系特征：
 
 ```c
 ProError status;
@@ -86,23 +83,23 @@ ProError FeatVisitFilter(ProFeature *feature, ProAppData app_data)
 
 ```c
 status = ProArraySizeGet(p_features, &n_size);
-  for (i = 0; i < n_size; i++)
-  {
-    status = ProSelectionAlloc(NULL, &(p_features[i]), &selection);
-    status = ProSelbufferSelectionAdd(selection);
-  }
+for (i = 0; i < n_size; i++)
+{
+  status = ProSelectionAlloc(NULL, &(p_features[i]), &selection);
+  status = ProSelbufferSelectionAdd(selection);
+}
 ```
 
 使用程序选中所有坐标系特征如图1所示：
 
 <div align="center">
-    <img src="/img/proe/ToolkitSelbufferprt.gif" style="width:50%" align="center"/>
+    <img src="/img/proe/ToolkitSelbufferprt.gif" style="width:70%" align="center"/>
     <p>图1 使用程序选中所有坐标系特征</p>
 </div>
 
-## 3.选择装配体的组件坐标系特征`ProFeature`
+## 3.选择装配体的组件
 
-选择装配体的组件`ProAsmcomp`相对选择零件的特征`ProFeature`相对复杂，体现在构造`ProSelection`时`ProSelectionAlloc`需要指定其装配树路径`ProAsmcomppath`。`ProAsmcomppath`在官方文档描述如下：
+选择装配体的组件`ProAsmcomp`相对选择零件的特征`ProFeature`复杂，体现在构造`ProSelection`时`ProSelectionAlloc`需要指定其装配树路径`ProAsmcomppath`。`ProAsmcomppath`在官方文档描述如下：
 
 > The object ProAsmcomppath is one of the main ingredients in the ProSelection object, as described in The Selection Object.
 
@@ -168,7 +165,7 @@ ProError AsmCompPathVisitFilter(ProAsmcomppath *p_path, ProSolid solid, ProAppDa
 
 > Use PRO_B_TRUE when going down to this component and PRO_B_FALSE when going up from this component.
 
-实际测试下，在遍历对应的子装配节点，会同时访问按照装配树访问其父节点和子节点，当该参数为`PRO_B_TRUE`时访问子节点，`PRO_B_FALSE`则访问其父节点，两个操作依次进行，如果全部记录会造成数据混乱。另外访问函数是直接遍历所有节点，不需要像`ProSolidFeatVisit`那样使用递归的方式访问子装配体的节点。故我们在此进行过滤，只访问向下的节点，访问函数代码如下：
+实际测试下，在遍历对应的子装配节点，会同时访问按照装配树访问其父节点和子节点，当该参数为`PRO_B_TRUE`时访问子节点，`PRO_B_FALSE`则访问其父节点，两个操作依次进行，如果全部记录会造成数据混乱。另外访问函数是直接遍历所有节点，不需要像`ProSolidFeatVisit`那样使用递归的方式访问子装配体的节点。故我们在此进行过滤，只访问向下的子节点，访问函数代码如下：
 
 ```c
 ProError AsmCompPathVisitActFn(ProAsmcomppath *path, ProSolid solid, ProBoolean down, ProAppData p_comppaths)
@@ -208,7 +205,7 @@ status = ProArraySizeGet(p_comppaths, &n_pathsize);
 使用程序选中所有组件如图2所示：
 
 <div align="center">
-    <img src="/img/proe/ToolkitSelbufferasm.gif" style="width:50%" align="center"/>
+    <img src="/img/proe/ToolkitSelbufferasm.gif" style="width:70%" align="center"/>
     <p>图2 使用程序选中所有组件</p>
 </div>
 
