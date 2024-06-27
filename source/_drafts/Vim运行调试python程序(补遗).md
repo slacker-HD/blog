@@ -1,5 +1,5 @@
 ---
-title: Vim调试python程序(补遗)
+title: Vim运行调试python程序(补遗)
 tags:
   - Linux
   - Vim
@@ -43,3 +43,27 @@ category: Linux
 }
 ```
 
+同时修改`RunFile`函数，Python默认使用虚拟环境下的：
+
+```
+" 按Ctrl + F5直接跑当前程序，支持shell、python、nodejs和C
+map <C-F5> :call RunFile()<CR>
+func! RunFile()
+    exec "w"
+    if &filetype == 'sh'
+        :!time bash %
+    elseif &filetype == 'python'
+        exec "!time ~/home/hudi/pythonenv/bin/python3 %"
+    elseif &filetype == 'go'
+        exec "!time go run %"
+    elseif &filetype == 'javascript'
+        exec "!node %"
+    elseif &filetype == 'c'
+        exec "!gcc -Wall --verbose % -o %< -lm"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ -Wall --verbose % -o %< -lm"
+        exec "!time ./%<"
+    endif
+endfunc
+```
