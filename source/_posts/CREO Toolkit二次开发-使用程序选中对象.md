@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2024-07-01 16:19:51
 ---
+
 
 本文介绍如何使用程序完成对象选取的功能。
 
