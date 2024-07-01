@@ -6,7 +6,9 @@ tags:
   - 树莓派
 comments: true
 category: Linux
+date: 2024-07-01 16:16:27
 ---
+
 
 使用`vimspector`调试Python时，常需要选择不同的环境。之前的Vim设置使用的是默认版本， 如果需要选择不同的版本，则要修改`.vimspector.json`，在"configuration"字段中添加`python`选项，指定Python环境：
 
@@ -14,7 +16,7 @@ category: Linux
 "python": "${pathToPython:python}"
 ```
 
-例如linux下我在`/home/pi/pythonenv/`目录中生成了一个虚拟环境，则`.vimspector.json`内容如下：
+例如linux下我在`~/pythonenv/`目录中生成了一个虚拟环境，则`.vimspector.json`内容如下：
 
 ```json
 {
@@ -28,7 +30,7 @@ category: Linux
         "name": "<name>: Launch",
         "type": "python",
         "request": "launch",
-        "python": "/home/pi/pythonenv/bin/python3",
+        "python": "~/pythonenv/bin/python3",
         "cwd": "${workspaceRoot}",
         "stopOnEntry": true,
         "console": "externalTerminal",
@@ -43,7 +45,7 @@ category: Linux
 }
 ```
 
-同时修改`RunFile`函数，Python默认使用虚拟环境下的：
+同时修改`.vimrc`里面的`RunFile`函数，Python默认使用虚拟环境下的：
 
 ```
 " 按Ctrl + F5直接跑当前程序，支持shell、python、nodejs和C
@@ -53,7 +55,7 @@ func! RunFile()
     if &filetype == 'sh'
         :!time bash %
     elseif &filetype == 'python'
-        exec "!time ~/home/hudi/pythonenv/bin/python3 %"
+        exec "!time ~/pythonenv/bin/python3 %"
     elseif &filetype == 'go'
         exec "!time go run %"
     elseif &filetype == 'javascript'
