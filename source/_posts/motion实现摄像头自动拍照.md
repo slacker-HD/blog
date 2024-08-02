@@ -26,7 +26,7 @@ motion配置主要有两个文件，一是motion daemon守护进程设置文件�
 
 > start_motion_daemon=yes
 
-motion的默认配置文件的位置一般是在`/etc/motion.conf`，选项很多，可以参考motion官方文档以及配置文件的注释部分进行修改，这里只记录我修改的部分：
+motion的默认配置文件的位置一般是在`/etc/motion/motion.conf`，选项很多，可以参考motion官方文档以及配置文件的注释部分进行修改，这里只记录我修改的部分：
 
 > \# 以后台方式运行
 > daemon on
@@ -40,7 +40,9 @@ motion的默认配置文件的位置一般是在`/etc/motion.conf`，选项很�
 > \#非常重要，判断多少个像素发生改变的时候录像和保存视频，我主要看有没有人进办公室，灵敏度稍微调低了
 > threshold 5000
 > \#下面这个是指定照片保存的文件夹：
-> target_dir ~/motiondir
+> target_dir /home/user/motiondir
+> \#下面这个是指定照片保存的文件夹：
+> log_file /home/user/motion.log
 > \#从录下的视频截取图片，有on, off, first, best, center五个选项
 > output_pictures center
 > \#记录检测到变化的视频
