@@ -6,13 +6,15 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2024-10-11 08:43:05
 ---
+
 
 本文介绍使用Toolkit对于球标的相关函数。Toolkit提供了`ProBomballoonAllCreate`等六个函数用于球标操作，每个函数与Creo球标工具栏里面的操作基本是对应的关系。
 
 ## 1.创建球标 | 主视图
 
-`ProBomballoonAllCreate`函数可以实现在主视图生成所有球标。该函数的参数相对简单，需要对应`drawing`、包含BOM信息的`table`格对象以及表格中重复区域的ID`region_id`。重复区域ID`region_id`可由`ProDwgtableCellRegionGet`函数获得。所以在主视图创建所有球标首先遍历所有绘图中的表格，之后调用`ProDwgtableCellRegionGet`函数判断表格中是否包含重复区域，如果存在则调用`ProBomballoonAllCreate`函数即可。本文为做示例，没有使用`ProDwgtableCellRegionGet`函数获取重复区域ID，强制遍历使用默认值-1尝试生成：
+`ProBomballoonAllCreate`函数可以实现在主视图生成所有球标。该函数的参数相对简单，需要对应`drawing`、包含BOM信息的`table`格对象以及表格中重复区域的ID`region_id`。重复区域ID`region_id`可由`ProDwgtableCellRegionGet`函数获得。所以在主视图创建所有球标首先遍历所有绘图中的表格，之后调用`ProDwgtableCellRegionGet`函数判断表格中是否包含重复区域，如果存在则调用`ProBomballoonAllCreate`函数即可。本文为做示例，没有使用`ProDwgtableCellRegionGet`函数获取重复区域ID，强制遍历表格使用默认值-1尝试生成：
 
 ```c
 status = ProMdlCurrentGet(&drawing);
@@ -36,7 +38,7 @@ status = ProArrayFree(&tables);
 
 <div align="center">
   <img src="/img/proe/bom1.gif" style="width:75%" align="center"/>
-  <p>图 主视图生成全部球标</p>
+  <p>图 主视图创建全部球标</p>
 </div>
 
 ## 2.创建球标 | 按视图
@@ -65,7 +67,7 @@ status = ProArrayFree(&tables);
 
 <div align="center">
   <img src="/img/proe/bom2.gif" style="width:75%" align="center"/>
-  <p>图 按视图生成全部球标</p>
+  <p>图 按视图创建全部球标</p>
 </div>
 
 ## 3.清理球标
