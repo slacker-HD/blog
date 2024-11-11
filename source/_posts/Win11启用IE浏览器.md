@@ -4,7 +4,9 @@ tags:
   - Windows
 comments: true
 category: 电脑技术
+date: 2024-11-05 09:34:22
 ---
+
 
 Windows自从彻底停更IE后，只能使用Edge的兼容性模式打开一些如早期的Creo Toolkit帮助文档只能用IE打开的网页。虽然效果也达到了，但总是要多操作几步，不如直接使用打开IE方便。
 
