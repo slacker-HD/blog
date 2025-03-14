@@ -9,7 +9,10 @@ category: CREO二次开发
 
 
 其实这个功能很多人已经做了，我在<a href="https://www.hudi.site/2019/12/23/CREO%20vbapi%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91-%E5%AE%9E%E7%94%A8%E5%B0%8F%E5%B7%A5%E5%85%B7-%E6%89%B9%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" target="_blank">CREO vbapi二次开发-实用小工具-批处理工具</a>
-以及<a href="https://github.com/slacker-HD/creo_toolkit/tree/master/CreoTool" target="_blank">CREO Toolkit工具</a>均有功能实现并公开了代码。
+以及<a href="https://www.hudi.site/2019/11/01/CREO%20Toolkit%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E5%B0%8F%E5%B7%A5%E5%85%B7-%E4%B8%80%E9%94%AE%E6%B8%85%E9%99%A4%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%97%A7%E7%89%88%E6%9C%AC%E6%96%87%E4%BB%B6/" target="_blank">CREO Toolkit二次开发小工具-一键清除工作目录下旧版本文件
+</a>均有功能实现并公开了代码，但是似乎是此功能大部分人都是集成到开发的系统中了，很多人还不停的问，所以这里索性给出几个单独的解决方案，用VB6、VBS和PowerShell分别完成了功能，也没什么好说明的，就是比较文件后缀名删除小版本的，纯苦力活，直接给出代码。
+
+以下是VBS代码，保存为clean.vbs文件到需要清理的文件夹下，双击运行即可：
 
 ```vb
 Option Explicit
@@ -77,7 +80,7 @@ Sub MoveToRecycleBin(filePath)
 End Sub
 ```
 
-顺达用AI改写以上代码为PowerShell的，测试了下，保存为`Clean.ps1`到当前文件夹，运行也可实现同样的功能。
+以下PowerShell代码是用AI改写的，测试了下，保存为`Clean.ps1`到当前文件夹，运行也可实现同样的功能。
 
 ```powershell
 # 定义函数，检查文件名是否符合 “文件名.后缀名.数字” 格式
@@ -152,3 +155,7 @@ foreach ($file in $files) {
 ```
 
 
+VB6稍微复杂点，同时实现遍历子文件夹并删除的功能，关键代码和VBS的类似，就不写了。
+
+完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。
+至于程序可在<a href="http://hudi.ysepan.com" target="_blank">我的永硕E盘</a>下载。
