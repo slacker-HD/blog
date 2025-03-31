@@ -9,77 +9,144 @@ category: CREO二次开发
 ---
 
 
+Creo在绘图中添加草绘时没有对象捕捉的功能，在绘制水平或垂直线条以及调整直线的起点或终点时，常会遇到线条偏转一点不再水平或垂直的情况，所以使用Toolkit开发了这个功能。
 
-在二次开发过程中，如绘图绘制孔中心线等根据已有模型或者绘图的相关信息创建特征、草绘等元素是一个常见操作。绘制新的元素时，首先要确定其位置。Creo根据具体实际针对零件、装配体、绘图等不同状态下均定义了对应三维笛卡儿坐标或二维笛卡尔坐标系系统并提供了坐标变化的方法，下面对Creo坐标系统和坐标变换进行简单说明。
+Toolkit中，草绘直线由`ProLinedata`结构体表示，官方定义如下：
 
-## 1.坐标系统介绍
-
-Creo坐标系统在Toolkit官方文档"Core: Coordinate Systems and Transformations"一节中其实已经介绍的很详细了，一共有8种，官方说明如下：
-
-> Creo Parametric and Creo Parametric TOOLKIT use the following coordinate systems:
-> •	Solid coordinate system
-> •	Screen coordinate system
-> •	Window coordinate system
-> •	Drawing coordinate system
-> •	Drawing view coordinate system
-> •	Assembly coordinate system
-> •	Datum coordinate system
-> •	Section coordinate system
-
-"Solid coordinate system"是最基本的坐标系系统，采用三维的笛卡尔坐标系统记录了实体表面和边缘的位置和尺寸等信息。"Assembly coordinate system"是装配体自己的三维的笛卡尔坐标系统，主要描述零件和组件的位置和方向，以及装配中创建的基准特征的几何形状。"Screen coordinate system"是一个二维的笛卡尔坐标系统，用于描述屏幕坐标系统是一个二维坐标系统，在绘制文件中绘制各种草绘、摆放符号、文字等等各类操作均使用此坐标系。其余各坐标系通过名字应该大体就可以了解其含义了，如果有问题可以参考官方文档，这里不做更多的解读了。
-
-## 2.不同坐标系下的变换
-
-### 2.1 变换函数
-
-Toolkit提供了ProPntTrfEval和ProVectorTrfEval用于点和向量的坐标变换。函数均包含三个参数，第一个参数为当前坐标系下点/向量的坐标，第三个参数为目标坐标系下点/向量的坐标，第二个参数表示当前坐标系与目标坐标系之间的变换矩阵，其定义是一个位姿矩阵，详细描述见[CREO 二次开发—位姿矩阵详解](https://www.hudi.site/2021/09/14/CREO%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91-%E4%BD%8D%E5%A7%BF%E7%9F%A9%E9%98%B5%E4%BB%8B%E7%BB%8D/)一文。因此只要知道了不同坐标系之间的变换矩阵，就可以快速进行点和向量在不同坐标系下坐标的变换。
-
-### 2.2 组件坐标转换为装配体坐标
-
-从组件（零件或子装配体）的坐标变换为装配体的坐标应该是最好理解的坐标变换。装配的过程必然伴随着组件经过平移和旋转，而组件上某一点的坐标相对装配体坐标系也相应发生了对应的变换。根据2.1节，计算组件上某一点在装配体坐标系下的坐标首先需要获取组件坐标系到装配体坐标系的转换矩阵，可以由ProAsmcomppathTrfGet函数获得。ProAsmcomppathTrfGet同时也可以获取装配体坐标系到组件坐标系的转换矩阵，示例代码如下：
-
-```cpp
-status = ProAsmcomppathTrfGet(&comppath,PRO_B_TRUE,transformation);
-status = ProPntTrfEval(pointCompCoord,transformation,pointAsmCoord);
+```c
+typedef struct ptc_line
+{
+  int type;
+  Pro3dPnt  end1;
+  Pro3dPnt  end2;
+} ProLinedata;
 ```
 
-### 2.3 视图坐标变换为屏幕坐标
+其中`end1`为线段起点坐标，`end2`为线段终点坐标。之所以结构体还用`type`表示类型，是因为Toolkit将所有直线、点、曲线、圆、圆弧等草绘均统一用一个联合体表示（其中直线的type值为2）：
 
-通过ProDrawingViewTransformGet可以获取视图上的某一点在屏幕坐标系的位置的转换矩阵，示例代码如下：
-
-```cpp
-status = ProDrawingViewTransformGet(ProDrawing(mdl),view,PRO_B_TRUE,transViewtoDrawing);
-status = ProPntTrfEval(pointViewCoord,transViewtoDrawing,pointDrawingCoord);
+```c
+typedef union ptc_curve
+{
+  ProLinedata         line;
+  ProArrowdata        arrow;
+  ProArcdata          arc;
+  ProSplinedata       spline;
+  ProBsplinedata      b_spline;
+  ProCircledata       circle;
+  ProEllipsedata      ellipse;
+  ProPointdata        point;
+  ProPolygondata      polygon;
+  ProTextdata         text;
+  ProCompositeCurvedata comp_curve;
+  ProSurfcurvedata    surf_curve;
+} ProCurvedata;
 ```
 
-### 2.4 组件坐标转换为装配体坐标再转换为屏幕坐标
+`ProCurvedata`可使用`ProDtlentitydata`使用`ProDtlentitydataCurveGet`和`ProDtlentitydataCurveSet`读取和设定，在具体代码实现时，首先通过`ProSelect`拾取草绘，并判断其类型是否为直线：
 
-坐标的变换也可以连续变换的。例如比较常见的功能是在绘图中通过装配体上的点进行定位以绘制相关的草绘，则此时点的坐标系可能需要进过如下变换：
+```c
+status = ProSelect((char *)"draft_ent", 1, NULL, NULL, NULL, NULL, &sel, &size);
+if (status != PRO_TK_NO_ERROR || size < 1)
+  return;
 
-> 1.组件坐标转换为装配体坐标
-> 2.装配体坐标转换为屏幕坐标系
+status = ProSelectionModelitemGet(sel[0], &modelitem);
+if (status != PRO_TK_NO_ERROR || modelitem.type != PRO_DRAFT_ENTITY)
+  return;
 
-两者的变换矩阵分别可以通过ProAsmcomppathTrfGet和ProViewMatrixGet获得，则连续变换的代码如下：
+status = ProDtlentityDataGet(&modelitem, NULL, &entdata);
+status = ProDtlentitydataCurveGet(entdata, &curvedata);
 
-```cpp
-status = ProSelectionPoint3dGet(sel[0], pointCompCoord);
-status = ProSelectionAsmcomppathGet(sel[0], &comppath);
-status = ProAsmcomppathTrfGet(&comppath, PRO_B_TRUE, transComptoAsm);
-status = ProPntTrfEval(pointCompCoord, transComptoAsm, pointAsmCoord);
-
-status = ProMdlCurrentGet(&mdl);
-status = ProDrawingCurrentsolidGet(ProDrawing(mdl), &solid);
-status = ProSelectionViewGet(sel[0], &view);
-status = ProViewMatrixGet(ProMdl(solid), view, transAsmtoScreen);
-status = ProPntTrfEval(pointAsmCoord, transAsmtoScreen, pointScreenCoord);
+if (status != PRO_TK_NO_ERROR || curvedata.line.type != 2)
+  return;
 ```
 
-根据上述说明，编写了一个示例程序，可以通过选择装配体上的点绘制从绘图原点到选择点的预览直线，如下图所示：
+之后根据直线修改要求，修改`ProLinedata`的起点坐标`end1`，和终点坐标`end2`，再使用`ProDtlentitydataCurveSet`和`ProDtlentityModify`依次修改对应的`ProDtlentitydata`以及`ProModelitem`,即可完成直线的修改，代码如下：
+
+```c
+switch (align_type)
+{
+case ALIGN_HORIZONTAL_FROM_TOP:
+  align_horizontal_from_top(&curvedata.line.end1, &curvedata.line.end2);
+  break;
+case ALIGN_HORIZONTAL_FROM_MID:
+  align_horizontal_from_mid(&curvedata.line.end1, &curvedata.line.end2);
+  break;
+case ALIGN_HORIZONTAL_FROM_BOTTOM:
+  align_horizontal_from_bottom(&curvedata.line.end1, &curvedata.line.end2);
+  break;
+case ALIGN_VERTICAL_FROM_LEFT:
+  align_vertical_from_left(&curvedata.line.end1, &curvedata.line.end2);
+  break;
+case ALIGN_VERTICAL_FROM_MID:
+  align_vertical_from_mid(&curvedata.line.end1, &curvedata.line.end2);
+  break;
+case ALIGN_VERTICAL_FROM_RIGHT:
+  align_vertical_from_right(&curvedata.line.end1, &curvedata.line.end2);
+  break;
+}
+
+status = ProDtlentitydataCurveSet(entdata, &curvedata);
+status = ProDtlentityModify(&modelitem, NULL, entdata);
+status = ProWindowCurrentGet(&wid);
+status = ProWindowRefresh(wid);
+
+status = ProDtlentitydataFree(entdata);
+status = ProWindowRepaint(PRO_VALUE_UNUSED);
+```
+
+修改坐标时，由于起点和终点坐标并不能判断两者相对高低左右位置，为便于用户的理解和操作，需要判断起点和终点的相对位置，可通过以下函数确定高低点和左右点：
+
+```c
+void calculate_top_bottom(ProPoint3d *start, ProPoint3d *end, ProPoint3d **top, ProPoint3d **bottom)
+{
+  if ((*start)[1] > (*end)[1])
+  {
+    *top = start;
+    *bottom = end;
+  }
+  else
+  {
+    *top = end;
+    *bottom = start;
+  }
+}
+
+void calculate_left_right(ProPoint3d *start, ProPoint3d *end, ProPoint3d **left, ProPoint3d **right)
+{
+  if ((*start)[0] < (*end)[0])
+  {
+    *left = start;
+    *right = end;
+  }
+  else
+  {
+    *left = end;
+    *right = start;
+  }
+}
+```
+
+完成之后，即可根据要求修改两点的坐标，以下代码实现将线段在Y轴沿左侧点垂直对齐的功能，同理可以完成其它方式的修改：
+
+```c
+// 将线段在Y轴沿左侧点垂直对齐
+void align_vertical_from_left(ProPoint3d *start, ProPoint3d *end)
+{
+  ProPoint3d *left, *right;
+  calculate_left_right(start, end, &left, &right);
+
+  if (fabs((*left)[0] - (*right)[0]) < EPSILON)
+    return; // 如果线段是垂直的，则不进行对齐
+
+  (*right)[0] = (*left)[0];
+}
+```
+
+系统演示效果如下图所示：
 
 <div align="center">
-    <img src="/img/proe/Coordtrf.gif" style="width:75%" align="center"/>
-    <p>图 坐标变换示例</p>
+    <img src="/img/proe/linemod.gif" style="width:75%" align="center"/>
+    <p>图 右键重命名组件</p>
 </div>
-
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
