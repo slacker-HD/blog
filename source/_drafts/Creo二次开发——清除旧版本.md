@@ -157,4 +157,4 @@ foreach ($file in $files) {
 VB6稍微复杂点，同时实现遍历子文件夹并删除的功能，关键代码和VBS的类似，就不写了，最终直接把文件夹拖动到程序窗体内即可。
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_vbapi" target="_blank">Github.com</a>下载。
-至于程序可在<a href="http://hudi.ysepan.com" target="_blank">我的永硕E盘</a>下载。
+程序可在<a href="http://hudi.ysepan.com" target="_blank">我的永硕E盘</a>下载。
