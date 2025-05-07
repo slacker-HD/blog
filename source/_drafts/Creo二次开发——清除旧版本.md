@@ -2,6 +2,7 @@
 title: Creo二次开发——清除旧版本
 tags:
   - CREO
+  - VBAPI
   - CREO二次开发
 comments: true
 category: CREO二次开发
