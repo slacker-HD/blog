@@ -24,7 +24,7 @@ typedef struct ptc_line
 } ProLinedata;
 ```
 
-其中`end1`为线段起点坐标，`end2`为线段终点坐标。之所以结构体还用`type`表示类型，是因为Toolkit将所有直线、点、曲线、圆、圆弧等草绘均统一用一个联合体表示（其中直线的type值为2）：
+其中`end1`为线段起点坐标，`end2`为线段终点坐标。结构体还用`type`表示类型，是因为Toolkit将所有直线、点、曲线、圆、圆弧等草绘均统一用一个联合体表示（直线的type值为2）：
 
 ```c
 typedef union ptc_curve
@@ -148,7 +148,7 @@ void align_vertical_from_left(ProPoint3d *start, ProPoint3d *end)
 
 <div align="center">
     <img src="/img/proe/linemod.gif" style="width:75%" align="center"/>
-    <p>图 右键重命名组件</p>
+    <p>图 草绘直线修改水平</p>
 </div>
 
 完整代码可在<a href="https://github.com/slacker-HD/creo_toolkit" target="_blank">Github.com</a>下载。代码在VS2010,Creo 2.0 M060 X64下编译通过。
