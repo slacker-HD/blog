@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "7.2.0"
+    "version": "7.3.0"
   },
   "scripts": {
     "build": "hexo g",
@@ -11,7 +11,7 @@
     "PreviewDraft": "hexo server --draft"
   },
   "dependencies": {
-    "hexo": "^7.2.0",
+    "hexo": "^7.3.0",
     "hexo-cli": "^4.3.2",
     "hexo-deployer-ftpsync": "^0.2.0",
     "hexo-deployer-git": "^4.0.0",
@@ -19,7 +19,7 @@
     "hexo-generator-baidu-sitemap": "^0.1.6",
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-feed": "^3.0.0",
-    "hexo-generator-index": "^3.0.0",
+    "hexo-generator-index": "^4.0.0",
     "hexo-generator-json-content": "^4.2.3",
     "hexo-generator-sitemap": "^3.0.1",
     "hexo-generator-tag": "^2.0.0",
@@ -28,7 +28,7 @@
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-jade": "^0.5.0",
     "hexo-renderer-less": "^4.0.0",
-    "hexo-renderer-marked": "^6.3.0",
+    "hexo-renderer-marked": "^7.0.1",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
     "hexo-tag-ruby": "^1.0.2",
