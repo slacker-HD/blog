@@ -13,12 +13,12 @@ menu:
   - page: archive
     directory: archives/
     icon: fa-archive
-  - page: about
-    directory: about/
-    icon: fa-user
   - page: tools
     directory: tools/
     icon: fa-gui
+  - page: about
+    directory: about/
+    icon: fa-user
   - page: rss
     directory: atom.xml
     icon: fa-rss

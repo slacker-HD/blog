@@ -37,8 +37,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /huyunxiao/$1 [L]
 
-RewriteCond %{HTTP_HOST} ^tools\.hudi\.site$
-RewriteRule ^(/)?$ tools/index.html [L]
+RewriteCond %{HTTP_HOST} ^huyunxiao\.hudi\.site$
+RewriteRule ^(/)?$ huyunxiao/index.html [L]
 
 # 安全设置（保持不变）
 <Files ~ "^.(htaccess|htpasswd)$">
