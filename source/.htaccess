@@ -1,16 +1,19 @@
 RewriteEngine On
 
-# 基础设置：确保所有请求都使用HTTPS和www前缀
-# 1. 先处理非www到www的重定向（HTTP或HTTPS均可）
+# 基础设置：确保所有请求都使用HTTPS和www前缀（保持不变）
 RewriteCond %{HTTP_HOST} ^hudi\.site$ [NC]
 RewriteRule ^(.*)$ https://www.hudi.site/$1 [L,R=301]
 
-# 2. 然后处理HTTP到HTTPS的重定向（仅针对已经是www的情况）
-#RewriteCond %{HTTPS} off
-#RewriteCond %{HTTP_HOST} ^www\.hudi\.site$ [NC]
-#RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+# 新增规则：将www.hudi.site/tools/ 重定向到 tools.hudi.site/
+RewriteCond %{HTTP_HOST} ^www\.hudi\.site$ [NC]
+RewriteRule ^/?tools/(.*)$ https://tools.hudi.site/$1 [R=301,L]
 
-# 子域名weblink重定向规则（保持不变）
+# 新增规则：将www.hudi.site/weblink/ 重定向到 weblink.hudi.site/
+RewriteCond %{HTTP_HOST} ^www\.hudi\.site$ [NC]
+RewriteRule ^/?weblink/(.*)$ https://weblink.hudi.site/$1 [R=301,L]
+
+# 原有子域名重定向规则（保持不变）
+# 子域名weblink规则
 RewriteCond %{HTTP_HOST} ^weblink\.hudi\.site$
 RewriteCond %{REQUEST_URI} !^/weblink/
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -20,7 +23,7 @@ RewriteRule ^(.*)$ /weblink/$1 [L]
 RewriteCond %{HTTP_HOST} ^weblink\.hudi\.site$
 RewriteRule ^(/)?$ weblink/index.html [L]
 
-# 子域名tools重定向规则（保持不变）
+# 子域名tools规则
 RewriteCond %{HTTP_HOST} ^tools\.hudi\.site$
 RewriteCond %{REQUEST_URI} !^/tools/
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -29,16 +32,6 @@ RewriteRule ^(.*)$ /tools/$1 [L]
 
 RewriteCond %{HTTP_HOST} ^tools\.hudi\.site$
 RewriteRule ^(/)?$ tools/index.html [L]
-
-# 子域名huyunxiao重定向规则（保持不变）
-RewriteCond %{HTTP_HOST} ^huyunxiao\.hudi\.site$
-RewriteCond %{REQUEST_URI} !^/huyunxiao/
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /huyunxiao/$1 [L]
-
-RewriteCond %{HTTP_HOST} ^huyunxiao\.hudi\.site$
-RewriteRule ^(/)?$ huyunxiao/index.html [L]
 
 # 安全设置（保持不变）
 <Files ~ "^.(htaccess|htpasswd)$">
