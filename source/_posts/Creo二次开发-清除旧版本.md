@@ -1,12 +1,14 @@
 ---
-title: Creo二次开发——清除旧版本
+title: Creo二次开发-清除旧版本
 tags:
   - CREO
   - VBAPI
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2025-06-04 20:31:13
 ---
+
 
 
 其实这个功能很多人已经做了，我在<a href="https://www.hudi.site/2019/12/23/CREO%20vbapi%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91-%E5%AE%9E%E7%94%A8%E5%B0%8F%E5%B7%A5%E5%85%B7-%E6%89%B9%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" target="_blank">CREO vbapi二次开发-实用小工具-批处理工具</a>
