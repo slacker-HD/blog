@@ -6,7 +6,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2025-07-02 10:57:14
 ---
+
 
 仍然是丰富绘图草绘功能，实现Creo在草绘直线可以沿原直线延长和缩短的功能。
 
