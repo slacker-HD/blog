@@ -1,12 +1,14 @@
 ---
-title: 我的fvwm配置文件
+title: 我的fvwm配置
 tags:
   - Linux
   - fvwm
   - window manager
 comments: true
 category: Linux
+date: 2025-10-05 20:22:54
 ---
+
 
 不知道还有没有人在使用这个神器了。fvwm是Linux下一个窗口管理器，主要是自定义功能非常强大。在我新买的树莓派500上装上fvwm3，把我之前的fvwm2.6的配置进行了修改，使用fvwmiconman替换了fvwm3删除的fvwmtask模块，配置效果如下图：
 
