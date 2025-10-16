@@ -19,4 +19,4 @@ date: 2025-10-05 20:22:54
 
 我的配置尽可能的使用fvwm自带的功能，其余功能`feh`进行设定壁纸，使用`wmnd`、`wmclock`、`wmsystemtray`实现网络、时间和系统托盘功能，使用`picom`实现窗体的视觉效果。
 
-完整配置可在<a href="[http://hudi.ysepan.com](http://hudi.ysepan.com)" target="_blank">我的永硕E盘</a>下载。
+完整配置可在<a href="http://hudi.ysepan.com" target="_blank">我的永硕E盘</a>下载。
