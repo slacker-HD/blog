@@ -5,8 +5,8 @@ RewriteCond %{HTTP_HOST} ^hudi\.site$ [NC]
 RewriteRule ^(.*)$ https://www.hudi.site/$1 [L,R=301]
 
 # 新增重定向规则：www.hudi.site/tools → tools.hudi.site
-RewriteCond %{HTTP_HOST} ^www\.hudi\.site$ [NC]
-RewriteRule ^tools(?:/(.*))?$ https://tools.hudi.site/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} ^www\.hudi\.site$ [NC]
+#RewriteRule ^tools(?:/(.*))?$ https://tools.hudi.site/$1 [R=301,L]
 
 # 新增重定向规则：www.hudi.site/weblink → weblink.hudi.site
 RewriteCond %{HTTP_HOST} ^www\.hudi\.site$ [NC]
