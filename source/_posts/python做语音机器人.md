@@ -286,7 +286,7 @@ finally:
 }
 ```
 
-再付一个使用百度语音生成对应的提示音代码：
+再附一个使用百度语音生成对应的提示音代码：
 
 ```python
 from aip import AipSpeech
