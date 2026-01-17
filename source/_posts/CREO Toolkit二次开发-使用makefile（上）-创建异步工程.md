@@ -180,3 +180,17 @@ $(OBJS) $(PTCLIBS) $(LIBS)
 2023.4.6修改：
 
 CPP工程一样可以使用`CCFLAGS`，无需修改。
+
+---
+
+2025.1.17修改：
+
+使用VScode的代码补全功能，在c_cpp_properties.json配置文件includePath也需要添加对应VC的头文件目录，Creo 2.0使用VS2010，VC头文件目录为：C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC/include，所以c_cpp_properties.json的includePath对应如下：
+
+```json
+"includePath": [
+  "${workspaceFolder}/**",
+  "C:/PTC/Creo 2.0/Common Files/M060/protoolkit/includes/**",
+  "C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC/include/**"
+],
+```
