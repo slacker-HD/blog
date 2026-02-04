@@ -88,3 +88,5 @@ result = c._creoson_post(command, function, data)
 ```
 
 最后总结一下，CREOSON还是基于JLINK做异步开发的，思路是通过Http Post向`CREOSON Server`发送指令。函数调用有两种形式，上面的代码都进行了说明。使用`_creoson_post`函数的参数调用用的是json格式，参数名称更人性化一些但相对啰嗦。个人感觉调用CREOSON的设置相对简单，而且针对不同的版本只要修改 `CREOSON Server`路径即可，基本不需要再配置其他环境。同时由于CREOSON可被任意语言调用，所以用于集成在其他系统里面做一些简单的功能，应该还是挺好用的。
+
+代码公开，需要的人可以随便根据自己的环境修改编译。完整代码可在<a href="https://github.com/slacker-HD/Creoson_test" target="_blank">Github.com</a>下载。
