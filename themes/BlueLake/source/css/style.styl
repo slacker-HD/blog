@@ -122,13 +122,26 @@ body
   color: #333
   width:100%
   height:100%
-  // 以下三行为正常配色
+  // // 以下三行为正常配色
+  // background: #2775b6
+  // animation: bg-color 30s infinite
+  // -webkit-animation: bg-color 30s infinite
+  // // 以下两行为灰色，使用时注释掉上面三行
+  // // background: gray 
+  // // filter: grayscale(100%)
+
+  // 默认样式
+body.default-theme
   background: #2775b6
   animation: bg-color 30s infinite
   -webkit-animation: bg-color 30s infinite
-  // 以下两行为灰色，使用时注释掉上面三行
-  // background: gray 
-  // filter: grayscale(100%)
+
+// 国家公祭日灰色主题
+body.gray-theme
+  background: gray 
+  filter: grayscale(100%)
+  -webkit-filter: grayscale(100%) // 兼容webkit内核浏览器
+
 .layout-g 
   letter-spacing: -.31em
   *letter-spacing normal
