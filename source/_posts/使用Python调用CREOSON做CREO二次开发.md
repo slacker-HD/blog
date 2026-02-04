@@ -21,6 +21,8 @@ CREOSON是Simplified Logic, Inc.公司提供的一个开源第三方库，基于
     <p>图 CREOSON Server设置</p>
 </div>
 
+ `CREOSON Server`目录下还有个`creoson_run.bat`，双击运行即可以默认配置启动CREOSON服务。
+
 使用Python开发还需要安装 `creopyson`库：
 
 ```bash
