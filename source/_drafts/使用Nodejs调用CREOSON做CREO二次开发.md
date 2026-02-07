@@ -8,7 +8,7 @@ comments: true
 category: CREO二次开发
 ---
 
-CREOSON同样提供了Nodejs开发调用相关模块，文件位于`CREOSON Server`根目录下的`\web\assets\creoson_stuff\creoson_js`子目录内。
+CREOSON同样提供了javascript开发调用相关模块，文件位于`CREOSON Server`根目录下的`\web\assets\creoson_stuff\creoson_js`子目录内。
 
 ## 1. 基本环境配置
 
