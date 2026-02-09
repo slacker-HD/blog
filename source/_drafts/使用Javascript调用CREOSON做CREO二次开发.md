@@ -1,8 +1,9 @@
 ---
-title: 使用Nodejs调用CREOSON做CREO二次开发
+title: 使用Javascript调用CREOSON做CREO二次开发
 tags:
   - CREO
   - Nodejs
+  - Javascript
   - CREO二次开发
 comments: true
 category: CREO二次开发
@@ -10,11 +11,11 @@ category: CREO二次开发
 
 CREOSON同样提供了javascript开发调用相关模块，文件位于`CREOSON Server`根目录下的`\web\assets\creoson_stuff\creoson_js`子目录内。
 
-## 1. 基本环境配置
+## 1. Nodejs基本环境配置
 
 CREOSON的基本设置与前面使用Python开发的一样，在此不再赘述。
 
-开发时首先将`creoson_js`目录复制到当前目录下。注意官方提供的文件没有导出，所以需要修改一下，在每个模块文件最后添加：
+开发时首先将`creoson_js`目录复制到当前目录下。注意官方提供的文件没有导出模块，所以需要修改一下，在每个模块文件最后添加：
 
 ``` javascript
 if (typeof module !== 'undefined' && module.exports) {
@@ -22,7 +23,7 @@ if (typeof module !== 'undefined' && module.exports) {
 } 
 ```
 
-## 2. 代码撰写
+## 2. Nodejs开发代码撰写
 
 还是复刻Python的例子，连接已打开会话后，打开工作目录下fin.prt添加参数后保存文件。
 
@@ -105,4 +106,27 @@ sessObj.start_creo()
   });
 ```
 
+## 3. 网页调用基本环境配置
+
+使用html+JavaScript调用CREOSON做CREO二次开发，还是使用官方提供`CREOSON Server`根目录下的`\web\assets\creoson_stuff\creoson_js`下的文件，不用修改。由于跨域权限的问题，我们写的网页要复制到`CREOSON Server`  `\web`文件夹下，访问`http://localhost:9056/test.html`实现功能，否则网页功能可能不正常无法访问本地文件。
+
+## 4. 测试网页
+
+还是完成同样的功能，html加入引用即可：
+
+```html
+<!-- 引入依赖和自定义脚本 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/assets/creoson_stuff/creoson_js/common_creoson_ajax.js"></script>
+<script src="/assets/creoson_stuff/creoson_js/creoson_connection.js"></script>
+<script src="/assets/creoson_stuff/creoson_js/creoson_creo.js"></script>
+<script src="/assets/creoson_stuff/creoson_js/creoson_file.js"></script>
+<script src="/assets/creoson_stuff/creoson_js/creoson_parameter.js"></script>
+<script src="js/creoson-script.js"></script>
+```
+
+
+```javascript
+
+```
 代码公开，需要的人可以随便根据自己的环境修改编译。完整代码可在<a href="https://github.com/slacker-HD/Creoson_test" target="_blank">Github.com</a>下载。
