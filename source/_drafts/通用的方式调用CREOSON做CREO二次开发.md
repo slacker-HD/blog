@@ -30,7 +30,7 @@ category: CREO二次开发
 }
 ```
 
-打开命令提示符（注意不是powershell），输入以下命令：
+打开命令提示符，输入以下命令：
 
 ```bash
 curl -X POST "http://localhost:9056/creoson" -H "Content-Type: application/json" --max-time 60 -k -d "{\"command\":\"connection\",\"function\":\"start_creo\",\"data\":{\"start_dir\":\"D:\\\\mydoc\\\\Creoson_test\",\"start_command\":\"nitro_proe_remote.bat\",\"retries\":5,\"use_desktop\":false}}"
@@ -186,7 +186,7 @@ curl -X POST "http://localhost:9056/creoson" -H "Content-Type: application/json"
 
 ## 2.使用批处理实现
 
-根据上面的内容，可以将Curl命令写入一个批处理文件中，然后运行该批处理文件即可实现CREO二次开发功能，唯一需要处理的就是获得第二部Connect后得到的SessionId并传入后续步骤。也没什么好说的，直接给出代码：
+根据上面的内容，可以将Curl命令写入一个批处理文件中，然后运行该批处理文件即可实现CREO二次开发功能，唯一需要处理的就是获得第二步Connect后得到的SessionId并传入后续步骤。也没什么好说的，直接给出代码：
 
 ```bat
 @echo off

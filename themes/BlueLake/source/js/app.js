@@ -2,7 +2,7 @@
 /* How to use? : Check the GitHub README
 /* ----------------------------------------------- */
 
-/* To load a config file (particles.json) you need to host this demo (MAMP/WAMP/local)... */
+/* To load a config file (on) you need to host this demo (MAMP/WAMP/local)... */
 /*
 particlesJS.load('particles-js', 'particles.json', function() {
   console.log('particles.js loaded - callback');
@@ -67,9 +67,9 @@ particlesJS("particles-js", {
         "line_linked": {
             "enable": true,
             "distance": 150,
-            "color": "#258fb8",
-            "opacity": 0.4,
-            "width": 1
+            "color": "#ffffff",
+            "opacity": 0.65,
+            "width": 1.2
         },
         "move": {
             "enable": true,
@@ -87,7 +87,7 @@ particlesJS("particles-js", {
         }
     },
     "interactivity": {
-        "detect_on": "canvas",
+        "detect_on": "window",
         "events": {
             "onhover": {
                 "enable": true,
