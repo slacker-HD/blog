@@ -7,7 +7,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2026-03-02 21:01:29
 ---
+
 
 CREOSON同样提供了javascript开发调用相关模块，文件位于`CREOSON Server`根目录下的`\web\assets\creoson_stuff\creoson_js`子目录内，使用nodejs或网页前端Javascript开均可以调用库开发。
 
@@ -25,9 +27,9 @@ if (typeof module !== 'undefined' && module.exports) {
 
 ## 2. 网页调用基本环境配置
 
-使用html+JavaScript调用CREOSON做CREO二次开发，还是使用官方提供`CREOSON Server`根目录下的`\web\assets\creoson_stuff\creoson_js`下的文件，不用修改任何文件。由于跨域权限的问题，我们写的网页要复制到`CREOSON Server`  `\web`文件夹下，访问`http://localhost:9056/` `你的网页.html`实现功能，否则网页功能可能不正常无法访问本地文件。
+使用html+JavaScript调用CREOSON做CREO二次开发，还是使用官方提供`CREOSON Server`根目录下的`\web\assets\creoson_stuff\creoson_js`下的文件，不用修改任何文件。由于跨域权限的问题，我们写的网页要复制到`CREOSON Server`  `\web`文件夹下，访问`http://localhost:9056/` `你的网页.html`实现功能，**双击以file协议打开网页，会报跨域错误**。
 
-## 3. Nodejs开发代码撰写
+## 3. Nodejs开发
 
 还是复刻Python的例子，连接已打开会话后，打开工作目录下fin.prt添加参数后保存文件。
 
@@ -110,7 +112,7 @@ sessObj.start_creo()
   });
 ```
 
-## 4. 测试网页
+## 4. 网页端开发
 
 还是完成同样的功能，html加入必要的引用即可：
 
@@ -265,7 +267,7 @@ async function saveFile(fileName) {
 }
 ```
 
-最后就是调用函数：、
+最后就是调用函数：
 
 ``` javascript
 async function runAllOperations() {

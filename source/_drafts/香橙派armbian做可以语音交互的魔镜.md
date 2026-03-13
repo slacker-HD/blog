@@ -158,4 +158,4 @@ pyenv local 3.11.8         # 仅当前目录
 python -m venv venv
 ```
 
-最后把MagicMirror拷贝到/home/pi/MagicMirror/目录下并安装依赖，同时把python语音机器人的的依赖安装好，加上系统总共占用4G多一点。
+最后把MagicMirror拷贝到/home/pi/MagicMirror/目录下并安装依赖，同时把python语音机器人的的依赖安装好，加上系统总共占用4G多一点,对于香橙派内置的8G的EMMC应该足够了。
