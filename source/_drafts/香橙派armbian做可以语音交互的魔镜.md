@@ -11,7 +11,7 @@ category: 树莓派
 
 ## 1.系统安装与设置
 
-由于香橙派pc plus内置emmc只有8G，所以不能像树莓派那样不顾系统占用，首先从官网找到不带图形系统的镜像安装。
+由于香橙派pc plus内置emmc只有8G，所以不能像树莓派那样不顾系统占用，需要精简下系统。首先从官网找到不带图形系统的镜像安装。
 
 ### 1.1 安装nodejs
 
@@ -33,7 +33,7 @@ sudo apt install xorg xinit xterm pekwm fonts-wqy-microhei
 
 ### 1.3 配置自动登录
 
-由于没有安装lightdm之类的登录管理器（这样既省空间也省内存），所以首先设置自动登录tty：
+由于没有安装lightdm之类的登录管理器（这样既省空间也省内存），所以需要先设置自动登录tty：
 
 ```bash
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
@@ -47,7 +47,7 @@ sudo nano /etc/systemd/system/getty@tty1.service.d/autologin.conf
 ExecStart=-/sbin/agetty --autologin pi --noclear %I $TERM
 ```
 
-设置登录tty后自动登录X:
+之后设置登录tty后自动登录X:
 
 ```bash
 nano ~/.bash_profile
@@ -66,7 +66,7 @@ fi
  添加竖屏显示和屏幕常亮：
 
 ```bash
-nano ~/.pekwm/startx
+nano ~/.pekwm/start
 ```
 
 写入以下内容：
@@ -78,23 +78,15 @@ xset s noblank  # 禁止黑屏
 sleep 2 && xrandr --output HDMI-1 --rotate left #设置竖屏
 ```
 
-### 1.5 安装electron依赖
+### 1.5 安装Electron依赖
 
-安装electron依赖，运行如下命令：
+安装Electron依赖，运行如下命令：
 
 ```bash
 sudo apt install libnss3 libatk1.0-0t64  libatk-bridge2.0-0t64 libcups2t64 libgdk-pixbuf-xlib-2.0-0  libgtk-3-0t64
 ```
 
-### 1.6 安装python语音依赖项
-
-```bash
-sudo apt install libffi-dev build-essential python3-dev ffmpeg
-python -m venv venv
-pip install sherpa-onnx sounddevice numpy baidu-aip chardet appbuilder dashscope pyaudio requests
-```
-
-### 1.7 安装python
+### 1.6 安装python
 
 armbian默认现在是3.15，但是onnxruntime暂未支持，官方源也没有提供3.11版本的python，所以只能从源码安装，如果后续onnxruntime支持上来了就不需要这么麻烦了。我这里通过`pyenv`安装python。
 
@@ -157,5 +149,14 @@ pyenv local 3.11.8         # 仅当前目录
 ```bash
 python -m venv venv
 ```
+
+### 1.7 安装python语音依赖项
+
+```bash
+sudo apt install libffi-dev build-essential python3-dev ffmpeg
+python -m venv venv
+pip install sherpa-onnx sounddevice numpy baidu-aip chardet appbuilder dashscope pyaudio requests
+```
+
 
 最后把MagicMirror拷贝到/home/pi/MagicMirror/目录下并安装依赖，同时把python语音机器人的的依赖安装好，加上系统总共占用4G多一点,对于香橙派内置的8G的EMMC应该足够了。
