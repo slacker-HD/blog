@@ -158,5 +158,4 @@ python -m venv venv
 pip install sherpa-onnx sounddevice numpy baidu-aip chardet appbuilder dashscope pyaudio requests
 ```
 
-
 最后把MagicMirror拷贝到/home/pi/MagicMirror/目录下并安装依赖，同时把python语音机器人的的依赖安装好，加上系统总共占用4G多一点,对于香橙派内置的8G的EMMC应该足够了。
