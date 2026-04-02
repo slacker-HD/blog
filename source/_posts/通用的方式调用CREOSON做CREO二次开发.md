@@ -5,7 +5,9 @@ tags:
   - CREO二次开发
 comments: true
 category: CREO二次开发
+date: 2026-04-02 14:28:46
 ---
+
 
 这是调用CREOSON做CREO二次开发的最后一篇。CREOSON的架构是用采用web服务器的方式对jlink进行了二次开发，用户通过对CREOSON server发送Http请求，并返回相应的结果。所以不管什么开发语言，只要能够按照官方给的格式发送请求并读取返回结果，即可轻松实现CREO二次开发。
 
