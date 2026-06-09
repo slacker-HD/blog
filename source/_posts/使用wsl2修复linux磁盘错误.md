@@ -1,7 +1,14 @@
 ---
 title: 使用wsl2修复linux磁盘错误
 tags:
+  - 树莓派
+  - Linux
+  - armbian
+comments: true
+category: 树莓派
+date: 2026-06-09 09:00:15
 ---
+
 
 
 树莓派使用SD卡安装系统属实不是好方案，意外断电经常会遇到文件系统损坏的情况。前段时间又碰到了，手里没有linux主机只有windows，所以尝试通过WSL2来修复，在此记录。
