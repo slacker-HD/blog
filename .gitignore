@@ -8,3 +8,4 @@ public/
 package-lock.json
 .vscode/
 _config_real.yml
+_config.BlueLake.yml

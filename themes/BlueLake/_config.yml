@@ -80,28 +80,11 @@ baidusitemap:
 #Local search
 local_search: true ## Use a javascript-based local search engine, true/false.
 
-#Cmments
-comment:
-  duoshuo: #chaooo ## duoshuo_shortname
-  disqus: ## disqus_shortname
-  livere: ## 来必力(data-uid)
-  # uyan: 2147918
-  cloudTie: ## 网易云跟帖(productKey)
-  changyan: ## 畅言需在下方配置两个参数，此处不填。
-    appid: cytrKUm6t
-    appkey: prod_158a59802f17fc4f7bb4d570898a8459
-    
-#Share
-baidu_share: ## 百度分享
-JiaThis_share: ##true ##JiaThis分享
-duoshuo_share: #true ##true 多说分享必须和多说评论一起使用。
-addToAny_share: # AddToAny share. Empty list hides. List items are service name at url. For ex: email for '<a href="https://www.addtoany.com/add_to/email?linkurl=...'
-#  - twitter
-#  - baidu
-#  - facebook
-#  - google_plus
-#  - linkedin
-#  - email
+#Comments - Gitalk (third-party comment system)
+# See: https://github.com/gitalk/gitalk
+# Secrets are in _config.BlueLake.yml (gitignored)
+gitalk:
+  enable: true
 
 # Analytics
 google_analytics: UA-139320825-1 ## Your Google Analytics tracking id, e.g. UA-42025684-2

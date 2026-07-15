@@ -103,22 +103,6 @@ baidusitemap:
 #Local search
 local_search: true ## Use a javascript-based local search engine, true/false.
 
-#Cmments
-comment:
-  duoshuo: #chaooo ## duoshuo_shortname
-  disqus: ## disqus_shortname
-  livere: ## 来必力(data-uid)
-  uyan: ## 友言(uid)
-  cloudTie: ## 网易云跟帖(productKey)
-  changyan: ## 畅言需在下方配置两个参数，此处不填。
-    appid: ## 畅言(appid)
-    appkey: ##畅言(appkey)
-
-#Share
-baidu_share: true ## 百度分享
-JiaThis_share: ##true ##JiaThis分享
-duoshuo_share: #true ##true 多说分享必须和多说评论一起使用。
-
 # Analytics
 google_analytics: ## Your Google Analytics tracking id, e.g. UA-42025684-2
 baidu_analytics: ## Your Baidu Analytics tracking id, e.g. 1006843030519956000
