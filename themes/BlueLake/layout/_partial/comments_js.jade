@@ -1,99 +1,20 @@
-if theme.baidu_share
+if theme.gitalk && theme.gitalk.enable
+  link(rel='stylesheet', href='https://unpkg.com/gitalk/dist/gitalk.css')
+  script(src='https://unpkg.com/gitalk/dist/gitalk.min.js')
   script.
-    window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","weixin","tsina","qzone","linkedin","fbook","twi","print","renren","sqq","evernotecn","bdysc","tqq","tqf","bdxc","kaixin001","tieba","douban","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","h163","copy"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||head).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-
-if theme.JiaThis_share
-  script.
-      var jiathis_config={
-          data_track_clickback:true,
-          summary:"",
-          shortUrl:true,
-          hideMore:false
-      }
-  script(type="text/javascript",src="http://v3.jiathis.com/code/jia.js",charset="utf-8")
-
-if theme.comment.duoshuo
-  script.
-    var duoshuoQuery = {short_name:'#{theme.comment.duoshuo}'};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        document.getElementsByTagName('body')[0].appendChild(ds);
-    })();
-
-if theme.comment.disqus
-  script.
-    var disqus_shortname = '#{theme.comment.disqus}';
-    var disqus_identifier = '#{page.path}';
-    var disqus_title = '#{page.title}';
-    var disqus_url = '#{config.url}/#{page.path}';
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  script(id='dsq-count-scr', src='//#{theme.comment.disqus}.disqus.com/count.js', async)
-  script(type='text/javascript', src='//#{theme.comment.disqus}.disqus.com/recent_comments_widget.js?num_items=5&hide_avatars=1&avatar_size=32&excerpt_length=20&hide_mods=1')
-
-if theme.comment.livere
-  script.
-    (function(d, s) {
-      var j, e = d.getElementsByTagName('body')[0];
-      if (typeof LivereTower === 'function') { return; }
-      j = d.createElement(s);
-      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-      j.async = true;
-      e.appendChild(j);
-    })(document, 'script');
-
-if theme.comment.uyan
-  script(src='http://v2.uyan.cc/code/uyan.js?uid='+theme.comment.uyan)
-
-if theme.comment.cloudTie
-  script.
-    var cloudTieConfig = {
-      url: document.location.href, 
-      sourceId: "",
-      productKey: '#{theme.comment.cloudTie}',
-      target: "cloud-tie-wrapper"
+    function md5(s){function L(k,d){return(k<<d)|(k>>>(32-d))}function K(G,k){var I,d,F,H,x;F=(G&2147483648);H=(k&2147483648);I=(G&1073741824);d=(k&1073741824);x=(G&1073741823)+(k&1073741823);if(I&d){return(x^2147483648^F^H)}if(I|d){if(x&1073741824){return(x^3221225472^F^H)}else{return(x^1073741824^F^H)}}else{return(x^F^H)}}function r(d,F,k){return(d&F)|((~d)&k)}function q(d,F,k){return(d&k)|(F&(~k))}function p(d,F,k){return(d^F^k)}function n(d,F,k){return(F^(d|(~k)))}function u(G,F,aa,Z,k,H,I){G=K(G,K(K(r(F,aa,Z),k),I));return K(L(G,H),F)}function f(G,F,aa,Z,k,H,I){G=K(G,K(K(q(F,aa,Z),k),I));return K(L(G,H),F)}function D(G,F,aa,Z,k,H,I){G=K(G,K(K(p(F,aa,Z),k),I));return K(L(G,H),F)}function t(G,F,aa,Z,k,H,I){G=K(G,K(K(n(F,aa,Z),k),I));return K(L(G,H),F)}function e(G){var Z;var F=G.length;var x=F+8;var k=(x-(x%64))/64;var I=(k+1)*16;var aa=Array(I-1);var d=0;var H=0;while(H<F){Z=(H-(H%4))/4;d=(H%4)*8;aa[Z]=(aa[Z]|(G.charCodeAt(H)<<d));H++}Z=(H-(H%4))/4;d=(H%4)*8;aa[Z]=aa[Z]|(128<<d);aa[I-2]=F<<3;aa[I-1]=F>>>29;return aa}function B(x){var k="",F="",G,d;for(d=0;d<=3;d++){G=(x>>>(d*8))&255;F="0"+G.toString(16);k=k+F.substr(F.length-2,2)}return k}var C=[];var P,h,E,v,g,Y,X,W,V;var S=7,Q=12,N=17,M=22;var A=5,z=9,y=14,w=20;var o=4,m=11,l=16,j=23;var U=6,T=10,R=15,O=21;var i=e(s);Y=1732584193;X=4023233417;W=2562383102;V=271733878;for(P=0;P<i.length;P+=16){h=Y;E=X;v=W;g=V;Y=u(Y,X,W,V,i[P+0],S,3614090360);V=u(V,Y,X,W,i[P+1],Q,3905402710);W=u(W,V,Y,X,i[P+2],N,606105819);X=u(X,W,V,Y,i[P+3],M,3250441966);Y=u(Y,X,W,V,i[P+4],S,4118548399);V=u(V,Y,X,W,i[P+5],Q,1200080426);W=u(W,V,Y,X,i[P+6],N,2821735955);X=u(X,W,V,Y,i[P+7],M,4249261313);Y=u(Y,X,W,V,i[P+8],S,1770035416);V=u(V,Y,X,W,i[P+9],Q,2336552879);W=u(W,V,Y,X,i[P+10],N,4294925233);X=u(X,W,V,Y,i[P+11],M,2304563134);Y=u(Y,X,W,V,i[P+12],S,1804603682);V=u(V,Y,X,W,i[P+13],Q,4254626195);W=u(W,V,Y,X,i[P+14],N,2792965006);X=u(X,W,V,Y,i[P+15],M,1236535329);Y=f(Y,X,W,V,i[P+1],A,4129170786);V=f(V,Y,X,W,i[P+6],z,3225465664);W=f(W,V,Y,X,i[P+11],y,643717713);X=f(X,W,V,Y,i[P+0],w,3921069994);Y=f(Y,X,W,V,i[P+5],A,3593408605);V=f(V,Y,X,W,i[P+10],z,38016083);W=f(W,V,Y,X,i[P+15],y,3634488961);X=f(X,W,V,Y,i[P+4],w,3889429448);Y=f(Y,X,W,V,i[P+9],A,568446438);V=f(V,Y,X,W,i[P+14],z,3275163606);W=f(W,V,Y,X,i[P+3],y,4107603335);X=f(X,W,V,Y,i[P+8],w,1163531501);Y=f(Y,X,W,V,i[P+13],A,2850285829);V=f(V,Y,X,W,i[P+2],z,4243563512);W=f(W,V,Y,X,i[P+7],y,1735328473);X=f(X,W,V,Y,i[P+12],w,2368359562);Y=D(Y,X,W,V,i[P+5],o,4294588738);V=D(V,Y,X,W,i[P+8],m,2272392833);W=D(W,V,Y,X,i[P+11],l,1839030562);X=D(X,W,V,Y,i[P+14],j,4259657740);Y=D(Y,X,W,V,i[P+1],o,2763975236);V=D(V,Y,X,W,i[P+4],m,1272893353);W=D(W,V,Y,X,i[P+7],l,4139469664);X=D(X,W,V,Y,i[P+10],j,3200236656);Y=D(Y,X,W,V,i[P+13],o,681279174);V=D(V,Y,X,W,i[P+0],m,3936430074);W=D(W,V,Y,X,i[P+3],l,3572445317);X=D(X,W,V,Y,i[P+6],j,76029189);Y=D(Y,X,W,V,i[P+9],o,3654602809);V=D(V,Y,X,W,i[P+12],m,3873151461);W=D(W,V,Y,X,i[P+15],l,530742520);X=D(X,W,V,Y,i[P+2],j,3299628645);Y=t(Y,X,W,V,i[P+0],U,4096336452);V=t(V,Y,X,W,i[P+7],T,1126891415);W=t(W,V,Y,X,i[P+14],R,2878612391);X=t(X,W,V,Y,i[P+5],O,4237533241);Y=t(Y,X,W,V,i[P+12],U,1700485571);V=t(V,Y,X,W,i[P+3],T,2399980690);W=t(W,V,Y,X,i[P+10],R,4293915773);X=t(X,W,V,Y,i[P+1],O,2240044497);Y=t(Y,X,W,V,i[P+8],U,1873313359);V=t(V,Y,X,W,i[P+15],T,4264355552);W=t(W,V,Y,X,i[P+6],R,2734768916);X=t(X,W,V,Y,i[P+13],O,1309151649);Y=t(Y,X,W,V,i[P+4],U,4149444226);V=t(V,Y,X,W,i[P+11],T,3174756917);W=t(W,V,Y,X,i[P+2],R,718787259);X=t(X,W,V,Y,i[P+9],O,3951481745);Y=K(Y,h);X=K(X,E);W=K(W,v);V=K(V,g)}return(B(Y)+B(X)+B(W)+B(V)).toLowerCase()}
+    var pathname = decodeURIComponent(window.location.pathname).replace(/\/$/, '') || '/';
+    var gitalkConfig = {
+      clientID: '#{theme.gitalk.client_id}',
+      clientSecret: '#{theme.gitalk.client_secret}',
+      repo: '#{theme.gitalk.repo}',
+      owner: '#{theme.gitalk.owner}',
+      admin: ['#{theme.gitalk.owner}'],
+      id: md5(unescape(encodeURIComponent(pathname))),
+      distractionFreeMode: false
     };
-  script(src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js")
-
-if theme.comment.changyan.appid && theme.comment.changyan.appkey
-  script.
-    window._config = { showScore: true };
-    (function(){ 
-      var appid = '#{theme.comment.changyan.appid}'; 
-      var conf = '#{theme.comment.changyan.appkey}'; 
-      var width = window.innerWidth || document.documentElement.clientWidth; 
-      var nodes =document.getElementsByTagName("head")[0]||document.head||document.documentElement;
-      if (/(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent) && width < 750) {  
-          window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
-      }
-      else { 
-        var loadJs=function(d,a){
-          var b=document.createElement("script");b.setAttribute("type","text/javascript");
-          b.setAttribute("charset","UTF-8");
-          b.setAttribute("src",d);
-          if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}
-          nodes.appendChild(b)
-        };
-        loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); 
-      } 
-      var loadCss = function(cssString){  
-        var style=document.createElement("style");  
-        style.setAttribute("type", "text/css");  
-        if(style.styleSheet){// IE  
-            style.styleSheet.cssText = cssString;  
-        } else {// w3c  
-            var cssText = document.createTextNode(cssString);  
-            style.appendChild(cssText);  
-        }
-        nodes.appendChild(style);
-      }
-      window.onload=function(){loadCss('.module-hot-topic,.module-cmt-float-bar{display:none!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .cbox-prompt-w span.prompt-empty-w,#SOHUCS #SOHU_MAIN .module-cmt-float-bar .wrap-cont-w .cont-form-w .form-text-w span.text-null,#SOHUCS #SOHU_MAIN .module-cmt-float-bar .wrap-cont-w .cont-minwidth-w div.cont-comment-w a.comment-link-w,#SOHUCS #SOHU_MAIN .module-cmt-float-bar .wrap-cont-w .cont-minwidth-w div.cont-comment-w span.comment-text-w,#SOHUCS #SOHU_MAIN .module-cmt-footer .section-service-w div.service-wrap-w a:hover,#SOHUCS #SOHU_MAIN .module-cmt-header .section-cbox-w .block-head-w div.header-login,#SOHUCS #SOHU_MAIN .module-cmt-header .section-title-w .title-user-w .user-wrap-w span.wrap-name-w,#SOHUCS #SOHU_MAIN .module-cmt-list .action-click-gw span.click-disable-eg a em.icon-name-bg,#SOHUCS #SOHU_MAIN .module-cmt-list .block-title-gw ul li div.title-name-gw,#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .cmt-list-number .comment-number span.cy-number,#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .cmt-list-number span.comment-number,#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .type-lists li.active,#SOHUCS #SOHU_MAIN .module-cmt-list .msg-wrap-gw .wrap-action-gw .action-click-gw span a:hover,#SOHUCS #SOHU_MAIN .module-cmt-list .picture-box-gw div.box-action-gw a:hover,#SOHUCS #SOHU_MAIN .module-cmt-list .wrap-action-gw .action-click-gw span a:hover em.icon-name-bg,#SOHUCS #SOHU_MAIN .module-cmt-list .wrap-user-gw span.user-name-gw a{color:#40759b!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .post-wrap-border-t div.post-wrap-border-t-r,#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w div.post-wrap-border-l,#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w div.post-wrap-border-r{display:none!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .post-wrap-border-t div.post-wrap-border-t-l{background:#FFF!important;top:-2px!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-function-w .uploading-wrapper-dw div.wrapper-image-dw,#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w div.post-wrap-main,#SOHUCS #SOHU_MAIN .module-cmt-float-bar .wrap-cont-w .cont-form-w div.form-text-w,#SOHUCS #SOHU_MAIN .module-cmt-header .section-cbox-w .block-head-w div.header-login,#SOHUCS #SOHU_MAIN .module-cmt-list .module-cmt-box .post-wrap-w div.post-wrap-main{border:1px solid #e6e6e6!important;border-radius:20px 20px 20px 20px;margin:0!important}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a .btn-fw{width:130px!important;height:34px!important;line-height:33px!important;font-size:17px!important;background:#5483b1!important;border-radius:20px!important;color:#FFF!important;-webkit-box-shadow:0 -1px 4px #5483b1 inset;box-shadow:0 -1px 10px #5483b1 inset}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a .btn-fw:before{content:"发表评论"}#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a:hover .btn-fw{color:#40759b!important;background:#FFF!important}#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .type-lists li{background:none!important;border-bottom:1px solid #e6e6e6}#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type .type-lists li.active{border:1px solid #e6e6e6;border-radius:10px 10px 0 0;border-bottom:none}#SOHUCS #SOHU_MAIN .module-cmt-list .block-title-gw ul li .title-name-gw div.title-name-gw-tag{background:#5483b1!important;border-radius:3px}#SOHUCS #SOHU_MAIN .module-cmt-list .cmt-list-type div.cmt-list-border{background-color:#e6e6e6!important}#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item{border:1px solid #e6e6e6!important}#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item .nt-logo{text-align:center;line-height:40px;border-radius:50%!important;background:#e6e6e6!important}#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item .nt-logo:before{content:"畅";font-size:22px;color:#FFF}#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item a.nt-text,#SOHUCS #SOHU_MAIN .module-cmt-notice ul.nt-list li.nt-item a.nt-text i{color:#5483b1!important}#SOHUCS #SOHU_MAIN .module-cmt-header .section-title-w .title-user-w .user-wrap-w{background:#FFF!important}');};
-    })();
-  script(src="https://cy-cdn.kuaizhan.com/upload/plugins/plugins.count.js")
-
+    if ('#{theme.gitalk.cors_proxy}') {
+      gitalkConfig.proxy = '#{theme.gitalk.cors_proxy}';
+    }
+    var gitalk = new Gitalk(gitalkConfig);
+    gitalk.render('gitalk-container');
