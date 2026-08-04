@@ -6,7 +6,9 @@ tags:
   - armbian
 comments: true
 category: 树莓派
+date: 2026-08-04 15:30:17
 ---
+
 
 还是拿之前吃灰的香橙派来尝试gpio控制。我的型号是pc plus，其它的也是一样。
 
