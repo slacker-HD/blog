@@ -19,6 +19,38 @@ function md5(str) {
   return crypto.createHash('md5').update(str, 'utf8').digest('hex');
 }
 
+function normalizePostPath(postPath) {
+  return decodeURIComponent((postPath || '').replace(/\\/g, '/')).replace(/\/+$/, '') || '/';
+}
+
+function issueMatchesPost(issue, postPath, siteUrl) {
+  if (!issue) return false;
+  const normalized = normalizePostPath(postPath);
+  const title = (issue.title || '').trim();
+  const body = (issue.body || '').trim();
+  const md5Title = md5(normalized);
+  const bodyUrl = `${siteUrl}${normalized}`;
+  const titleVariants = new Set([
+    title,
+    md5Title,
+    normalized,
+    normalized.replace(/^\//, ''),
+    decodeURIComponent(normalized),
+    decodeURIComponent(normalized.replace(/^\//, '')),
+  ]);
+
+  if (Array.from(titleVariants).some(value => value && value === md5Title)) {
+    return true;
+  }
+
+  return body.includes(bodyUrl) || body.includes(siteUrl + normalizePostPath(normalized.replace(/^\//, '')))
+    || title === md5Title
+    || title === normalized
+    || title === normalized.replace(/^\//, '')
+    || title === decodeURIComponent(normalized)
+    || title === decodeURIComponent(normalized.replace(/^\//, ''));
+}
+
 function githubRequest(method, apiPath, data, token, proxyUrl) {
   return new Promise((resolve, reject) => {
     const postData = data ? JSON.stringify(data) : null;
@@ -123,10 +155,9 @@ hexo.extend.filter.register('after_generate', async function () {
     existingIssues.push(...res.data);
     page++;
   }
-  const existingTitles = new Set(existingIssues.map(i => i.title));
   console.log(`[Gitalk] 已有 ${existingIssues.length} 个 Issue，${postPaths.length} 篇文章`);
 
-  const toCreate = postPaths.filter(p => !existingTitles.has(md5(p)));
+  const toCreate = postPaths.filter(p => !existingIssues.some(issue => issueMatchesPost(issue, p, siteUrl)));
   if (toCreate.length === 0) return;
 
   console.log(`[Gitalk] 发现 ${toCreate.length} 篇新文章，正在创建 Issue...`);
