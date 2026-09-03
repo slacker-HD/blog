@@ -6,7 +6,9 @@ tags:
   - armbian
 comments: true
 category: 树莓派
+date: 2026-09-03 15:40:07
 ---
+
 
 
 ## 1.系统安装与设置
@@ -42,7 +44,8 @@ sudo nano /etc/systemd/system/getty@tty1.service.d/autologin.conf
 
 写入以下内容：
 
-``` [Unit]
+``` 
+[Unit]
 [Service]
 ExecStart=-/sbin/agetty --autologin pi --noclear %I $TERM
 ```
@@ -83,7 +86,7 @@ sleep 2 && xrandr --output HDMI-1 --rotate left #设置竖屏
 安装Electron依赖，运行如下命令：
 
 ```bash
-sudo apt install libnss3 libatk1.0-0t64  libatk-bridge2.0-0t64 libcups2t64 libgdk-pixbuf-xlib-2.0-0  libgtk-3-0t64
+sudo apt install libnss3 libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 libgdk-pixbuf-xlib-2.0-0 libgtk-3-0t64
 ```
 
 ### 1.6 安装python
