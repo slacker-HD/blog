@@ -1195,3 +1195,285 @@ a.post-content p :hover:before
   30% { transform: scaleX(1); }
   40% { transform: scaleX(0); }
 
+/* ===== 夜间模式 ===== */
+#night-toggle
+  display: inline-block
+  width: 30px
+  height: 30px
+  margin: 1px 0 0 10px
+  padding: 0 !important
+  text-align: center
+  vertical-align: top
+  color: #FFF
+  border: 1px solid rgba(255, 255, 255, 0.55)
+  border-radius: 50%
+  -webkit-transition: all .2s ease-in
+  transition: all .2s ease-in
+  svg
+    display: block
+    margin: 7px auto 0
+  &:hover
+    background: rgba(255, 255, 255, 0.12)
+    border-color: #FFF
+    -webkit-box-shadow: 0 0 10px rgba(255, 255, 255, 0.35) inset
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.35) inset
+
+body.night-theme
+  background: #17212e
+  -webkit-animation: none
+  animation: none
+  color: #d3dce6
+
+  #nav-menu a
+    &.hover,
+    &.current
+      -webkit-box-shadow: 0 0 10px rgba(255, 255, 255, 0.25) inset
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.25) inset
+
+  #sidebar .widget
+    background: #1f2b3a
+    border-color: #33415c
+    -webkit-box-shadow: none
+    box-shadow: none
+    a
+      color: #c6d2e0
+      &:hover
+        color: #6ea8cf
+        text-decoration: underline
+    .widget-title, .comments-title
+      color: #e6edf5
+      border-bottom-color: #33415c
+    .category-list-count
+      color: #7c8ba0
+
+  #search-form input
+    background: #1f2b3a
+    color: #d3dce6
+    border-color: #33415c
+    -webkit-box-shadow: none
+    box-shadow: none
+    &:-ms-input-placeholder
+      color: #7c8ba0
+    &:-moz-placeholder
+      color: #7c8ba0
+    &::-moz-placeholder
+      color: #7c8ba0
+    &::-webkit-input-placeholder
+      color: #7c8ba0
+
+  #result-wrap
+    background: #1f2b3a
+    color: #d3dce6
+    border-color: #33415c
+    -webkit-box-shadow: none
+    box-shadow: none
+    &:after
+      border-color: #1f2b3a transparent
+    .item
+      border-top-color: #33415c
+      .title
+        color: #6ea8cf
+
+  .post
+    background: #1f2b3a
+    border-color: #33415c
+    -webkit-box-shadow: none
+    box-shadow: none
+    .post-title
+      color: #e6edf5
+      border-bottom-color: #33415c
+      a
+        color: #e6edf5
+    .post-meta
+      color: #9aa7b4
+      a
+        color: #6ea8cf
+      a:hover
+        color: #90c3e8
+        border-bottom-color: #90c3e8
+    .post-content
+      color: #d3dce6
+      p code, ul code, ol code
+        color: #e6e6e6
+        background: #2c3a4d
+      a
+        color: #6ea8cf
+      .caption
+        color: #6ea8cf
+      blockquote, .stressed
+        color: #b6c2cf
+        border-color: #33415c
+        border-left-color: #4a7ba5
+      hr
+        border-top-color: #33415c
+    .comment-count:hover
+      color: #90c3e8
+      border-bottom-color: #90c3e8
+
+  blockquote, .stressed
+    color: #b6c2cf
+    border-color: #33415c
+    border-left-color: #4a7ba5
+
+  .post-nav
+    border-top-color: #33415c
+    a
+      color: #9aa7b4
+      &:hover
+        color: #6ea8cf
+
+  .label-title
+    color: #d3dce6
+    .fa
+      background: #24364a
+      color: #6ea8cf
+
+  .page-navigator
+    a, span
+      color: #c6d2e0
+      border-color: #33415c
+      -webkit-box-shadow: none
+      box-shadow: none
+    .current
+      background: #1f2b3a
+      color: #FFF
+
+  table
+    th, td
+      border-color: #33415c
+    tr:nth-child(2n)
+      background: #223042
+
+  .post-archive
+    h2
+      color: #e6edf5
+    .listing
+      a
+        color: #6ea8cf
+        &:hover
+          color: #90c3e8
+        &:before
+          background: #1f2b3a
+          border-color: #33415c
+        &:after
+          background: #33415c
+  .tags a
+    color: #c6d2e0
+    &:hover
+      color: #90c3e8
+  #sidebar .widget .tagcloud a
+    color: #c6d2e0 !important
+  .archive-wrap
+    border-left-color: #4a7ba5
+    &:before, &:after
+      background: #17212e
+  .tite
+    border-bottom-color: #33415c
+    &:after
+      background: #33415c
+  .date
+    border-color: #33415c
+
+  .readmore
+    a
+      color: #6ea8cf
+      &:hover
+        -webkit-box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.4) inset
+        box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.4) inset
+
+  .author-page
+    .photo img
+      -webkit-box-shadow: 1px 2px 3px #33415c
+      box-shadow: 1px 2px 3px #33415c
+
+  figure.highlight, .codeblock,
+  pre code
+    background: #0d1520
+
+  figure.highlight, .codeblock
+    figcaption
+      background: #0d1520
+      color: #7c8ba0
+      a
+        color: #6ea8cf
+
+  .highlight .gutter
+    background: #0d1520
+    border-right-color: #1f2630
+    .line
+      color: #55647a
+
+  .highlight .line, .codeblock .line
+    color: #d3dce6
+
+  .highlight
+    .comment, .title
+      color: #8b949e
+    .meta, .tag
+      color: #79c0ff
+    .string, .value, .inheritance, .header,
+    .ruby .symbol, .xml .cdatabody
+      color: #ffa198
+    .keyword, .javascript .function
+      color: #ff7b72
+    .number, .preprocessor, .built_in,
+    .literal, .params, .constant
+      color: #79c0ff
+    .line.marked
+      background: #303443
+    &.diff .code
+      .deletion
+        background-color: rgba(255, 108, 108, 0.15)
+      .addition
+        background-color: rgba(63, 185, 80, 0.15)
+
+  /* ===== Gitalk 评论（仅夜间覆盖） ===== */
+  #gitalk-container .gt-container
+    color: #d3dce6
+    .gt-meta
+      border-bottom-color: #33415c
+    .gt-copyright
+      border-top-color: #33415c
+    .gt-header-textarea
+      color: #d3dce6
+      background-color: #1f2b3a
+      border-color: #33415c
+      &:hover
+        background-color: #24364a
+      &::-webkit-input-placeholder, &::-moz-placeholder, &:-ms-input-placeholder
+        color: #7c8ba0
+    .gt-header-preview
+      background-color: #1f2b3a
+      border-color: #33415c
+    .gt-btn-preview
+      background-color: #1f2b3a
+      color: #6190e8
+      &:hover
+        background-color: #24364a
+    .gt-popup
+      background: #1f2b3a
+      border-color: #33415c
+    .gt-comment-content
+      background-color: #1f2b3a
+    .gt-comment-admin .gt-comment-content
+      background-color: #24364a
+    .gt-comment-body
+      color: #d3dce6 !important
+      .markdown-body
+        color: #d3dce6
+        blockquote
+          color: #9aa7b4
+          border-left-color: #33415c
+        pre
+          background-color: #0d1520
+        table
+          tr
+            background-color: #1f2b3a
+            &:nth-child(2n)
+              background-color: #223042
+          th, td
+            border-color: #33415c
+        code
+          color: #e6e6e6
+          background-color: rgba(255, 255, 255, 0.1)
+
