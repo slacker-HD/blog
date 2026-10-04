@@ -8,21 +8,21 @@ comments: true
 category: 人工智能
 ---
 
-最近折腾本地大模型，想用Ollama在本地跑了一个代码模型，就拿VBS脚本做了个测试，毕竟VBS在Windows上不用装任何东西就能用cscript直接执行。于是写了这个C# WinForm小程序，实现“输入需求 → 本地Ollama生成VBS代码 → 自动调用cscript.exe运行 → 把运行结果再喂回给模型，让它可以自己根据输出修正代码”，在此记录。
+最近折腾本地大模型，想用Ollama在本地跑了一个代码模型，写了个C# WinForm小程序，实现“输入需求 → 本地Ollama生成VBS代码 → 自动调用cscript.exe运行 → 把运行结果再喂回给模型，让它可以自己根据输出修正代码”，在此记录。
 
 ## 1. 原理
 
 整体流程其实就是一个"请求-生成-执行-反馈"的闭环：
 
 1. C#通过HTTP请求Ollama的本地API `http://127.0.0.1:11434/api/chat`，采用流式输出（`stream: true`），逐字显示在界面上；
-2. 系统提示词里强制模型只能输出 ```vbs 代码块，不能输出任何解释说明；
+2. 系统提示词里强制模型只能输出 ```vbs 代码块；
 3. 用正则从AI返回的全文里提取VBS代码；
 4. 把代码写入临时 `.vbs` 文件，用 `cscript.exe //nologo` 执行并捕获标准输出和错误信息；
 5. 将执行结果作为一条system消息追加到对话上下文中，这样模型在下一轮能根据报错自动修改代码。
 
 ## 2. Ollama接口说明
 
-Ollama自带HTTP接口，`/api/chat` 的请求体本质是和OpenAI的ChatCompletion兼容的结构：
+根据Ollama官方文档介绍，Ollama自带HTTP接口，`/api/chat` 的请求体本质是和OpenAI的ChatCompletion兼容的结构：
 
 ```json
 {
@@ -156,7 +156,7 @@ _chatHistory.Add(new ChatMsg("assistant", fullAiContent));
 _chatHistory.Add(new ChatMsg("system", $"VBS脚本执行返回：{runResult}"));
 ```
 
-这样如果你说"刚才运行报错了，改成XX"，它就知道上一轮到底输出了什么。
+这样如果继续输入"刚才运行报错了，改成XX"，可以让Ollama就知道上一轮到底输出了什么，该如何修改。
 
 ### 4.5 手动中断
 
@@ -186,33 +186,8 @@ private void btnStop_Click(object sender, EventArgs e)
     <p>图 程序运行实例</p>
 </div>
 
-实际跑起来长这样：输入需求发送后，AI回复一边流式滚动一边显示，检测到脚本就自动执行，几秒后返回运行结果（成功输出、报错、退出码一目了然）。
+实际跑起来长这样：输入需求发送后，AI回复一边流式滚动一边显示，检测到脚本就自动执行返回运行结果。
 
-另外给输入框加了回车发送、`Shift+Enter`换行的小习惯：
-
-```csharp
-private void txtInput_KeyDown(object sender, KeyEventArgs e)
-{
-    if (e.KeyCode == Keys.Enter)
-    {
-        if (e.Shift) return;
-        e.SuppressKeyPress = true;
-        btnSend_Click(sender, e);
-    }
-}
-```
-
-## 6. 运行环境
-
-- Windows + 已安装的Ollama（`ollama serve` 默认监听 11434）；
-- 先 `ollama list` 看看有哪些模型，没有就 `ollama run qwen2.5-coder` 拉一个（模型名可以随便换）；
-- `.NET` 版本对比代码如下，WinForm项目：
-
-```
-TargetFramework: net10.0-windows
-UseWindowsForms: true
-```
-
-## 7. 小结
+## 6. 小结
 
 整个程序依赖的东西很少，界面和逻辑都在一个 `FrmMain.cs` 里，核心就是"调Ollama API + 正则提取 + cscript执行 + 结果回灌"。原理上不限于VBS——只要把系统提示词和提取正则换成别的语言（比如Python、PowerShell），就能改造成通用的"AI生成并运行代码"工具。不过要提醒一句：本地模型生成代码能力有限，复杂需求还是得多轮对话让它根据报错自纠正，这也是为什么把执行结果回灌上下文这一步比较重要。
