@@ -8,7 +8,7 @@ comments: true
 category: 人工智能
 ---
 
-最近折腾本地大模型，想用Ollama在本地跑了一个代码模型，写了个C# WinForm小程序，实现“输入需求 → 本地Ollama生成VBS代码 → 自动调用cscript.exe运行 → 把运行结果再喂回给模型，让它可以自己根据输出修正代码”，在此记录。
+最近折腾Ollama在本地跑了一个代码模型，写了个C# WinForm小程序，实现“输入需求 → 本地Ollama生成VBS代码 → 自动调用cscript.exe运行 → 把运行结果再喂回给模型，让它可以自己根据输出修正代码”，在此记录。
 
 ## 1. 原理
 
@@ -44,6 +44,8 @@ category: 人工智能
 ```
 
 C#里逐行读取并用 `JsonDocument` 解析出 `message.content` 就行，判断 `done` 是否结束。
+
+**P.S. qwen2.5-coder:latest是我本机下载的模型，可以根据本机配置替换更好的模型。**
 
 ## 3. 系统提示词设计
 
@@ -114,9 +116,7 @@ return match.Success ? match.Groups[1].Value.Trim() : string.Empty;
 
 ### 4.3 执行VBS并捕获输出
 
-这是最容易踩坑的地方，尤其**编码**。VBS用 `cscript.exe` 执行，中文Windows下cscript把无BOM的脚本按GBK（代码页936）读取。如果你用 `Encoding.Default` 写文件就翻车了：.NET Core（5.0+）里 `Encoding.Default` 是 **UTF-8** 而不是系统ANSI，脚本被写成UTF-8后cscript按GBK读，中文串全乱，直接报"语法错误"且报错位置正好落在含中文的那一行，错误信息也是一坨乱码。
-
-正确做法是在入口处注册代码页支持，然后文件和输出读写统一走GBK：
+这是最容易踩坑的地方，尤其**编码**。VBS用 `cscript.exe` 执行，中文Windows下cscript把无BOM的脚本按GBK（代码页936）读取。如果你用 `Encoding.Default` 写文件就翻车了：.NET Core（5.0+）里 `Encoding.Default` 是 **UTF-8** 而不是系统ANSI，脚本被写成UTF-8后cscript按GBK读导致编码错误，错误信息也是一坨乱码。故需要在入口处注册代码页支持，然后文件和输出读写统一走GBK：
 
 ```csharp
 // Program.cs 入口处，注册代码页编码（.NET Core默认只有UTF-8/UTF-16等少数编码）
@@ -157,20 +157,6 @@ _chatHistory.Add(new ChatMsg("system", $"VBS脚本执行返回：{runResult}"));
 ```
 
 这样如果继续输入"刚才运行报错了，改成XX"，可以让Ollama就知道上一轮到底输出了什么，该如何修改。
-
-### 4.5 手动中断
-
-Ollama接口调用是异步长连接，停止按钮靠 `CancellationTokenSource` 取消：
-
-```csharp
-private void btnStop_Click(object sender, EventArgs e)
-{
-    if (_cts != null && !_cts.IsCancellationRequested)
-        _cts.Cancel();
-}
-```
-
-发送新请求前我会先把旧的令牌取消并释放，避免连续点发送造成卡死，捕获 `OperationCanceledException` 提示"已手动中断生成"。另外对异常做了分类处理：`HttpRequestException` 会提示"请确认ollama serve已启动、模型名称正确"，令牌释放的竞态（`ObjectDisposedException`）单独兜底，避免偶发的空引用让整个界面卡死。
 
 ## 5. 界面设计
 

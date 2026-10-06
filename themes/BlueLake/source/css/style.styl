@@ -1388,44 +1388,64 @@ body.night-theme
 
   figure.highlight, .codeblock,
   pre code
-    background: #0d1520
+    background: #191c1f
+    border: 1px solid #292c32
 
   figure.highlight, .codeblock
     figcaption
-      background: #0d1520
-      color: #7c8ba0
+      background: #191c1f
+      color: #878e98
       a
-        color: #6ea8cf
+        color: #74ade8
 
   .highlight .gutter
-    background: #0d1520
-    border-right-color: #1f2630
+    background: #282c33
+    border-right-color: #292c32
     .line
-      color: #55647a
+      color: #4e5a5f
 
   .highlight .line, .codeblock .line
-    color: #d3dce6
+    color: #dce0e5
 
   .highlight
-    .comment, .title
-      color: #8b949e
-    .meta, .tag
-      color: #79c0ff
+    .comment
+      color: #5d636f !important
+    .title, .section
+      color: #d07277 !important
+    .meta, .preprocessor
+      color: #b477cf !important
+    .tag, .attr, .attribute
+      color: #74ade8 !important
     .string, .value, .inheritance, .header,
     .ruby .symbol, .xml .cdatabody
-      color: #ffa198
-    .keyword, .javascript .function
-      color: #ff7b72
-    .number, .preprocessor, .built_in,
-    .literal, .params, .constant
-      color: #79c0ff
+      color: #a1c181 !important
+    .keyword
+      color: #b477cf !important
+    .javascript .function
+      color: #73ade9 !important
+    .number, .literal, .params
+      color: #bf956a !important
+    .built_in, .type, .operator
+      color: #6eb4bf !important
+    .constant
+      color: #dfc184 !important
+    .regexp
+      color: #bf956a !important
+    .function
+      color: #73ade9 !important
+    .symbol, .property, .doctag
+      color: #d07277 !important
+    .javadoc, .phpdoc
+      color: #878e98 !important
     .line.marked
-      background: #303443
+      background: #2f343e
     &.diff .code
       .deletion
-        background-color: rgba(255, 108, 108, 0.15)
+        color: #e06c75 !important
+        background-color: #381e23
       .addition
-        background-color: rgba(63, 185, 80, 0.15)
+        color: #98c379 !important
+        background-color: #1f2e25
 
   /* ===== Gitalk 评论（仅夜间覆盖） ===== */
   #gitalk-container .gt-container
@@ -1465,7 +1485,8 @@ body.night-theme
           color: #9aa7b4
           border-left-color: #33415c
         pre
-          background-color: #0d1520
+          background-color: #191c1f
+          border: 1px solid #292c32
         table
           tr
             background-color: #1f2b3a

@@ -16,27 +16,29 @@ pre
     line-height: 1.2em
     width: 100%
     border-radius: 5px
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.125)
+    border: 1px solid #ececec
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05)
     font-size: 13px
-    color: #333
-    background: #f7f8f8
+    color: #242529
+    background: #fafafa
 figure.highlight,.codeblock
-  background: #f7f8f8
+  background: #fafafa
   margin: 10px 0
   line-height: 1.1em
   padding-top: 15px
   margin: 1em 0
   border-radius: 5px
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.125)
+  border: 1px solid #ececec
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05)
   figcaption
     font-size: 13px
     padding: 0 15px 20px
     margin: 0
-    background: #f7f8f8
-    color: #999999
+    background: #fafafa
+    color: #7e8086
     a
       float: right
-      color: #40759b
+      color: #5c78e2
       font-weight: bold
   table
     width: 100%
@@ -59,14 +61,14 @@ figure.highlight,.codeblock
     .gutter
       display: none
   .gutter
-    background: #f7f8f8
-    border-right: 1px solid #e6e6e6
+    background: #fafafa
+    border-right: 1px solid #ececec
     padding: 0.3em 15px
     .line
-      color: #aaaaaa
+      color: #b4b4bb
   .line
     font-size: 13px
-    color: #333
+    color: #242529
     &.marked
       background: #f5e3de
 
@@ -81,297 +83,313 @@ figure.highlight,.codeblock
 /* code highlight color*/
 .highlight
   .comment
-  .title
-    color: #888
-  .meta 
-  .tag
-    color: #324977
-  .attr
-    color: #118a04
+    color: #a2a3a7
+  .title,
+  .section
+    color: #d3604f
+  .meta,
+  .preprocessor
+    color: #a449ab
+  .tag,
+  .attr,
+  .attribute
+    color: #5c78e2
   .string,
   .value,
   .inheritance,
   .header,
   .ruby .symbol,
   .xml .cdatabody
-    color:  #920000
-  .keyword,
+    color: #649f57
+  .keyword
+    color: #a449ab
   .javascript .function
-    color: #ec25ec
+    color: #5b79e3
   .number,
-  .preprocessor,
-  .built_in,
   .literal,
-  .params,
+  .params
+    color: #ad6e25
+  .built_in,
+  .type,
+  .operator
+    color: #3882b7
   .constant
-    color: #fb6a00
+    color: #c18401
+  .regexp
+    color: #ad6e26
+  .function
+    color: #5b79e3
+  .symbol,
+  .property,
+  .doctag
+    color: #d3604f
   &.apacheconf
     .code
       .common,.nomarkup,.attribute,.variable,.cbracket,.keyword
-        color: #0086b3
+        color: #3882b7
       .sqbracket
-        color: #df5000
+        color: #d3604f
       .section,.tag
-        color: #63a35c
+        color: #649f57
   &.bash 
     .code 
       .literal,.built_in
-        color: #0086b3
+        color: #3882b7
       .title
-        color: #795da3
+        color: #5b79e3
       .shebang
-        color: #969896
+        color: #7c7e86
       .variable
-        color: #333
+        color: #242529
   &.coffeescript 
     .code 
       .subst,.regexp,.attribute
-        color: #df5000
+        color: #d3604f
       .literal,.built_in,.number
-        color: #0086b3
+        color: #3882b7
       .title
-        color: #795da3
+        color: #5b79e3
       .reserved,.attribute
-        color: #1d3e81
+        color: #3882b7
   &.cpp,&.c
     .code
       .number,.built_in
-        color: #0086b3
+        color: #3882b7
       .preprocessor
-        color: #df5000
+        color: #d3604f
       .title
-        color: #795da3
+        color: #5b79e3
       .meta-keyword
-        color: #a71d5d
+        color: #a449ab
   &.cs 
     .code 
       .preprocessor,.preprocessor .keyword
-        color: #333
+        color: #242529
       .xmlDocTag,.doctag
-        color: #63a35c
+        color: #649f57
       .number,.built_in
-        color: #0086b3
+        color: #3882b7
       .title
-        color: #795da3
+        color: #5b79e3
   &.css
     .code 
       .id,.class,.pseudo,.selector-pseudo
-        color: #795da3
+        color: #5b79e3
       .attr_selector,.value
-        color: #333
+        color: #242529
       .attribute,.hexcolor,.number,.function
-        color: #0086b3
+        color: #3882b7
       .at_rule,.important,.meta
-        color: #a71d5d    
+        color: #a449ab    
       .tag,.selector-tag
-        color: #63a35c   
+        color: #649f57   
   &.diff
     .code
       .deletion
-        color: #bd2c00
-        background-color: #ffecec
+        color: #d3604f
+        background-color: #f6c6bd
       .addition
-        color: #55a532
-        background-color: #eaffea
+        color: #669f59
+        background-color: #cde4d6
   &.http
     .code
       .literal
-        color: #0086b3
+        color: #3882b7
       .request
-        color: #a71d5d
+        color: #a449ab
       .attribute,attr
         color: #183691
   &.ini
     .code
       .value,.keyword
-        color: #333
+        color: #242529
       .setting,.attr
-        color: #a71d5d
+        color: #a449ab
       .chunk,.meta
-        color: #795da3
+        color: #5b79e3
         font-weight: bold
       .title,.section
-        color: #795da3
+        color: #5b79e3
   &.js
     .code
       .tag
         .title
-          color: #333
+          color: #242529
       .regexp
-        color: #df5000
+        color: #d3604f
       .javadoc
-        color: #969896
+        color: #7c7e86
       .literal,.number
-        color: #0086b3
+        color: #3882b7
       .built_in,.title
-        color: #795da3
+        color: #5b79e3
       .tag,.javadoctag
-        color: #a71d5d
+        color: #a449ab
   &.java
     .code
       .title
-        color: #795da3
+        color: #5b79e3
       .number
-        color: #0086b3
+        color: #3882b7
       .javadoc
-        color: #969896
+        color: #7c7e86
       .params
-        color: #1d3e81
+        color: #3882b7
       .meta,.annotation,.javadoctag
-        color: #a71d5d
+        color: #a449ab
   &.mak
     .code
       .title
-        color: #795da3
+        color: #5b79e3
       .constant
-        color: #333
+        color: #242529
       .keyword,.meta-keyword
-        color: #0086b3        
+        color: #3882b7        
   &.json
     .code
       .attribute
         color: #183691
       .number,.literal
-        color: #0086b3
+        color: #3882b7
   &.md
     .code
       .link_url,.link
         text-decoration: underline
       .link_reference,.symbol,.code
-        color: #0086b3
+        color: #3882b7
       .value,.link_label,.strong,.emphasis,.blockquote,.quote,.section
         color: #183691
   &.nginx
     .code
       .title,.attribute
-        color: #a71d5d
+        color: #a449ab
       .built_in,.literal
-        color: #0086b3
+        color: #3882b7
       .regexp
         color: #183691
       .variable
-        color: #333
+        color: #242529
   &.objectivec
     .code
       .title
-        color: #795da3
+        color: #5b79e3
       .preprocessor,.meta
-        color: #a71d5d
+        color: #a449ab
         .title
-          color: #df5000
+          color: #d3604f
       .literal,.number,.built_in
-        color: #0086b3
+        color: #3882b7
       .meta-string
         color: #183691
   &.perl
     .code
       .title
-        color: #795da3
+        color: #5b79e3
       .regexp
-        color: #df5000
+        color: #d3604f
       .sub
-        color: #795da3
+        color: #5b79e3
   &.php
     .code
       .title
-        color: #795da3
+        color: #5b79e3
       .regexp
-        color: #df5000
+        color: #d3604f
       .phpdoc,.doctag
-        color: #a71d5d
+        color: #a449ab
       .literal,.number
-        color: #0086b3
+        color: #3882b7
   &.python
     .code
       .number
-        color: #0086b3
+        color: #3882b7
       .decorator,.title,.meta
-        color: #795da3
+        color: #5b79e3
   &.ruby
     .code
       .prompt,.constant,.number,.subst .keyword,.symbol
-        color: #0086b3
+        color: #3882b7
       .parent,.title
-        color: #795da3
+        color: #5b79e3
   &.sql
     .code
       .number
-        color: #0086b3
+        color: #3882b7
       .built_in
-        color: #a71d5d
+        color: #a449ab
   &.xml
     .code
       .tag
-        color: #333
+        color: #242529
       .value
         color: #183691
       .title,.name
-        color: #63a35c
+        color: #649f57
       .attribute,.attr
-        color: #795da3
+        color: #5b79e3
   &.puppet
     .code
       .title
-        color: #795da3
+        color: #5b79e3
       .name
-        color: #a71d5d
+        color: #a449ab
       .function
-        color: #0086b3
+        color: #3882b7
       .attr
-        color: #0086b3
+        color: #3882b7
   &.less
     .code
       .number,.hexcolor,.function,.attribute
-        color: #0086b3
+        color: #3882b7
       .id,.pseudo,.class,.selector-id,.selector-class,.selector-tag
-        color: #795da3
+        color: #5b79e3
       .tag,.at_rule
-        color: #a71d5d
+        color: #a449ab
       .built_in
-        color: #df5000
+        color: #d3604f
   &.sass
     .code
       .number,.hexcolor,.function,.attribute
-        color: #0086b3
+        color: #3882b7
       .tag,.selector-tag
-        color: #63a35c
+        color: #649f57
       .built_in
-        color: #df5000
+        color: #d3604f
       .tag,.at_rule,.important
-        color: #a71d5d
+        color: #a449ab
       .id,.pseudo,.class,.preprocessor,.selector-class,.selector-id
-        color: #795da3
+        color: #5b79e3
       .variable
-        color: #333
+        color: #242529
   &.stylus
     .code
       .tag,.selector-tag
-        color: #63a35c
+        color: #649f57
       .at_rule
-        color: #a71d5d
+        color: #a449ab
       .class,.id,.pseudo,.title,.selector-id,.selector-pseudo,.selector-class
-        color: #795da3
+        color: #5b79e3
       .number,.hexcolor,.attribute,.params
-        color: #0086b3
+        color: #3882b7
   &.go
     .code
       .built_in,.constant
-        color: #0086b3
+        color: #3882b7
       .typename
-        color: #a71d5d
+        color: #a449ab
   &.swift
     .code
       .preprocessor
-        color: #a71d5d
+        color: #a449ab
       .title
-        color: #795da3
+        color: #5b79e3
       .built_in,.number,.type
-        color: #0086b3
+        color: #3882b7
   &.yml
     .code
       .number
-        color: #fb6a00
+        color: #ad6e25
       .line,.attr
-        color: #795da3
+        color: #5b79e3
       .line,.string,.type,.literal,.meta
-        color: #920000
+        color: #649f57
