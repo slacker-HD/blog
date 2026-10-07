@@ -67,6 +67,8 @@ html(lang='#{config.language}')
     //- script(type='text/javascript', src='//cdn.bootcss.com/pace/1.0.2/pace.min.js')
     
   body
+    if is_post()
+      #reading-progress
     //- 提前应用主题类，避免刷新时闪烁(FOUC)
     script.
       (function () {
@@ -119,6 +121,9 @@ html(lang='#{config.language}')
     script(type='text/javascript', src='/js/particles.min.js')
     script(type='text/javascript', src='/js/app.js')
     script(type='text/javascript', src='/js/copycode.js' + '?v=' + theme.version)
+    script(type='text/javascript', src='/js/codeblock.js' + '?v=' + theme.version)
+    if is_post()
+      script(type='text/javascript', src='/js/progress.js' + '?v=' + theme.version)
 
     script(type='text/javascript', src='/js/baidupush.js')
     script(type='text/javascript', src='/js/darkmode.js' + '?v=' + theme.version)

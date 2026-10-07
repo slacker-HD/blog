@@ -1579,3 +1579,86 @@ body.night-theme
       background: #c0574c
       border-color: #c0574c
 
+/* reading progress bar */
+#reading-progress
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 9999
+  width: 0
+  height: 3px
+  background: linear-gradient(90deg, #6f94cd, #2775b6)
+  box-shadow: 0 0 4px rgba(39, 117, 182, .55)
+  -webkit-transition: width .1s linear
+  transition: width .1s linear
+  pointer-events: none
+
+/* toc scroll spy */
+#toc
+  .toc-link
+    color: #333
+    &:hover
+      color: #2775b6
+  li.active > .toc-link,
+  .toc-link.active
+    color: #2775b6
+    font-weight: bold
+
+/* code block enhance: language label + collapse */
+figure.highlight
+  .code-lang
+    position: absolute
+    top: 0
+    left: 12px
+    z-index: 2
+    padding: 1px 7px
+    font-size: 11px
+    line-height: 16px
+    color: #7e8086
+    background: rgba(0, 0, 0, .04)
+    border-radius: 0 0 3px 3px
+    letter-spacing: .03em
+  .code-toggle
+    display: block
+    width: 100%
+    margin: 0
+    padding: 4px 0
+    font-family: inherit
+    font-size: 12px
+    color: #6f94cd
+    background: #f3f6fb
+    border: none
+    border-top: 1px solid #ececec
+    border-radius: 0 0 5px 5px
+    cursor: pointer
+    -webkit-transition: color .2s ease, background-color .2s ease
+    transition: color .2s ease, background-color .2s ease
+    &:hover
+      color: #2775b6
+      background: #e9f1fb
+  &.code-collapsed
+    > table
+      max-height: 340px
+      overflow: hidden
+
+body.night-theme
+  #reading-progress
+    background: linear-gradient(90deg, #33415c, #6190e8)
+    box-shadow: 0 0 4px rgba(97, 144, 232, .6)
+  #toc
+    .toc-link
+      color: #b7c3d4
+    li.active > .toc-link,
+    .toc-link.active
+      color: #6190e8
+  figure.highlight
+    .code-lang
+      color: #878e98
+      background: rgba(255, 255, 255, .06)
+    .code-toggle
+      color: #9aa7b4
+      background: #1f2b3a
+      border-top-color: #292c32
+      &:hover
+        color: #d3dce6
+        background: #24364a
