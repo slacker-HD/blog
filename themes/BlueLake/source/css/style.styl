@@ -1505,3 +1505,76 @@ body.night-theme
           color: #e6e6e6
           background-color: rgba(255, 255, 255, 0.1)
 
+/* code copy button */
+figure.highlight
+  position: relative
+  .code-copy-btn
+    position: absolute
+    top: 4px
+    right: 8px
+    z-index: 2
+    display: -webkit-inline-box
+    display: -ms-inline-flexbox
+    display: inline-flex
+    -webkit-box-align: center
+    -ms-flex-align: center
+    align-items: center
+    gap: 4px
+    padding: 1px 8px
+    font-size: 12px
+    line-height: 18px
+    font-family: inherit
+    color: #6f94cd
+    background: transparent
+    border: 1px solid #d8e2eb
+    border-radius: 3px
+    cursor: pointer
+    opacity: 0.75
+    -webkit-transition: opacity .2s ease-in, color .2s ease-in, background-color .2s ease-in, border-color .2s ease-in
+    transition: opacity .2s ease-in, color .2s ease-in, background-color .2s ease-in, border-color .2s ease-in
+    .cc-check,
+    .cc-x
+      display: none
+    &:hover,
+    &:focus-visible
+      opacity: 1
+      color: #2775b6
+      background: #eef4fc
+      border-color: #b9cbe4
+    &.copied
+      opacity: 1
+      color: #FFF
+      background: #2775b6
+      border-color: #2775b6
+      .cc-copy
+        display: none
+      .cc-check
+        display: block
+    &.copy-failed
+      opacity: 1
+      color: #FFF
+      background: #c0574c
+      border-color: #c0574c
+      .cc-copy
+        display: none
+      .cc-x
+        display: block
+
+body.night-theme
+  figure.highlight .code-copy-btn
+    color: #9aa7b4
+    border-color: #33415c
+    &:hover,
+    &:focus-visible
+      color: #d3dce6
+      background: #24364a
+      border-color: #4a5f80
+    &.copied
+      color: #17212e
+      background: #6190e8
+      border-color: #6190e8
+    &.copy-failed
+      color: #FFF
+      background: #c0574c
+      border-color: #c0574c
+
