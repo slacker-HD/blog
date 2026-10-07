@@ -54,7 +54,9 @@ html(lang='#{config.language}')
     link(rel='stylesheet', type='text/css', href=url_for(theme.css) + '/style.css' + '?v=' + theme.version)
     link(rel='stylesheet', type='text/css', href=url_for(theme.css) + '/highlight.css' + '?v=' + theme.version)
     if page.math
-      link(rel='stylesheet', href='https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css')
+      link(rel='stylesheet', href=url_for('libs/katex/katex.min.css') + '?v=' + theme.version)
+    if page.fancybox
+      link(rel='stylesheet', href=url_for('libs/fancybox/fancybox.css') + '?v=' + theme.version)
     link(rel='Shortcut Icon', href=url_for('favicon.ico'))
     link(rel="bookmark", href=url_for('favicon.ico'))
     link(rel='apple-touch-icon', href=url_for('apple-touch-icon.png'))
@@ -121,8 +123,8 @@ html(lang='#{config.language}')
     script(type='text/javascript', src='/js/baidupush.js')
     script(type='text/javascript', src='/js/darkmode.js' + '?v=' + theme.version)
     if page.math
-      script(type='text/javascript', src='https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js', defer)
-      script(type='text/javascript', src='https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js', defer)
+      script(type='text/javascript', src=url_for('libs/katex/katex.min.js') + '?v=' + theme.version, defer)
+      script(type='text/javascript', src=url_for('libs/katex/contrib/auto-render.min.js') + '?v=' + theme.version, defer)
       script.
         document.addEventListener('DOMContentLoaded', function () {
           if (typeof renderMathInElement !== 'function') return;
@@ -135,6 +137,24 @@ html(lang='#{config.language}')
               { left: '\\(', right: '\\)', display: false }
             ],
             ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option']
+          });
+        });
+    if page.fancybox
+      script(type='text/javascript', src=url_for('libs/fancybox/fancybox.umd.js') + '?v=' + theme.version, defer)
+      script.
+        document.addEventListener('DOMContentLoaded', function () {
+          if (typeof Fancybox === 'undefined') return;
+          Fancybox.bind('.post-content img', {
+            groupAll: true,
+            Carousel: {
+              Toolbar: {
+                display: {
+                  left: ['zoomIn', 'zoomOut'],
+                  middle: ['counter'],
+                  right: ['close']
+                }
+              }
+            }
           });
         });
 

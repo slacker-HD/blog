@@ -27,7 +27,7 @@ date: 2026-10-03 13:57:54
 
 <div align="center">
     <img src="/img/solid/Soild3.png" style="width:50%" align="center"/>
-    <p>图3 添加Solidworks引用</p>
+    <p>图1 添加Solidworks引用</p>
 </div>
 
 
