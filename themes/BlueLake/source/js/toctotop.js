@@ -32,10 +32,13 @@ totop.onclick = function() {
 window.onscroll = function() {
   var totop = document.getElementById('totop'),
       scroll = document.documentElement.scrollTop || document.body.scrollTop || window.scrollY,
-      // toc
       winHeight,
-      fixedToc = document.getElementById("toc"),
-      changeSize = document.getElementById("header").offsetHeight + document.getElementById("sidebar").offsetHeight;
+      fixedToc = document.getElementById('toc'),
+      tocSlot = document.getElementById('toc-slot'),
+      header = document.getElementById('header'),
+      sidebar = document.getElementById('sidebar');
+  if (!fixedToc || !header || !sidebar) return;
+  var changeSize = header.offsetHeight + sidebar.offsetHeight;
   if (scroll >= 300) {
     addClass(totop,"show");
     //totop.classList.add("show");
@@ -44,10 +47,20 @@ window.onscroll = function() {
     removeClass(totop,"launch");
     //totop.classList.remove("show", "launch");
   }
-  //toc fixed
-  scroll >= changeSize ? addClass(fixedToc, "fixed") : removeClass(fixedToc, "fixed");
+  //toc fixed (reserve the slot height so the rest of the sidebar does not jump)
+  if (scroll >= changeSize) {
+    if (!hasClass(fixedToc, "fixed")) {
+      removeClass(fixedToc, "scroll");
+      if (tocSlot) tocSlot.style.height = tocSlot.offsetHeight + 'px';
+    }
+    addClass(fixedToc, "fixed");
+  } else {
+    removeClass(fixedToc, "fixed");
+    removeClass(fixedToc, "scroll");
+    if (tocSlot) tocSlot.style.height = '';
+  }
   if (hasClass(fixedToc, "fixed")){
-    fixedToc.style.width= document.getElementById("sidebar").offsetWidth+ 'px';
+    fixedToc.style.width= sidebar.offsetWidth+ 'px';
   }
   if ((document.body) && (document.body.clientHeight)) {
     winHeight = document.body.clientHeight;

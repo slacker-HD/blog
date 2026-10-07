@@ -34,10 +34,11 @@ block content
       include _partial/comments
 block tocmodel
   if theme.toc.enable == true 
-    .widget(id='toc')
-      .widget-title
-        i(class='fa fa-fei')= __('contents')
-      != toc(page.content, {list_number: theme.toc.number})
+    #toc-slot
+      .widget(id='toc')
+        .widget-title
+          i(class='fa fa-fei')= __('contents')
+        != toc(page.content, {list_number: theme.toc.number})
 
 block pageOnly
   if theme.toc.enable == true 

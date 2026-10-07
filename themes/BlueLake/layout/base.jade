@@ -82,6 +82,14 @@ html(lang='#{config.language}')
           dark = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? '1' : '0';
         }
         if (dark === '1') { b.classList.add('night-theme'); }
+        var rp = null;
+        try { rp = JSON.parse(localStorage.getItem('blueLakeReadPrefs') || 'null'); } catch (e) {}
+        if (rp) {
+          var r = document.documentElement;
+          if (rp.size) { r.style.setProperty('--read-font-size', rp.size + 'px'); }
+          if (rp.lineHeight) { r.style.setProperty('--read-line-height', String(rp.lineHeight)); }
+          if (rp.serif) { b.classList.add('read-serif'); }
+        }
       })();
     //- canvas#reactive-bg-canvas
     #particles-js
@@ -113,13 +121,17 @@ html(lang='#{config.language}')
             .layout-r.hidden_mid_and_down: #sidebar
               each item in theme.widgets
                 != partial('_widget/' + item + '.jade')
-        a#totop(href='#top')
+        #float-actions
+          a#totop(href='#top')
+            svg(viewBox='0 0 24 24', width='20', height='20', fill='none', stroke='currentColor', stroke-width='2', stroke-linecap='round', stroke-linejoin='round', aria-hidden='true')
+              path(d='M12 19V5')
+              path(d='M5 12l7-7 7 7')
         include _partial/footer
       include _partial/after_footer
       block pageOnly
     //- 粒子特效
-    script(type='text/javascript', src='/js/particles.min.js')
-    script(type='text/javascript', src='/js/app.js')
+    script(type='text/javascript', src='/js/particles.min.js' + '?v=' + theme.version)
+    script(type='text/javascript', src='/js/app.js' + '?v=' + theme.version)
     script(type='text/javascript', src='/js/copycode.js' + '?v=' + theme.version)
     script(type='text/javascript', src='/js/codeblock.js' + '?v=' + theme.version)
     if is_post()

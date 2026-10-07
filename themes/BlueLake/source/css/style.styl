@@ -1,3 +1,7 @@
+:root
+  --read-font-size: 15px
+  --read-line-height: 1.77
+
 /* reset */
 body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,p,img,blockquote,button,pre,fieldset,form,input,select,option
   margin: 0
@@ -463,8 +467,8 @@ body.gray-theme
         display: none
   .post-content
     clear: left
-    font-size: 15px
-    line-height: 1.77
+    font-size: var(--read-font-size, 15px)
+    line-height: var(--read-line-height, 1.77)
     color: #333333 //文字颜色
     padding-top: 15px
     text-align: justify
@@ -884,6 +888,10 @@ body.gray-theme
       margin-top 0
     li:last-of-type 
       margin-bottom 0
+#toc-slot
+  margin-bottom: 20px
+  .widget
+    margin-bottom: 0
 .fixed
   position:fixed 
   top:0
@@ -1662,3 +1670,162 @@ body.night-theme
       &:hover
         color: #d3dce6
         background: #24364a
+
+/* ===== 阅读个性化：字号 / 行距 / 衬线 / 主题色 ===== */
+body.read-serif .post-content
+  font-family: Georgia, "Songti SC", "STSong", "SimSun", "Noto Serif SC", serif
+
+#float-actions
+  position: fixed
+  right: 20px
+  bottom: 24px
+  z-index: 100
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  -webkit-box-orient: vertical
+  -webkit-box-direction: normal
+  -ms-flex-direction: column
+  flex-direction: column
+  gap: 10px
+  --fab-bg: rgba(255, 255, 255, .7)
+  --fab-fg: #2775b6
+  --fab-border: rgba(255, 255, 255, .9)
+  --fab-shadow: 0 4px 14px rgba(23, 33, 46, .2)
+  --fab-shadow-hover: 0 8px 20px rgba(23, 33, 46, .28)
+  #read-toggle
+    -webkit-box-ordinal-group: 2
+    -ms-flex-order: 1
+    order: 1
+  #totop
+    -webkit-box-ordinal-group: 3
+    -ms-flex-order: 2
+    order: 2
+    text-shadow: none
+    &:before
+      content: none
+  #read-toggle,
+  #totop
+    position: static
+    display: -webkit-inline-box
+    display: -ms-inline-flexbox
+    display: inline-flex
+    -webkit-box-align: center
+    -ms-flex-align: center
+    align-items: center
+    -webkit-box-pack: center
+    -ms-flex-pack: center
+    justify-content: center
+    width: 42px
+    height: 42px
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    color: var(--fab-fg)
+    background: var(--fab-bg)
+    border: 1px solid var(--fab-border)
+    border-radius: 50%
+    cursor: pointer
+    box-shadow: var(--fab-shadow)
+    -webkit-backdrop-filter: blur(12px) saturate(180%)
+    backdrop-filter: blur(12px) saturate(180%)
+    -webkit-transition: transform .2s ease, box-shadow .2s ease, opacity .3s ease, visibility .3s ease
+    transition: transform .2s ease, box-shadow .2s ease, opacity .3s ease, visibility .3s ease
+    &:hover
+      -webkit-transform: translateY(-2px)
+      transform: translateY(-2px)
+      box-shadow: var(--fab-shadow-hover)
+    &:focus-visible
+      outline: 2px solid var(--fab-fg)
+      outline-offset: 2px
+    svg
+      display: block
+
+body.night-theme #float-actions
+  --fab-bg: rgba(255, 255, 255, .84)
+  --fab-fg: #2775b6
+  --fab-border: rgba(255, 255, 255, .95)
+  --fab-shadow: 0 4px 14px rgba(0, 0, 0, .45)
+  --fab-shadow-hover: 0 8px 20px rgba(0, 0, 0, .55)
+
+#read-panel
+  position: fixed
+  right: 20px
+  bottom: 128px
+  z-index: 110
+  display: none
+  width: 240px
+  padding: 16px
+  color: #333333
+  background: #FFF
+  border: 1px solid #d8e2eb
+  border-radius: 12px
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .15)
+  font-size: 13px
+  &.open
+    display: block
+  .rp-title
+    margin-bottom: 10px
+    color: #2775b6
+    font-weight: bold
+  .rp-row
+    display: -webkit-box
+    display: -ms-flexbox
+    display: flex
+    -webkit-box-align: center
+    -ms-flex-align: center
+    align-items: center
+    gap: 8px
+    margin: 12px 0
+    span
+      -webkit-box-flex: 0
+      -ms-flex: none
+      flex: none
+      width: 34px
+      color: #7f8fa6
+    input[type=range]
+      -webkit-box-flex: 1
+      -ms-flex: 1
+      flex: 1
+      min-width: 0
+      accent-color: #2775b6
+    b
+      -webkit-box-flex: 0
+      -ms-flex: none
+      flex: none
+      width: 40px
+      color: #7f8fa6
+      font-weight: normal
+      text-align: right
+  .rp-check
+    input
+      accent-color: #2775b6
+  #rp-reset
+    width: 100%
+    margin-top: 6px
+    padding: 6px 0
+    color: #2775b6
+    background: #f3f6fb
+    border: 1px solid #2775b6
+    border-radius: 6px
+    cursor: pointer
+    font-family: inherit
+    &:hover
+      background: #e9f1fb
+
+body.night-theme
+  #read-panel
+    color: #d3dce6
+    background: #1f2b3a
+    border-color: #33415c
+    .rp-title
+      color: #6190e8
+    .rp-row span,
+    .rp-row b
+      color: #9aa7b4
+    #rp-reset
+      color: #9ec3ff
+      background: #24364a
+      border-color: #6190e8
+      &:hover
+        background: #2b3f57
