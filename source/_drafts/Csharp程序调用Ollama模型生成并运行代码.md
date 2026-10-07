@@ -116,7 +116,7 @@ return match.Success ? match.Groups[1].Value.Trim() : string.Empty;
 
 ### 4.3 执行VBS并捕获输出
 
-这是最容易踩坑的地方，尤其**编码**。VBS用 `cscript.exe` 执行，中文Windows下cscript把无BOM的脚本按GBK（代码页936）读取。如果你用 `Encoding.Default` 写文件就翻车了：.NET Core（5.0+）里 `Encoding.Default` 是 **UTF-8** 而不是系统ANSI，脚本被写成UTF-8后cscript按GBK读导致编码错误，错误信息也是一坨乱码。故需要在入口处注册代码页支持，然后文件和输出读写统一走GBK：
+这是最容易踩坑的地方，尤其**编码**。VBS用 `cscript.exe` 执行，中文Windows下cscript把无BOM的脚本按GBK（代码页936）读取。如果你用 `Encoding.Default` 写文件就翻车了：.NET Core（5.0+）里 `Encoding.Default` 是 **UTF-8** 而不是系统ANSI，脚本被写成UTF-8后cscript按GBK读导致编码错误，错误信息也是一坨乱码，需要在入口处注册代码页支持，然后文件和输出读写统一走GBK：
 
 ```csharp
 // Program.cs 入口处，注册代码页编码（.NET Core默认只有UTF-8/UTF-16等少数编码）
@@ -174,6 +174,4 @@ _chatHistory.Add(new ChatMsg("system", $"VBS脚本执行返回：{runResult}"));
 
 实际跑起来长这样：输入需求发送后，AI回复一边流式滚动一边显示，检测到脚本就自动执行返回运行结果。
 
-## 6. 小结
-
-整个程序依赖的东西很少，界面和逻辑都在一个 `FrmMain.cs` 里，核心就是"调Ollama API + 正则提取 + cscript执行 + 结果回灌"。原理上不限于VBS——只要把系统提示词和提取正则换成别的语言（比如Python、PowerShell），就能改造成通用的"AI生成并运行代码"工具。不过要提醒一句：本地模型生成代码能力有限，复杂需求还是得多轮对话让它根据报错自纠正，这也是为什么把执行结果回灌上下文这一步比较重要。
+完整代码可在<a href="https://github.com/slacker-HD/CSharpOllama/" target="_blank">Github.com</a>下载。

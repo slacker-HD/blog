@@ -38,6 +38,20 @@ html(lang='#{config.language}')
     //- script(type='text/javascript', src='//cdn.bootcss.com/pace/1.0.2/pace.min.js')
     
   body
+    //- 提前应用主题类，避免刷新时闪烁(FOUC)
+    script.
+      (function () {
+        var b = document.body;
+        var d = new Date();
+        if (d.getMonth() === 11 && d.getDate() === 13) { b.classList.add('gray-theme'); }
+        else { b.classList.add('default-theme'); }
+        var dark = null;
+        try { dark = localStorage.getItem('blueLakeNight'); } catch (e) {}
+        if (dark === null) {
+          dark = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? '1' : '0';
+        }
+        if (dark === '1') { b.classList.add('night-theme'); }
+      })();
     //- canvas#reactive-bg-canvas
     #particles-js
     canvas#stage1.stage
@@ -88,5 +102,4 @@ html(lang='#{config.language}')
 
     script(type='text/javascript', src='/js/baidupush.js')
     script(type='text/javascript', src='/js/darkmode.js' + '?v=' + theme.version)
-    script(type='text/javascript', src='/js/themeswitch.js')
 
