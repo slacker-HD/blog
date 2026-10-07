@@ -10,6 +10,8 @@
     body.classList.toggle('night-theme', dark);
     if (toggle) {
       toggle.innerHTML = dark ? sunIcon : moonIcon;
+      toggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      toggle.setAttribute('aria-label', dark ? '切换到日间模式' : '切换到夜间模式');
     }
     try {
       localStorage.setItem(KEY, dark ? '1' : '0');

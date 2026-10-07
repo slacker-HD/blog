@@ -87,7 +87,7 @@ gitalk:
   enable: true
 
 # Analytics
-google_analytics: UA-139320825-1 ## Your Google Analytics tracking id, e.g. UA-42025684-2
+# google_analytics: 已停用 (Universal Analytics 已于 2023 年停服)
 baidu_analytics: 767e3ea52a6b4f3c656cdd4119c87e62 ## Your Baidu Analytics tracking id, e.g. 1006843030519956000
 
 # Miscellaneous

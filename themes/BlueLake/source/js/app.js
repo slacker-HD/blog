@@ -12,7 +12,15 @@ particlesJS.load('particles-js', 'particles.json', function() {
 /* Otherwise just put the config content (json): */
 /* ---- particles.js config ---- */
 
-particlesJS("particles-js", {
+(function () {
+  var mq = window.matchMedia;
+  var smallScreen = mq && mq('(max-width: 48em)').matches;
+  var reduceMotion = mq && mq('(prefers-reduced-motion: reduce)').matches;
+  if (smallScreen || reduceMotion || typeof particlesJS !== 'function') {
+    return;
+  }
+
+  particlesJS("particles-js", {
     "particles": {
         "number": {
             "value": 20,
@@ -125,5 +133,6 @@ particlesJS("particles-js", {
             }
         }
     },
-    "retina_detect": true
-});
+    "retina_detect": false
+  });
+})();

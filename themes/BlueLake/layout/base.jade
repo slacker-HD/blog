@@ -17,13 +17,39 @@ doctype html
 html(lang='#{config.language}')
   head
     meta(http-equiv='content-type', content='text/html; charset=utf-8')
-    meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0', name='viewport')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     meta(content='yes', name='apple-mobile-web-app-capable')
     meta(content='black-translucent', name='apple-mobile-web-app-status-bar-style')
     meta(content='telephone=no', name='format-detection')
-    meta(name='description', content=config.description)
+    - var page_url = is_home() ? config.url + config.root : full_url_for(page.path)
+    - var page_description = page.description || (page.excerpt ? strip_html(page.excerpt) : '') || (page.content ? strip_html(page.content) : '') || config.description
+    - page_description = page_description.replace(/\s+/g, ' ').trim().substring(0, 150)
+    meta(name='description', content=page_description)
     if config.keywords
       meta(name="keywords",content=config.keywords)
+    link(rel='canonical', href=page_url)
+    meta(property='og:type', content=is_post() ? 'article' : 'website')
+    meta(property='og:site_name', content=config.title)
+    meta(property='og:title', content=page.title || config.title)
+    meta(property='og:description', content=page_description)
+    meta(property='og:url', content=page_url)
+    meta(property='og:locale', content='zh_CN')
+    if is_post() && page.date
+      meta(property='article:published_time', content=page.date.toISOString())
+      if page.updated
+        meta(property='article:modified_time', content=page.updated.toISOString())
+      for category in page.categories.toArray()
+        meta(property='article:section', content=category.name)
+      for tag in page.tags.toArray()
+        meta(property='article:tag', content=tag.name)
+    meta(name='twitter:card', content='summary')
+    meta(name='twitter:title', content=page.title || config.title)
+    meta(name='twitter:description', content=page_description)
+    if is_post()
+      - var article_jsonld = { '@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': page.title, 'description': page_description, 'datePublished': page.date ? page.date.toISOString() : undefined, 'dateModified': page.updated ? page.updated.toISOString() : (page.date ? page.date.toISOString() : undefined), 'author': { '@type': 'Person', 'name': config.author }, 'publisher': { '@type': 'Organization', 'name': config.title }, 'mainEntityOfPage': { '@type': 'WebPage', '@id': page_url } }
+      if page.photos && page.photos.length
+        - article_jsonld.image = full_url_for(page.photos[0])
+      script(type='application/ld+json')!= JSON.stringify(article_jsonld)
     block title
     link(rel='stylesheet', type='text/css', href=url_for(theme.css) + '/style.css' + '?v=' + theme.version)
     link(rel='stylesheet', type='text/css', href=url_for(theme.css) + '/highlight.css' + '?v=' + theme.version)
@@ -33,7 +59,6 @@ html(lang='#{config.language}')
     link(rel='apple-touch-icon-precomposed', href=url_for('apple-touch-icon.png'))
     if config.feed
       link(rel='alternate', type=feed_type, href=url_for(config.feed.path))
-    //- script(type='text/javascript', src='http://libs.baidu.com/jquery/2.0.0/jquery.min.js')
     //- pace特效
     //- script(type='text/javascript', src='//cdn.bootcss.com/pace/1.0.2/pace.min.js')
     
@@ -64,8 +89,8 @@ html(lang='#{config.language}')
           #nav-menu
             - for (var i in theme.menu)
               +a_with_current(theme.menu[i].directory, __(theme.menu[i].page), theme.menu[i].icon)
-            a#night-toggle(href='javascript:;', title='切换夜间模式')
-              svg(viewBox='0 0 24 24', width='16', height='16', fill='none', stroke='currentColor', stroke-width='2', stroke-linecap='round', stroke-linejoin='round')
+            button#night-toggle(type='button', aria-label='切换到夜间模式', aria-pressed='false', title='切换夜间模式')
+              svg(viewBox='0 0 24 24', width='16', height='16', fill='none', stroke='currentColor', stroke-width='2', stroke-linecap='round', stroke-linejoin='round', aria-hidden='true')
                 path(d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z')
           include _partial/search
         #layout.layout-g
@@ -89,16 +114,6 @@ html(lang='#{config.language}')
     //- 粒子特效
     script(type='text/javascript', src='/js/particles.min.js')
     script(type='text/javascript', src='/js/app.js')
-
-    //- script(type='text/javascript', src='/js/ggk.js')
-    //- script(type='text/javascript', src='http://libs.baidu.com/jquery/2.0.0/jquery.min.js')
-    //- 鼠标特效
-    //- script(type='text/javascript', src='/js/jquery.js')
-    //- script(type='text/javascript', src='/js/mouseeffect.js')
-    
-    //- script(type='text/javascript', src='/js/TweenLite.min.js')
-    //- script(type='text/javascript', src='/js/magic-canvas.min.js')
-    //- script(type='text/javascript', src='/js/effect.js')
 
     script(type='text/javascript', src='/js/baidupush.js')
     script(type='text/javascript', src='/js/darkmode.js' + '?v=' + theme.version)
