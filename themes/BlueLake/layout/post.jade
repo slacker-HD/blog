@@ -26,6 +26,7 @@ block content
         span.word-count= _ri.words + ' ' + __('word_count')
     .post-content
       != page.content
+    include _partial/reward
     include _partial/tag
     .post-share
       include _partial/share
@@ -46,4 +47,6 @@ block pageOnly
     script(type='text/javascript', src=url_for(theme.js) + '/toc.js' + '?v=' + theme.version, async)
   else 
     script(type='text/javascript', src=url_for(theme.js) + '/totop.js' + '?v=' + theme.version, async)
+  if theme.reward && theme.reward.enable
+    script(type='text/javascript', src=url_for(theme.js) + '/reward.js' + '?v=' + theme.version, async)
   include _partial/comments_js

@@ -1805,3 +1805,131 @@ body.night-theme
       border-color: #6190e8
       &:hover
         background: #2b3f57
+
+/* ===== 赞赏 ===== */
+#reward
+  margin: 1.4em 0 .2em
+  text-align: center
+#reward-btn
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  gap: 6px
+  padding: 8px 22px
+  color: #FFF
+  background: linear-gradient(135deg, #2775b6, #6f94cd)
+  border: none
+  border-radius: 999px
+  font-size: 14px
+  font-family: inherit
+  cursor: pointer
+  box-shadow: 0 4px 12px rgba(39, 117, 182, .3)
+  -webkit-transition: transform .2s ease, box-shadow .2s ease
+  transition: transform .2s ease, box-shadow .2s ease
+  svg
+    display: block
+  &:hover
+    -webkit-transform: translateY(-2px)
+    transform: translateY(-2px)
+    box-shadow: 0 6px 16px rgba(39, 117, 182, .4)
+  &:focus-visible
+    outline: 2px solid #2775b6
+    outline-offset: 2px
+
+#reward-modal
+  display: none
+  &.open
+    display: block
+#reward-mask
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 120
+  background: rgba(0, 0, 0, .5)
+#reward-panel
+  position: fixed
+  z-index: 121
+  top: 50%
+  left: 50%
+  -webkit-transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%)
+  width: 88vw
+  max-width: 440px
+  max-height: 88vh
+  overflow-y: auto
+  box-sizing: border-box
+  padding: 22px 22px 26px
+  text-align: center
+  background: #FFF
+  border-radius: 14px
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .3)
+  .reward-title
+    font-size: 17px
+    font-weight: bold
+    color: #2775b6
+  .reward-text
+    margin: 8px 0 16px
+    font-size: 13px
+    line-height: 1.6
+    color: #666
+  .reward-qrs
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    gap: 20px
+  .reward-qr
+    margin: 0
+    img
+      display: block
+      width: 160px
+      height: 160px
+      padding: 6px
+      box-sizing: border-box
+      object-fit: contain
+      background: #FFF
+      border: 1px solid #e6e6e6
+      border-radius: 8px
+    figcaption
+      margin-top: 6px
+      font-size: 13px
+      color: #666
+#reward-close
+  position: absolute
+  top: 10px
+  right: 10px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  width: 30px
+  height: 30px
+  padding: 0
+  color: #999
+  background: transparent
+  border: none
+  border-radius: 50%
+  cursor: pointer
+  svg
+    display: block
+  &:hover
+    color: #333
+    background: #f0f0f0
+
+body.night-theme
+  #reward-panel
+    background: #1f2b3a
+    .reward-title
+      color: #6190e8
+    .reward-text
+      color: #9aa7b4
+    .reward-qr
+      img
+        border-color: #33415c
+      figcaption
+        color: #9aa7b4
+  #reward-close
+    color: #9aa7b4
+    &:hover
+      color: #e6edf5
+      background: #24364a

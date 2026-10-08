@@ -3,7 +3,7 @@
 ##########################
 
 # Theme version
-version: 2.0.17
+version: 2.0.18
 
 # Header
 menu:
@@ -89,6 +89,15 @@ gitalk:
 # Analytics
 # google_analytics: 已停用 (Universal Analytics 已于 2023 年停服)
 baidu_analytics: 767e3ea52a6b4f3c656cdd4119c87e62 ## Your Baidu Analytics tracking id, e.g. 1006843030519956000
+
+# 打赏 / Reward
+reward:
+  enable: true
+  button: 赞赏支持
+  title: 赞赏支持
+  text: 码字不易，如果这篇文章对你有帮助，欢迎请我喝杯咖啡~
+  wechat: /reward/wechat.png
+  alipay: /reward/alipay.png
 
 # Miscellaneous
 show_category_count: true ## If you want to show the count of categories in the sidebar widget please set the value to true.
