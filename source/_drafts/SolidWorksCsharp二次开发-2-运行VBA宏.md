@@ -1,21 +1,21 @@
 ---
 title: SolidWorks C#二次开发-2-运行VBA宏
 tags:
-  - Solidworks
+  - SolidWorks
   - C#
-  - Solidworks二次开发
+  - SolidWorks二次开发
 comments: true
-category: Solidworks二次开发
+category: SolidWorks二次开发
 ---
-SolidWorks自身的VBA宏在“工具——宏”菜单里可以录制、编辑和运行，但每次都要打开宏编辑器，改代码、保存、再运行，调试和分享都不太方便。一个实用的做法是：在插件里做一个对话框，直接在里面输入VBA代码点击运行。
+SolidWorks自身的VBA宏在“工具—宏”菜单里可以录制、编辑和运行，但每次都要打开宏编辑器，改代码、保存、再运行，调试和分享都不太方便。一个实用的做法是在插件里做一个对话框，直接在里面输入VBA代码点击运行。
 
 本文以SampleVbaMacro工程为例，介绍如何用C#运行一段SolidWorks VBA宏代码。
 
-示例沿用前文的环境配置，创建命令组、添加Ribbon按钮的部分与SampleRibbon一致，本文不再重复。
+示例沿用前文的环境配置，创建命令组、添加Ribbon按钮的部分与SampleRibbon一致，在此不再赘述。
 
 ## 1.思路
 
-SolidWorks只提供了“运行宏文件”的接口，并没有“直接运行一段字符串代码”的接口。所以思路是：把用户输入的VBA代码写成一个临时宏文件，再调用ISldWorks.RunMacro2运行文件中名为Main的过程。示例的核心代码放在VbaMacroRunner类中，接口如下：
+SolidWorks只提供了“运行宏文件”的接口，并没有“直接运行一段字符串代码”的接口。所以思路是把用户输入的VBA代码写成一个临时宏文件，再调用`ISldWorks.RunMacro2`运行文件中名为Main的过程。示例的核心代码放在`VbaMacroRunner`类中，接口如下：
 
 ```c#
 public static string Run(ISldWorks swApp, string vbaCode, out int errorCode)
@@ -24,7 +24,7 @@ public static string Run(ISldWorks swApp, string vbaCode, out int errorCode)
 }
 ```
 
-其中swApp是插件传来的SolidWorks实例，vbaCode是要执行的代码，errorCode返回SolidWorks的错误码，方法本身返回一段运行日志文本供对话框显示。
+其中`swApp`是插件传来的SolidWorks实例，`vbaCode`是要执行的代码，`errorCode`返回SolidWorks的错误码，方法本身返回一段运行日志文本供对话框显示。
 
 ## 2.对话框
 
@@ -42,7 +42,7 @@ public partial class frmMacro : Form
 }
 ```
 
-为了开箱即用，示例预填了一段示例代码，用户可以直接修改后运行。这段代码的作用是拉一个10mm×10mm×10mm的正方体，**注意SolidWorks API所有长度单位都是“米”，所以10mm要写成0.01**：
+为了方便使用，示例预填了一段示例代码，用户可以直接修改后运行。这段代码的作用是拉一个10mm×10mm×10mm的正方体。**注意SolidWorks API所有长度单位都是“米”，所以10mm要写成0.01。**
 
 ```vb
 Sub Main()
@@ -91,7 +91,7 @@ Sub Main()
 End Sub
 ```
 
-上面这段宏在C#里是作为常量保存的，用的是逐字字符串（@""），所以源码里双引号要写成两个双引号（比如`""请先打开一个零件文档""`），运行时还原为正常的VBA代码。另外，文本框只认CRLF换行，所以赋值给文本框前要把裸LF统一替换成CRLF，否则代码会挤成一行：
+上面这段宏在C#里是作为常量保存的，用的是逐字字符串（`@""`），所以源码里双引号要写成两个双引号（比如`""请先打开一个零件文档""`），运行时还原为正常的VBA代码。另外，文本框只认CRLF换行，所以赋值给文本框前要把裸LF统一替换成CRLF，否则代码会挤成一行：
 
 ```c#
 public frmMacro()
@@ -110,7 +110,7 @@ public frmMacro()
 }
 ```
 
-“运行”按钮的回调里把文本框内容和SolidWorks实例交给运行器，并把返回的日志显示出来：
+“运行”按钮的回调里把文本框内容和SolidWorks实例交给运行器，并把返回的日志显示出来，代码如下：
 
 ```c#
 private void btnRun_Click(object sender, EventArgs e)
@@ -141,7 +141,7 @@ private void btnRun_Click(object sender, EventArgs e)
 
 ## 3.写临时宏文件
 
-接下来看运行器。第一步是把代码写成临时宏文件，扩展名用.swb，这是文本格式的SolidWorks Basic宏。**写文件时要用系统默认编码（ANSI）**，因为VBA编辑器对UTF-8支持不佳，用UTF-8写入的话中文注释会乱码。代码如下：
+接下来看运行器。第一步是把代码写成临时宏文件，扩展名用`.swb`，这是文本格式的SolidWorks Basic宏。**需要注意的是，写文件时要用系统默认编码（ANSI）**，因为VBA编辑器对UTF-8支持不佳，用UTF-8写入的话中文注释会乱码。代码如下：
 
 ```c#
 // 生成临时宏文件：.swb 是文本格式的 SolidWorks Basic 宏
@@ -160,7 +160,7 @@ catch (Exception ex)
 
 ## 4.运行宏
 
-运行用ISldWorks.RunMacro2方法，参数依次为文件路径、模块名、过程名（这里固定为Main）、选项和错误码。麻烦的地方在于模块名：.swb文件的模块名不一定是Module1，猜错就运行不了。示例采用了三重策略：先用GetMacroMethods探出模块名再运行，探不到就用空模块名再试，仍失败则回退到旧版的RunMacro方法。代码如下：
+运行用`ISldWorks.RunMacro2`方法，参数依次为文件路径、模块名、过程名（这里固定为Main）、选项和错误码。麻烦的地方在于模块名：`.swb`文件的模块名不一定是Module1，猜错就运行不了。示例采用了三重策略：先用`GetMacroMethods`探出模块名再运行，探不到就用空模块名再试，仍失败则回退到旧版的`RunMacro`方法，代码如下：
 
 ```c#
 StringBuilder sb = new StringBuilder();

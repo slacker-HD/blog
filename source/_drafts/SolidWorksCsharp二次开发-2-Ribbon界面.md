@@ -1,18 +1,18 @@
 ---
 title: SolidWorks C#二次开发-2-Ribbon界面
 tags:
-  - Solidworks
+  - SolidWorks
   - C#
-  - Solidworks二次开发
+  - SolidWorks二次开发
 comments: true
-category: Solidworks二次开发
+category: SolidWorks二次开发
 ---
 
-正式进入SolidWorks二次开发之前，先介绍SolidWorks的UI开发。SolidWorks 2020已全面采用Ribbon界面，本文介绍如何创建Ribbon标签页、工具栏按钮以及下拉菜单（Flyout）。示例工程沿用前文的环境配置，不再重复。
+本节介绍SolidWorks的Ribbon界面开发。SolidWorks 2020已全面采用Ribbon界面，本文介绍如何创建Ribbon标签页、工具栏按钮以及下拉菜单（Flyout）。示例工程沿用前文的环境配置，在此不再赘述。
 
 ## 1.命令组与命令项
 
-SolidWorks的Ribbon工具栏按钮和菜单项都是挂在一个“命令组（CommandGroup）”上。一般操作是先创建命令组，再往里面加命令项，最后把命令项放到Ribbon标签页或者菜单中。命令组通过ICommandManager接口管理，在ConnectToSW中获取，代码如下：
+SolidWorks的Ribbon工具栏按钮和菜单项都挂在命令组（CommandGroup）上，一般操作是先创建命令组，再添加命令项，最后把命令项放到Ribbon标签页或者菜单中。命令组由`ICommandManager`接口管理，在`ConnectToSW`中获取，代码如下：
 
 ```c#
 public bool ConnectToSW(object ThisSW, int Cookie)
@@ -33,7 +33,7 @@ public bool ConnectToSW(object ThisSW, int Cookie)
 }
 ```
 
-创建命令组用ICommandManager.CreateCommandGroup2方法，第一个参数是命令组ID（自定义，需保证唯一），第二个参数是显示名称。示例代码如下：
+创建命令组用`ICommandManager.CreateCommandGroup2`方法，第一个参数是命令组ID（自定义，需保证唯一），第二个参数是显示名称，示例代码如下：
 
 ```c#
 ICommandGroup cmdGroup;
@@ -68,19 +68,19 @@ else
 cmdGroup = iCmdMgr.CreateCommandGroup2(mainCmdGroupID, Title, ToolTip, "", -1, ignorePrevious, ref cmdGroupErr);
 ```
 
-**注意：*SolidWorks会把命令组里各个命令的ID保存到注册表，下次启动时会尝试复用。当我们在开发过程中增删了按钮，命令ID的集合发生了变化，就会因为复用旧数据而出现按钮错位、图标不对等问题。所以上面的代码先用GetGroupDataFromRegistry读出注册表里的旧ID，与自己代码中当前的knownIDs比较，不一致时把ignorePrevious置为true，强制重建命令组。**ID的比较由自己写的CompareIDs方法完成，无非是排序后逐一比对，不再赘述。
+**注意：SolidWorks会把命令组里各个命令的ID保存到注册表，下次启动时会尝试复用。当我们在开发过程中增删了按钮，命令ID的集合发生了变化，就会因为复用旧数据而出现按钮错位、图标不对等问题。**所以上面的代码先用`GetGroupDataFromRegistry`读出注册表里的旧ID，与自己代码中当前的`knownIDs`比较，不一致时把`ignorePrevious`置为`true`，强制重建命令组。ID的比较由自己写的`CompareIDs`方法完成，无非是排序后逐一比对，在此不再赘述。
 
-命令项用ICommandGroup.AddCommandItem2方法添加，各参数的含义在官方示例中都有说明：
+命令项用`ICommandGroup.AddCommandItem2`方法添加，各参数含义在官方示例中都有说明：
 
-+ Name：菜单/工具栏上显示的名称；
-+ Position：位置，-1表示排在末尾；
-+ HintString：鼠标悬停时状态栏的提示；
-+ Tooltip：工具提示；
-+ ImageListIndex：图标索引，对应IconList图标条中的第几个图标；
-+ CallbackFunction：点击回调方法名；
-+ EnableMethod：启用/状态回调方法名；
-+ UserID：命令唯一ID；
-+ ItemType：显示类型，菜单项、工具栏项或两者都显示。
++ `Name`：菜单/工具栏上显示的名称；
++ `Position`：位置，-1表示排在末尾；
++ `HintString`：鼠标悬停时状态栏的提示；
++ `Tooltip`：工具提示；
++ `ImageListIndex`：图标索引，对应IconList图标条中的第几个图标；
++ `CallbackFunction`：点击回调方法名；
++ `EnableMethod`：启用/状态回调方法名；
++ `UserID`：命令唯一ID；
++ `ItemType`：显示类型，菜单项、工具栏项或两者都显示。
 
 为了演示，这里依次添加“打开窗体”、“信息提示”和“开关按钮”三个命令，分别用于显示Windows窗体、弹出提示对话框和实现按钮toggle（开关）功能，代码如下：
 
@@ -118,14 +118,14 @@ cmdGroup.HasMenu = true;
 cmdGroup.Activate();
 ```
 
-值得注意的是回调方法名只是普通字符串，SolidWorks会通过反射在本类中寻找同名的方法，所以方法必须是public的，并且最好遵循官方约定。上面的代码中点击回调都不带参数，而启用回调返回一个int，约定如下：
+需要注意的是，回调方法名只是普通字符串，SolidWorks会通过反射在本类中寻找同名的方法，所以方法必须是`public`的，并且最好遵循官方约定。上面的代码中点击回调都不带参数，而启用回调返回一个`int`，约定如下：
 
 + 0：取消选中并禁用；
 + 1：取消选中并启用；
 + 2：选中并禁用；
 + 3：选中并启用。
 
-返回值还需要在0和1的基础上加8表示“隐藏文字”等，这里用不到就不展开了。利用返回3实现“按下”外观，就得到了开关按钮。按钮3的回调代码如下：
+返回值还需要在0和1的基础上加8表示“隐藏文字”等，这里用不到就不再赘述。利用返回3实现“按下”外观，就得到了开关按钮。按钮的回调代码如下：
 
 ```c#
 /// <summary>按钮1点击回调：打开“对话框 1”（frmMain）</summary>
@@ -162,7 +162,7 @@ public int OnEnableToggle()
 
 ## 2.图标设置
 
-命令组和命令项的图标通过两组字符串数组设置。命令组主图标是CommandManager标签页上显示的大图标，命令项图标则是一张横向的“图标条”，其中第几个图标由AddCommandItem2的ImageListIndex参数决定。SolidWorks需要6种尺寸的图标以适配不同的显示缩放比例，示例中按20、32、40、64、96、128六种像素尺寸分别指定，代码如下：
+命令组和命令项的图标通过两组字符串数组设置。命令组主图标是CommandManager标签页上显示的大图标，命令项图标则是一张横向的“图标条”，其中第几个图标由`AddCommandItem2`的`ImageListIndex`参数决定。SolidWorks需要6种尺寸的图标以适配不同的显示缩放比例，示例中按20、32、40、64、96、128六种像素尺寸分别指定，代码如下：
 
 ```c#
 private void LoadIcons()
@@ -188,7 +188,7 @@ private void LoadIcons()
 }
 ```
 
-图标路径通过程序集自身的位置（RegDllPath）推导，也就是dll所在目录下的icons文件夹。图标用“复制到输出目录”的方式随生成一起拷贝，因此发布时把icons文件夹和dll放在一起即可。RegDllPath的实现如下：
+图标路径通过程序集自身的位置（`RegDllPath`）推导，也就是dll所在目录下的icons文件夹。图标用“复制到输出目录”的方式随生成一起拷贝，因此发布时把icons文件夹和dll放在一起即可，`RegDllPath`的实现如下：
 
 ```c#
 public string RegDllPath()
@@ -216,7 +216,7 @@ cmdGroup.IconList = icons;           // 各命令项图标（横向图标条）
 
 ## 3.添加Ribbon标签页
 
-命令组创建好以后，还需要把它放到Ribbon界面上，这一步通过CommandTab完成。AddCommandTab为指定文档类型创建一个标签页，再用CommandTabBox往标签页里放命令，多个Box之间会自动显示分隔线。示例代码如下：
+命令组创建好以后，还需要把它放到Ribbon界面上，这一步通过`CommandTab`完成。`AddCommandTab`为指定文档类型创建一个标签页，再用`CommandTabBox`往标签页里放命令，多个Box之间会自动显示分隔线，示例代码如下：
 
 ```c#
 private void AddRibbonTab(int docType, string title, ICommandGroup cmdGroup)
@@ -250,7 +250,7 @@ private void AddRibbonTab(int docType, string title, ICommandGroup cmdGroup)
 }
 ```
 
-其中CommandGroup的get_CommandID方法按索引取出命令项ID，再交给CommandTabBox.AddCommands添加。为避免有的文档类型下看不到按钮，示例对零件、装配体、工程图三种文档类型循环调用，代码如下：
+其中CommandGroup的`get_CommandID`方法按索引取出命令项ID，再交给`CommandTabBox.AddCommands`添加。为避免有的文档类型下看不到按钮，示例对零件、装配体、工程图三种文档类型循环调用，代码如下：
 
 ```c#
 // 支持的文档类型：零件、装配体、工程图
@@ -268,7 +268,7 @@ foreach (int type in docTypes)
 
 ## 4.下拉菜单（Flyout）
 
-下拉菜单（Flyout）是带下拉箭头的按钮，点击后展开一组子命令。它由ICommandManager.CreateFlyoutGroup2创建，参数依次为分组ID、标题、工具提示、状态栏提示、下拉按钮自身图标、菜单项图标条以及两个回调方法名。示例代码如下：
+下拉菜单（Flyout）是带下拉箭头的按钮，点击后展开一组子命令。它由`ICommandManager.CreateFlyoutGroup2`创建，参数依次为分组ID、标题、工具提示、状态栏提示、下拉按钮自身图标、菜单项图标条以及两个回调方法名，示例代码如下：
 
 ```c#
 private void CreateFlyout()
@@ -305,7 +305,7 @@ private void CreateFlyout()
 }
 ```
 
-注意：下拉菜单的子项**不在启动时添加**，而是在下拉按钮的点击回调中动态添加。如果在启动时就把子项加进去，点击下拉按钮时会报“遇到无效参数”。真正的菜单项在FlyoutCallback中构建，代码如下：
+**注意：下拉菜单的子项不在启动时添加，而是在下拉按钮的点击回调中动态添加。**如果在启动时就把子项加进去，点击下拉按钮时会报“遇到无效参数”。真正的菜单项在`FlyoutCallback`中构建，代码如下：
 
 ```c#
 /// <summary>下拉按钮点击回调：展开前动态构建两个菜单项</summary>
@@ -341,7 +341,7 @@ public void FlyoutItem1()
 }
 ```
 
-最后把下拉按钮放到Ribbon标签页上。它和普通按钮一样通过CommandTabBox.AddCommands添加，只是文本显示类型需要与SimpleFlyout样式按位或，这样才呈现下拉箭头，代码如下：
+最后把下拉按钮放到Ribbon标签页上。它和普通按钮一样通过`CommandTabBox.AddCommands`添加，只是文本显示类型需要与SimpleFlyout样式按位或，这样才呈现下拉箭头，代码如下：
 
 ```c#
 // 下拉按钮样式：简单下拉（点击按钮仅展开菜单，不执行默认动作）
@@ -360,7 +360,7 @@ if (_flyoutCmdId > 0)
 
 ## 5.资源释放
 
-插件卸载时需要把创建的命令组、下拉菜单分组以及COM对象依次释放，避免在SolidWorks里留下“幽灵”按钮或造成内存泄漏。示例在DisconnectFromSW中处理，代码如下：
+插件卸载时需要把创建的命令组、下拉菜单分组以及COM对象依次释放，避免在SolidWorks里留下“幽灵”按钮或造成内存泄漏。示例在`DisconnectFromSW`中处理，代码如下：
 
 ```c#
 public bool DisconnectFromSW()
@@ -389,7 +389,7 @@ public bool DisconnectFromSW()
 
 ## 6.演示效果
 
-插件加载后，Ribbon上会出现自定义标签页，工具栏和菜单中也会出现对应按钮，点击“打开窗体”会弹出自定义窗体，点击“开关按钮”可以看到按下/弹起效果，点击下拉菜单会展开两个菜单项。效果如下图所示：
+插件加载后，Ribbon上会出现自定义标签页，工具栏和菜单中也会出现对应按钮。点击“打开窗体”会弹出自定义窗体，点击“开关按钮”可以看到按下、弹起效果，点击下拉菜单会展开两个菜单项，效果如下图所示：
 
 <div align="center">
     <img src="/img/solid/Ribbon1.png" style="width:70%" align="center"/>

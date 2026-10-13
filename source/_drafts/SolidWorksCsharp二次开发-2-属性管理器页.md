@@ -1,21 +1,21 @@
 ---
 title: SolidWorks C#二次开发-2-属性管理器页
 tags:
-  - Solidworks
+  - SolidWorks
   - C#
-  - Solidworks二次开发
+  - SolidWorks二次开发
 comments: true
-category: Solidworks二次开发
+category: SolidWorks二次开发
 ---
-属性管理器页（PropertyManager Page）是SolidWorks左侧面板中那类带“确定/取消”按钮的页面，比如拉伸、圆角等命令弹出的参数面板。用插件也可以创建自己的属性管理器页，把参数集中到侧边面板里，比弹一个独立对话框更符合SolidWorks的操作习惯。
+属性管理器页（PropertyManager Page）是SolidWorks左侧面板中带“确定、取消”按钮的那类页面，比如拉伸、圆角等命令弹出的参数面板。用插件也可以创建自己的属性管理器页，把参数集中到侧边面板里，比弹一个独立对话框更符合SolidWorks的操作习惯。
 
-本文以SamplePropertyManagerPage工程为例，介绍属性管理器页的创建、各类控件的添加以及事件处理。工程尽可能覆盖了SolidWorks支持的控件类型，包括标签、文本框、数值框、滑块、列表框、下拉框、复选框、单选按钮、按钮、位图、位图按钮、选择框，以及内嵌WinForms控件和ActiveX控件。
+本文以SamplePropertyManagerPage工程为例，介绍属性管理器页的创建、各类控件的添加以及事件处理。工程尽量覆盖了SolidWorks支持的控件类型，包括标签、文本框、数值框、滑块、列表框、下拉框、复选框、单选按钮、按钮、位图、位图按钮、选择框，以及内嵌WinForms控件和ActiveX控件。
 
-示例沿用前文的环境配置，创建命令组、添加Ribbon按钮的部分与SampleRibbon一致，本文不再重复。
+示例沿用前文的环境配置，创建命令组、添加Ribbon按钮的部分与SampleRibbon一致，在此不再赘述。
 
 ## 1.事件处理程序
 
-属性管理器页是事件驱动的：用户在页面上改动控件、点击按钮、关闭页面，SolidWorks都会回调处理程序里的方法。因此第一步是实现IPropertyManagerPage2Handler9接口，放在一个独立的类中。示例代码如下（只列出关心的回调，其余留空）：
+属性管理器页是事件驱动的：用户在页面上改动控件、点击按钮、关闭页面，SolidWorks都会回调处理程序里的方法。所以第一步是实现`IPropertyManagerPage2Handler9`接口，放在一个独立的类中。下面只列出关心的回调，其余留空，代码如下：
 
 ```c#
 [ComVisible(true)]
@@ -79,11 +79,11 @@ public class PropertyPageHandler : IPropertyManagerPage2Handler9
 }
 ```
 
-**这里有一个非常关键的坑：处理程序类必须标记[ComVisible(true)]。** 因为它是作为COM回调对象交给SolidWorks的，如果不加这个特性，在CreatePropertyManagerPage阶段无法生成COM包装，会直接抛出“指定的转换无效”（InvalidCastException）。此外，处理程序以及页面上用到的控件要保存在字段中，避免在页面显示期间被垃圾回收。
+**需要注意的是，处理程序类必须标记`[ComVisible(true)]`。**因为它是作为COM回调对象交给SolidWorks的，如果不加这个特性，在`CreatePropertyManagerPage`阶段无法生成COM包装，会直接抛出“指定的转换无效”（`InvalidCastException`）。此外，处理程序以及页面上用到的控件要保存在字段中，避免在页面显示期间被垃圾回收。
 
 ## 2.创建并显示属性管理器页
 
-创建页面用ISldWorks.ICreatePropertyManagerPage方法，参数依次为标题、页面选项（由swPropertyManagerPageOptions_e枚举按位或组合，比如是否有确定/取消按钮）以及前面写好的处理程序。页面创建好后，用SetMessage2在顶部显示一段提示，最后调用Show2显示。示例代码如下：
+创建页面用`ISldWorks.ICreatePropertyManagerPage`方法，参数依次为标题、页面选项（由`swPropertyManagerPageOptions_e`枚举按位或组合，比如是否有确定/取消按钮）以及前面写好的处理程序。页面创建好后，用`SetMessage2`在顶部显示一段提示，最后调用`Show2`显示，示例代码如下：
 
 ```c#
 private void ShowPropertyPage()
@@ -123,7 +123,7 @@ private void ShowPropertyPage()
 }
 ```
 
-页面里的控件要先分组再添加。分组用PropertyManagerPage2.AddGroupBox方法，常见选项为可见且展开；控件用PropertyManagerPageGroup.AddControl（常规控件）或AddControl2（内嵌窗口和ActiveX这类需要窗口句柄的控件）添加。两个方法的前几个参数是控件ID（自定义，用于在回调中区分控件）、控件类型、显示文本、对齐方式、可见/可用选项和提示信息。为了代码简洁，示例先把常用的枚举值取好：
+页面里的控件要先分组再添加。分组用`PropertyManagerPage2.AddGroupBox`方法，常见选项为可见且展开；控件用`PropertyManagerPageGroup.AddControl`（常规控件）或`AddControl2`（内嵌窗口和ActiveX这类需要窗口句柄的控件）添加。两个方法的前几个参数是控件ID（自定义，用于在回调中区分控件）、控件类型、显示文本、对齐方式、可见/可用选项和提示信息。为了代码简洁，示例先把常用的枚举值取好：
 
 ```c#
 // 常用参数
@@ -240,7 +240,7 @@ PropertyManagerPageBitmapButton b = (PropertyManagerPageBitmapButton)g6.AddContr
 b.SetStandardBitmaps((int)swPropertyManagerPageBitmapButtons_e.swBitmapButtonImage_angle);
 ```
 
-位图既可以用SetStandardBitmap使用SolidWorks内置图片，也可以用SetBitmapByName指定自己的图片文件。位图按钮除了SetStandardBitmaps外，还可以设置IsCheckable属性使其变成可勾选的按钮。
+位图既可以用`SetStandardBitmap`使用SolidWorks内置图片，也可以用`SetBitmapByName`指定自己的图片文件。位图按钮除了`SetStandardBitmaps`外，还可以设置`IsCheckable`属性使其变成可勾选的按钮。
 
 选择框用于让用户在图形区点选面、边等实体，需要设置过滤器和高度，代码如下：
 
@@ -262,9 +262,9 @@ sel.SingleEntityOnly = false;
 
 ## 4.内嵌WinForms控件与ActiveX
 
-SolidWorks原生控件毕竟有限，有时候需要嵌入Windows控件。属性管理器页支持通过窗口句柄嵌入WinForms控件和ActiveX控件，**两者都必须用AddControl2添加**。
+SolidWorks原生控件毕竟有限，有时候需要嵌入Windows控件。属性管理器页支持通过窗口句柄嵌入WinForms控件和ActiveX控件。**需要注意的是，两者都必须用`AddControl2`添加。**
 
-嵌入WinForms控件的做法是先建好控件并强制创建窗口句柄，再用SetWindowHandlex64把句柄交给SolidWorks，代码如下：
+嵌入WinForms控件的做法是先建好控件并强制创建窗口句柄，再用`SetWindowHandlex64`把句柄交给SolidWorks，代码如下：
 
 ```c#
 // ---------- 分组8：内嵌 WinForms 控件（WindowFromHandle，用 AddControl2） ----------
@@ -278,7 +278,7 @@ _embeddedControl.CreateControl();   // 强制创建窗口句柄
 winHost.SetWindowHandlex64(_embeddedControl.Handle.ToInt64());
 ```
 
-其中_embeddedControl是一个普通WinForms面板，里面放了一个标签和一个按钮，按钮的点击事件可以直接弹窗，与SolidWorks无关：
+其中`_embeddedControl`是一个普通WinForms面板，里面放了一个标签和一个按钮，按钮的点击事件可以直接弹窗，与SolidWorks无关，代码如下：
 
 ```c#
 private System.Windows.Forms.Control BuildEmbeddedControl()
@@ -303,7 +303,7 @@ private System.Windows.Forms.Control BuildEmbeddedControl()
 }
 ```
 
-嵌入ActiveX控件用SetClass指定控件CLSID即可。示例用了Windows自带的Microsoft Web Browser（Shell.Explorer），CLSID固定，普通电脑都有：
+嵌入ActiveX控件用`SetClass`指定控件CLSID即可。示例用了Windows自带的Microsoft Web Browser（Shell.Explorer），CLSID固定，一般电脑上都有，代码如下：
 
 ```c#
 // ---------- 分组9：ActiveX 控件（Microsoft Web Browser，用 AddControl2） ----------
@@ -318,7 +318,7 @@ _pageHandler.ActiveXId = 81;
 _pageHandler.ActiveXControl = ax;
 ```
 
-ActiveX控件创建完成后会回调处理程序中的OnActiveXControlCreated方法，此时才能取得其内部对象。示例在这里让浏览器导航到空白页并写入一段HTML，代码如下：
+ActiveX控件创建完成后会回调处理程序中的`OnActiveXControlCreated`方法，此时才能取得其内部对象。示例在这里让浏览器导航到空白页并写入一段HTML，代码如下：
 
 ```c#
 public int OnActiveXControlCreated(int Id, bool Status)
@@ -350,7 +350,7 @@ public int OnActiveXControlCreated(int Id, bool Status)
 
 ## 5.读取结果
 
-页面关闭时会回调OnClose方法，参数Reason给出关闭原因。如果是点击“确定”关闭的，就可以在这里读取各字段里记录的控件值，做后续处理。示例只是把所填内容汇总弹窗，代码如下：
+页面关闭时会回调`OnClose`方法，参数`Reason`给出关闭原因。如果是点击“确定”关闭的，就可以在这里读取各字段里记录的控件值，做后续处理。示例只是把所填内容汇总弹窗，代码如下：
 
 ```c#
 public void OnClose(int Reason)

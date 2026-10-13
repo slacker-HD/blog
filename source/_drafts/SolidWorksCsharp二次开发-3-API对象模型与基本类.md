@@ -1,11 +1,11 @@
 ---
 title: SolidWorks C#二次开发-3-API对象模型与基本类
 tags:
-  - Solidworks
+  - SolidWorks
   - C#
-  - Solidworks二次开发
+  - SolidWorks二次开发
 comments: true
-category: Solidworks二次开发
+category: SolidWorks二次开发
 ---
 
 前面我们已经完成了环境配置和界面（UI）部分，从本篇开始正式接触 API。在动手写代码之前，先对 SolidWorks API 的对象模型和基本类做一个简要说明，后面的章节都会围绕这些类展开。本文内容基于 SolidWorks 2020，不同版本 API 会略有出入，具体以对应版本的 API 帮助为准。

@@ -1,33 +1,33 @@
 ---
 title: SolidWorks C#二次开发-1-独立程序环境配置
 tags:
-  - Solidworks
+  - SolidWorks
   - C#
-  - Solidworks二次开发
+  - SolidWorks二次开发
 comments: true
-category: Solidworks二次开发
+category: SolidWorks二次开发
 date: 2026-10-03 13:57:54
 ---
 
 
-本文主要尝试搭建Solidworks C# 独立二次开发环境配置。具体二次开发的相关代码撰写还得边学编总结。
+本文主要尝试搭建SolidWorks C# 独立二次开发环境配置。具体二次开发的相关代码撰写还得边学编总结。
 
 ## 1.开发环境介绍
 
-首先安装好Visual Studio和对应的.Net FrameWork 4.8版本，Solidworks二次开发包也要确保安装，总体和之前的addin模式环境一致：
+首先安装好Visual Studio和对应的.NET Framework 4.8版本，SolidWorks二次开发包也要确保安装，总体和之前的addin模式环境一致：
 
 - 主机操作系统：Windows 11 X64
 - Visual Studio版本：Visual Studio 2026 社区版
-- Solidworks版本：2020 X64
-- .Net版本：.Net FrameWork 4.8
+- SolidWorks版本：2020 X64
+- .NET版本：.NET Framework 4.8
   
 ## 2. Visual Studio工程设置
 
-独立程序只要添加引用即可，不需要修改其“嵌入互操作类型 (Embed Interop Types)”属性设为False。刚开始开发，只用添加**Solidworks.Interop.sldworks.dll、Solidworks.Interop.swconst.dll、Solidworks.Interop.swpublished.dll**三个核心库：
+独立程序只要添加引用即可，不需要修改其“嵌入互操作类型 (Embed Interop Types)”属性设为False。刚开始开发，只用添加**SolidWorks.Interop.sldworks.dll、SolidWorks.Interop.swconst.dll、SolidWorks.Interop.swpublished.dll**三个核心库：
 
 <div align="center">
     <img src="/img/solid/Soild3.png" style="width:50%" align="center"/>
-    <p>图1 添加Solidworks引用</p>
+    <p>图1 添加SolidWorks引用</p>
 </div>
 
 

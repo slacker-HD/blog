@@ -6,7 +6,7 @@
 title: 工匠之心
 subtitle: 吾生也有涯，而知也无涯。以有涯随无涯，殆已；已而为知者，殆而已矣。
 description: 个人博客，记录个人学习工作中的一些体会。
-keywords: vbapi, proe, creo, protoolkit, proe二次开发, creo二次开发
+keywords: vbapi, proe, creo, protoolkit, proe二次开发, creo二次开发, SolidWorks二次开发
 author: 胡迪
 language: zh-cn
 timezone: Asia/Shanghai
@@ -42,7 +42,7 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
@@ -51,7 +51,7 @@ index_generator:
   path: ''
   per_page: 10
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -79,7 +79,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-# theme: landscape 
+# theme: landscape
 theme: BlueLake
 
 # Deployment
@@ -96,7 +96,7 @@ deploy:
 #生成压缩后的csc
 stylus:
   compress: true
-  
+
 comments: true
 
 # 添加水印
