@@ -1,5 +1,5 @@
 ---
-title: SolidWorks C# add-in二次开发环境配置
+title: SolidWorks C#二次开发-1-add-in环境配置
 tags:
   - Solidworks
   - C#
@@ -7,7 +7,7 @@ tags:
 comments: true
 category: Solidworks二次开发
 ---
-本文主要尝试搭建Solidworks C# add-in二次开发环境配置。具体二次开发的相关代码撰写还得边学编总结。
+本文主要搭建Solidworks C# add-in二次开发环境配置。
 
 ## 1.开发环境介绍
 
@@ -20,7 +20,7 @@ category: Solidworks二次开发
 
 ## 2. Visual Studio工程设置
 
-由于Solidworks需要注册COM组件，所以需要**以管理员权限启动Visual Studio**。新建项目，选择Visual C#分类下的类库Class Library(.NET Framework)模板**(注意类库有两个选项，要选择后面要有.NET Framework的)**，设置项目存储路径与项目名称，如图1所示：
+新建项目，选择Visual C#分类下的类库Class Library(.NET Framework)模板**(注意类库有两个选项，要选择后面要有.NET Framework的)**，设置项目存储路径与项目名称，如图1所示：
 
 
 <div align="center">
@@ -55,11 +55,7 @@ category: Solidworks二次开发
     <p>图5 设置调试</p>
 </div>
 
-SolidWorks插件注册要求插件dll必须使用/codebase标志，因此须在项目“生成事件” 选项中设置“生成后命令行“，添加如下内容：
-
-``` bash
-"%windir%\Microsoft.NET\Framework64\v4.0.30319\regasm" /codebase "$(TargetPath)"
-```
+此步可选，仅只是为了让开发更快捷一些。由于Solidworks插件通过注册COM组件的方式运行，插件注册要求插件dll必须使用/codebase标志。由于注册组件需要管理员权限，所以建议使用**以管理员权限启动Visual Studio**，在项目“生成事件” 选项中设置“生成后命令行“，添加`"%windir%\Microsoft.NET\Framework64\v4.0.30319\regasm" /codebase "$(TargetPath)"`,这样每次重新编译等会全新注册组件，防止有大变动由于COM组件注册导致错误。
 
 <div align="center">
     <img src="/img/solid/Soild6.png" style="width:50%" align="center"/>
@@ -76,7 +72,7 @@ RegAsm.exe MySampleAddin.dll /u /codebase
 
 ```c#
 [ComVisible(true)]
-[Guid("276121CA-C5E7-446C-9301-D4ED64864E78")]
+[Guid("31B803E0-7A01-4841-A0DE-895B726625C9")]
 public class MySampleAddin : ISwAddin
 {
     // 其余代码
@@ -88,7 +84,7 @@ public class MySampleAddin : ISwAddin
     <p>图7 获得GUID</p>
 </div>
 
-**注意开发时如果项目复制到别的目录或者计算机下，可能会出现GUID重复或者不一致的问题，此时需要生成新的GUID。**
+**注意：开发时如果项目复制到别的目录或者计算机下，可能会出现GUID重复或者不一致的问题，此时需要生成新的GUID。**
 
 
 ## 3.代码撰写
