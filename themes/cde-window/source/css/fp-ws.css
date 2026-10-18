@@ -87,7 +87,8 @@
 .fp-ws-cell a,
 .fp-ws-cell a:visited {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .fp-ws-icon {

@@ -72,10 +72,10 @@ git checkout "stash@{0}^3" -- themes/cde-window
 | 同上，子面板箭头 | 16px 那条里的箭头是 `Frame 1` → **凸起**，箭头朝上（面板在屏幕底部，子面板向上弹）。 |
 | 同上 | Btn1 = pclock（时钟），Btn2 = FPMonthDayApplet（日历）。 |
 | `nscde_tools/palette_colorgen.in` | Workspace Manager 的四个按钮使用调色板 `bg[3]`、`bg[5]`、`bg[6]`、`bg[7]`；主题通过 `--cde-ws-1` 至 `--cde-ws-4` 及各自明暗边缘变量复现。 |
-| `nscde_tools/fpclock.in` | 时针分针用 `-H`、秒针用 `-S`，楔形时/分针，线形秒针。 |
+| `nscde_tools/fpclock.in` | 时针分针用 `-H $bs_color_3`、秒针用 `-S $ts_color_3`，对应 `--cde-ws-1-shadow` 和 `--cde-ws-1-light`；楔形时/分针，线形秒针。 |
 | `FrontPanel.fvwm3.fvwmconf` | `fpclock -w -B .../Fpclock.xpm` —— 表盘就是 `Fpclock.xpm`。 |
 | `src/pclock/XPM/Fpclock.xpm` | **表盘是八边形，不是圆**：外圈切角、双层边框、内圈面、细刻度。 |
-| `data/fvwm/Colorset.fvwmconf` | **Colorset 23**（图标格）用 `bgg[8]`/`tsg[8]`/`bsg[8]`；子面板条与图标之间用 14/15（`tsg[2]`/`bsg[2]`）。 |
+| `data/fvwm/Colorset.fvwmconf` | **Colorset 23**（图标格）为表盘外圈、底色和 select 面提供 `bg`/`hi`/`sh`/`fgsh`；主题映射到 `--cde-panel*`，其中 `--cde-panel-sel` 由 palette 生成器派生。子面板条与图标之间用 14/15（`tsg[2]`/`bsg[2]`）。 |
 | `NsCDE/data/icons/NsCDE/` | `FpHandle.xpm` 20×80（瓦楞），`FpMenu.xpm`/`FpIconify.xpm` 为 Motif 斜面方框，`FpCM.l.pm`/`Fphome.l.pm`/`DtFont.l.pm`/`DtColor.l.pm` 为 48×48 原版位图（`.l`）。 |
 
 对应的 CSS 变量（本主题 Broica 调色板）：

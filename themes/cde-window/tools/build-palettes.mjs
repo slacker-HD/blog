@@ -128,7 +128,7 @@ function parseDP(text, name) {
  * 6 = menus, and 8 = front panel. */
 const ROLE_OF_LINE = { 1: 'title', 2: 'ti', 4: 'input', 5: 'face', 6: 'menu', 8: 'panel' };
 const EMIT_ORDER = ['face', 'title', 'ti', 'menu', 'panel', 'input'];
-const HAS_SEL = new Set(['face', 'title', 'menu']);
+const HAS_SEL = new Set(['face', 'title', 'menu', 'panel']);
 const WORKSPACE_LINES = [3, 5, 6, 7];
 
 /* the six palettes already hand-written in style.css — reproduced, not emitted */

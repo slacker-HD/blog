@@ -49,6 +49,7 @@
   --cde-panel-light: #d0dae3;
   --cde-panel-shadow: #4e5b65;
   --cde-panel-text: #ffffff;
+  --cde-panel-sel: #7d91a2;
 
   --cde-input: #686f81;
   --cde-input-light: #babdc6;
@@ -104,6 +105,7 @@ html[data-palette="BeigeRose"] {
   --cde-panel-light: #cfdcdb;
   --cde-panel-shadow: #4c5d5b;
   --cde-panel-text: #ffffff;
+  --cde-panel-sel: #7a9592;
 
   --cde-input: #efebea;
   --cde-input-light: #f9f7f7;
@@ -159,6 +161,7 @@ html[data-palette="Delphinium"] {
   --cde-panel-light: #ced5e2;
   --cde-panel-shadow: #4c5464;
   --cde-panel-text: #ffffff;
+  --cde-panel-sel: #7a87a1;
 
   --cde-input: #fefee5;
   --cde-input-light: #ffffff;
@@ -214,6 +217,7 @@ html[data-palette="Regal"] {
   --cde-panel-light: #c6d1eb;
   --cde-panel-shadow: #414f6e;
   --cde-panel-text: #ffffff;
+  --cde-panel-sel: #6980b3;
 
   --cde-input: #5470a9;
   --cde-input-light: #b1bed8;
@@ -269,6 +273,7 @@ html[data-palette="SeaFoam"] {
   --cde-panel-light: #e7dcd6;
   --cde-panel-shadow: #6c5d56;
   --cde-panel-text: #ffffff;
+  --cde-panel-sel: #a99388;
 
   --cde-input: #97b0b1;
   --cde-input-light: #d2dddd;
@@ -324,6 +329,7 @@ html[data-palette="Crimson"] {
   --cde-panel-light: #d1d0de;
   --cde-panel-shadow: #4f4d5e;
   --cde-panel-text: #ffffff;
+  --cde-panel-sel: #807d99;
 
   --cde-input: #fef6e8;
   --cde-input-light: #ffffff;
@@ -1219,8 +1225,13 @@ html.read-sans .author-page {
   --fp-cell-w: calc(var(--cde-ui-size) * 4.2);
   --fp-cell-h: calc(var(--cde-ui-size) * 4.133);
   --fp-strip-h: calc(var(--cde-ui-size) * 1.067);
+  --fp-group-inset: 8px;
+  --fp-launcher-size: min(
+    var(--fp-cell-w),
+    calc(var(--fp-h) - var(--fp-strip-h) - var(--fp-group-inset))
+  );
   --fp-icon: calc(var(--cde-ui-size) * 3.2);
-  --fp-dial: calc(var(--fp-cell-h) - 2px);
+  --fp-dial: var(--fp-icon);
   --fp-end-w: calc(var(--cde-ui-size) * 1.4);
   --fp-endbtn-h: calc(var(--cde-ui-size) * 0.933);
 
@@ -1314,6 +1325,11 @@ html.read-sans .author-page {
   padding: 2px;
   gap: 2px;
   background: var(--cde-panel);
+  border: 2px solid;
+  border-top-color: var(--cde-panel-light);
+  border-left-color: var(--cde-panel-light);
+  border-right-color: var(--cde-panel-shadow);
+  border-bottom-color: var(--cde-panel-shadow);
   box-shadow:
     inset 1px 1px 0 var(--cde-panel-light),
     inset -1px -1px 0 var(--cde-panel-shadow);
@@ -1328,12 +1344,17 @@ html.read-sans .author-page {
   flex-direction: column;
 }
 
+.fp-launcher-group .fp-slot {
+  width: var(--fp-launcher-size);
+}
+
 /* the subpanel strip — empty except above a launcher that opens a panel */
 .fp-strip {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
+  width: 100%;
   height: var(--fp-strip-h);
   background: var(--cde-ti);
   box-shadow:
@@ -1357,8 +1378,8 @@ html.read-sans .author-page {
   align-items: center;
   justify-content: center;
   height: var(--fp-strip-h);
-  width: var(--fp-cell-w);
-  min-width: var(--fp-cell-w);
+  width: var(--fp-launcher-size);
+  min-width: var(--fp-launcher-size);
   padding: 0;
   margin: 0;
   background: var(--cde-ti);
@@ -1432,7 +1453,7 @@ html.read-sans .author-page {
     inset -1px -1px 0 var(--cde-panel-shadow);
 }
 
-/* ---- a launcher cell: 63x62, flat, nothing on it but the 48px bitmap ---- */
+/* ---- launcher cells stay square inside the framed side groups ---- */
 .fp-cell {
   display: flex;
   flex: 1 1 auto;
@@ -1452,6 +1473,15 @@ html.read-sans .author-page {
   border-radius: 0;
   cursor: pointer;
   user-select: none;
+}
+
+.fp-launcher-group .fp-cell {
+  flex: 0 0 var(--fp-launcher-size);
+  width: var(--fp-launcher-size);
+  min-width: var(--fp-launcher-size);
+  height: var(--fp-launcher-size);
+  min-height: var(--fp-launcher-size);
+  margin-block: auto;
 }
 
 /* middle slots: each has a 3D strip on top and a flat cell below (like CDE panel bars) */
@@ -1543,8 +1573,8 @@ html.read-sans .author-page {
 /* ---- the clock, CDE's first launcher ------------------------------------
  * NsCDE swallows pclock into the first cell and hands it Fpclock.xpm, so the
  * face is that XPM, traced: an octagon, not a disc.  Its colours are symbolic
- * names resolved from the panel's own colourset, which here is the `--cde-ti`
- * group, so it follows the palette like everything else.
+ * names resolved from the panel's own colourset, so the background, bevel and
+ * face all follow the live Front Panel palette.
  *
  * pclock fills the hour and minute hands as wedges rather than stroking them
  * (Graphics.c: XFillPolygon, tip at hand_length and a base through the centre
@@ -1552,10 +1582,9 @@ html.read-sans .author-page {
  *
  *     fpclock -H $bs_color_3 -S $ts_color_3
  *
- * so the hour/minute wedge wears the colourset's bottom shadow -- the same
- * dark as the dial's outer ring -- and the second hand the top shadow.  The
- * wedge is 8px wide at the base in a 64px dial, which is what makes a dark
- * hand read against a dark face. */
+ * so the hour/minute wedge wears the workspace colourset's bottom shadow and
+ * the second hand its top shadow.  The wedge is 8px wide at the base in a
+ * 64px dial, which is what makes a dark hand read against the face. */
 .fp-cell-clock {
   cursor: default;
   padding: 0;
@@ -1573,16 +1602,16 @@ html.read-sans .author-page {
 }
 
 .fp-dial-o {
-  fill: var(--cde-ti-shadow);
+  fill: var(--cde-panel-shadow);
 }
 .fp-dial-l {
-  fill: var(--cde-ti-light);
+  fill: var(--cde-panel-light);
 }
 .fp-dial-b {
-  fill: var(--cde-ti);
+  fill: var(--cde-panel);
 }
 .fp-dial-f {
-  fill: var(--cde-input);
+  fill: var(--cde-panel-sel);
 }
 
 .fp-tick {
@@ -1600,14 +1629,14 @@ html.read-sans .author-page {
 
 .fp-hand-h,
 .fp-hand-m {
-  fill: var(--cde-ti-shadow);
+  fill: var(--cde-ws-1-shadow);
   stroke: none;
 }
 
 /* pclock's second hand: a plain round-capped line, light so it reads against
    the dark face (it really does draw this one with `-S`, the top shadow) */
 .fp-hand-s {
-  stroke: var(--cde-ti-light);
+  stroke: var(--cde-ws-1-light);
   stroke-width: 1;
   stroke-linecap: round;
 }
@@ -2529,14 +2558,14 @@ html.read-sans .author-page {
  * Responsive — on a narrow screen the front panel folds in two:
  * the launchers keep the top row, the footer text drops underneath.
  *
- * The cells shrink rather than wrap, because five 63px launchers plus two
- * 21px handles is 357px and has to fit a 360px phone.
+ * The square launcher cells shrink rather than wrap to fit between the handles.
  * ============================================================ */
 @media (max-width: 720px) {
   .front-panel {
     --fp-cell-w: calc(var(--cde-ui-size) * 3.15);
     --fp-icon: calc(var(--cde-ui-size) * 2.2);
-    --fp-dial: calc(var(--cde-ui-size) * 2.34);
+    --fp-group-inset: 6px;
+    --fp-h: calc(var(--fp-strip-h) + var(--fp-cell-w) + var(--fp-group-inset));
   }
 
   .fp-rail {
@@ -2560,6 +2589,14 @@ html.read-sans .author-page {
     width: 100%;
     min-width: 0;
     min-height: var(--fp-cell-h);
+  }
+
+  .fp-launcher-group .fp-cell {
+    flex: 0 0 var(--fp-launcher-size);
+    width: var(--fp-launcher-size);
+    min-width: var(--fp-launcher-size);
+    height: var(--fp-launcher-size);
+    min-height: var(--fp-launcher-size);
   }
 
   /* the work area drops to its own row, under the launchers */
