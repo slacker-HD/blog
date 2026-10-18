@@ -63,9 +63,9 @@
   build-fp-icons.mjs turns the cached bitmaps into layout/partials/
   fp-icon-*.ejs and documents the role mapping; style.css builds the ramp.
 
-  The work area is CDE's workspace switch: one raised frame, 78px tall, split
-  into two rows and three columns.  The six cells keep the site's footer links
-  and information, using the colour blocks of CDE's One/Two/Three/Four pages.
+  The work area has four individually bevelled workspace cells between the
+  article controls.  The clock/calendar/search and top/read/color launchers
+  each share a raised panel, with their existing controls kept inside.
 
   The three dialogs live inside the panel and hang off its top edge, so they
   follow the panel wherever the reading size puts it.
@@ -79,96 +79,163 @@
       <span class="fp-grip"></span>
     </div>
 
-    <!-- the clock (CDE's first launcher is pclock) -->
-    <div class="fp-slot">
-      <div class="fp-strip"></div>
-      <div class="fp-cell fp-cell-clock" title="当前时间">
-        <svg class="fp-dial" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-          <polygon class="fp-dial-o" points="10,7 54,7 57,10 57,54 54,57 10,57 7,54 7,10"/>
-          <polygon class="fp-dial-l" points="11,8 53,8 56,11 56,53 53,56 11,56 8,53 8,11"/>
-          <polygon class="fp-dial-b" points="12,9 52,9 55,12 55,52 52,55 12,55 9,52 9,12"/>
-          <polygon class="fp-dial-f" points="18,12 46,12 52,18 52,46 46,52 18,52 12,46 12,18"/>
-          <% for (var i = 0; i < 12; i++) { var t = tick(i); %>
-          <line class="fp-tick" x1="<%- t.x1 %>" y1="<%- t.y1 %>" x2="<%- t.x2 %>" y2="<%- t.y2 %>"/>
-          <% } %>
-          <polygon id="fp-hand-h" class="fp-hand fp-hand-h" points="32,20 34,32 30,32"/>
-          <polygon id="fp-hand-m" class="fp-hand fp-hand-m" points="32,16 33.5,32 30.5,32"/>
-          <line id="fp-hand-s" class="fp-hand fp-hand-s" x1="32" y1="32" x2="32" y2="12"/>
-        </svg>
-        <span class="fp-sr">当前时间 <time id="fp-time">--:--</time></span>
+    <div class="fp-launcher-group fp-launcher-group-left" role="group" aria-label="常用工具">
+      <!-- the clock (CDE's first launcher is pclock) -->
+      <div class="fp-slot">
+        <div class="fp-strip"></div>
+        <div class="fp-cell fp-cell-clock" title="当前时间">
+          <svg class="fp-dial" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <polygon class="fp-dial-o" points="10,7 54,7 57,10 57,54 54,57 10,57 7,54 7,10"/>
+            <polygon class="fp-dial-l" points="11,8 53,8 56,11 56,53 53,56 11,56 8,53 8,11"/>
+            <polygon class="fp-dial-b" points="12,9 52,9 55,12 55,52 52,55 12,55 9,52 9,12"/>
+            <polygon class="fp-dial-f" points="18,12 46,12 52,18 52,46 46,52 18,52 12,46 12,18"/>
+            <% for (var i = 0; i < 12; i++) { var t = tick(i); %>
+            <line class="fp-tick" x1="<%- t.x1 %>" y1="<%- t.y1 %>" x2="<%- t.x2 %>" y2="<%- t.y2 %>"/>
+            <% } %>
+            <polygon id="fp-hand-h" class="fp-hand fp-hand-h" points="32,20 34,32 30,32"/>
+            <polygon id="fp-hand-m" class="fp-hand fp-hand-m" points="32,16 33.5,32 30.5,32"/>
+            <line id="fp-hand-s" class="fp-hand fp-hand-s" x1="32" y1="32" x2="32" y2="12"/>
+          </svg>
+          <span class="fp-sr">当前时间 <time id="fp-time">--:--</time></span>
+        </div>
       </div>
-    </div>
 
-    <!-- the calendar (CDE's Calendar Manager launcher) -->
-    <div class="fp-slot">
-      <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
-        <%- partial('partials/fp-icon-subarrow') %>
-      </button>
-      <button id="cal-toggle" class="fp-cell fp-cell-cal" type="button" title="日历" aria-label="日历" aria-expanded="false" aria-controls="cal-panel">
-        <span class="fp-cal">
-          <%- partial('partials/fp-icon-calendar') %>
-          <b id="cal-month" class="fp-cal-m"></b>
-          <b id="cal-day" class="fp-cal-d"></b>
-        </span>
-      </button>
-    </div>
+      <!-- the calendar (CDE's Calendar Manager launcher) -->
+      <div class="fp-slot">
+        <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
+          <%- partial('partials/fp-icon-subarrow') %>
+        </button>
+        <button id="cal-toggle" class="fp-cell fp-cell-cal" type="button" title="日历" aria-label="日历" aria-expanded="false" aria-controls="cal-panel">
+          <span class="fp-cal">
+            <%- partial('partials/fp-icon-calendar') %>
+            <b id="cal-month" class="fp-cal-m"></b>
+            <b id="cal-day" class="fp-cal-d"></b>
+          </span>
+        </button>
+      </div>
 
-    <!-- local article search -->
-    <div class="fp-slot">
-      <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
-        <%- partial('partials/fp-icon-subarrow') %>
-      </button>
-      <button id="search-toggle" class="fp-cell" type="button" title="站内搜索" aria-label="站内搜索" aria-expanded="false" aria-controls="search-panel">
-        <img class="fp-icon fp-search-icon" src="<%- url_for('/images/fp-search.png') %>" width="48" height="48" alt="" aria-hidden="true">
-      </button>
+      <!-- local article search -->
+      <div class="fp-slot">
+        <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
+          <%- partial('partials/fp-icon-subarrow') %>
+        </button>
+        <button id="search-toggle" class="fp-cell" type="button" title="站内搜索" aria-label="站内搜索" aria-expanded="false" aria-controls="search-panel">
+          <img class="fp-icon fp-search-icon" src="<%- url_for('/images/fp-search.png') %>" width="48" height="48" alt="" aria-hidden="true">
+        </button>
+      </div>
     </div>
 
     <!-- middle: the 2x2 workspace with footer information -->
     <div class="fp-slot fp-workspace">
       <div class="fp-work" role="group" aria-label="页脚信息">
-        <div class="fp-ws">
-          <div class="fp-ws-cell">
-            <% if (footer.icp){ %><a rel="nofollow" target="_blank" href="https://beian.miit.gov.cn"><%= footer.icp %></a><% } %>
+        <div class="fp-mini-controls fp-mini-controls-left" role="group" aria-label="文章导航">
+          <% if (is_post() && page.prev){ %>
+            <a class="fp-mini-button" href="<%- url_for(page.prev.path) %>" title="上一篇：<%= page.prev.title %>" aria-label="上一篇：<%= page.prev.title %>">
+          <% } else { %>
+            <button class="fp-mini-button" type="button" disabled aria-label="上一篇（没有更早的文章）" title="没有更早的文章">
+          <% } %>
+            <svg class="fp-icon" viewBox="0 0 48 48" width="48" height="48" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
+              <path d="M10 24 26 8v8h14v16H26v8Z" fill="var(--cde-input)"/>
+              <path d="m10 24 16-16v8h14v16H26v8Z" fill="none" stroke="var(--cde-panel-light)" stroke-width="2" stroke-linejoin="miter"/>
+              <path d="M26 32h14V16M26 32v8" fill="none" stroke="var(--cde-panel-shadow)" stroke-width="2"/>
+            </svg>
+          <% if (is_post() && page.prev){ %></a><% } else { %></button><% } %>
+          <button class="fp-mini-button" type="button" data-article-action="random"
+            data-index-url="<%- url_for('/content.json') %>" data-site-root="<%- url_for('/') %>"
+            aria-label="随机文章" title="随机文章">
+            <%- partial('partials/fp-icon-shuffle') %>
+          </button>
+        </div>
+        <div class="fp-ws-frame">
+          <div class="fp-ws">
+            <div class="fp-ws-cell fp-ws-cell-pressed">
+              <% if (footer.icp){ %>
+                <svg class="fp-ws-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path d="M8 1.5 13 3.5v4c0 3.1-2 5.7-5 7-3-1.3-5-3.9-5-7v-4l5-2Z"/>
+                  <path d="m5.5 7.8 1.7 1.7 3.4-3.6"/>
+                </svg>
+                <a rel="nofollow" target="_blank" href="https://beian.miit.gov.cn"><%= footer.icp %></a>
+              <% } %>
+            </div>
+            <div class="fp-ws-cell">
+              <% if (showBusuanzi){ %>
+                <svg class="fp-ws-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path d="M1.5 8s2.3-4 6.5-4 6.5 4 6.5 4-2.3 4-6.5 4S1.5 8 1.5 8Z"/>
+                  <circle cx="8" cy="8" r="1.8"/>
+                </svg>
+                <span>本站总访问量：<b id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></b> 次</span>
+              <% } %>
+            </div>
+            <div class="fp-ws-cell">
+              <svg class="fp-ws-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                <path d="m8 1.5 5.6 3.2v6.6L8 14.5l-5.6-3.2V4.7L8 1.5Z"/>
+                <path d="M2.6 4.7 8 7.8l5.4-3.1M8 7.8v6.5"/>
+              </svg>
+              <span>由<a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>强力驱动</span>
+            </div>
+            <div class="fp-ws-cell">
+              <% if (showBusuanzi){ %>
+                <svg class="fp-ws-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path d="M2 13.5h12"/>
+                  <path d="M4 12V8m4 4V4m4 8V6"/>
+                </svg>
+                <span>统计：<a rel="nofollow" target="_blank" href="https://busuanzi.ibruce.info/">不蒜子</a></span>
+              <% } %>
+            </div>
           </div>
-          <div class="fp-ws-cell">
-            <% if (showBusuanzi){ %>本站访问量：<b id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></b> 次<% } %>
-          </div>
-          <div class="fp-ws-cell">
-            <% if (showBusuanzi){ %>统计：<a rel="nofollow" target="_blank" href="https://busuanzi.ibruce.info/">不蒜子</a><% } %>
-          </div>
-          <div class="fp-ws-cell">
-            Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>
-          </div>
+        </div>
+        <div class="fp-mini-controls fp-mini-controls-right" role="group" aria-label="页面操作">
+          <% if (is_post() && page.next){ %>
+            <a class="fp-mini-button" href="<%- url_for(page.next.path) %>" title="下一篇：<%= page.next.title %>" aria-label="下一篇：<%= page.next.title %>">
+          <% } else { %>
+            <button class="fp-mini-button" type="button" disabled aria-label="下一篇（没有更新的文章）" title="没有更新的文章">
+          <% } %>
+            <svg class="fp-icon" viewBox="0 0 48 48" width="48" height="48" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
+              <path d="m38 24-16-16v8H8v16h14v8Z" fill="var(--cde-input)"/>
+              <path d="m38 24-16-16v8H8v16h14v8Z" fill="none" stroke="var(--cde-panel-light)" stroke-width="2" stroke-linejoin="miter"/>
+              <path d="M22 32H8V16m14 16v8" fill="none" stroke="var(--cde-panel-shadow)" stroke-width="2"/>
+            </svg>
+          <% if (is_post() && page.next){ %></a><% } else { %></button><% } %>
+          <button class="fp-mini-button" type="button" data-article-action="back"
+            data-site-root="<%- url_for('/') %>" aria-label="返回上一页" title="返回上一页">
+            <svg class="fp-icon" viewBox="0 0 48 48" width="48" height="48" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
+              <path d="M20 7 5 22l15 15v-9h6c7 0 11 3 15 10-1-14-7-21-18-21h-3Z" fill="var(--cde-input)"/>
+              <path d="M20 7 5 22l15 15v-9h6c7 0 11 3 15 10-1-14-7-21-18-21h-3Z" fill="none" stroke="var(--cde-panel-light)" stroke-width="2" stroke-linejoin="miter"/>
+              <path d="M20 37 5 22m0 0 15-15m6 21c7 0 11 3 15 10" fill="none" stroke="var(--cde-panel-shadow)" stroke-width="2" stroke-linejoin="miter"/>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- back to top — just a button, no subpanel arrow above -->
-    <div class="fp-slot">
-      <div class="fp-strip fp-strip-3d" aria-hidden="true"></div>
-      <button id="totop" class="fp-cell fp-cell-top" type="button" title="返回顶部" aria-label="返回顶部">
-        <%- partial('partials/fp-icon-arrow') %>
-      </button>
-    </div>
+    <div class="fp-launcher-group fp-launcher-group-right" role="group" aria-label="阅读工具">
+      <!-- back to top — just a button, no subpanel arrow above -->
+      <div class="fp-slot">
+        <div class="fp-strip fp-strip-3d" aria-hidden="true"></div>
+        <button id="totop" class="fp-cell fp-cell-top" type="button" title="返回顶部" aria-label="返回顶部">
+          <%- partial('partials/fp-icon-arrow') %>
+        </button>
+      </div>
 
-    <!-- 阅读设置 — the Style Manager's Font module -->
-    <div class="fp-slot">
-      <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
-        <%- partial('partials/fp-icon-subarrow') %>
-      </button>
-      <button id="read-toggle" class="fp-cell" type="button" title="阅读设置" aria-label="阅读设置" aria-expanded="false" aria-controls="read-panel">
-        <%- partial('partials/fp-icon-font') %>
-      </button>
-    </div>
+      <!-- 阅读设置 — the Style Manager's Font module -->
+      <div class="fp-slot">
+        <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
+          <%- partial('partials/fp-icon-subarrow') %>
+        </button>
+        <button id="read-toggle" class="fp-cell" type="button" title="阅读设置" aria-label="阅读设置" aria-expanded="false" aria-controls="read-panel">
+          <%- partial('partials/fp-icon-font') %>
+        </button>
+      </div>
 
-    <!-- 配色方案 — the Style Manager's Colour module -->
-    <div class="fp-slot">
-      <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
-        <%- partial('partials/fp-icon-subarrow') %>
-      </button>
-      <button id="palette-toggle" class="fp-cell" type="button" title="配色方案" aria-label="配色方案" aria-expanded="false" aria-controls="palette-panel">
-        <%- partial('partials/fp-icon-color') %>
-      </button>
+      <!-- 配色方案 — the Style Manager's Colour module -->
+      <div class="fp-slot">
+        <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
+          <%- partial('partials/fp-icon-subarrow') %>
+        </button>
+        <button id="palette-toggle" class="fp-cell" type="button" title="配色方案" aria-label="配色方案" aria-expanded="false" aria-controls="palette-panel">
+          <%- partial('partials/fp-icon-color') %>
+        </button>
+      </div>
     </div>
 
     <!-- right handle: grip under the iconify button -->

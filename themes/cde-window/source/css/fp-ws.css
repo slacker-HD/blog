@@ -1,5 +1,5 @@
 /* ============================================================
- * CDE front panel work area — 4 flat cells (2×2) for footer
+ * CDE front panel work area — four coloured workspace cells and side controls
  * ============================================================ */
 .fp-ws {
   display: grid;
@@ -7,13 +7,15 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
   min-width: 0;
-  gap: 3px;
-  padding: 3px 4px;
-  background: var(--cde-ti);
-  border: 1px solid var(--cde-ti-shadow);
-  box-shadow:
-    inset 1px 1px 0 var(--cde-ti-light),
-    inset -1px -1px 0 var(--cde-ti-shadow);
+  gap: 6px;
+}
+
+.fp-ws-frame {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  min-width: 0;
+  margin: 1px 0;
 }
 
 .fp-ws-cell {
@@ -21,83 +23,154 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: center;
-  gap: 0 4px;
-  padding: 1px 3px;
+  justify-content: flex-start;
+  gap: 0 5px;
+  padding: 2px 7px;
   min-width: 0;
   min-height: 0;
   font-size: calc(var(--cde-ui-size) - 3px);
   line-height: 1.1;
-  background: var(--cde-menu);
-  color: var(--cde-menu-text);
-  border: 1px solid var(--cde-ti-shadow);
+  background: var(--fp-ws-bg);
+  color: var(--fp-ws-text);
+  border: 2px solid;
+  border-top-color: var(--fp-ws-light);
+  border-left-color: var(--fp-ws-light);
+  border-right-color: var(--fp-ws-shadow);
+  border-bottom-color: var(--fp-ws-shadow);
   box-shadow:
-    inset 1px 1px 0 var(--cde-ti-light),
-    inset -1px -1px 0 var(--cde-ti-shadow);
+    inset 1px 1px 0 var(--fp-ws-light),
+    inset -1px -1px 0 var(--fp-ws-shadow);
   word-break: break-word;
   overflow-wrap: anywhere;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
 }
 
 .fp-ws-cell:nth-child(1) {
-  background: var(--cde-title);
-  color: var(--cde-title-text);
+  --fp-ws-bg: var(--cde-ws-1);
+  --fp-ws-text: var(--cde-ws-1-text);
+  --fp-ws-light: var(--cde-ws-1-light);
+  --fp-ws-shadow: var(--cde-ws-1-shadow);
 }
 
 .fp-ws-cell:nth-child(2) {
-  background: var(--cde-menu);
-  color: var(--cde-menu-text);
+  --fp-ws-bg: var(--cde-ws-2);
+  --fp-ws-text: var(--cde-ws-2-text);
+  --fp-ws-light: var(--cde-ws-2-light);
+  --fp-ws-shadow: var(--cde-ws-2-shadow);
 }
 
 .fp-ws-cell:nth-child(3) {
-  background: var(--cde-title);
-  color: var(--cde-title-text);
+  --fp-ws-bg: var(--cde-ws-3);
+  --fp-ws-text: var(--cde-ws-3-text);
+  --fp-ws-light: var(--cde-ws-3-light);
+  --fp-ws-shadow: var(--cde-ws-3-shadow);
 }
 
 .fp-ws-cell:nth-child(4) {
-  background: var(--cde-menu);
-  color: var(--cde-menu-text);
+  --fp-ws-bg: var(--cde-ws-4);
+  --fp-ws-text: var(--cde-ws-4-text);
+  --fp-ws-light: var(--cde-ws-4-light);
+  --fp-ws-shadow: var(--cde-ws-4-shadow);
 }
 
-@supports (color: color-mix(in srgb, red, blue)) {
-  .fp-ws-cell:nth-child(1) {
-    background: color-mix(in srgb, var(--cde-title) 46%, var(--cde-panel) 54%);
-    color: var(--cde-panel-text);
-    box-shadow:
-      inset 1px 1px 0 var(--cde-panel-light),
-      inset -1px -1px 0 var(--cde-panel-shadow);
-  }
-
-  .fp-ws-cell:nth-child(2) {
-    background: color-mix(in srgb, var(--cde-menu) 48%, var(--cde-panel) 52%);
-    color: var(--cde-panel-text);
-    box-shadow:
-      inset 1px 1px 0 var(--cde-panel-light),
-      inset -1px -1px 0 var(--cde-panel-shadow);
-  }
-
-  .fp-ws-cell:nth-child(3) {
-    background: color-mix(in srgb, var(--cde-menu) 32%, var(--cde-panel) 68%);
-    color: var(--cde-panel-text);
-    box-shadow:
-      inset 1px 1px 0 var(--cde-panel-light),
-      inset -1px -1px 0 var(--cde-panel-shadow);
-  }
-
-  .fp-ws-cell:nth-child(4) {
-    background: color-mix(in srgb, var(--cde-title) 30%, var(--cde-panel) 70%);
-    color: var(--cde-panel-text);
-    box-shadow:
-      inset 1px 1px 0 var(--cde-panel-light),
-      inset -1px -1px 0 var(--cde-panel-shadow);
-  }
+.fp-ws-cell.fp-ws-cell-pressed {
+  border-top-color: var(--fp-ws-shadow);
+  border-left-color: var(--fp-ws-shadow);
+  border-right-color: var(--fp-ws-light);
+  border-bottom-color: var(--fp-ws-light);
+  box-shadow:
+    inset 1px 1px 0 var(--fp-ws-shadow),
+    inset -1px -1px 0 var(--fp-ws-light);
 }
 
 .fp-ws-cell a,
 .fp-ws-cell a:visited {
   color: inherit;
   text-decoration: none;
+}
+
+.fp-ws-icon {
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.25;
+}
+
+.fp-ws-cell > span {
+  min-width: 0;
+}
+
+.fp-mini-controls {
+  display: grid;
+  flex: 0 0 calc(var(--fp-cell-w) * 0.56);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  min-width: 0;
+  padding: 5px 3px;
+}
+
+.fp-mini-controls-left {
+  margin-right: 2px;
+}
+
+.fp-mini-controls-right {
+  margin-left: 2px;
+}
+
+.fp-mini-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--fp-cell-w) * 0.458);
+  height: calc(var(--fp-cell-w) * 0.458);
+  min-width: 0;
+  min-height: 0;
+  justify-self: center;
+  align-self: center;
+  padding: 0;
+  color: var(--cde-panel-text);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.fp-mini-button:disabled {
+  cursor: not-allowed;
+  color: var(--cde-ti-shadow);
+}
+
+.fp-mini-button:not(:disabled):hover {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-light),
+    inset -1px -1px 0 var(--cde-panel-shadow);
+}
+
+.fp-mini-button:not(:disabled):active {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-shadow),
+    inset -1px -1px 0 var(--cde-panel-light);
+}
+
+.fp-mini-button:focus-visible {
+  outline: 1px dotted var(--cde-panel-text);
+  outline-offset: -4px;
+}
+
+.fp-mini-button svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  flex: 0 0 auto;
 }
 
 .fp-ws-cell a:hover,
@@ -158,11 +231,20 @@
 }
 
 @media (max-width: 720px) {
+  .fp-workspace {
+    flex-wrap: wrap;
+  }
+
   .fp-ws {
     font-size: calc(var(--cde-ui-size) - 4px);
   }
   .fp-ws-cell {
     padding: 2px 4px;
     gap: 2px;
+  }
+
+  .fp-mini-controls {
+    flex-basis: calc(var(--fp-cell-w) * 0.56);
+    padding: 4px 2px;
   }
 }

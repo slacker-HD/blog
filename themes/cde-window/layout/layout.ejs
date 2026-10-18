@@ -1,66 +1,76 @@
 <!DOCTYPE html>
-<html lang="<%= config.language || 'zh-cn' %>" data-palette="<%= theme.palette || 'Broica' %>">
-<%- partial('partials/head') %>
-<body class="<%= is_post() ? 'post-page' : '' %>">
-  <div id="wrapper" class="window-frame">
-    <%- partial('partials/header') %>
-    <%- partial('partials/menubar') %>
-    <div class="window-body">
-      <%- partial('partials/sidebar') %>
-      <main id="main" class="window-content">
-        <%- body %>
-      </main>
+<html
+  lang="<%= config.language || 'zh-cn' %>"
+  data-palette="<%= theme.palette || 'Broica' %>"
+>
+  <%- partial('partials/head') %>
+  <body class="<%= is_post() ? 'post-page' : '' %>">
+    <div id="wrapper" class="window-frame">
+      <%- partial('partials/header') %> <%- partial('partials/menubar') %>
+      <div class="window-body">
+        <%- partial('partials/sidebar') %>
+        <main id="main" class="window-content"><%- body %></main>
+      </div>
     </div>
-  </div>
-  <%- partial('partials/footer') %>
+    <%- partial('partials/footer') %>
 
-  <script src="<%- url_for('/js/copycode.js') %>"></script>
-  <script src="<%- url_for('/js/codeblock.js') %>"></script>
-  <script src="<%- url_for('/js/toc.js') %>"></script>
-  <script src="<%- url_for('/js/totop.js') %>"></script>
-  <script src="<%- url_for('/js/panels.js') %>"></script>
-  <script src="<%- url_for('/js/panels-close.js') %>"></script>
-  <script src="<%- url_for('/js/search.js') %>"></script>
-  <script src="<%- url_for('/js/personalize.js') %>"></script>
-  <script src="<%- url_for('/js/palette.js') %>"></script>
-  <script src="<%- url_for('/js/frontpanel.js') %>"></script>
-  <% if (page.math){ %>
-  <script defer src="<%- url_for('/libs/katex/katex.min.js') %>"></script>
-  <script defer src="<%- url_for('/libs/katex/contrib/auto-render.min.js') %>"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (typeof renderMathInElement !== 'function') {
-        console.error('KaTeX auto-render did not load for this page.');
-        return;
-      }
-      var content = document.querySelector('.post-content');
-      if (!content) return;
-      renderMathInElement(content, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option']
+    <script src="<%- url_for('/js/copycode.js') %>"></script>
+    <script src="<%- url_for('/js/codeblock.js') %>"></script>
+    <script src="<%- url_for('/js/toc.js') %>"></script>
+    <script src="<%- url_for('/js/totop.js') %>"></script>
+    <script src="<%- url_for('/js/panels.js') %>"></script>
+    <script src="<%- url_for('/js/panels-close.js') %>"></script>
+    <script src="<%- url_for('/js/search.js') %>"></script>
+    <script src="<%- url_for('/js/personalize.js') %>"></script>
+    <script src="<%- url_for('/js/palette.js') %>"></script>
+    <script src="<%- url_for('/js/frontpanel.js') %>"></script>
+    <script src="<%- url_for('/js/article-controls.js') %>"></script>
+    <% if (page.math){ %>
+    <script defer src="<%- url_for('/libs/katex/katex.min.js') %>"></script>
+    <script
+      defer
+      src="<%- url_for('/libs/katex/contrib/auto-render.min.js') %>"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof renderMathInElement !== "function") {
+          console.error("KaTeX auto-render did not load for this page.");
+          return;
+        }
+        var content = document.querySelector(".post-content");
+        if (!content) return;
+        renderMathInElement(content, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\[", right: "\\]", display: true },
+            { left: "\\(", right: "\\)", display: false },
+          ],
+          ignoredTags: [
+            "script",
+            "noscript",
+            "style",
+            "textarea",
+            "pre",
+            "code",
+            "option",
+          ],
+        });
       });
-    });
-  </script>
-  <% } %>
-  <% if (page.fancybox){ %>
-  <script src="<%- url_for('/js/image-viewer.js') %>"></script>
-  <% } %>
-  <% if (theme.baidu_analytics){ %>
-  <script>
-    window._hmt = window._hmt || [];
-    (function () {
-      var hm = document.createElement('script');
-      hm.async = true;
-      hm.src = 'https://hm.baidu.com/hm.js?<%= theme.baidu_analytics %>';
-      var firstScript = document.getElementsByTagName('script')[0];
-      firstScript.parentNode.insertBefore(hm, firstScript);
-    })();
-  </script>
-  <% } %>
-</body>
+    </script>
+    <% } %> <% if (page.fancybox){ %>
+    <script src="<%- url_for('/js/image-viewer.js') %>"></script>
+    <% } %> <% if (theme.baidu_analytics){ %>
+    <script>
+      window._hmt = window._hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.async = true;
+        hm.src = "https://hm.baidu.com/hm.js?<%= theme.baidu_analytics %>";
+        var firstScript = document.getElementsByTagName("script")[0];
+        firstScript.parentNode.insertBefore(hm, firstScript);
+      })();
+    </script>
+    <% } %>
+  </body>
 </html>

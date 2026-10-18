@@ -71,6 +71,7 @@ git checkout "stash@{0}^3" -- themes/cde-window
 | 同上，launcher 条目 | `(1x1, Colorset 23, Frame 0, PressColorset 24)` —— launcher 是 **平的**（`Frame 0`），只有按下时换 `PressColorset` 的凹陷。 |
 | 同上，子面板箭头 | 16px 那条里的箭头是 `Frame 1` → **凸起**，箭头朝上（面板在屏幕底部，子面板向上弹）。 |
 | 同上 | Btn1 = pclock（时钟），Btn2 = FPMonthDayApplet（日历）。 |
+| `nscde_tools/palette_colorgen.in` | Workspace Manager 的四个按钮使用调色板 `bg[3]`、`bg[5]`、`bg[6]`、`bg[7]`；主题通过 `--cde-ws-1` 至 `--cde-ws-4` 及各自明暗边缘变量复现。 |
 | `nscde_tools/fpclock.in` | 时针分针用 `-H`、秒针用 `-S`，楔形时/分针，线形秒针。 |
 | `FrontPanel.fvwm3.fvwmconf` | `fpclock -w -B .../Fpclock.xpm` —— 表盘就是 `Fpclock.xpm`。 |
 | `src/pclock/XPM/Fpclock.xpm` | **表盘是八边形，不是圆**：外圈切角、双层边框、内圈面、细刻度。 |

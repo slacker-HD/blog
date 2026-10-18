@@ -13,8 +13,9 @@
  * The colours are a palette file's eight colours — each line of a .dp
  * file is #RRRRGGGGBBBB — mapped onto the Motif coloursets this theme
  * uses (line 1 titlebar, 2 unfocused window, 4 text field, 5 general UI,
- * 6 menus, 8 front panel), plus the top shadow / bottom shadow / select /
- * foreground Motif derives from each of them.  The maths is NsCDE's own
+ * 6 menus, 8 front panel, and 3/5/6/7 for the four workspace buttons),
+ * plus the top shadow / bottom shadow / select / foreground Motif derives
+ * from each of them. The maths is NsCDE's own
  * (nscde_tools/palette_colorgen.in).  See the script for the two places
  * where the bevel direction is forced back the right way.
  *
@@ -56,6 +57,23 @@ html[data-palette="Alpine"] {
   --cde-input-light: #e4e4e6;
   --cde-input-shadow: #69696c;
   --cde-input-text: #000000;
+
+  --cde-ws-1: #7ab8d7;
+  --cde-ws-1-light: #c5e0ee;
+  --cde-ws-1-shadow: #416373;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #be9179;
+  --cde-ws-2-light: #e3cfc4;
+  --cde-ws-2-shadow: #634c3f;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #bebfc4;
+  --cde-ws-3-light: #e4e4e6;
+  --cde-ws-3-shadow: #69696c;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #bcbcea;
+  --cde-ws-4-light: #e3e3f6;
+  --cde-ws-4-shadow: #696983;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
@@ -106,6 +124,23 @@ html[data-palette="Autumn"] {
   --cde-input-shadow: #291e1b;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #94685b;
+  --cde-ws-1-light: #cebab4;
+  --cde-ws-1-shadow: #49332d;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #a48d4d;
+  --cde-ws-2-light: #d6ccaf;
+  --cde-ws-2-shadow: #524727;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #6c9071;
+  --cde-ws-3-light: #bdcdbf;
+  --cde-ws-3-shadow: #364838;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #8a4641;
+  --cde-ws-4-light: #c9a9a7;
+  --cde-ws-4-shadow: #41211f;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -154,6 +189,23 @@ html[data-palette="BlueNight"] {
   --cde-input-light: #e4ddda;
   --cde-input-shadow: #685f5c;
   --cde-input-text: #000000;
+
+  --cde-ws-1: #9a858e;
+  --cde-ws-1-light: #d2c9cd;
+  --cde-ws-1-shadow: #4f4449;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #7594a8;
+  --cde-ws-2-light: #c2d0d8;
+  --cde-ws-2-shadow: #3c4c56;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #487890;
+  --cde-ws-3-light: #abc1cc;
+  --cde-ws-3-shadow: #233a46;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #6b887d;
+  --cde-ws-4-light: #bcc9c4;
+  --cde-ws-4-shadow: #35443e;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
@@ -204,6 +256,23 @@ html[data-palette="Cabernet"] {
   --cde-input-shadow: #232c2d;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #466256;
+  --cde-ws-1-light: #a9b6b0;
+  --cde-ws-1-shadow: #212e28;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #b55c71;
+  --cde-ws-2-light: #deb6bf;
+  --cde-ws-2-shadow: #5b2e39;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #823b47;
+  --cde-ws-3-light: #c5a4a9;
+  --cde-ws-3-shadow: #3d1c21;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #794655;
+  --cde-ws-4-light: #c1a9b0;
+  --cde-ws-4-shadow: #392128;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -252,6 +321,23 @@ html[data-palette="Charcoal"] {
   --cde-input-light: #c9bdbd;
   --cde-input-shadow: #433535;
   --cde-input-text: #ffffff;
+
+  --cde-ws-1: #696363;
+  --cde-ws-1-light: #bab7b7;
+  --cde-ws-1-shadow: #323030;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #818484;
+  --cde-ws-2-light: #c7c8c8;
+  --cde-ws-2-shadow: #414343;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #636f6d;
+  --cde-ws-3-light: #b8bdbc;
+  --cde-ws-3-shadow: #303535;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #909090;
+  --cde-ws-4-light: #cecece;
+  --cde-ws-4-shadow: #4a4a4a;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
@@ -302,6 +388,23 @@ html[data-palette="Chocolate"] {
   --cde-input-shadow: #4b3c3c;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #8686ae;
+  --cde-ws-1-light: #cacadb;
+  --cde-ws-1-shadow: #45455a;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #b89f9f;
+  --cde-ws-2-light: #e0d5d5;
+  --cde-ws-2-shadow: #625555;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #a48282;
+  --cde-ws-3-light: #d7c8c8;
+  --cde-ws-3-shadow: #544343;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #babad8;
+  --cde-ws-4-light: #e2e2ef;
+  --cde-ws-4-shadow: #676777;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -350,6 +453,23 @@ html[data-palette="Cinnamon"] {
   --cde-input-light: #c6bab6;
   --cde-input-shadow: #40332f;
   --cde-input-text: #ffffff;
+
+  --cde-ws-1: #796e6d;
+  --cde-ws-1-light: #c2bdbd;
+  --cde-ws-1-shadow: #3b3635;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #9a6862;
+  --cde-ws-2-light: #d1bab8;
+  --cde-ws-2-shadow: #4c3330;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #a18d8c;
+  --cde-ws-3-light: #d6cdcc;
+  --cde-ws-3-shadow: #534948;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #837575;
+  --cde-ws-4-light: #c7c1c0;
+  --cde-ws-4-shadow: #413a3a;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
@@ -400,6 +520,23 @@ html[data-palette="CoralReef"] {
   --cde-input-shadow: #545265;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #78a0d4;
+  --cde-ws-1-light: #c4d5ec;
+  --cde-ws-1-shadow: #3f5470;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #3296c6;
+  --cde-ws-2-light: #a3d0e6;
+  --cde-ws-2-shadow: #194c64;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #e19c83;
+  --cde-ws-3-light: #f2d4c9;
+  --cde-ws-3-shadow: #785346;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #768ba0;
+  --cde-ws-4-light: #c2cbd5;
+  --cde-ws-4-shadow: #3c4752;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -448,6 +585,23 @@ html[data-palette="Dakota"] {
   --cde-input-light: #eed1cb;
   --cde-input-shadow: #734f48;
   --cde-input-text: #ffffff;
+
+  --cde-ws-1: #a6787b;
+  --cde-ws-1-light: #d7c2c4;
+  --cde-ws-1-shadow: #543d3e;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #9d7e77;
+  --cde-ws-2-light: #d3c5c2;
+  --cde-ws-2-shadow: #503f3c;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #b14b6e;
+  --cde-ws-3-light: #dcadbd;
+  --cde-ws-3-shadow: #572536;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #cd5e62;
+  --cde-ws-4-light: #e9b7b9;
+  --cde-ws-4-shadow: #672f31;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
@@ -498,6 +652,23 @@ html[data-palette="DarkBlue"] {
   --cde-input-shadow: #293035;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #5e656e;
+  --cde-ws-1-light: #b5b8bc;
+  --cde-ws-1-shadow: #2d3035;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #65698a;
+  --cde-ws-2-light: #b9bbca;
+  --cde-ws-2-shadow: #313343;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #506074;
+  --cde-ws-3-light: #aeb5bf;
+  --cde-ws-3-shadow: #262e37;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #73738f;
+  --cde-ws-4-light: #c0c0cc;
+  --cde-ws-4-shadow: #393947;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -546,6 +717,23 @@ html[data-palette="DarkGold"] {
   --cde-input-light: #ffffff;
   --cde-input-shadow: #989887;
   --cde-input-text: #000000;
+
+  --cde-ws-1: #535570;
+  --cde-ws-1-light: #afb0bc;
+  --cde-ws-1-shadow: #272835;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #a7a7a7;
+  --cde-ws-2-light: #d9d9d9;
+  --cde-ws-2-shadow: #595959;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #799ca0;
+  --cde-ws-3-light: #c4d3d5;
+  --cde-ws-3-shadow: #3e5052;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #867fb4;
+  --cde-ws-4-light: #c9c6de;
+  --cde-ws-4-shadow: #45415d;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
@@ -596,6 +784,23 @@ html[data-palette="Desert"] {
   --cde-input-shadow: #979795;
   --cde-input-text: #000000;
 
+  --cde-ws-1: #8b8e97;
+  --cde-ws-1-light: #cccdd1;
+  --cde-ws-1-shadow: #48494e;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #9fadb4;
+  --cde-ws-2-light: #d5dcdf;
+  --cde-ws-2-shadow: #555d60;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #6f97a2;
+  --cde-ws-3-light: #bfd1d6;
+  --cde-ws-3-shadow: #394d53;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #739ebc;
+  --cde-ws-4-light: #c1d4e2;
+  --cde-ws-4-shadow: #3c5262;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
   --cde-code-red: #bf4a3a;
@@ -644,6 +849,23 @@ html[data-palette="Dierra"] {
   --cde-input-light: #b3d2d7;
   --cde-input-shadow: #2b4d54;
   --cde-input-text: #ffffff;
+
+  --cde-ws-1: #dbd0b9;
+  --cde-ws-1-light: #f0ebe2;
+  --cde-ws-1-shadow: #7b7568;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #837999;
+  --cde-ws-2-light: #c8c3d2;
+  --cde-ws-2-shadow: #423d4d;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #85c1a2;
+  --cde-ws-3-light: #cae4d6;
+  --cde-ws-3-shadow: #466656;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #988f9f;
+  --cde-ws-4-light: #d1cdd5;
+  --cde-ws-4-shadow: #4e4a53;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
@@ -694,6 +916,23 @@ html[data-palette="Equinox"] {
   --cde-input-shadow: #405f53;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #b08eb7;
+  --cde-ws-1-light: #ddcee0;
+  --cde-ws-1-shadow: #5d4b61;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #827992;
+  --cde-ws-2-light: #c7c3ce;
+  --cde-ws-2-shadow: #423d4a;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #6891df;
+  --cde-ws-3-light: #bccff1;
+  --cde-ws-3-shadow: #364c74;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #c282a2;
+  --cde-ws-4-light: #e4c9d6;
+  --cde-ws-4-shadow: #664555;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -742,6 +981,23 @@ html[data-palette="Forest"] {
   --cde-input-light: #a3bdbc;
   --cde-input-shadow: #1a3534;
   --cde-input-text: #ffffff;
+
+  --cde-ws-1: #467070;
+  --cde-ws-1-light: #a9bdbd;
+  --cde-ws-1-shadow: #213535;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #bd8571;
+  --cde-ws-2-light: #e2c9c0;
+  --cde-ws-2-shadow: #61453a;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #397a73;
+  --cde-ws-3-light: #a4c1be;
+  --cde-ws-3-shadow: #1b3a37;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #506092;
+  --cde-ws-4-light: #afb6cd;
+  --cde-ws-4-shadow: #262e47;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
@@ -792,6 +1048,23 @@ html[data-palette="Golden"] {
   --cde-input-shadow: #212e25;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #be826f;
+  --cde-ws-1-light: #e2c8bf;
+  --cde-ws-1-shadow: #614339;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #757ca5;
+  --cde-ws-2-light: #c1c4d7;
+  --cde-ws-2-shadow: #3b3e53;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #3d7777;
+  --cde-ws-3-light: #a6c0c0;
+  --cde-ws-3-shadow: #1d3939;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #2c7984;
+  --cde-ws-4-light: #9ec1c6;
+  --cde-ws-4-shadow: #153a3f;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -840,6 +1113,23 @@ html[data-palette="GrayScale"] {
   --cde-input-light: #cfcfcf;
   --cde-input-shadow: #4c4c4b;
   --cde-input-text: #ffffff;
+
+  --cde-ws-1: #bcbcbc;
+  --cde-ws-1-light: #e3e3e3;
+  --cde-ws-1-shadow: #676767;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #bcbcbc;
+  --cde-ws-2-light: #e2e2e2;
+  --cde-ws-2-shadow: #676767;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #939393;
+  --cde-ws-3-light: #cfcfcf;
+  --cde-ws-3-shadow: #4c4c4c;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #7f7f7f;
+  --cde-ws-4-light: #c5c5c5;
+  --cde-ws-4-shadow: #3f3f3f;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
@@ -890,6 +1180,23 @@ html[data-palette="Iris"] {
   --cde-input-shadow: #64645d;
   --cde-input-text: #000000;
 
+  --cde-ws-1: #4c719d;
+  --cde-ws-1-light: #adbed3;
+  --cde-ws-1-shadow: #25374d;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #999999;
+  --cde-ws-2-light: #d2d2d2;
+  --cde-ws-2-shadow: #505050;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #729b9b;
+  --cde-ws-3-light: #c0d3d3;
+  --cde-ws-3-shadow: #3a4f4f;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #b88d8d;
+  --cde-ws-4-light: #e0cdcd;
+  --cde-ws-4-shadow: #604a4a;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
   --cde-code-red: #bf4a3a;
@@ -938,6 +1245,23 @@ html[data-palette="Lilac"] {
   --cde-input-light: #e5e5e8;
   --cde-input-shadow: #6c6c6f;
   --cde-input-text: #000000;
+
+  --cde-ws-1: #a692b6;
+  --cde-ws-1-light: #d8cfdf;
+  --cde-ws-1-shadow: #574d60;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #a5a5ac;
+  --cde-ws-2-light: #d8d8db;
+  --cde-ws-2-shadow: #58585b;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #c5b1b1;
+  --cde-ws-3-light: #e6dede;
+  --cde-ws-3-shadow: #6b6060;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #c2c2d1;
+  --cde-ws-4-light: #e5e5ec;
+  --cde-ws-4-shadow: #6b6b74;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
@@ -988,6 +1312,23 @@ html[data-palette="Metro"] {
   --cde-input-shadow: #746349;
   --cde-input-text: #000000;
 
+  --cde-ws-1: #978c95;
+  --cde-ws-1-light: #d1ccd0;
+  --cde-ws-1-shadow: #4e484d;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #806b6c;
+  --cde-ws-2-light: #c5bcbc;
+  --cde-ws-2-shadow: #3f3535;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #c5977c;
+  --cde-ws-3-light: #e6d2c5;
+  --cde-ws-3-shadow: #674f41;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #9a8381;
+  --cde-ws-4-light: #d2c8c7;
+  --cde-ws-4-shadow: #4e4241;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
   --cde-code-red: #bf4a3a;
@@ -1036,6 +1377,23 @@ html[data-palette="Mocha"] {
   --cde-input-light: #eddfd7;
   --cde-input-shadow: #746359;
   --cde-input-text: #000000;
+
+  --cde-ws-1: #948078;
+  --cde-ws-1-light: #cfc6c3;
+  --cde-ws-1-shadow: #4b413d;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #7b5f47;
+  --cde-ws-2-light: #c2b5aa;
+  --cde-ws-2-shadow: #3a2d22;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #8e6760;
+  --cde-ws-3-light: #ccbab6;
+  --cde-ws-3-shadow: #46322f;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #ad998d;
+  --cde-ws-4-light: #dbd2cd;
+  --cde-ws-4-shadow: #5b504a;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
@@ -1086,6 +1444,23 @@ html[data-palette="Neptune"] {
   --cde-input-shadow: #3d4554;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #2d4e76;
+  --cde-ws-1-light: #9cacbe;
+  --cde-ws-1-shadow: #152436;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #647e94;
+  --cde-ws-2-light: #b9c5cf;
+  --cde-ws-2-shadow: #313e4a;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #3f7089;
+  --cde-ws-3-light: #a7bec9;
+  --cde-ws-3-shadow: #1e3642;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #3d7d83;
+  --cde-ws-4-light: #a6c3c6;
+  --cde-ws-4-shadow: #1d3c40;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -1134,6 +1509,23 @@ html[data-palette="Nordic"] {
   --cde-input-light: #9b9ea3;
   --cde-input-shadow: #14171c;
   --cde-input-text: #ffffff;
+
+  --cde-ws-1: #3b4252;
+  --cde-ws-1-light: #a2a5ad;
+  --cde-ws-1-shadow: #1b1e25;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #93c2c1;
+  --cde-ws-2-light: #d1e5e4;
+  --cde-ws-2-shadow: #506968;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #434c5e;
+  --cde-ws-3-light: #a7abb3;
+  --cde-ws-3-shadow: #1f232b;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #80a0c0;
+  --cde-ws-4-light: #c8d6e4;
+  --cde-ws-4-shadow: #435465;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
@@ -1184,6 +1576,23 @@ html[data-palette="NorthernSky"] {
   --cde-input-shadow: #002837;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #0d5a86;
+  --cde-ws-1-light: #8db1c6;
+  --cde-ws-1-shadow: #06293e;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #41525c;
+  --cde-ws-2-light: #a6aeb2;
+  --cde-ws-2-shadow: #1e262a;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #4b7b81;
+  --cde-ws-3-light: #adc2c6;
+  --cde-ws-3-shadow: #243b3f;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #28708a;
+  --cde-ws-4-light: #9bbdc9;
+  --cde-ws-4-shadow: #133542;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -1232,6 +1641,23 @@ html[data-palette="Olive"] {
   --cde-input-light: #eae5e1;
   --cde-input-shadow: #716b65;
   --cde-input-text: #000000;
+
+  --cde-ws-1: #867986;
+  --cde-ws-1-light: #c9c3c9;
+  --cde-ws-1-shadow: #433d43;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #ccbca9;
+  --cde-ws-2-light: #e9e3da;
+  --cde-ws-2-shadow: #70675d;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #e0a796;
+  --cde-ws-3-light: #f2d9d2;
+  --cde-ws-3-shadow: #795b52;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #b4a0b4;
+  --cde-ws-4-light: #dfd6df;
+  --cde-ws-4-shadow: #605660;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
@@ -1282,6 +1708,23 @@ html[data-palette="Orchid"] {
   --cde-input-shadow: #424257;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #a8a8cc;
+  --cde-ws-1-light: #dadae9;
+  --cde-ws-1-shadow: #5b5b6e;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #9abdd6;
+  --cde-ws-2-light: #d4e3ee;
+  --cde-ws-2-shadow: #546775;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #9797c7;
+  --cde-ws-3-light: #d2d2e7;
+  --cde-ws-3-shadow: #505069;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #8b8ba9;
+  --cde-ws-4-light: #ccccd9;
+  --cde-ws-4-shadow: #484857;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -1330,6 +1773,23 @@ html[data-palette="Pastel"] {
   --cde-input-light: #dedfe3;
   --cde-input-shadow: #616167;
   --cde-input-text: #000000;
+
+  --cde-ws-1: #9299c9;
+  --cde-ws-1-light: #d0d3e8;
+  --cde-ws-1-shadow: #4d516a;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #b5b6fc;
+  --cde-ws-2-light: #e0e0fe;
+  --cde-ws-2-shadow: #65668d;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #7e84a6;
+  --cde-ws-3-light: #c5c8d8;
+  --cde-ws-3-shadow: #404355;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #8d8bad;
+  --cde-ws-4-light: #cdccdb;
+  --cde-ws-4-shadow: #49485a;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
@@ -1380,6 +1840,23 @@ html[data-palette="RainForest"] {
   --cde-input-shadow: #4a4e36;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #72956d;
+  --cde-ws-1-light: #bfcfbd;
+  --cde-ws-1-shadow: #394a36;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #5c9158;
+  --cde-ws-2-light: #b5cdb3;
+  --cde-ws-2-shadow: #2d472b;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #ab8863;
+  --cde-ws-3-light: #dacab9;
+  --cde-ws-3-shadow: #574532;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #99925b;
+  --cde-ws-4-light: #d2ceb5;
+  --cde-ws-4-shadow: #4d4a2e;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -1428,6 +1905,23 @@ html[data-palette="Sand"] {
   --cde-input-light: #ededef;
   --cde-input-shadow: #78787b;
   --cde-input-text: #000000;
+
+  --cde-ws-1: #8ea2c0;
+  --cde-ws-1-light: #ced6e4;
+  --cde-ws-1-shadow: #4b5666;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #ae8081;
+  --cde-ws-2-light: #dbc7c7;
+  --cde-ws-2-shadow: #594242;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #bab4a7;
+  --cde-ws-3-light: #e1dfd9;
+  --cde-ws-3-shadow: #65615a;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #bebdd5;
+  --cde-ws-4-light: #e4e3ed;
+  --cde-ws-4-shadow: #696976;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
@@ -1478,6 +1972,23 @@ html[data-palette="SantaFe"] {
   --cde-input-shadow: #6f5f53;
   --cde-input-text: #000000;
 
+  --cde-ws-1: #bca28d;
+  --cde-ws-1-light: #e2d7cd;
+  --cde-ws-1-shadow: #64564b;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #83a5b5;
+  --cde-ws-2-light: #c9d8df;
+  --cde-ws-2-shadow: #45575f;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #7f9b8c;
+  --cde-ws-3-light: #c6d3cc;
+  --cde-ws-3-shadow: #414f48;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #72abc8;
+  --cde-ws-4-light: #c1dae7;
+  --cde-ws-4-shadow: #3c5a69;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
   --cde-code-red: #bf4a3a;
@@ -1526,6 +2037,23 @@ html[data-palette="Savannah"] {
   --cde-input-light: #ece3da;
   --cde-input-shadow: #73695c;
   --cde-input-text: #000000;
+
+  --cde-ws-1: #a0b2c7;
+  --cde-ws-1-light: #d6dee7;
+  --cde-ws-1-shadow: #56606b;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #c5b2a8;
+  --cde-ws-2-light: #e6deda;
+  --cde-ws-2-shadow: #6b615b;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #97a692;
+  --cde-ws-3-light: #d1d8cf;
+  --cde-ws-3-shadow: #4f574c;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #b6aea9;
+  --cde-ws-4-light: #e0dcda;
+  --cde-ws-4-shadow: #625d5b;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #8b8279;
   --cde-code-comment: #7f7a72;
@@ -1576,6 +2104,23 @@ html[data-palette="SoftBlue"] {
   --cde-input-shadow: #343434;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #5b84cf;
+  --cde-ws-1-light: #b6c8ea;
+  --cde-ws-1-shadow: #2e446a;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #93d4de;
+  --cde-ws-2-light: #d1edf1;
+  --cde-ws-2-shadow: #51757b;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #b7cdbb;
+  --cde-ws-3-light: #e1eae2;
+  --cde-ws-3-shadow: #657167;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #bcbcea;
+  --cde-ws-4-light: #e3e3f6;
+  --cde-ws-4-shadow: #696983;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -1625,6 +2170,23 @@ html[data-palette="SouthWest"] {
   --cde-input-shadow: #5b4645;
   --cde-input-text: #ffffff;
 
+  --cde-ws-1: #bf9b80;
+  --cde-ws-1-light: #e3d3c8;
+  --cde-ws-1-shadow: #645143;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #b76f4b;
+  --cde-ws-2-light: #dfbeae;
+  --cde-ws-2-shadow: #5b3725;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #877261;
+  --cde-ws-3-light: #c9bfb7;
+  --cde-ws-3-shadow: #433830;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #b78a75;
+  --cde-ws-4-light: #dfcbc2;
+  --cde-ws-4-shadow: #5e473c;
+  --cde-ws-4-text: #ffffff;
+
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;
   --cde-code-red: #ffc0b5;
@@ -1673,6 +2235,23 @@ html[data-palette="Terracotta"] {
   --cde-input-light: #d8bcbf;
   --cde-input-shadow: #553538;
   --cde-input-text: #ffffff;
+
+  --cde-ws-1: #886566;
+  --cde-ws-1-light: #c9b9b9;
+  --cde-ws-1-shadow: #433132;
+  --cde-ws-1-text: #ffffff;
+  --cde-ws-2: #ab948d;
+  --cde-ws-2-light: #dad0cd;
+  --cde-ws-2-shadow: #594d4a;
+  --cde-ws-2-text: #ffffff;
+  --cde-ws-3: #af807e;
+  --cde-ws-3-light: #dcc7c6;
+  --cde-ws-3-shadow: #5a4240;
+  --cde-ws-3-text: #ffffff;
+  --cde-ws-4: #5c8d8e;
+  --cde-ws-4-light: #b5cccc;
+  --cde-ws-4-shadow: #2e4747;
+  --cde-ws-4-text: #ffffff;
 
   --cde-code-gutter: #b9c2d0;
   --cde-code-comment: #c4ccd9;

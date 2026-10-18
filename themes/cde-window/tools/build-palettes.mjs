@@ -123,12 +123,13 @@ function parseDP(text, name) {
   });
 }
 
-/* line 1 = titlebar, 2 = unfocused window, 4 = text field, 5 = general UI,
- * 6 = menus, 8 = front panel.  Lines 3 and 7 (icon/widget background) are
- * not used by this theme. */
+/* CDE workspace buttons use lines 3, 5, 6, and 7. The other roles map to
+ * line 1 = titlebar, 2 = unfocused window, 4 = text field, 5 = general UI,
+ * 6 = menus, and 8 = front panel. */
 const ROLE_OF_LINE = { 1: 'title', 2: 'ti', 4: 'input', 5: 'face', 6: 'menu', 8: 'panel' };
 const EMIT_ORDER = ['face', 'title', 'ti', 'menu', 'panel', 'input'];
 const HAS_SEL = new Set(['face', 'title', 'menu']);
+const WORKSPACE_LINES = [3, 5, 6, 7];
 
 /* the six palettes already hand-written in style.css — reproduced, not emitted */
 const EXISTING = ['Broica', 'BeigeRose', 'Delphinium', 'Regal', 'SeaFoam', 'Crimson'];
@@ -226,6 +227,16 @@ function buildPalette(name, lines) {
       isDarkBg: d.text === undefined ? false : rgbHex(d.text) === '#ffffff'
     };
   }
+  out.workspace = WORKSPACE_LINES.map((lineNo) => {
+    const base = lines[lineNo - 1];
+    const d = derive(base);
+    return {
+      base: rgbHex(base),
+      light: rgbHex(d.light),
+      shadow: rgbHex(d.shadow),
+      text: '#ffffff'
+    };
+  });
   /* code tokens follow the text-field (colorset 4) foreground */
   out.code = out.roles.input.text === '#ffffff' ? CODE_LIGHT : CODE_DARK;
   out.swatch = [out.roles.face.base, out.roles.title.base, out.roles.panel.base];
@@ -281,8 +292,21 @@ async function main() {
         if (want[key] !== value) problems.push(`${p.name}: ${key} style.css=${want[key] ?? '(absent)'} generated=${value}`);
       }
     }
+    p.workspace.forEach((r, index) => {
+      const role = `ws-${index + 1}`;
+      const expect = {
+        [`--cde-${role}`]: r.base,
+        [`--cde-${role}-light`]: r.light,
+        [`--cde-${role}-shadow`]: r.shadow,
+        [`--cde-${role}-text`]: r.text
+      };
+      for (const [key, value] of Object.entries(expect)) {
+        if (want[key] !== value) problems.push(`${p.name}: ${key} style.css=${want[key] ?? '(absent)'} generated=${value}`);
+      }
+    });
     for (const key of Object.keys(want)) {
-      if (!/^--cde-(face|title|ti|menu|panel|input)(-light|-shadow|-text|-sel)?$/.test(key)) {
+      if (!/^--cde-(face|title|ti|menu|panel|input)(-light|-shadow|-text|-sel)?$/.test(key) &&
+          !/^--cde-ws-[1-4](-light|-shadow|-text)?$/.test(key)) {
         problems.push(`${p.name}: unexpected style.css variable ${key}`);
       }
     }
@@ -339,6 +363,14 @@ async function main() {
         if (r.sel) lines.push(`  --cde-${role}-sel: ${r.sel};`);
       }
       lines.push('');
+      p.workspace.forEach((r, index) => {
+        const role = `ws-${index + 1}`;
+        lines.push(`  --cde-${role}: ${r.base};`);
+        lines.push(`  --cde-${role}-light: ${r.light};`);
+        lines.push(`  --cde-${role}-shadow: ${r.shadow};`);
+        lines.push(`  --cde-${role}-text: ${r.text};`);
+      });
+      lines.push('');
       for (const [key, value] of Object.entries(p.code)) {
         lines.push(`  --cde-code-${key}: ${value};`);
       }
@@ -362,8 +394,9 @@ async function main() {
  * The colours are a palette file's eight colours — each line of a .dp
  * file is #RRRRGGGGBBBB — mapped onto the Motif coloursets this theme
  * uses (line 1 titlebar, 2 unfocused window, 4 text field, 5 general UI,
- * 6 menus, 8 front panel), plus the top shadow / bottom shadow / select /
- * foreground Motif derives from each of them.  The maths is NsCDE's own
+ * 6 menus, 8 front panel, and 3/5/6/7 for the four workspace buttons),
+ * plus the top shadow / bottom shadow / select / foreground Motif derives
+ * from each of them. The maths is NsCDE's own
  * (nscde_tools/palette_colorgen.in).  See the script for the two places
  * where the bevel direction is forced back the right way.
  *
