@@ -1,0 +1,27 @@
+<% if (theme.menu){ %>
+<%
+  // 支持两种写法：
+  //   1) 列表：menu: [{ name: 首页, url: / }, ...]  （推荐，可自定义文字/顺序/外部链接）
+  //   2) 旧式映射：menu: { 首页: /, ... }
+  var items = [];
+  if (Array.isArray(theme.menu)) {
+    theme.menu.forEach(function (m) {
+      if (m == null) return;
+      if (typeof m === 'string') { items.push({ name: m, url: m }); return; }
+      var name = m.name || m.title || m.page;
+      var url = m.url || m.directory;
+      if (name && url) items.push({ name: name, url: url });
+    });
+  } else if (typeof theme.menu === 'object') {
+    Object.keys(theme.menu).forEach(function (k) {
+      items.push({ name: k, url: theme.menu[k] });
+    });
+  }
+%>
+<nav class="menubar">
+  <% items.forEach(function (it) { %>
+    <% var href = /^([a-z][a-z0-9+.-]*:)?\/\//i.test(it.url) ? it.url : url_for(it.url); %>
+    <a href="<%- href %>"><%= it.name %></a>
+  <% }); %>
+</nav>
+<% } %>

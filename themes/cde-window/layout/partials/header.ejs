@@ -1,0 +1,18 @@
+<header id="titlebar" class="titlebar">
+  <div class="titlebar-controls left">
+    <span class="titlebar-btn menu" title="窗口菜单 (Window Menu)"></span>
+  </div>
+  <div id="titlebar-inner" class="titlebar-title">
+    <a href="<%= url_for('/') %>">
+      <% if (page.title){ %>
+        <%= theme.window_title_prefix || '' %><%= page.title %>
+      <% } else { %>
+        <%= config.title %><% if (config.subtitle){ %> - <%= config.subtitle %><% } %>
+      <% } %>
+    </a>
+  </div>
+  <div class="titlebar-controls right">
+    <span class="titlebar-btn min" title="最小化 (Minimize)"></span>
+    <span class="titlebar-btn max" title="最大化 (Maximize)"></span>
+  </div>
+</header>

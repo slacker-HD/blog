@@ -1,0 +1,30 @@
+<% page.posts.each(function(post){ %>
+  <article class="post cde-panel">
+    <header class="post-header">
+      <h2 class="post-title">
+        <a href="<%- url_for(post.path) %>"><%= post.title || '无题' %></a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, config.date_format) %></time>
+        <% if (post.categories && post.categories.length){ %>
+          | <span class="categories">
+            <% post.categories.forEach(function(cat, idx){ %>
+              <a href="<%- url_for(cat.path) %>"><%= cat.name %></a><% if (idx < post.categories.length-1){ %>, <% } %>
+            <% }); %>
+          </span>
+        <% } %>
+      </div>
+    </header>
+    <% if (theme.excerpt && post.excerpt){ %>
+      <div class="post-excerpt"><%- post.excerpt %></div>
+      <p class="read-more"><a href="<%- url_for(post.path) %>">阅读更多</a></p>
+    <% } else if (theme.excerpt && post.content){ %>
+      <div class="post-excerpt"><%- strip_html(post.content).substring(0, 200) %>...</div>
+      <p class="read-more"><a href="<%- url_for(post.path) %>">阅读更多</a></p>
+    <% } else { %>
+      <div class="post-content"><%- post.content %></div>
+    <% } %>
+  </article>
+<% }) %>
+
+<%- partial('partials/paginator') %>

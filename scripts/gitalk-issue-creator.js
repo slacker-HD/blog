@@ -87,16 +87,24 @@ function githubRequest(method, apiPath, data, token, proxyUrl) {
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-function loadGitalkConfig(baseDir) {
-  const configPath = path.join(baseDir, '_config.BlueLake.yml');
-  if (!fs.existsSync(configPath)) return null;
-  try {
-    const content = fs.readFileSync(configPath, 'utf8');
-    const config = yaml.load(content);
-    return config && config.gitalk ? config.gitalk : null;
-  } catch (e) {
-    return null;
+function loadGitalkConfig(baseDir, themeName) {
+  // Gitalk secrets live in the site-root _config.<theme>.yml of the active
+  // theme (e.g. _config.cde-window.yml). Fall back to BlueLake for older setups.
+  const candidates = [];
+  if (themeName) candidates.push(`_config.${themeName}.yml`);
+  candidates.push('_config.BlueLake.yml');
+  for (const name of candidates) {
+    const configPath = path.join(baseDir, name);
+    if (!fs.existsSync(configPath)) continue;
+    try {
+      const content = fs.readFileSync(configPath, 'utf8');
+      const config = yaml.load(content);
+      if (config && config.gitalk) return config.gitalk;
+    } catch (e) {
+      // try the next candidate
+    }
   }
+  return null;
 }
 
 function getAllPostPaths(dir, basePath = '') {
@@ -122,7 +130,7 @@ function getAllPostPaths(dir, basePath = '') {
 
 hexo.extend.filter.register('after_generate', async function () {
   const baseDir = hexo.base_dir;
-  const gitalkConfig = loadGitalkConfig(baseDir);
+  const gitalkConfig = loadGitalkConfig(baseDir, hexo.config.theme);
 
   if (!gitalkConfig || !gitalkConfig.enable) return;
 

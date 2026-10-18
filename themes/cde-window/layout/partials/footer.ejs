@@ -1,0 +1,246 @@
+<%
+  var footer = theme.footer || {};
+  var showFeed = footer.feed !== false;
+  var showBusuanzi = footer.busuanzi !== false;
+
+  /* The dial of the front panel clock, traced off Fpclock.xpm -- the face
+     NsCDE hands to pclock with `-B .../Fpclock.xpm`, and also the face pclock
+     itself #includes and uses by default (`DEFAULT_XPM = Fpclock.xpm`).
+
+     It is not round.  It is an octagon: a 50x50 square in the middle of the
+     64x64 box with its corners chamfered 3px, ringed inside by 1px of
+     bottomShadow and 1px of topShadow, then a band of `background`, and finally
+     a 40x40 octagon chamfered 6px for the face.  Twelve white hour ticks sit
+     in the band -- in the bitmap they are only a pixel or two each, so they are
+     drawn here as short radial strokes out at the rim.
+
+     The ticks are the only geometry worth computing, so they are computed here;
+     the hands are left to frontpanel.js, which knows what time it is.  pclock
+     fills the hour and minute hands as wedges -- XFillPolygon from the centre
+     out to the tip -- and strokes the second hand as a plain line, so the markup
+     follows suit: two <polygon>s and one <line>. */
+  function tick(i) {
+    var a = i * Math.PI / 6, s = Math.sin(a), c = Math.cos(a);
+    return {
+      x1: (32 + 19.5 * s).toFixed(2), y1: (32 - 19.5 * c).toFixed(2),
+      x2: (32 + 23.0 * s).toFixed(2), y2: (32 - 23.0 * c).toFixed(2)
+    };
+  }
+%>
+<!--
+  CDE Front Panel.
+
+  A real front panel is 79px of three stacked bands: a 16px strip of subpanel
+  arrows, 62px of flat 63x62 launcher cells wearing a 48x48 bitmap, and a 1px
+  shadow rule.  Each end is capped by a handle (NsCDE FpHandle.xpm): a
+  corrugated grip with a raised menu / iconify button above it.
+
+  Reading left to right, this panel is:
+
+    [handle]  [clock] [calendar]      work area       [top] [font] [colour]  [handle]
+    ^ FpMenu  ^ pclock  ^ FpCM                          ^ the site's own controls
+              \____________________/          \__________________________/
+               the CDE calendar pair           the Style Manager modules
+
+  The launcher cells are FLAT -- NsCDE gives them `Frame 0, Padding 0 0` and a
+  press pixmap, so CDE's panel buttons are colour patches that sink in when
+  pressed, not raised buttons.  Only the subpanel arrows above them are
+  beveled (`Frame 1`), and the panel's outer edge is raised.
+
+  They carry no captions.  NsCDE never sets a `Title` on a front panel button,
+  so a real panel is icon-only; the button names live in `title` / `aria-label`
+  where only a screen reader and a tooltip can see them.
+
+  Every cell that opens a panel (日历 / 阅读设置 / 配色方案) carries a subpanel
+  arrow in the strip above it, the way CDE flags a control with something
+  behind it.
+
+  The icons are the original CDE bitmaps, inlined rather than linked from an
+  <img>: a CDE bitmap paints with Motif's symbolic colours, which are *roles*
+  -- the colourset's own shadows, the icon colour set, the grey ramp -- and
+  only an inline SVG can resolve those against the live 配色方案.  A linked
+  <img> would keep whatever colours were baked in at build time.  tools/
+  build-fp-icons.mjs turns the cached bitmaps into layout/partials/
+  fp-icon-*.ejs and documents the role mapping; style.css builds the ramp.
+
+  The work area is CDE's workspace switch: one raised frame, 78px tall, split
+  into two rows and three columns.  The six cells keep the site's footer links
+  and information, using the colour blocks of CDE's One/Two/Three/Four pages.
+
+  The three dialogs live inside the panel and hang off its top edge, so they
+  follow the panel wherever the reading size puts it.
+-->
+<footer id="window-footer" class="front-panel">
+  <div class="fp-rail">
+
+    <!-- left handle: menu button over the grip -->
+    <div class="fp-cap fp-cap-l" aria-hidden="true">
+      <span class="fp-capbox"></span>
+      <span class="fp-grip"></span>
+    </div>
+
+    <!-- the clock (CDE's first launcher is pclock) -->
+    <div class="fp-slot">
+      <div class="fp-strip"></div>
+      <div class="fp-cell fp-cell-clock" title="当前时间">
+        <svg class="fp-dial" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <polygon class="fp-dial-o" points="10,7 54,7 57,10 57,54 54,57 10,57 7,54 7,10"/>
+          <polygon class="fp-dial-l" points="11,8 53,8 56,11 56,53 53,56 11,56 8,53 8,11"/>
+          <polygon class="fp-dial-b" points="12,9 52,9 55,12 55,52 52,55 12,55 9,52 9,12"/>
+          <polygon class="fp-dial-f" points="18,12 46,12 52,18 52,46 46,52 18,52 12,46 12,18"/>
+          <% for (var i = 0; i < 12; i++) { var t = tick(i); %>
+          <line class="fp-tick" x1="<%- t.x1 %>" y1="<%- t.y1 %>" x2="<%- t.x2 %>" y2="<%- t.y2 %>"/>
+          <% } %>
+          <polygon id="fp-hand-h" class="fp-hand fp-hand-h" points="32,20 34,32 30,32"/>
+          <polygon id="fp-hand-m" class="fp-hand fp-hand-m" points="32,16 33.5,32 30.5,32"/>
+          <line id="fp-hand-s" class="fp-hand fp-hand-s" x1="32" y1="32" x2="32" y2="12"/>
+        </svg>
+        <span class="fp-sr">当前时间 <time id="fp-time">--:--</time></span>
+      </div>
+    </div>
+
+    <!-- the calendar (CDE's Calendar Manager launcher) -->
+    <div class="fp-slot">
+      <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
+        <%- partial('partials/fp-icon-subarrow') %>
+      </button>
+      <button id="cal-toggle" class="fp-cell fp-cell-cal" type="button" title="日历" aria-label="日历" aria-expanded="false" aria-controls="cal-panel">
+        <span class="fp-cal">
+          <%- partial('partials/fp-icon-calendar') %>
+          <b id="cal-month" class="fp-cal-m"></b>
+          <b id="cal-day" class="fp-cal-d"></b>
+        </span>
+      </button>
+    </div>
+
+    <!-- local article search -->
+    <div class="fp-slot">
+      <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
+        <%- partial('partials/fp-icon-subarrow') %>
+      </button>
+      <button id="search-toggle" class="fp-cell" type="button" title="站内搜索" aria-label="站内搜索" aria-expanded="false" aria-controls="search-panel">
+        <img class="fp-icon fp-search-icon" src="<%- url_for('/images/fp-search.png') %>" width="48" height="48" alt="" aria-hidden="true">
+      </button>
+    </div>
+
+    <!-- middle: the 2x2 workspace with footer information -->
+    <div class="fp-slot fp-workspace">
+      <div class="fp-work" role="group" aria-label="页脚信息">
+        <div class="fp-ws">
+          <div class="fp-ws-cell">
+            <% if (footer.icp){ %><a rel="nofollow" target="_blank" href="https://beian.miit.gov.cn"><%= footer.icp %></a><% } %>
+          </div>
+          <div class="fp-ws-cell">
+            <% if (showBusuanzi){ %>本站访问量：<b id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></b> 次<% } %>
+          </div>
+          <div class="fp-ws-cell">
+            <% if (showBusuanzi){ %>统计：<a rel="nofollow" target="_blank" href="https://busuanzi.ibruce.info/">不蒜子</a><% } %>
+          </div>
+          <div class="fp-ws-cell">
+            Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- back to top — just a button, no subpanel arrow above -->
+    <div class="fp-slot">
+      <div class="fp-strip fp-strip-3d" aria-hidden="true"></div>
+      <button id="totop" class="fp-cell fp-cell-top" type="button" title="返回顶部" aria-label="返回顶部">
+        <%- partial('partials/fp-icon-arrow') %>
+      </button>
+    </div>
+
+    <!-- 阅读设置 — the Style Manager's Font module -->
+    <div class="fp-slot">
+      <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
+        <%- partial('partials/fp-icon-subarrow') %>
+      </button>
+      <button id="read-toggle" class="fp-cell" type="button" title="阅读设置" aria-label="阅读设置" aria-expanded="false" aria-controls="read-panel">
+        <%- partial('partials/fp-icon-font') %>
+      </button>
+    </div>
+
+    <!-- 配色方案 — the Style Manager's Colour module -->
+    <div class="fp-slot">
+      <button class="fp-strip-btn" type="button" tabindex="-1" aria-hidden="true">
+        <%- partial('partials/fp-icon-subarrow') %>
+      </button>
+      <button id="palette-toggle" class="fp-cell" type="button" title="配色方案" aria-label="配色方案" aria-expanded="false" aria-controls="palette-panel">
+        <%- partial('partials/fp-icon-color') %>
+      </button>
+    </div>
+
+    <!-- right handle: grip under the iconify button -->
+    <div class="fp-cap fp-cap-r" aria-hidden="true">
+      <span class="fp-capbox"></span>
+      <span class="fp-grip"></span>
+    </div>
+
+  </div>
+
+  <!-- 阅读设置 — a small CDE dialog -->
+  <div id="read-panel" class="fp-dialog" role="dialog" aria-label="阅读设置">
+    <div class="titlebar rp-titlebar">
+      <div class="titlebar-controls left">
+        <span class="titlebar-btn menu" aria-hidden="true"></span>
+      </div>
+      <div class="titlebar-title">阅读设置</div>
+    </div>
+    <label class="rp-row"><span class="rp-label">字号</span><input id="rp-size" type="range" min="13" max="20" step="1"><b id="rp-size-v"></b></label>
+    <label class="rp-row"><span class="rp-label">行距</span><input id="rp-lh" type="range" min="1.4" max="2.4" step="0.05"><b id="rp-lh-v"></b></label>
+    <label class="rp-row rp-check"><input id="rp-sans" type="checkbox"><span>无衬线字体</span></label>
+    <div class="rp-actions"><button id="rp-reset" type="button">恢复默认</button></div>
+  </div>
+
+  <!-- 配色方案 — a small CDE dialog with a Motif list box of NsCDE palettes -->
+  <div id="palette-panel" class="fp-dialog fp-dialog-wide" role="dialog" aria-label="配色方案">
+    <div class="titlebar rp-titlebar">
+      <div class="titlebar-controls left">
+        <span class="titlebar-btn menu" aria-hidden="true"></span>
+      </div>
+      <div class="titlebar-title">配色方案</div>
+    </div>
+    <%- partial('partials/palette-list') %>
+  </div>
+
+  <!-- 日历 — a Motif month grid -->
+  <div id="cal-panel" class="fp-dialog fp-dialog-cal" role="dialog" aria-label="日历">
+    <div class="titlebar rp-titlebar">
+      <div class="titlebar-controls left">
+        <span class="titlebar-btn menu" aria-hidden="true"></span>
+      </div>
+      <div class="titlebar-title">日历</div>
+    </div>
+    <div class="cal-head">
+      <button id="cal-prev" class="cal-nav cal-prev" type="button" aria-label="上个月"></button>
+      <b id="cal-title" class="cal-title"></b>
+      <button id="cal-next" class="cal-nav cal-next" type="button" aria-label="下个月"></button>
+    </div>
+    <div class="cal-week" aria-hidden="true">
+      <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+    </div>
+    <div id="cal-days" class="cal-days"></div>
+  </div>
+
+  <div id="search-panel" class="fp-dialog fp-dialog-search" role="dialog" aria-labelledby="search-title" data-index-url="<%= url_for('/content.json') %>" data-site-root="<%= url_for('/') %>">
+    <div class="titlebar rp-titlebar">
+      <div class="titlebar-controls left">
+        <span class="titlebar-btn menu" aria-hidden="true"></span>
+      </div>
+      <div id="search-title" class="titlebar-title">站内搜索</div>
+    </div>
+    <form id="search-form" role="search">
+      <label for="search-input">搜索文章标题、标签和正文</label>
+      <div class="search-input-row">
+        <input id="search-input" type="search" autocomplete="off" placeholder="输入关键词…">
+        <button id="search-clear" type="button">清除</button>
+      </div>
+    </form>
+    <p id="search-status" role="status" aria-live="polite">输入关键词开始搜索。</p>
+    <ul id="search-results" aria-label="搜索结果"></ul>
+  </div>
+</footer>
+<% if (showBusuanzi){ %>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<% } %>

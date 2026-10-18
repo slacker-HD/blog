@@ -1,0 +1,53 @@
+<%
+  var readingInfo = reading_info(page.content);
+  var showPageViews = !theme.footer || theme.footer.busuanzi !== false;
+  var showCommentsLink = theme.gitalk && theme.gitalk.enable && page.comments !== false;
+%>
+<article class="post cde-panel full-post">
+  <header class="post-header">
+    <h1 class="post-title"><%= page.title %></h1>
+    <div class="post-meta">
+      <time datetime="<%= date_xml(page.date) %>"><%= date(page.date, config.date_format) %></time>
+      <% if (page.categories && page.categories.length){ %>
+        <span class="post-meta-label">分类：</span>
+        <% page.categories.forEach(function(cat, idx){ %>
+          <a href="<%- url_for(cat.path) %>"><%= cat.name %></a><% if (idx < page.categories.length-1){ %>, <% } %>
+        <% }); %>
+      <% } %>
+      <% if (page.tags && page.tags.length){ %>
+        <span class="post-meta-label">标签：</span>
+        <% page.tags.forEach(function(tag, idx){ %>
+          <a href="<%- url_for(tag.path) %>"><%= tag.name %></a><% if (idx < page.tags.length-1){ %>, <% } %>
+        <% }); %>
+      <% } %>
+      <span class="post-meta-detail"><%= readingInfo.words %> 字</span>
+      <span class="post-meta-detail"><%= readingInfo.minutes %> 分钟阅读</span>
+      <% if (showPageViews){ %>
+        <span id="busuanzi_container_page_pv" class="post-meta-detail">阅读 <b id="busuanzi_value_page_pv"></b> 次</span>
+      <% } %>
+      <% if (showCommentsLink){ %>
+        <a class="post-meta-detail" href="#comments">评论</a>
+      <% } %>
+    </div>
+  </header>
+  <div class="post-content">
+    <%- page.content %>
+  </div>
+  <% if (page.fancybox){ %>
+    <%- partial('partials/image-viewer') %>
+  <% } %>
+  <%- partial('partials/reward') %>
+</article>
+
+<% if (page.prev || page.next){ %>
+  <nav class="post-nav cde-panel">
+    <% if (page.prev){ %>
+      <a class="prev" href="<%- url_for(page.prev.path) %>">← <%= page.prev.title %></a>
+    <% } %>
+    <% if (page.next){ %>
+      <a class="next" href="<%- url_for(page.next.path) %>"><%= page.next.title %> →</a>
+    <% } %>
+  </nav>
+<% } %>
+
+<%- partial('partials/comments') %>

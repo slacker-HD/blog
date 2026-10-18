@@ -1,0 +1,103 @@
+# cde-window theme config
+
+# 顶部导航菜单（可自由增删、改名、调顺序）
+# 每一项：name = 显示文字，url = 链接
+#   url 支持站内相对路径（如 /archives/），也支持外部完整网址（如 https://example.com）
+# 说明：分类 / 标签 的列表页由主题脚本 scripts/taxonomy-index.js 自动生成
+menu:
+  - name: 首页
+    url: /
+  - name: 归档
+    url: /archives/
+  - name: 分类
+    url: /categories/
+  - name: 标签
+    url: /tags/
+  - name: 我的网页工具
+    url: https://www.hudi.site/tools
+  - name: 关于
+    url: /about/
+  - name: 订阅
+    url: /atom.xml
+
+# CDE 配色方案（NsCDE 调色板名）
+# 可选：Broica（NsCDE 出厂默认）、BeigeRose、Delphinium、Regal、SeaFoam、Crimson
+# 颜色是 Motif 从 data/palettes/*.dp 推导出来的原始值，见 source/css/style.css 顶部说明
+palette: Broica
+
+# 是否显示文章摘要
+excerpt: true
+
+# 文章目录（TOC）—— 显示在文章页侧边栏，与 BlueLake 主题一致
+toc:
+  enable: true          # 是否显示目录
+  number: false         # 是否为目录加上 1. 1.1 这样的层级编号
+
+# 窗口标题前缀
+window_title_prefix: "Hexo - "
+
+# 关于页面（显示在 page 页面的作者信息区块，与 BlueLake 主题一致）
+about:
+  photo_url: /img/avatar/avator.jpg
+  items:
+    - label: 电子邮件
+      url: ""
+      title: hudi@linuxmail.org; admin@hudi.site
+
+    # - label: qq
+    #   url: ""
+    #   title: 120165907
+    #
+    # - label: 通信地址
+    #   url: ""
+    #   title: 安徽省合肥市包河区花园大道369号合肥工业大学智能制造技术研究院研发中心，230000
+
+# 评论 - Gitalk（基于 GitHub Issues）
+# 只有 enable 放在这里；owner / repo / client_id / client_secret 等密钥
+# 放在站点根目录 _config.cde-window.yml（已 gitignore，不会提交到 GitHub）
+# Hexo 会自动把 _config.<主题名>.yml 合并进 theme 配置。
+gitalk:
+  enable: true
+
+# 百度统计（从 BlueLake 配置迁移；留空可关闭）
+baidu_analytics: 767e3ea52a6b4f3c656cdd4119c87e62
+
+# 打赏 / Reward
+reward:
+  enable: true
+  button: 赞赏支持
+  title: 赞赏支持
+  text: 码字不易，如果这篇文章对你有帮助，欢迎请我喝杯咖啡~
+  wechat: /reward/wechat.png
+  alipay: /reward/alipay.png
+
+# 友情链接 / Links 侧边栏小工具（为空则不显示该 widget）
+links:
+  - title: 所有VB API的源码
+    url: https://github.com/slacker-HD/creo_vbapi
+
+  - title: 所有WebLink的源码
+    url: https://github.com/slacker-HD/creo_weblink
+
+  - title: 所有Toolkit的源码
+    url: https://github.com/slacker-HD/creo_toolkit
+
+  - title: 所有Jlink的源码
+    url: https://github.com/slacker-HD/creo_jlink
+
+  - title: 一些小工具网盘下载(密码1234)
+    url: http://hudi.ysepan.com
+
+  - title: WebLink工具（仅在Creo内置浏览器打开）
+    url: https://weblink.hudi.site/
+
+  - title: 我的网页工具箱
+    url: https://www.hudi.site/tools
+
+# 页脚
+footer:
+  feed: true                    # 显示「订阅」(atom.xml) 链接
+  busuanzi: true                # 显示 busuanzi 总访问量统计
+  icp: 皖ICP备18002386号-1      # 备案号，留空则不显示
+  theme_by:                      # 「Theme by」显示的名字，留空则不显示（这是本主题，一般留空）
+  theme_by_url:                  # 「Theme by」的链接

@@ -1,0 +1,66 @@
+<aside id="sidebar" class="window-pane">
+  <%
+    // 目录（TOC）—— 只在文章页显示，且文章里确实有标题时才显示
+    var tocHtml = '';
+    if (is_post() && theme.toc && theme.toc.enable && page.content) {
+      tocHtml = toc(page.content, { list_number: theme.toc.number });
+    }
+  %>
+  <% if (tocHtml && tocHtml.trim()){ %>
+  <div class="widget cde-panel" id="toc-slot">
+    <h3 class="widget-title">目录</h3>
+    <div id="toc"><%- tocHtml %></div>
+  </div>
+  <% } %>
+  <% if (site.categories && site.categories.length){ %>
+  <div class="widget cde-panel">
+    <h3 class="widget-title">分类</h3>
+    <ul class="widget-list">
+      <% site.categories.forEach(function(category){ %>
+        <li><a href="<%- url_for(category.path) %>"><%= category.name %> (<%= category.posts.length %>)</a></li>
+      <% }); %>
+    </ul>
+  </div>
+  <% } %>
+  <% if (site.tags && site.tags.length){ %>
+  <div class="widget cde-panel">
+    <h3 class="widget-title">标签</h3>
+    <div class="tagcloud">
+      <% site.tags.forEach(function(tag){ %>
+        <a href="<%- url_for(tag.path) %>"><%= tag.name %></a>
+      <% }); %>
+    </div>
+  </div>
+  <% } %>
+  <%
+    // 归档 —— 按年份统计（与 BlueLake 主题一致，archive_type: yearly）
+    var archiveYears = [];
+    var yearCount = {};
+    site.posts.forEach(function(post){
+      var y = post.date.format('YYYY');
+      if (!yearCount[y]) { yearCount[y] = 0; archiveYears.push(y); }
+      yearCount[y] += 1;
+    });
+    archiveYears.sort().reverse();
+  %>
+  <% if (archiveYears.length){ %>
+  <div class="widget cde-panel">
+    <h3 class="widget-title">归档</h3>
+    <ul class="widget-list">
+      <% archiveYears.forEach(function(year){ %>
+        <li><a href="<%- url_for('/archives/' + year + '/') %>"><%= year %>年 (<%= yearCount[year] %>)</a></li>
+      <% }); %>
+    </ul>
+  </div>
+  <% } %>
+  <% if (theme.links && theme.links.length){ %>
+  <div class="widget cde-panel">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+      <% theme.links.forEach(function(link){ %>
+        <li><a href="<%= link.url %>" title="<%= link.title %>" target="_blank" rel="noopener"><%= link.title %></a></li>
+      <% }); %>
+    </ul>
+  </div>
+  <% } %>
+</aside>

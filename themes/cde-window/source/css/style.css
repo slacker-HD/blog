@@ -1,0 +1,2539 @@
+/*
+ * cde-window — a Hexo theme that imitates CDE / Motif (NsCDE).
+ *
+ * Colors are the exact Motif-derived values for NsCDE palettes.
+ * They come from data/palettes/*.dp run through nscde_tools/palette_colorgen
+ * (the same maths Motif uses to derive topShadow / bottomShadow / select).
+ * Reference: https://github.com/NsCDE/NsCDE
+ *
+ * Palette roles (per Motif Colorset conventions):
+ *   active  -> Colorset 2 : focused window / titlebar      (bg_1)
+ *   inactive-> Colorset 1 : unfocused window, default UI   (bg_2)
+ *   widget  -> "general background" of widgets             (bg_5)
+ *   menu    -> menu bar and dialogs                        (bg_6)
+ *   panel   -> Front Panel / pane                          (bg_8)
+ *   input   -> text fields and lists                       (bg_4)
+ *
+ * Pick a palette with `palette:` in the theme _config.yml.
+ */
+
+/* ============================================================
+ * 1. Palette: Broica  (NsCDE's shipped default, 8 colours)
+ * ============================================================ */
+:root {
+  --cde-face: #c5b2a8;
+  --cde-face-light: #e6deda;
+  --cde-face-shadow: #6b615b;
+  --cde-face-text: #000000;
+  --cde-face-sel: #a8978f;
+
+  --cde-title: #eca770;
+  --cde-title-light: #f7d9c1;
+  --cde-title-shadow: #7f5a3c;
+  --cde-title-text: #ffffff;
+  --cde-title-sel: #c98e5f;
+
+  --cde-ti: #989999;
+  --cde-ti-light: #d2d2d2;
+  --cde-ti-shadow: #4f4f50;
+  --cde-ti-text: #ffffff;
+
+  --cde-menu: #4991a6;
+  --cde-menu-light: #adced7;
+  --cde-menu-shadow: #244953;
+  --cde-menu-text: #ffffff;
+  --cde-menu-sel: #3e7c8d;
+
+  --cde-panel: #93abbe;
+  --cde-panel-light: #d0dae3;
+  --cde-panel-shadow: #4e5b65;
+  --cde-panel-text: #ffffff;
+
+  --cde-input: #686f81;
+  --cde-input-light: #babdc6;
+  --cde-input-shadow: #33363f;
+  --cde-input-text: #ffffff;
+}
+
+/* ============================================================
+ * 2. Palette: BeigeRose  (grey/beige window + teal titlebar)
+ * ============================================================ */
+html[data-palette="BeigeRose"] {
+  --cde-face: #909090;
+  --cde-face-light: #cecece;
+  --cde-face-shadow: #4a4a4a;
+  --cde-face-text: #ffffff;
+  --cde-face-sel: #7b7b7b;
+
+  --cde-title: #618787;
+  --cde-title-light: #b7c9c9;
+  --cde-title-shadow: #304343;
+  --cde-title-text: #ffffff;
+  --cde-title-sel: #527373;
+
+  --cde-ti: #d0c0ae;
+  --cde-ti-light: #ebe4dd;
+  --cde-ti-shadow: #736a60;
+  --cde-ti-text: #000000;
+
+  --cde-menu: #b8b8b8;
+  --cde-menu-light: #e1e1e1;
+  --cde-menu-shadow: #646464;
+  --cde-menu-text: #000000;
+  --cde-menu-sel: #9d9d9d;
+
+  --cde-panel: #90afac;
+  --cde-panel-light: #cfdcdb;
+  --cde-panel-shadow: #4c5d5b;
+  --cde-panel-text: #ffffff;
+
+  --cde-input: #efebea;
+  --cde-input-light: #f9f7f7;
+  --cde-input-shadow: #8c8a89;
+  --cde-input-text: #000000;
+}
+
+/* ============================================================
+ * 3. Palette: Delphinium  (light grey window + sky-blue titlebar)
+ * ============================================================ */
+html[data-palette="Delphinium"] {
+  --cde-face: #78b3bd;
+  --cde-face-light: #c4dee2;
+  --cde-face-shadow: #3f5f64;
+  --cde-face-text: #ffffff;
+  --cde-face-sel: #6698a1;
+
+  --cde-title: #84c3ec;
+  --cde-title-light: #cbe5f7;
+  --cde-title-shadow: #486b81;
+  --cde-title-text: #000000;
+  --cde-title-sel: #71a6c9;
+
+  --cde-ti: #c7c7c7;
+  --cde-ti-light: #e7e7e7;
+  --cde-ti-shadow: #6f6f6f;
+  --cde-ti-text: #000000;
+
+  --cde-menu: #5586c2;
+  --cde-menu-light: #b3c9e4;
+  --cde-menu-shadow: #2b4462;
+  --cde-menu-text: #ffffff;
+  --cde-menu-sel: #4972a5;
+
+  --cde-panel: #8f9fbd;
+  --cde-panel-light: #ced5e2;
+  --cde-panel-shadow: #4c5464;
+  --cde-panel-text: #ffffff;
+
+  --cde-input: #fefee5;
+  --cde-input-light: #ffffff;
+  --cde-input-shadow: #989889;
+  --cde-input-text: #000000;
+}
+
+/* ============================================================
+ * 4. Palette: Regal  (slate window + blue titlebar)
+ * ============================================================ */
+html[data-palette="Regal"] {
+  --cde-face: #6a6a8c;
+  --cde-face-light: #bbbbcb;
+  --cde-face-shadow: #343445;
+  --cde-face-text: #ffffff;
+  --cde-face-sel: #5a5a77;
+
+  --cde-title: #94b4eb;
+  --cde-title-light: #d1dff6;
+  --cde-title-shadow: #516280;
+  --cde-title-text: #000000;
+  --cde-title-sel: #7e99c8;
+
+  --cde-ti: #8691a3;
+  --cde-ti-light: #cacfd6;
+  --cde-ti-shadow: #454b54;
+  --cde-ti-text: #ffffff;
+
+  --cde-menu: #6881b0;
+  --cde-menu-light: #bbc7dc;
+  --cde-menu-shadow: #344159;
+  --cde-menu-text: #ffffff;
+  --cde-menu-sel: #586e96;
+
+  --cde-panel: #7c97d2;
+  --cde-panel-light: #c6d1eb;
+  --cde-panel-shadow: #414f6e;
+  --cde-panel-text: #ffffff;
+
+  --cde-input: #5470a9;
+  --cde-input-light: #b1bed8;
+  --cde-input-shadow: #293753;
+  --cde-input-text: #ffffff;
+}
+
+/* ============================================================
+ * 5. Palette: SeaFoam  (pale sea-green / smoke)
+ * ============================================================ */
+html[data-palette="SeaFoam"] {
+  --cde-face: #afbeba;
+  --cde-face-light: #dde3e2;
+  --cde-face-shadow: #5f6865;
+  --cde-face-text: #000000;
+  --cde-face-sel: #94a29e;
+
+  --cde-title: #a9cbda;
+  --cde-title-light: #dbe9ef;
+  --cde-title-shadow: #5e7079;
+  --cde-title-text: #000000;
+  --cde-title-sel: #90acb9;
+
+  --cde-ti: #a7a7a7;
+  --cde-ti-light: #d9d9d9;
+  --cde-ti-shadow: #595959;
+  --cde-ti-text: #ffffff;
+
+  --cde-menu: #c4afa4;
+  --cde-menu-light: #e6dcd8;
+  --cde-menu-shadow: #6a5e59;
+  --cde-menu-text: #000000;
+  --cde-menu-sel: #a7948b;
+
+  --cde-panel: #c7ada0;
+  --cde-panel-light: #e7dcd6;
+  --cde-panel-shadow: #6c5d56;
+  --cde-panel-text: #ffffff;
+
+  --cde-input: #97b0b1;
+  --cde-input-light: #d2dddd;
+  --cde-input-shadow: #505e5e;
+  --cde-input-text: #ffffff;
+}
+
+/* ============================================================
+ * 6. Palette: Crimson  (mauve window + crimson titlebar)
+ * ============================================================ */
+html[data-palette="Crimson"] {
+  --cde-face: #68a5a0;
+  --cde-face-light: #bcd7d5;
+  --cde-face-shadow: #365552;
+  --cde-face-text: #ffffff;
+  --cde-face-sel: #598d88;
+
+  --cde-title: #b14d7a;
+  --cde-title-light: #dcaec3;
+  --cde-title-shadow: #58263c;
+  --cde-title-text: #ffffff;
+  --cde-title-sel: #974167;
+
+  --cde-ti: #adb1c2;
+  --cde-ti-light: #dcdee5;
+  --cde-ti-shadow: #5e6069;
+  --cde-ti-text: #000000;
+
+  --cde-menu: #8dacc6;
+  --cde-menu-light: #cddbe6;
+  --cde-menu-shadow: #4b5c6a;
+  --cde-menu-text: #ffffff;
+  --cde-menu-sel: #7892a8;
+
+  --cde-panel: #9793b4;
+  --cde-panel-light: #d1d0de;
+  --cde-panel-shadow: #4f4d5e;
+  --cde-panel-text: #ffffff;
+
+  --cde-input: #fef6e8;
+  --cde-input-light: #ffffff;
+  --cde-input-shadow: #98948b;
+  --cde-input-text: #000000;
+}
+
+/* ============================================================
+ * Constants — desktop backdrop, fonts, frame black
+ * ============================================================ */
+:root {
+  /* NsCDE's default blue-grey backdrop */
+  --cde-desktop: #626b78;
+  --cde-desktop-light: #727c89;
+  --cde-desktop-shadow: #4b535e;
+
+  --cde-border: #000000;
+  --cde-disabled: #808080;
+
+  /* NsCDE's default UI font is DejaVu Serif at 96dpi.
+   * CJK fallbacks are listed explicitly so Chinese text does not fall
+   * back to an arbitrary system font. */
+  --cde-font: "DejaVu Serif", "Liberation Serif", Georgia, "Times New Roman", "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", SimSun, serif;
+  --cde-font-sans: "DejaVu Sans", "Liberation Sans", Verdana, Tahoma, "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  --cde-font-mono: "DejaVu Sans Mono", "Liberation Mono", Consolas, "Courier New", "Noto Sans Mono CJK SC", monospace;
+
+  /* Reading size — changed at runtime by the 阅读设置 panel (personalize.js).
+   * Defaults match the original BlueLake theme. */
+  --read-font-size: 15px;
+  --read-line-height: 1.77;
+
+  /* CDE window chrome (menus, titlebar, footer, dialogs, buttons).
+   * Motif uses one UI font for all of it, so every piece of chrome shares
+   * this single size.
+   *
+   * It is derived from the reading size rather than pinned to 14px: when
+   * 阅读设置 raised --read-font-size the chrome stayed behind and the menu /
+   * titlebar / footer ended up visibly smaller than the article text. */
+  --cde-ui-size: var(--read-font-size);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--cde-font);
+  /* Page-wide default size follows the reading size, so the sidebar,
+   * listings, post navigation and footer all grow with the article. */
+  font-size: var(--read-font-size);
+  line-height: 1.6;
+  color: #000000;
+}
+
+/* Desktop: flat blue-grey with the fine CDE dither texture */
+body {
+  background-color: var(--cde-desktop);
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.035) 0 1px,
+      transparent 1px 2px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(0, 0, 0, 0.055) 0 1px,
+      transparent 1px 2px
+    ),
+    linear-gradient(180deg, var(--cde-desktop-light), var(--cde-desktop-shadow));
+  display: flex;
+  flex-direction: column;
+  padding: 6px 6px 0;
+}
+
+a {
+  color: #0000ee;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #551a8b;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul,
+ol {
+  padding-left: 1.5em;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+ * The window frame — the CDE window above the front panel
+ * ============================================================ */
+.window-frame {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+  border: 1px solid var(--cde-border);
+  /* Motif raised frame: light top/left, dark bottom/right */
+  box-shadow:
+    inset 2px 2px 0 var(--cde-face-light),
+    inset -2px -2px 0 var(--cde-face-shadow);
+  padding: 3px;
+  overflow: hidden;
+}
+
+/* ---------------- Titlebar ---------------- */
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  /* min-height rather than height: at a large reading size the title text
+   * must be able to push the bar taller instead of being clipped. */
+  min-height: 24px;
+  padding: 0 2px;
+  /* Make the titlebar flush with the window frame's outer edges (Motif style).
+   * The .window-frame has padding: 3px, so we negate it horizontally. */
+  margin: -3px -3px 0 -3px;
+  width: calc(100% + 6px);
+  background: var(--cde-title);
+  color: var(--cde-title-text);
+  box-shadow:
+    inset 0 1px 0 var(--cde-title-light),
+    inset 0 -1px 0 var(--cde-title-shadow);
+  user-select: none;
+}
+
+.titlebar.is-inactive {
+  background: var(--cde-ti);
+  color: var(--cde-ti-text);
+  box-shadow:
+    inset 0 1px 0 var(--cde-ti-light),
+    inset 0 -1px 0 var(--cde-ti-shadow);
+}
+
+/* CDE titlebar buttons: window menu (left), minimize + maximize (right).
+ *
+ * NsCDE hands normal windows to FVWM's Motif/MWM decoration (see Style *
+ * ... MwmFunctions, MwmDecor, MwmButtons, MwmBorder), so the glyphs follow
+ * the dtwm manual (the original CDE window manager) verbatim:
+ *   Window Menu Button = "the frame box with a horizontal bar in it"
+ *   Minimize Button    = "the frame box with a small square in it"
+ *   Maximize Button    = "the frame box with a large square in it"
+ * The buttons sit flush against each other and their faces are just the
+ * titlebar colour; each glyph is a hollow box drawn with Motif's two-tone
+ * bevel: the top/left edges catch the light, the bottom/right fall into
+ * shadow. Two custom properties carry that pair through the states. */
+.titlebar-btn {
+  --cde-btn-hi: var(--cde-title-light);
+  --cde-btn-lo: var(--cde-title-shadow);
+  position: relative;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  background: var(--cde-title);
+  border: 1px solid;
+  border-top-color: var(--cde-btn-hi);
+  border-left-color: var(--cde-btn-hi);
+  border-right-color: var(--cde-btn-lo);
+  border-bottom-color: var(--cde-btn-lo);
+  cursor: default;
+}
+
+.titlebar.is-inactive .titlebar-btn {
+  --cde-btn-hi: var(--cde-ti-light);
+  --cde-btn-lo: var(--cde-ti-shadow);
+  background: var(--cde-ti);
+}
+
+.titlebar-btn:active {
+  border-top-color: var(--cde-btn-lo);
+  border-left-color: var(--cde-btn-lo);
+  border-right-color: var(--cde-btn-hi);
+  border-bottom-color: var(--cde-btn-hi);
+}
+
+.titlebar-btn:active::before {
+  border-top-color: var(--cde-btn-lo);
+  border-left-color: var(--cde-btn-lo);
+  border-right-color: var(--cde-btn-hi);
+  border-bottom-color: var(--cde-btn-hi);
+}
+
+/* The shared two-tone bevelled box that every glyph is built from. */
+.titlebar-btn.menu::before,
+.titlebar-btn.min::before,
+.titlebar-btn.max::before {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  border-top: 1px solid var(--cde-btn-hi);
+  border-left: 1px solid var(--cde-btn-hi);
+  border-right: 1px solid var(--cde-btn-lo);
+  border-bottom: 1px solid var(--cde-btn-lo);
+}
+
+/* window menu button: a horizontal bar, set slightly below centre */
+.titlebar-btn.menu::before {
+  left: 5px;
+  top: 8px;
+  width: 10px;
+  height: 4px;
+}
+
+/* minimize: a small square in the middle of the frame box */
+.titlebar-btn.min::before {
+  left: 7px;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+}
+
+/* maximize: a large square in the middle of the frame box */
+.titlebar-btn.max::before {
+  left: 5px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+}
+
+.titlebar-title {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 6px;
+  font-weight: bold;
+  font-size: var(--cde-ui-size);
+}
+
+.titlebar-title a,
+.titlebar-title a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+.titlebar-controls {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+/* ---------------- Menu bar (top navigation) ---------------- */
+.menubar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 1px 2px;
+  font-size: var(--cde-ui-size);
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  box-shadow:
+    inset 0 1px 0 var(--cde-menu-light),
+    inset 0 -1px 0 var(--cde-menu-shadow);
+}
+
+.menubar a {
+  display: inline-block;
+  padding: 2px 12px;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menubar a:visited {
+  color: inherit;
+}
+
+.menubar a:hover {
+  background: var(--cde-menu-sel);
+  text-decoration: none;
+}
+
+.menubar-sep {
+  width: 1px;
+  align-self: stretch;
+  margin: 2px 4px;
+  background: var(--cde-menu-shadow);
+  box-shadow: 1px 0 0 var(--cde-menu-light);
+}
+
+/* ---------------- Body: pane + content ---------------- */
+.window-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  gap: 4px;
+  padding: 4px 2px;
+}
+
+.window-pane {
+  width: 210px;
+  min-width: 170px;
+  max-width: 280px;
+  overflow-y: auto;
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+}
+
+.window-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+}
+
+/* Flex items shrink by default, which would squash the articles inside a
+ * scrolling column — keep every block at its natural height. */
+.window-content > * {
+  flex: 0 0 auto;
+}
+
+/* Motif sunken panel */
+.cde-panel {
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-shadow),
+    inset -1px -1px 0 var(--cde-face-light);
+  padding: 8px 10px;
+  margin-bottom: 6px;
+}
+
+/* Titled group box, CDE style */
+.widget {
+  margin-bottom: 8px;
+}
+
+.widget-title {
+  /* 16px at the default 15px reading size */
+  font-size: calc(var(--read-font-size) * 1.0667);
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  padding: 2px 6px;
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  box-shadow:
+    inset 0 1px 0 var(--cde-menu-light),
+    inset 0 -1px 0 var(--cde-menu-shadow);
+}
+
+.widget-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.widget-list li {
+  padding: 2px 6px;
+  border-bottom: 1px dotted var(--cde-face-shadow);
+}
+
+.widget-list li:last-child {
+  border-bottom: none;
+}
+
+/* 目录（TOC）—— 侧边栏小工具，随侧栏一起滚动 */
+#toc-slot {
+  margin-bottom: 8px;
+}
+
+#toc {
+  max-height: 46vh;
+  overflow-y: auto;
+}
+
+#toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#toc li {
+  margin: 0;
+  font-weight: bold;
+}
+
+#toc .toc-child {
+  margin: 0 0 0 0.8em;
+  padding: 0;
+}
+
+#toc .toc-child li {
+  font-weight: normal;
+}
+
+#toc a.toc-link {
+  display: block;
+  padding: 2px 6px;
+  color: var(--cde-face-text);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--cde-face-shadow);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#toc a.toc-link:hover {
+  background: var(--cde-face-sel);
+}
+
+#toc li.active > a.toc-link,
+#toc a.toc-link.active {
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  font-weight: bold;
+}
+
+/* Old sidebar nav removed; kept for safety if a template still emits it */
+.cde-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 6px 0;
+  background: var(--cde-face);
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-shadow),
+    inset -1px -1px 0 var(--cde-face-light);
+}
+
+.cde-menu li {
+  border-bottom: 1px solid var(--cde-face-shadow);
+}
+
+.cde-menu li:last-child {
+  border-bottom: none;
+}
+
+.cde-menu a {
+  display: block;
+  padding: 4px 10px;
+  color: var(--cde-face-text);
+}
+
+.cde-menu a:hover {
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  text-decoration: none;
+}
+
+/* ---------------- Generic CDE button ---------------- */
+.cde-button,
+.tagcloud a,
+.pagination .page-number,
+.pagination .prev,
+.pagination .next,
+.tagcloud-page .tagcloud-item {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+  border: 1px solid;
+  border-top-color: var(--cde-face-light);
+  border-left-color: var(--cde-face-light);
+  border-right-color: var(--cde-face-shadow);
+  border-bottom-color: var(--cde-face-shadow);
+  text-decoration: none;
+}
+
+.cde-button:active,
+.tagcloud a:active,
+.pagination .page-number:active,
+.tagcloud-page .tagcloud-item:active {
+  border-top-color: var(--cde-face-shadow);
+  border-left-color: var(--cde-face-shadow);
+  border-right-color: var(--cde-face-light);
+  border-bottom-color: var(--cde-face-light);
+}
+
+.tagcloud a,
+.tagcloud-page .tagcloud-item {
+  margin: 2px;
+}
+
+.pagination .current {
+  border-top-color: var(--cde-face-shadow);
+  border-left-color: var(--cde-face-shadow);
+  border-right-color: var(--cde-face-light);
+  border-bottom-color: var(--cde-face-light);
+  background: var(--cde-face-sel);
+}
+
+/* ============================================================
+ * Panels / content pages
+ * ============================================================ */
+/* Page / section titles — 22px at the default reading size, matching the
+ * original's .label-title, and scaled along with the article. */
+.archive-title,
+.page-header h1 {
+  font-size: calc(var(--read-font-size) * 1.4667);
+  margin: 0 0 8px 0;
+  padding: 2px 6px;
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  box-shadow:
+    inset 0 1px 0 var(--cde-menu-light),
+    inset 0 -1px 0 var(--cde-menu-shadow);
+}
+
+.archive-list,
+.category-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Archives: 15px / line-height 2, as in the original theme.
+ * The reading size also drives this listing. */
+.archive-list {
+  font-size: var(--read-font-size, 15px);
+  line-height: 2;
+}
+
+/* A flex row turns the date into a fixed-width column — the same trick the
+ * original theme used with its 100px date cell. Because the column width is
+ * fixed, every article title starts on the same left edge no matter how wide
+ * the date happens to render. The date itself uses the ordinary body font,
+ * just like the rest of the page. */
+.archive-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 3px 6px;
+  border-bottom: 1px dotted var(--cde-face-shadow);
+}
+
+.archive-list li time {
+  flex: 0 0 7em;
+  white-space: nowrap;
+  color: var(--cde-face-text);
+  opacity: 0.72;
+}
+
+.category-list-item {
+  padding: 3px 6px;
+  border-bottom: 1px dotted var(--cde-face-shadow);
+}
+
+.category-list-count,
+.tagcloud-count,
+.tagcloud-page .tagcloud-count,
+.post-meta {
+  color: var(--cde-face-shadow);
+  font-size: var(--read-font-size);
+}
+
+.tagcloud-page {
+  padding: 4px 0;
+}
+
+.page-header {
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--cde-face-shadow);
+}
+
+/* Author / about block */
+.author-page {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted var(--cde-face-shadow);
+}
+
+.author-page .photo img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  background: var(--cde-face);
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-shadow),
+    inset -1px -1px 0 var(--cde-face-light);
+}
+
+.author-page .author p {
+  margin: 0 0 4px 0;
+}
+
+/* ============================================================
+ * Posts
+ * ============================================================ */
+.post-header {
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--cde-face-shadow);
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+}
+
+.post-meta-label {
+  margin-left: 2px;
+}
+
+.post-meta-detail {
+  white-space: nowrap;
+}
+
+/* Sizes below follow the original BlueLake theme, scaled off the article */
+.post-title {
+  font-size: calc(var(--read-font-size) * 1.4667);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.post-content,
+.post-excerpt {
+  font-size: var(--read-font-size, 15px);
+  line-height: var(--read-line-height, 1.77);
+}
+
+/* Optional sans-serif reading mode (阅读设置 → 无衬线字体) */
+html.read-sans .post-content,
+html.read-sans .post-excerpt,
+html.read-sans .archive-list,
+html.read-sans .category-list,
+html.read-sans .author-page {
+  font-family: var(--cde-font-sans);
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  margin: 12px 0 8px;
+}
+
+/* em, so the whole heading ladder scales with the article text
+ * (1.2em = 18px at the default 15px reading size) */
+.post-content h2 {
+  font-size: 1.2em;
+}
+
+.post-content h3 {
+  font-size: 1.0667em;
+}
+
+.post-content h4 {
+  font-size: 0.9333em;
+}
+
+.post-content h5 {
+  font-size: 0.8667em;
+}
+
+.post-content h6 {
+  font-size: 0.8em;
+}
+
+.post-content a {
+  color: #0000ee;
+}
+
+.post-content pre,
+.post-content code,
+.post-content kbd,
+.post-content samp {
+  font-family: var(--cde-font-mono);
+}
+
+/* Bare <pre> that Hexo did not wrap in figure.highlight.
+ * Also uses CDE colorset 4 (the text-field / editor colour set). */
+.post-content > pre {
+  background: var(--cde-input, #686f81);
+  color: var(--cde-input-text, #ffffff);
+  border: 1px solid var(--cde-border, #000000);
+  padding: 10px 14px;
+  overflow-x: auto;
+  margin: 1em 0;
+  box-shadow:
+    inset 1px 1px 0 var(--cde-input-shadow, #33363f),
+    inset -1px -1px 0 var(--cde-input-light, #babdc6);
+}
+
+/* Inline code — a small CDE text field (colorset 4) too */
+.post-content :not(pre) > code {
+  margin: 0 2px;
+  padding: 0 5px;
+  color: var(--cde-input-text, #ffffff);
+  background: var(--cde-input, #686f81);
+  border: 1px solid var(--cde-border, #000000);
+  font-size: 0.95em;
+}
+
+.post-content blockquote {
+  margin: 8px 0;
+  padding: 6px 10px 6px 12px;
+  border-left: 3px solid var(--cde-menu);
+  background: var(--cde-face-light);
+  color: var(--cde-face-text);
+}
+
+.post-content table {
+  border-collapse: collapse;
+  margin: 8px 0;
+}
+
+.post-content th,
+.post-content td {
+  border: 1px solid var(--cde-face-shadow);
+  padding: 3px 8px;
+}
+
+.post-content th {
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto !important;
+  border: 1px solid var(--cde-border);
+}
+
+.post-content img.cde-image-trigger {
+  cursor: zoom-in;
+}
+
+.post-content img.cde-image-trigger:focus-visible {
+  outline: 2px dotted var(--cde-title);
+  outline-offset: 2px;
+}
+
+.cde-image-viewer {
+  width: fit-content;
+  max-width: min(94vw, 1200px);
+  max-height: 94vh;
+  margin: auto;
+  padding: 4px;
+  overflow: auto;
+  color: var(--cde-face-text);
+  background: var(--cde-face);
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 2px 2px 0 var(--cde-face-light),
+    inset -2px -2px 0 var(--cde-face-shadow);
+}
+
+.cde-image-viewer::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.cde-image-viewer .titlebar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+  padding: 2px 4px;
+  background: var(--cde-title);
+  color: var(--cde-title-text);
+}
+
+.cde-image-viewer .titlebar-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cde-image-viewer .titlebar-controls {
+  flex: 0 0 auto;
+}
+
+.cde-image-viewer img {
+  display: block;
+  max-width: min(90vw, 1180px);
+  max-height: calc(94vh - 48px);
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.read-more {
+  margin-top: 6px;
+}
+
+/* Pagination — parked at the bottom of the content pane.
+ *
+ * It is the last child of the content column: `margin-top: auto` pushes it
+ * down to the bottom edge when the page holds only one or two posts, and the
+ * sticky offset keeps it there while a long list scrolls underneath it. */
+.pagination {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  margin-top: auto;
+  margin-bottom: 0;
+  text-align: center;
+  padding: 6px;
+  font-size: var(--cde-ui-size);
+}
+
+.pagination .page-number,
+.pagination .prev,
+.pagination .next {
+  margin: 0 2px;
+}
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+}
+
+/* ============================================================
+ * CDE Front Panel — the raised bar across the bottom of the window
+ *
+ * A real front panel is 79px of three stacked bands, and that is what this
+ * reproduces:
+ *
+ *     16px   the subpanel strip — a small raised arrow sits above any launcher
+ *            that opens something (CDE's `Frame 1` arrow buttons)
+ *     62px   the launcher cells — 63x62 flat colour patches, each wearing a
+ *            48x48 bitmap and wearing nothing else: no caption, because NsCDE
+ *            gives its panel buttons no `Title`
+ *      1px   a bottom shadow rule
+ *
+ * Each end is capped by a handle: a raised menu (or iconify) button over a
+ * corrugated grip, straight out of NsCDE's FpMenu.xpm / FpHandle.xpm /
+ * FpIconify.xpm.
+ *
+ * The cells are deliberately FLAT.  NsCDE gives every launcher `Frame 0,
+ * Padding 0 0` plus a press pixmap, so a front panel button is a colour patch
+ * on the panel that sinks in when pressed — not a raised button.  Only the
+ * subpanel arrows and the end handles are beveled.
+ *
+ * Every size is a multiple of --cde-ui-size, so the panel keeps CDE's
+ * proportions at any reading size: 79px, 63x62 cells and 48px art all arrive
+ * at the theme's 15px default.
+ *
+ * The panel is `position: relative` because the three dialogs hang off its
+ * top edge (`bottom: 100%`), which keeps them pinned there whatever the
+ * reading size does to the bar's height.
+ * ============================================================ */
+.front-panel {
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  caret-color: transparent;
+
+  /* 79/15, 63/15, 62/15, 16/15, 48/15, 21/15, 14/15 of the reading size */
+  --fp-h: calc(var(--cde-ui-size) * 5.267);
+  --fp-cell-w: calc(var(--cde-ui-size) * 4.2);
+  --fp-cell-h: calc(var(--cde-ui-size) * 4.133);
+  --fp-strip-h: calc(var(--cde-ui-size) * 1.067);
+  --fp-icon: calc(var(--cde-ui-size) * 3.2);
+  --fp-dial: calc(var(--fp-cell-h) - 2px);
+  --fp-end-w: calc(var(--cde-ui-size) * 1.4);
+  --fp-endbtn-h: calc(var(--cde-ui-size) * 0.933);
+
+  /* Motif derives an eight-step grey ramp from the background colour of every
+     colourset, and CDE's bitmaps paint their bevels from it — iconGray1 is the
+     lightest step, iconGray8 the darkest.  So the ramp is the panel's own
+     highlight shading into its shadow, which is what Motif does with a
+     colourset's background.  The greys below are the literals CDE shipped, and
+     they stand in for the browsers that have no color-mix(). */
+  --fp-g1: #dedede;
+  --fp-g2: #bdbdbd;
+  --fp-g3: #adadad;
+  --fp-g4: #949494;
+  --fp-g5: #737373;
+  --fp-g6: #636363;
+  --fp-g7: #424242;
+  --fp-g8: #212121;
+
+  background: var(--cde-ti);
+  color: var(--cde-panel-text);
+  /* CDE frontpanel has an outer frame; keep a tight fit but with outer border */
+  margin: 0 auto;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  .front-panel {
+    --fp-g1: var(--cde-panel-light);
+    --fp-g2: color-mix(in srgb, var(--cde-panel-shadow) 14%, var(--cde-panel-light));
+    --fp-g3: color-mix(in srgb, var(--cde-panel-shadow) 29%, var(--cde-panel-light));
+    --fp-g4: color-mix(in srgb, var(--cde-panel-shadow) 43%, var(--cde-panel-light));
+    --fp-g5: color-mix(in srgb, var(--cde-panel-shadow) 57%, var(--cde-panel-light));
+    --fp-g6: color-mix(in srgb, var(--cde-panel-shadow) 71%, var(--cde-panel-light));
+    --fp-g7: color-mix(in srgb, var(--cde-panel-shadow) 86%, var(--cde-panel-light));
+    --fp-g8: var(--cde-panel-shadow);
+  }
+}
+
+.fp-rail {
+  display: flex;
+  align-items: stretch;
+  height: var(--fp-h);
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* ---- one launcher column: a subpanel cell above, a launcher below ----
+ * Pairing the two in a column is what keeps every arrow lined up over its own
+ * launcher, whatever the captions do to the widths. */
+.fp-slot {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+}
+
+/* the subpanel strip — empty except above a launcher that opens a panel */
+.fp-strip {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  height: var(--fp-strip-h);
+  background: var(--cde-ti);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+}
+
+/* 3D strip like CDE subpanel bar (raised) */
+.fp-strip-3d {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+  background: var(--cde-ti);
+}
+
+/* The small up-triangle above a launcher is `FPSubArrowUp.xpm` (12x6). The
+   strip button below renders that inline SVG at the same width as the cell. */
+.fp-strip-btn {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  height: var(--fp-strip-h);
+  width: var(--fp-cell-w);
+  min-width: var(--fp-cell-w);
+  padding: 0;
+  margin: 0;
+  background: var(--cde-ti);
+  border: none;
+  color: var(--cde-panel-text);
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+}
+
+.fp-strip-empty {
+  height: var(--fp-strip-h);
+  background: var(--cde-ti);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+}
+
+.fp-icon.fp-subarrow {
+  display: block;
+  flex: 0 0 auto;
+  width: calc(var(--cde-ui-size) * 0.8);
+  height: calc(var(--cde-ui-size) * 0.4);
+}
+
+/* the triangle is the only thing inside; it's non-interactive visually */
+.fp-strip-btn:active,
+.fp-strip-btn[aria-expanded="true"],
+.fp-slot:has(> .fp-cell:active) > .fp-strip-btn,
+.fp-slot:has(> .fp-cell[aria-expanded="true"]) > .fp-strip-btn {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-shadow),
+    inset -1px -1px 0 var(--cde-ti-light);
+}
+
+.fp-strip-btn:focus-visible {
+  outline: 1px dotted var(--cde-ti-text);
+  outline-offset: 1px;
+}
+
+/* ---- the workspace switch — the 2x3 footer grid ---- */
+.fp-workspace {
+  display: flex;
+  flex: 1 1 auto;
+  width: calc(var(--fp-cell-w) * 9.6);
+  min-width: 0;
+}
+
+.fp-work {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  margin: 0 0 1px;
+  padding: 1px;
+  overflow: hidden;
+  background: var(--cde-ti);
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+}
+
+/* ---- a launcher cell: 63x62, flat, nothing on it but the 48px bitmap ---- */
+.fp-cell {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: var(--fp-cell-w);
+  min-width: var(--fp-cell-w);
+  padding: 0;
+  font-family: inherit;
+  color: var(--cde-panel-text);
+  background: var(--cde-panel);
+  border-top: 1px solid var(--cde-ti-light);
+  border-bottom: 1px solid var(--cde-ti-shadow);
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* middle slots: each has a 3D strip on top and a flat cell below (like CDE panel bars) */
+.fp-mid {
+  width: calc(var(--fp-cell-w) * 1.6);
+}
+.fp-mid-cell {
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+  font-size: calc(var(--cde-ui-size) - 4px);
+  line-height: 1.3;
+  padding: 1px 3px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  word-break: break-word;
+  border-left: 1px solid var(--cde-ti-light);
+  border-right: 1px solid var(--cde-ti-shadow);
+}
+.fp-slot.fp-mid .fp-strip-3d {
+  width: 100%;
+}
+.fp-slot.fp-mid + .fp-slot.fp-mid .fp-cell {
+  border-left: 1px solid var(--cde-ti-shadow);
+}
+.fp-slot.fp-mid:first-of-type .fp-cell {
+  border-left: none;
+}
+
+/* hover lifts the cell; CDE's press pixmap sinks it instead */
+.fp-cell:hover {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-light),
+    inset -1px -1px 0 var(--cde-panel-shadow);
+}
+
+.fp-cell:active,
+.fp-cell[aria-expanded="true"] {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-shadow),
+    inset -1px -1px 0 var(--cde-panel-light);
+}
+
+.fp-cell:focus-visible {
+  outline: 1px dotted var(--cde-panel-text);
+  outline-offset: -4px;
+}
+
+/* no subpanel arrow strip above totop */
+.fp-slot .fp-strip-empty {
+  height: var(--fp-strip-h);
+  background: var(--cde-ti);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+  width: var(--fp-cell-w);
+  min-width: var(--fp-cell-w);
+}
+
+/* CDE draws its front panel launchers 48x48, and layout/partials/fp-icon-*.ejs
+   are built at that size.  They are inlined SVG rather than <img>, so the fills
+   resolve against the palette; the partials carry shape-rendering="crispEdges"
+   to keep the bitmap pixels square when the reading size scales them. */
+.fp-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: var(--fp-icon);
+  height: var(--fp-icon);
+}
+
+/* DtFont.l.pm leaves more transparent space above the Aa glyph than below. */
+#read-toggle .fp-icon {
+  transform: translateY(calc(var(--fp-icon) * -0.17));
+}
+
+/* text only a screen reader needs — the clock's readout */
+.fp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- the clock, CDE's first launcher ------------------------------------
+ * NsCDE swallows pclock into the first cell and hands it Fpclock.xpm, so the
+ * face is that XPM, traced: an octagon, not a disc.  Its colours are symbolic
+ * names resolved from the panel's own colourset, which here is the `--cde-ti`
+ * group, so it follows the palette like everything else.
+ *
+ * pclock fills the hour and minute hands as wedges rather than stroking them
+ * (Graphics.c: XFillPolygon, tip at hand_length and a base through the centre
+ * of +/- hand_width), and it doubles them as both hand colours.  It is handed
+ *
+ *     fpclock -H $bs_color_3 -S $ts_color_3
+ *
+ * so the hour/minute wedge wears the colourset's bottom shadow -- the same
+ * dark as the dial's outer ring -- and the second hand the top shadow.  The
+ * wedge is 8px wide at the base in a 64px dial, which is what makes a dark
+ * hand read against a dark face. */
+.fp-cell-clock {
+  cursor: default;
+  padding: 0;
+}
+
+.fp-cell-clock:hover {
+  box-shadow: none;
+}
+
+.fp-dial {
+  display: block;
+  flex: 0 0 auto;
+  width: var(--fp-dial);
+  height: var(--fp-dial);
+}
+
+.fp-dial-o { fill: var(--cde-ti-shadow); }
+.fp-dial-l { fill: var(--cde-ti-light); }
+.fp-dial-b { fill: var(--cde-ti); }
+.fp-dial-f { fill: var(--cde-input); }
+
+.fp-tick {
+  stroke: var(--cde-ti-text);
+  stroke-width: 2;
+}
+
+/* the hour and minute hands: wedges, like pclock's XFillPolygon */
+.fp-hand-h,
+.fp-hand-m,
+.fp-hand-s {
+  transform-origin: 32px 32px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.fp-hand-h,
+.fp-hand-m {
+  fill: var(--cde-ti-shadow);
+  stroke: none;
+}
+
+/* pclock's second hand: a plain round-capped line, light so it reads against
+   the dark face (it really does draw this one with `-S`, the top shadow) */
+.fp-hand-s {
+  stroke: var(--cde-ti-light);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+/* ---- the end handles ----------------------------------------------------
+ * FpMenu.xpm / FpIconify.xpm are just Motif bevel boxes scaled up, and
+ * FpHandle.xpm is 1px alternating lines in the panel colourset's topShadow
+ * and bottomShadow — a corrugated grip. */
+.fp-cap {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  width: var(--fp-end-w);
+  padding: 1px;
+}
+
+.fp-cap-l {
+  border-left: 1px solid var(--cde-ti-light);
+}
+
+.fp-cap-r {
+  border-right: 1px solid var(--cde-ti-shadow);
+}
+
+.fp-capbox {
+  flex: 0 0 auto;
+  height: var(--fp-endbtn-h);
+  background: var(--cde-ti);
+  border-bottom: 1px solid var(--cde-ti-light);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+}
+
+.fp-grip {
+  flex: 1 1 auto;
+  margin-top: 1px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--cde-ti-shadow) 0 1px,
+    var(--cde-ti-light) 1px 2px
+  );
+}
+
+/* ---- the footer's own text, in the panel's work area ----
+ * The work area is a `Container(Rows 2, ...)`, so the text is laid out in two
+ * rows: the panel's links on top (as flat CDE cells, the way the workspace
+ * switch draws them, so they lift on hover and sink on press) and the fine
+ * print underneath.  On a wide window each row is one line; the second folds
+ * only when the panel genuinely runs out of room.
+ *
+ * The links keep their `href`s; the `|` separators the old footer used are
+ * gone, because the one-pixel gap between two cells is what separates one
+ * panel button from the next. */
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  max-width: 100%;
+  font-size: calc(var(--cde-ui-size) - 3px);
+  line-height: 1.4;
+  text-align: center;
+  word-break: break-word;
+}
+
+.footer-info p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  min-width: 0;
+}
+
+.footer-info a,
+.footer-info a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* the top row: site links as flat panel cells */
+.footer-nav {
+  gap: 1px;
+}
+
+.footer-nav a {
+  padding: 0 8px;
+  line-height: 1.5;
+}
+
+.footer-nav a:hover {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-light),
+    inset -1px -1px 0 var(--cde-panel-shadow);
+}
+
+.footer-nav a:active {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-shadow),
+    inset -1px -1px 0 var(--cde-panel-light);
+}
+
+/* the bottom row: the fine print, one group per item */
+.footer-meta {
+  gap: 0 10px;
+}
+
+.footer-meta a:hover,
+.footer-beian a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ============================================================
+ * 打赏 / Reward — as a CDE dialog
+ * ============================================================ */
+#reward {
+  margin: 16px 0 4px;
+  text-align: center;
+}
+
+#reward-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 16px;
+  font-family: inherit;
+  font-size: var(--cde-ui-size);
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+  /* CDE raised button: black outer border + 1px inset bevel (light top/left, dark bottom/right) */
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-light),
+    inset -1px -1px 0 var(--cde-face-shadow);
+  cursor: pointer;
+}
+
+#reward-btn:hover {
+  box-shadow:
+    inset 2px 2px 0 var(--cde-face-light),
+    inset -2px -2px 0 var(--cde-face-shadow);
+}
+
+#reward-btn:active {
+  /* Pressed: invert the bevel (dark top/left, light bottom/right) */
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-shadow),
+    inset -1px -1px 0 var(--cde-face-light);
+}
+
+#reward-btn svg {
+  display: block;
+}
+
+#reward-modal {
+  display: none;
+}
+
+#reward-modal.open {
+  display: block;
+}
+
+#reward-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+#reward-panel {
+  position: fixed;
+  z-index: 121;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88vw;
+  max-width: 440px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 4px;
+  text-align: center;
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 2px 2px 0 var(--cde-face-light),
+    inset -2px -2px 0 var(--cde-face-shadow);
+}
+
+/* 对话框标题栏 —— 直接复用主窗口的 .titlebar / .titlebar-btn / .titlebar-title，
+ * 这里只补上标题栏与对话框内容之间的间距。 */
+.reward-titlebar,
+.rp-titlebar {
+  margin-bottom: 6px;
+}
+
+#reward-panel .reward-text {
+  margin: 8px 8px 12px;
+  font-size: var(--cde-ui-size);
+}
+
+#reward-panel .reward-qrs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 8px;
+}
+
+#reward-panel .reward-qr {
+  margin: 0;
+}
+
+#reward-panel .reward-qr img {
+  display: block;
+  width: 160px;
+  height: 160px;
+  padding: 4px;
+  box-sizing: border-box;
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid var(--cde-border);
+}
+
+#reward-panel .reward-qr figcaption {
+  margin-top: 4px;
+  font-size: var(--cde-ui-size);
+}
+
+/* close: an ordinary CDE push button, centred at the foot of the dialog */
+#reward-panel .reward-actions {
+  display: flex;
+  justify-content: center;
+  padding: 2px 0 6px;
+}
+
+#reward-close {
+  min-width: 88px;
+  padding: 4px 16px;
+  font-family: inherit;
+  font-size: var(--cde-ui-size);
+  color: var(--cde-face-text);
+  background: var(--cde-face);
+  border: 1px solid;
+  border-top-color: var(--cde-face-light);
+  border-left-color: var(--cde-face-light);
+  border-right-color: var(--cde-face-shadow);
+  border-bottom-color: var(--cde-face-shadow);
+  cursor: pointer;
+}
+
+#reward-close:active {
+  border-top-color: var(--cde-face-shadow);
+  border-left-color: var(--cde-face-shadow);
+  border-right-color: var(--cde-face-light);
+  border-bottom-color: var(--cde-face-light);
+}
+
+
+
+/* ============================================================
+ * Gitalk comments
+ * ============================================================ */
+.comments {
+  margin-top: 8px;
+}
+
+.comments-title {
+  /* 16px at the default 15px reading size */
+  font-size: calc(var(--read-font-size) * 1.0667);
+  margin: 0 0 8px 0;
+  padding: 2px 6px;
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  box-shadow:
+    inset 0 1px 0 var(--cde-menu-light),
+    inset 0 -1px 0 var(--cde-menu-shadow);
+}
+
+#gitalk-container {
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+}
+
+/* Input/textarea - CDE panel/input style */
+#gitalk-container .gt-container .gt-header-textarea,
+#gitalk-container .gt-container .gt-input {
+  background: var(--cde-input);
+  color: var(--cde-input-text);
+  border-radius: 0;
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-input-light),
+    inset -1px -1px 0 var(--cde-input-shadow);
+}
+
+#gitalk-container .gt-container .gt-header-textarea:focus,
+#gitalk-container .gt-container .gt-input:focus {
+  outline: 1px dotted #000;
+  outline-offset: 1px;
+}
+
+/* Comments */
+#gitalk-container .gt-container .gt-comment-content,
+#gitalk-container .gt-container .gt-comment-body {
+  background: var(--cde-input);
+  color: var(--cde-input-text);
+  border-radius: 0;
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-input-light),
+    inset -1px -1px 0 var(--cde-input-shadow);
+}
+
+/* Buttons - CDE raised button */
+#gitalk-container .gt-container .gt-btn {
+  border-radius: 0;
+  font-family: inherit;
+  font-size: var(--cde-ui-size);
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-light),
+    inset -1px -1px 0 var(--cde-face-shadow);
+  cursor: pointer;
+}
+
+#gitalk-container .gt-container .gt-btn:hover {
+  box-shadow:
+    inset 2px 2px 0 var(--cde-face-light),
+    inset -2px -2px 0 var(--cde-face-shadow);
+}
+
+#gitalk-container .gt-container .gt-btn:active {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-shadow),
+    inset -1px -1px 0 var(--cde-face-light);
+}
+
+/* Preview button variation */
+#gitalk-container .gt-container .gt-btn-preview {
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+  border-color: var(--cde-border);
+}
+
+/* Links */
+#gitalk-container .gt-container a {
+  color: #0000ee;
+}
+
+/* Other UI bits */
+#gitalk-container .gt-container .gt-svg svg {
+  fill: var(--cde-face-text);
+}
+
+#gitalk-container .gt-container .gt-avatar img {
+  border-radius: 0;
+  border: 1px solid var(--cde-border);
+}
+
+#gitalk-container .gt-container .gt-meta,
+#gitalk-container .gt-container .gt-counts {
+  color: var(--cde-face-text);
+}
+
+/* ============================================================
+ * Responsive
+ * ============================================================ */
+@media (max-width: 720px) {
+  body {
+    padding: 2px;
+  }
+
+  .window-body {
+    flex-direction: column;
+  }
+
+  .window-pane {
+    width: auto;
+    max-width: none;
+    max-height: 40vh;
+    border-bottom: 1px solid var(--cde-face-shadow);
+  }
+}
+
+/* ============================================================
+ * Back to top
+ *
+ * It used to float over the bottom-right corner; it now has a home in the
+ * front panel, so there is no floating button any more.
+ *
+ * It is a panel launcher like the rest, and a launcher is always there — no
+ * hiding, no fade, no scroll listener.  The button only ever scrolls the
+ * article pane back to the top (js/totop.js).
+ * ============================================================ */
+/* ============================================================
+ * Front panel dialogs
+ *
+ * 阅读设置, 配色方案, 日历 and 站内搜索 all hang off the front panel's top edge, and
+ * that is what `bottom: 100%` measures — so they follow the bar when the
+ * reading size makes it taller, and they can never collide with it.
+ * ============================================================ */
+.fp-dialog {
+  position: absolute;
+  right: 8px;
+  bottom: 100%;
+  margin-bottom: 6px;
+  z-index: 61;
+  width: 244px;
+  display: none;
+  padding: 3px 3px 5px;
+  background: var(--cde-face);
+  color: var(--cde-face-text);
+  border: 1px solid var(--cde-border);
+  box-shadow:
+    inset 2px 2px 0 var(--cde-face-light),
+    inset -2px -2px 0 var(--cde-face-shadow);
+}
+
+.fp-dialog.open {
+  display: block;
+}
+
+.fp-dialog-wide {
+  width: 264px;
+}
+
+.fp-dialog-search {
+  left: calc(var(--fp-end-w) + var(--fp-cell-w) + var(--fp-cell-w));
+  right: auto;
+  width: min(420px, calc(100vw - 20px));
+}
+
+#search-form {
+  margin: 0 2px;
+  font-size: var(--cde-ui-size);
+}
+
+#search-form > label {
+  display: block;
+  margin: 2px 2px 4px;
+}
+
+.search-input-row {
+  display: flex;
+  gap: 5px;
+}
+
+#search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 4px 6px;
+  font-family: inherit;
+  font-size: var(--cde-ui-size);
+  color: var(--cde-input-text);
+  background: var(--cde-input);
+  border: 1px solid var(--cde-border);
+  border-radius: 0;
+  box-shadow:
+    inset 1px 1px 0 var(--cde-input-shadow),
+    inset -1px -1px 0 var(--cde-input-light);
+}
+
+#search-clear {
+  padding: 2px 9px;
+  font-family: inherit;
+  font-size: var(--cde-ui-size);
+  color: var(--cde-face-text);
+  background: var(--cde-face);
+  border: 1px solid;
+  border-top-color: var(--cde-face-light);
+  border-left-color: var(--cde-face-light);
+  border-right-color: var(--cde-face-shadow);
+  border-bottom-color: var(--cde-face-shadow);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+#search-clear:active {
+  border-top-color: var(--cde-face-shadow);
+  border-left-color: var(--cde-face-shadow);
+  border-right-color: var(--cde-face-light);
+  border-bottom-color: var(--cde-face-light);
+}
+
+#search-status {
+  margin: 5px 5px 3px;
+  font-size: calc(var(--cde-ui-size) - 1px);
+}
+
+#search-status[data-state="error"] {
+  color: #a00000;
+}
+
+#search-results {
+  max-height: min(48vh, 360px);
+  overflow-y: auto;
+  margin: 0 2px 2px;
+  padding: 2px;
+  list-style: none;
+  background: var(--cde-input);
+  color: var(--cde-input-text);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-input-shadow),
+    inset -1px -1px 0 var(--cde-input-light);
+}
+
+#search-results:empty {
+  display: none;
+}
+
+#search-results a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px;
+  color: inherit;
+  text-decoration: none;
+}
+
+#search-results li + li {
+  border-top: 1px solid var(--cde-input-shadow);
+}
+
+#search-results a:hover,
+#search-results a:focus-visible {
+  color: var(--cde-input);
+  background: var(--cde-input-text);
+  outline: none;
+}
+
+.search-result-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+#search-results time {
+  flex: 0 0 auto;
+  font-size: calc(var(--cde-ui-size) - 2px);
+}
+
+#read-panel .rp-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  font-size: var(--cde-ui-size);
+}
+
+#read-panel .rp-label {
+  flex: 0 0 30px;
+}
+
+#read-panel .rp-row input[type="range"] {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+
+#read-panel .rp-row b {
+  flex: 0 0 40px;
+  text-align: right;
+  font-weight: normal;
+  color: var(--cde-face-shadow);
+}
+
+#read-panel .rp-check {
+  gap: 4px;
+}
+
+#read-panel .rp-actions {
+  padding: 4px 6px 0;
+  text-align: right;
+}
+
+#read-panel .rp-actions button {
+  padding: 2px 10px;
+  font-family: inherit;
+  font-size: var(--cde-ui-size);
+  color: var(--cde-face-text);
+  background: var(--cde-face);
+  border: 1px solid;
+  border-top-color: var(--cde-face-light);
+  border-left-color: var(--cde-face-light);
+  border-right-color: var(--cde-face-shadow);
+  border-bottom-color: var(--cde-face-shadow);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+#read-panel .rp-actions button:active {
+  border-top-color: var(--cde-face-shadow);
+  border-left-color: var(--cde-face-shadow);
+  border-right-color: var(--cde-face-light);
+  border-bottom-color: var(--cde-face-light);
+}
+
+/* ============================================================
+ * 配色方案 dialog
+ *
+ * A CDE dialog holding a Motif list box: a sunken text-field widget
+ * (colorset 4, so it follows --cde-input and takes the --cde-code-* token
+ * colours of the active palette) listing every NsCDE palette with a
+ * three-chip swatch.  The selected row is drawn the way Motif draws a
+ * selected row, by inverting the text-field colours.
+ * ============================================================ */
+#palette-panel .pal-list {
+  max-height: min(52vh, 330px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 0 2px 2px;
+  background: var(--cde-input);
+  color: var(--cde-input-text);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-input-shadow),
+    inset -1px -1px 0 var(--cde-input-light);
+}
+
+#palette-panel .pal-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 3px 6px;
+  font-family: inherit;
+  font-size: var(--cde-ui-size);
+  line-height: 1.3;
+  text-align: left;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  appearance: none;
+  cursor: pointer;
+}
+
+#palette-panel .pal-item:not([aria-selected="true"]):hover,
+#palette-panel .pal-item[aria-selected="true"] {
+  background: var(--cde-input-text);
+  color: var(--cde-input);
+  box-shadow: inset 2px 0 0 currentColor;
+}
+
+#palette-panel .pal-item:focus-visible {
+  outline: 1px dotted currentColor;
+  outline-offset: -3px;
+}
+
+#palette-panel .pal-swatch {
+  flex: 0 0 auto;
+  display: inline-flex;
+  gap: 1px;
+}
+
+#palette-panel .pal-swatch i {
+  display: block;
+  width: 11px;
+  height: 11px;
+  border: 1px solid #000000;
+}
+
+#palette-panel .pal-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- 日历 dialog: a Motif month grid ---- */
+/* the calendar hangs off the left, above its own button */
+.fp-dialog-cal {
+  left: 8px;
+  right: auto;
+  width: 236px;
+}
+
+.cal-head {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px 4px;
+}
+
+.cal-title {
+  flex: 1;
+  text-align: center;
+  font-size: var(--cde-ui-size);
+}
+
+/* the little prev/next arrows are drawn with borders, like the scrollbar's */
+.cal-nav {
+  position: relative;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 20px;
+  padding: 0;
+  color: var(--cde-face-text);
+  background: var(--cde-face);
+  border: 1px solid var(--cde-border);
+  border-radius: 0;
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-light),
+    inset -1px -1px 0 var(--cde-face-shadow);
+  cursor: pointer;
+}
+
+.cal-nav:active {
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-shadow),
+    inset -1px -1px 0 var(--cde-face-light);
+}
+
+.cal-nav::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-right: 5px solid currentColor;
+}
+
+.cal-nav.cal-next::before {
+  border-right: 0;
+  border-left: 5px solid currentColor;
+}
+
+.cal-week,
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  margin: 0 3px;
+}
+
+/* the weekday strip wears the menu colourset, like a widget's title strip */
+.cal-week span {
+  padding: 2px 0;
+  text-align: center;
+  font-size: calc(var(--cde-ui-size) * 0.78);
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  box-shadow:
+    inset 0 1px 0 var(--cde-menu-light),
+    inset 0 -1px 0 var(--cde-menu-shadow);
+}
+
+/* the days sit in a sunken text field, like Motif's list boxes */
+.cal-days {
+  margin: 1px 3px 3px;
+  padding: 2px;
+  background: var(--cde-input);
+  color: var(--cde-input-text);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-input-shadow),
+    inset -1px -1px 0 var(--cde-input-light);
+}
+
+.cal-day {
+  padding: 2px 0;
+  text-align: center;
+  font-size: calc(var(--cde-ui-size) * 0.85);
+}
+
+.cal-today {
+  background: var(--cde-input-text);
+  color: var(--cde-input);
+  font-weight: bold;
+}
+
+/* Print article pages as normal document flow rather than the screen's
+   independently scrolling desktop panes. */
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  html,
+  body {
+    width: auto;
+    height: auto;
+    min-height: 0;
+    color: #000;
+    background: #fff;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  body.post-page {
+    display: block;
+    padding: 0;
+  }
+
+  body.post-page #wrapper,
+  body.post-page .window-body,
+  body.post-page .window-content {
+    display: block;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    color: #000;
+  }
+
+  body.post-page #titlebar,
+  body.post-page .menubar,
+  body.post-page .window-pane,
+  body.post-page #window-footer,
+  body.post-page .post-nav,
+  body.post-page .comments,
+  body.post-page #reward,
+  body.post-page #reward-modal,
+  body.post-page .cde-image-viewer {
+    display: none !important;
+  }
+
+  body.post-page .window-content > .full-post {
+    display: block;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: #fff;
+    color: #000;
+  }
+
+  body.post-page .post-title,
+  body.post-page .post-meta,
+  body.post-page .post-content,
+  body.post-page .post-content a {
+    color: #000;
+  }
+
+  body.post-page .post-meta {
+    font-size: 9pt;
+  }
+
+  body.post-page .post-content {
+    font-size: 11pt;
+    line-height: 1.55;
+  }
+
+  body.post-page .post-content pre,
+  body.post-page .post-content figure.highlight {
+    max-height: none;
+    overflow: visible;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    break-inside: auto;
+    page-break-inside: auto;
+    color: #000;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  body.post-page .post-content figure.highlight.code-collapsed > table {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  body.post-page .post-content figure.highlight .code-toggle,
+  body.post-page .post-content figure.highlight .code-copy-btn,
+  body.post-page .post-content figure.highlight .code-lang {
+    display: none !important;
+  }
+
+  body.post-page .post-content figure.highlight .line {
+    color: #000;
+  }
+
+  body.post-page .post-content img {
+    max-width: 100%;
+    max-height: none;
+    height: auto !important;
+    object-fit: contain;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  body.post-page .post-content table,
+  body.post-page .post-content blockquote {
+    max-width: 100%;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  body.post-page .post-content h1,
+  body.post-page .post-content h2,
+  body.post-page .post-content h3,
+  body.post-page .post-content h4,
+  body.post-page .post-content h5,
+  body.post-page .post-content h6 {
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+}
+
+/* ============================================================
+ * Responsive — on a narrow screen the front panel folds in two:
+ * the launchers keep the top row, the footer text drops underneath.
+ *
+ * The cells shrink rather than wrap, because five 63px launchers plus two
+ * 21px handles is 357px and has to fit a 360px phone.
+ * ============================================================ */
+@media (max-width: 720px) {
+  .front-panel {
+    --fp-cell-w: calc(var(--cde-ui-size) * 3.15);
+    --fp-icon: calc(var(--cde-ui-size) * 2.2);
+    --fp-dial: calc(var(--cde-ui-size) * 2.34);
+  }
+
+  .fp-rail {
+    flex-wrap: wrap;
+    height: auto;
+  }
+
+  .fp-slot {
+    flex: 1 0 auto;
+  }
+
+  .fp-cell {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    min-height: var(--fp-cell-h);
+  }
+
+  /* the work area drops to its own row, under the launchers */
+  .fp-work {
+    order: 10;
+    flex: 1 1 100%;
+    width: auto;
+    margin: 0 0 1px;
+    padding: 2px 4px;
+    border-top: 1px solid var(--cde-panel-shadow);
+    box-shadow: inset 0 1px 0 var(--cde-panel-light);
+  }
+
+  .fp-workspace {
+    order: 10;
+    flex: 1 1 100%;
+    width: auto;
+  }
+
+  /* the two rows of text stack tight in the shorter work area */
+  .footer-info {
+    gap: 2px;
+    line-height: 1.35;
+  }
+
+  .footer-nav a {
+    padding: 0 6px;
+  }
+
+  .footer-meta {
+    gap: 0 6px;
+  }
+
+  .fp-cap-r {
+    border-left: 1px solid var(--cde-ti-shadow);
+  }
+
+  /* they all hang off one corner, so a single width fits the lot */
+  .fp-dialog,
+  .fp-dialog-wide,
+  .fp-dialog-cal {
+    right: 4px;
+    left: auto;
+    width: min(258px, calc(100vw - 16px));
+  }
+
+  .fp-dialog-search {
+    width: min(420px, calc(100vw - 16px));
+  }
+}
+
+/* ============================================================
+ * 滚动条 — Motif 风格
+ *
+ * CDE/Motif 的滚动条是方形的：凹陷的滑槽 + 立体凸起的滑块 +
+ * 两端各一个带箭头的方形按钮。滑块和按钮都用面色的明暗两条边
+ * 做出 3D 效果，而不是系统默认的圆角悬浮样式。
+ * ============================================================ */
+
+/* 标准属性（Firefox 用）—— 必须只在“不认识 ::-webkit-scrollbar”的浏览器里生效。
+ *
+ * Chromium（Chrome / Edge / 各类双核浏览器）只要看到 scrollbar-color ——
+ * 哪怕是从 html 继承来的 —— 就会完全忽略 ::-webkit-scrollbar 的样式，
+ * 回退成系统默认滚动条。这正是之前“滚动条还是系统默认样式”的原因。
+ * Firefox 不支持 ::-webkit-scrollbar，所以用 @supports 把它单独隔离，
+ * 两个引擎才能各走各的：Chromium 走下面的伪元素，Firefox 走这里。 */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: var(--cde-face-shadow) var(--cde-face);
+  }
+}
+
+/* WebKit / Blink（Chromium、Safari、Edge） */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background: var(--cde-face);
+}
+
+/* 滑槽：凹陷（左上暗、右下亮） */
+::-webkit-scrollbar-track {
+  background: var(--cde-face);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-shadow),
+    inset -1px -1px 0 var(--cde-face-light);
+}
+
+/* 滑块：凸起（左上亮、右下暗） */
+::-webkit-scrollbar-thumb {
+  background: var(--cde-face);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-light),
+    inset -1px -1px 0 var(--cde-face-shadow);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--cde-face);
+}
+
+/* 两端的箭头按钮 */
+::-webkit-scrollbar-button {
+  display: block;
+  background-color: var(--cde-face);
+  background-repeat: no-repeat;
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-light),
+    inset -1px -1px 0 var(--cde-face-shadow);
+}
+
+/* 滚动条内部其实给每条轴准备了四个按钮位（start/end 各一个双向箭头）。
+ * 只保留“起点向上 / 终点向下”两个，否则每端会多出一个箭头。 */
+::-webkit-scrollbar-button:vertical:decrement:end,
+::-webkit-scrollbar-button:vertical:increment:start,
+::-webkit-scrollbar-button:horizontal:decrement:end,
+::-webkit-scrollbar-button:horizontal:increment:start {
+  display: none;
+}
+
+/* 上箭头：左右各半个三角（先画左半格，再画右半格） */
+::-webkit-scrollbar-button:vertical:decrement {
+  background-image:
+    linear-gradient(to top left, var(--cde-face-text) 50%, transparent 50%),
+    linear-gradient(to top right, var(--cde-face-text) 50%, transparent 50%);
+  background-size: 4px 8px;
+  background-position: 4px 4px, 8px 4px;
+}
+
+/* 下箭头 */
+::-webkit-scrollbar-button:vertical:increment {
+  background-image:
+    linear-gradient(to bottom left, var(--cde-face-text) 50%, transparent 50%),
+    linear-gradient(to bottom right, var(--cde-face-text) 50%, transparent 50%);
+  background-size: 4px 8px;
+  background-position: 4px 4px, 8px 4px;
+}
+
+/* 左箭头 */
+::-webkit-scrollbar-button:horizontal:decrement {
+  background-image:
+    linear-gradient(to top left, var(--cde-face-text) 50%, transparent 50%),
+    linear-gradient(to bottom left, var(--cde-face-text) 50%, transparent 50%);
+  background-size: 8px 4px;
+  background-position: 4px 4px, 4px 8px;
+}
+
+/* 右箭头 */
+::-webkit-scrollbar-button:horizontal:increment {
+  background-image:
+    linear-gradient(to top right, var(--cde-face-text) 50%, transparent 50%),
+    linear-gradient(to bottom right, var(--cde-face-text) 50%, transparent 50%);
+  background-size: 8px 4px;
+  background-position: 4px 4px, 4px 8px;
+}

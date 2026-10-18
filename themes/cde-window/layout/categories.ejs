@@ -1,0 +1,15 @@
+<article class="archive cde-panel">
+  <h1 class="archive-title"><%= page.title || '分类' %></h1>
+  <ul class="category-list">
+    <%
+      var cats = site.categories.toArray ? site.categories.toArray() : site.categories;
+      cats.sort(function (a, b) { return b.posts.length - a.posts.length; });
+      cats.forEach(function (category) {
+    %>
+      <li class="category-list-item">
+        <a class="category-list-link" href="<%- url_for(category.path) %>"><%= category.name %></a>
+        <span class="category-list-count">(<%= category.posts.length %>)</span>
+      </li>
+    <% }); %>
+  </ul>
+</article>

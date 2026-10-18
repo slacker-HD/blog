@@ -1,0 +1,15 @@
+<article class="archive cde-panel">
+  <h1 class="archive-title"><%= page.title || '标签' %></h1>
+  <div class="tagcloud tagcloud-page">
+    <%
+      var tags = site.tags.toArray ? site.tags.toArray() : site.tags;
+      tags.sort(function (a, b) { return b.posts.length - a.posts.length; });
+      tags.forEach(function (tag) {
+    %>
+      <a class="tagcloud-item" href="<%- url_for(tag.path) %>">
+        <span class="tagcloud-tag"><%= tag.name %></span>
+        <span class="tagcloud-count">(<%= tag.posts.length %>)</span>
+      </a>
+    <% }); %>
+  </div>
+</article>

@@ -1,0 +1,168 @@
+/* ============================================================
+ * CDE front panel work area — 4 flat cells (2×2) for footer
+ * ============================================================ */
+.fp-ws {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+  gap: 3px;
+  padding: 3px 4px;
+  background: var(--cde-ti);
+  border: 1px solid var(--cde-ti-shadow);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+}
+
+.fp-ws-cell {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 4px;
+  padding: 1px 3px;
+  min-width: 0;
+  min-height: 0;
+  font-size: calc(var(--cde-ui-size) - 3px);
+  line-height: 1.1;
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  border: 1px solid var(--cde-ti-shadow);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.fp-ws-cell:nth-child(1) {
+  background: var(--cde-title);
+  color: var(--cde-title-text);
+}
+
+.fp-ws-cell:nth-child(2) {
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+}
+
+.fp-ws-cell:nth-child(3) {
+  background: var(--cde-title);
+  color: var(--cde-title-text);
+}
+
+.fp-ws-cell:nth-child(4) {
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  .fp-ws-cell:nth-child(1) {
+    background: color-mix(in srgb, var(--cde-title) 46%, var(--cde-panel) 54%);
+    color: var(--cde-panel-text);
+    box-shadow:
+      inset 1px 1px 0 var(--cde-panel-light),
+      inset -1px -1px 0 var(--cde-panel-shadow);
+  }
+
+  .fp-ws-cell:nth-child(2) {
+    background: color-mix(in srgb, var(--cde-menu) 48%, var(--cde-panel) 52%);
+    color: var(--cde-panel-text);
+    box-shadow:
+      inset 1px 1px 0 var(--cde-panel-light),
+      inset -1px -1px 0 var(--cde-panel-shadow);
+  }
+
+  .fp-ws-cell:nth-child(3) {
+    background: color-mix(in srgb, var(--cde-menu) 32%, var(--cde-panel) 68%);
+    color: var(--cde-panel-text);
+    box-shadow:
+      inset 1px 1px 0 var(--cde-panel-light),
+      inset -1px -1px 0 var(--cde-panel-shadow);
+  }
+
+  .fp-ws-cell:nth-child(4) {
+    background: color-mix(in srgb, var(--cde-title) 30%, var(--cde-panel) 70%);
+    color: var(--cde-panel-text);
+    box-shadow:
+      inset 1px 1px 0 var(--cde-panel-light),
+      inset -1px -1px 0 var(--cde-panel-shadow);
+  }
+}
+
+.fp-ws-cell a,
+.fp-ws-cell a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+.fp-ws-cell a:hover,
+.fp-ws-cell .footer-beian a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* calendar overlay (MonthDay applet style) */
+.fp-cell-cal {
+  position: relative;
+}
+
+.fp-cal {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fp-icon);
+  height: var(--fp-icon);
+}
+
+.fp-cal .fp-icon-calendar {
+  width: var(--fp-icon);
+  height: var(--fp-icon);
+  display: block;
+}
+
+.fp-cal-m,
+.fp-cal-d {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: inherit;
+  font-size: calc(var(--cde-ui-size) - 1px);
+  font-weight: bold;
+  color: var(--cde-panel-shadow);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.fp-cal-m {
+  top: 22%;
+}
+
+.fp-cal-d {
+  top: 55%;
+}
+
+/* top arrow icon centring */
+.fp-cell-top .fp-icon {
+  display: block;
+  width: var(--fp-icon);
+  height: var(--fp-icon);
+}
+
+@media (max-width: 720px) {
+  .fp-ws {
+    font-size: calc(var(--cde-ui-size) - 4px);
+  }
+  .fp-ws-cell {
+    padding: 2px 4px;
+    gap: 2px;
+  }
+}

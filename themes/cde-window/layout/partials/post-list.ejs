@@ -1,0 +1,11 @@
+<article class="archive cde-panel">
+  <h1 class="archive-title"><%= title %></h1>
+  <ul class="archive-list">
+    <% posts.forEach(function(post){ %>
+      <li>
+        <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+        <a href="<%- url_for(post.path) %>"><%= post.title || '无题' %></a>
+      </li>
+    <% }); %>
+  </ul>
+</article>

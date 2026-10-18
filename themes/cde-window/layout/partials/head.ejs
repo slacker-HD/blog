@@ -1,0 +1,28 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><% if (page.title){ %><%= page.title %> - <% } %><%= config.title %></title>
+  <% if (config.description){ %><meta name="description" content="<%= config.description %>"><% } %>
+  <% if (config.keywords){ %><meta name="keywords" content="<%= config.keywords %>"><% } %>
+  <%- css('/css/style.css') %>
+  <%- css('/css/fp-ws.css') %>
+  <%- css('/css/highlight.css') %>
+  <%- css('/css/palettes.css') %>
+  <% if (page.math){ %><%- css('/libs/katex/katex.min.css') %><% } %>
+  <%- feed_tag() %>
+  <script>
+  /* Apply the saved reading preferences and colour palette before first paint,
+   * so neither ever flashes. */
+  (function () {
+    try {
+      var r = document.documentElement;
+      var p = JSON.parse(localStorage.getItem('cdeReadPrefs') || 'null') || {};
+      if (p.size) r.style.setProperty('--read-font-size', p.size + 'px');
+      if (p.lineHeight) r.style.setProperty('--read-line-height', String(p.lineHeight));
+      if (p.sans) r.classList.add('read-sans');
+      var pal = localStorage.getItem('cdePalette');
+      if (pal && /^[A-Za-z]{2,24}$/.test(pal)) r.setAttribute('data-palette', pal);
+    } catch (e) {}
+  })();
+  </script>
+</head>

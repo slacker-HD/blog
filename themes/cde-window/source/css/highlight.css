@@ -1,0 +1,444 @@
+/* ============================================================
+ * Syntax highlight — follows CDE's own definition
+ *
+ * CDE (and NsCDE) defines the text-editor / text-area colours as
+ * COLORSET 4:
+ *     NSCDE_BG_COLOR_4   background
+ *     NSCDE_FG_COLOR_4   foreground / text / cursor
+ *     NSCDE_TS_COLOR_4   top shadow   \
+ *     NSCDE_BS_COLOR_4   bottom shadow ) bevel
+ *
+ * NsCDE applies exactly this to Xedit / NEdit / XTerm and the CDE
+ * text widgets, e.g. data/config_templates/app-defaults/Xedit.tmpl:
+ *     Xedit*background:  NSCDE_BG_COLOR_4
+ *     Xedit*foreground:  NSCDE_FG_COLOR_4
+ *     Xedit*cursorColor: NSCDE_FG_COLOR_4
+ *
+ * Colorset 4 (position 4 of data/palettes/<name>.dp):
+ *     Broica      #686f82  dark slate   -> light text
+ *     Regal       #5470aa  slate blue   -> light text
+ *     SeaFoam     #97b0b1  muted teal   -> light text
+ *     BeigeRose   #f0eceb  paper        -> dark text
+ *     Delphinium  #ffffe6  pale yellow  -> dark text
+ *     Crimson     #fff7e9  parchment    -> dark text
+ *
+ * So the code area IS the CDE text field: it uses the theme's
+ * colorset-4 values (--cde-input / --cde-input-text / --cde-input-light
+ * / --cde-input-shadow).  Because colorset 4 is dark for some palettes
+ * and light for others, two token palettes are provided below and are
+ * selected by the active palette.
+ * ============================================================ */
+
+/* ---- colorset 4 is mid/dark, text is light ---- */
+:root,
+html[data-palette="Broica"],
+html[data-palette="Regal"],
+html[data-palette="SeaFoam"] {
+  --cde-code-gutter: #b9c2d0;
+  --cde-code-comment: #c4ccd9;
+  --cde-code-red: #ffc0b5;
+  --cde-code-violet: #e6c4ff;
+  --cde-code-blue: #a8c8ff;
+  --cde-code-green: #b6e3a0;
+  --cde-code-func: #9ecbff;
+  --cde-code-amber: #ffcf8f;
+  --cde-code-cyan: #8fd4ea;
+  --cde-code-deepblue: #9fb8ff;
+  --cde-code-diff-del-bg: #7a3b3b;
+  --cde-code-diff-add-bg: #2f5a3a;
+  --cde-code-marked: rgba(255, 255, 255, 0.13);
+}
+
+/* ---- colorset 4 is light paper, text is dark ---- */
+html[data-palette="BeigeRose"],
+html[data-palette="Delphinium"],
+html[data-palette="Crimson"] {
+  --cde-code-gutter: #8b8279;
+  --cde-code-comment: #7f7a72;
+  --cde-code-red: #bf4a3a;
+  --cde-code-violet: #96409c;
+  --cde-code-blue: #3f63d4;
+  --cde-code-green: #4f8743;
+  --cde-code-func: #3b62d6;
+  --cde-code-amber: #96601c;
+  --cde-code-cyan: #2b6f9e;
+  --cde-code-deepblue: #2c4fa8;
+  --cde-code-diff-del-bg: #f4d6d0;
+  --cde-code-diff-add-bg: #d8e8d6;
+  --cde-code-marked: rgba(0, 0, 0, 0.07);
+}
+
+/* ============================================================
+ * The CDE text field = colorset 4
+ * ============================================================ */
+pre {
+  width: 100%;
+  position: relative;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+pre code {
+  display: block;
+  box-sizing: border-box;
+  overflow-x: auto;
+  font-family: "Source Code Pro", Monaco, Menlo, Consolas, monospace, Arial, sans-serif;
+  margin: 1.2em 0;
+  padding: 15px 15px 10px 15px;
+  line-height: 1.2em;
+  width: 100%;
+  /* relative, so the code follows the 阅读设置 font size like the original */
+  font-size: 0.9em;
+  color: var(--cde-input-text, #ffffff);
+  background: var(--cde-input, #686f82);
+  border: 1px solid var(--cde-border, #000000);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-input-shadow, #33363f),
+    inset -1px -1px 0 var(--cde-input-light, #babdc6);
+}
+
+figure.highlight,
+.codeblock {
+  margin: 1em 0;
+  line-height: 1.1em;
+  padding-top: 15px;
+  color: var(--cde-input-text, #ffffff);
+  background: var(--cde-input, #686f82);
+  border: 1px solid var(--cde-border, #000000);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-input-shadow, #33363f),
+    inset -1px -1px 0 var(--cde-input-light, #babdc6);
+}
+
+figure.highlight figcaption,
+.codeblock figcaption {
+  font-size: 0.9em;
+  padding: 0 15px 20px;
+  margin: 0;
+  color: var(--cde-code-comment);
+}
+
+figure.highlight figcaption a,
+.codeblock figcaption a {
+  float: right;
+  color: var(--cde-code-blue);
+  font-weight: bold;
+}
+
+figure.highlight table,
+.codeblock table {
+  width: 100%;
+  margin: 0;
+  padding-bottom: 10px;
+  border-collapse: collapse;
+  position: relative;
+  display: block;
+  overflow-x: auto;
+}
+
+/* the generic post table styling must not leak into the code table */
+figure.highlight td,
+figure.highlight th,
+.codeblock td,
+.codeblock th {
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+figure.highlight pre,
+.codeblock pre,
+figure.highlight .gutter,
+.codeblock .gutter,
+figure.highlight .code,
+.codeblock .code,
+figure.highlight .tag,
+.codeblock .tag {
+  background-color: inherit;
+  font-family: "Source Code Pro", Monaco, Menlo, Consolas, monospace;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: text;
+  box-shadow: none;
+}
+
+figure.highlight .gutter,
+.codeblock .gutter,
+figure.highlight .code,
+.codeblock .code {
+  vertical-align: top;
+}
+
+figure.highlight.plain .gutter,
+.codeblock.plain .gutter {
+  display: none;
+}
+
+figure.highlight .gutter,
+.codeblock .gutter {
+  border-right: 1px solid var(--cde-input-shadow, #33363f);
+  padding: 0.3em 15px;
+}
+
+figure.highlight .gutter .line,
+.codeblock .gutter .line {
+  color: var(--cde-code-gutter);
+}
+
+figure.highlight .line,
+.codeblock .line {
+  font-size: 0.9em;
+  color: var(--cde-input-text, #ffffff);
+}
+
+figure.highlight .line.marked,
+.codeblock .line.marked {
+  background: var(--cde-code-marked);
+}
+
+figure.highlight .code,
+.codeblock .code {
+  padding: 0.3em 15px 0.3em 1em;
+  width: 100%;
+}
+
+.gist .line,
+.gist .line-number {
+  font-family: "Source Code Pro", Monaco, Menlo, Consolas, monospace;
+  font-size: 1em;
+  margin: 0 0 5px 0;
+}
+
+/* ============================================================
+ * Token colours (the original theme's roles, re-valued)
+ * ============================================================ */
+.highlight .comment{color:var(--cde-code-comment)}
+.highlight .title,.highlight .section{color:var(--cde-code-red)}
+.highlight .meta,.highlight .preprocessor{color:var(--cde-code-violet)}
+.highlight .tag,.highlight .attr,.highlight .attribute{color:var(--cde-code-blue)}
+.highlight .string,.highlight .value,.highlight .inheritance,.highlight .header,.highlight .ruby .symbol,.highlight .xml .cdatabody{color:var(--cde-code-green)}
+.highlight .keyword{color:var(--cde-code-violet)}
+.highlight .javascript .function{color:var(--cde-code-func)}
+.highlight .number,.highlight .literal,.highlight .params{color:var(--cde-code-amber)}
+.highlight .built_in,.highlight .type,.highlight .operator{color:var(--cde-code-cyan)}
+.highlight .constant{color:var(--cde-code-amber)}
+.highlight .regexp{color:var(--cde-code-amber)}
+.highlight .function{color:var(--cde-code-func)}
+.highlight .symbol,.highlight .property,.highlight .doctag{color:var(--cde-code-red)}
+.highlight.apacheconf .code .common,.highlight.apacheconf .code .nomarkup,.highlight.apacheconf .code .attribute,.highlight.apacheconf .code .variable,.highlight.apacheconf .code .cbracket,.highlight.apacheconf .code .keyword{color:var(--cde-code-cyan)}
+.highlight.apacheconf .code .sqbracket{color:var(--cde-code-red)}
+.highlight.apacheconf .code .section,.highlight.apacheconf .code .tag{color:var(--cde-code-green)}
+.highlight.bash .code .literal,.highlight.bash .code .built_in{color:var(--cde-code-cyan)}
+.highlight.bash .code .title{color:var(--cde-code-func)}
+.highlight.bash .code .shebang{color:var(--cde-code-comment)}
+.highlight.bash .code .variable{color:var(--cde-input-text)}
+.highlight.coffeescript .code .subst,.highlight.coffeescript .code .regexp,.highlight.coffeescript .code .attribute{color:var(--cde-code-red)}
+.highlight.coffeescript .code .literal,.highlight.coffeescript .code .built_in,.highlight.coffeescript .code .number{color:var(--cde-code-cyan)}
+.highlight.coffeescript .code .title{color:var(--cde-code-func)}
+.highlight.coffeescript .code .reserved,.highlight.coffeescript .code .attribute{color:var(--cde-code-cyan)}
+.highlight.cpp .code .number,.highlight.c .code .number,.highlight.cpp .code .built_in,.highlight.c .code .built_in{color:var(--cde-code-cyan)}
+.highlight.cpp .code .preprocessor,.highlight.c .code .preprocessor{color:var(--cde-code-red)}
+.highlight.cpp .code .title,.highlight.c .code .title{color:var(--cde-code-func)}
+.highlight.cpp .code .meta-keyword,.highlight.c .code .meta-keyword{color:var(--cde-code-violet)}
+.highlight.cs .code .preprocessor,.highlight.cs .code .preprocessor .keyword{color:var(--cde-input-text)}
+.highlight.cs .code .xmlDocTag,.highlight.cs .code .doctag{color:var(--cde-code-green)}
+.highlight.cs .code .number,.highlight.cs .code .built_in{color:var(--cde-code-cyan)}
+.highlight.cs .code .title{color:var(--cde-code-func)}
+.highlight.css .code .id,.highlight.css .code .class,.highlight.css .code .pseudo,.highlight.css .code .selector-pseudo{color:var(--cde-code-func)}
+.highlight.css .code .attr_selector,.highlight.css .code .value{color:var(--cde-input-text)}
+.highlight.css .code .attribute,.highlight.css .code .hexcolor,.highlight.css .code .number,.highlight.css .code .function{color:var(--cde-code-cyan)}
+.highlight.css .code .at_rule,.highlight.css .code .important,.highlight.css .code .meta{color:var(--cde-code-violet)}
+.highlight.css .code .tag,.highlight.css .code .selector-tag{color:var(--cde-code-green)}
+.highlight.diff .code .deletion{color:var(--cde-code-red);background-color:var(--cde-code-diff-del-bg)}
+.highlight.diff .code .addition{color:var(--cde-code-green);background-color:var(--cde-code-diff-add-bg)}
+.highlight.http .code .literal{color:var(--cde-code-cyan)}
+.highlight.http .code .request{color:var(--cde-code-violet)}
+.highlight.http .code .attribute,.highlight.http .code attr{color:var(--cde-code-deepblue)}
+.highlight.ini .code .value,.highlight.ini .code .keyword{color:var(--cde-input-text)}
+.highlight.ini .code .setting,.highlight.ini .code .attr{color:var(--cde-code-violet)}
+.highlight.ini .code .chunk,.highlight.ini .code .meta{color:var(--cde-code-func);font-weight:bold}
+.highlight.ini .code .title,.highlight.ini .code .section{color:var(--cde-code-func)}
+.highlight.js .code .tag .title{color:var(--cde-input-text)}
+.highlight.js .code .regexp{color:var(--cde-code-red)}
+.highlight.js .code .javadoc{color:var(--cde-code-comment)}
+.highlight.js .code .literal,.highlight.js .code .number{color:var(--cde-code-cyan)}
+.highlight.js .code .built_in,.highlight.js .code .title{color:var(--cde-code-func)}
+.highlight.js .code .tag,.highlight.js .code .javadoctag{color:var(--cde-code-violet)}
+.highlight.java .code .title{color:var(--cde-code-func)}
+.highlight.java .code .number{color:var(--cde-code-cyan)}
+.highlight.java .code .javadoc{color:var(--cde-code-comment)}
+.highlight.java .code .params{color:var(--cde-code-cyan)}
+.highlight.java .code .meta,.highlight.java .code .annotation,.highlight.java .code .javadoctag{color:var(--cde-code-violet)}
+.highlight.mak .code .title{color:var(--cde-code-func)}
+.highlight.mak .code .constant{color:var(--cde-input-text)}
+.highlight.mak .code .keyword,.highlight.mak .code .meta-keyword{color:var(--cde-code-cyan)}
+.highlight.json .code .attribute{color:var(--cde-code-deepblue)}
+.highlight.json .code .number,.highlight.json .code .literal{color:var(--cde-code-cyan)}
+.highlight.md .code .link_url,.highlight.md .code .link{text-decoration:underline}
+.highlight.md .code .link_reference,.highlight.md .code .symbol,.highlight.md .code .code{color:var(--cde-code-cyan)}
+.highlight.md .code .value,.highlight.md .code .link_label,.highlight.md .code .strong,.highlight.md .code .emphasis,.highlight.md .code .blockquote,.highlight.md .code .quote,.highlight.md .code .section{color:var(--cde-code-deepblue)}
+.highlight.nginx .code .title,.highlight.nginx .code .attribute{color:var(--cde-code-violet)}
+.highlight.nginx .code .built_in,.highlight.nginx .code .literal{color:var(--cde-code-cyan)}
+.highlight.nginx .code .regexp{color:var(--cde-code-deepblue)}
+.highlight.nginx .code .variable{color:var(--cde-input-text)}
+.highlight.objectivec .code .title{color:var(--cde-code-func)}
+.highlight.objectivec .code .preprocessor,.highlight.objectivec .code .meta{color:var(--cde-code-violet)}
+.highlight.objectivec .code .preprocessor .title,.highlight.objectivec .code .meta .title{color:var(--cde-code-red)}
+.highlight.objectivec .code .literal,.highlight.objectivec .code .number,.highlight.objectivec .code .built_in{color:var(--cde-code-cyan)}
+.highlight.objectivec .code .meta-string{color:var(--cde-code-deepblue)}
+.highlight.perl .code .title{color:var(--cde-code-func)}
+.highlight.perl .code .regexp{color:var(--cde-code-red)}
+.highlight.perl .code .sub{color:var(--cde-code-func)}
+.highlight.php .code .title{color:var(--cde-code-func)}
+.highlight.php .code .regexp{color:var(--cde-code-red)}
+.highlight.php .code .phpdoc,.highlight.php .code .doctag{color:var(--cde-code-violet)}
+.highlight.php .code .literal,.highlight.php .code .number{color:var(--cde-code-cyan)}
+.highlight.python .code .number{color:var(--cde-code-cyan)}
+.highlight.python .code .decorator,.highlight.python .code .title,.highlight.python .code .meta{color:var(--cde-code-func)}
+.highlight.ruby .code .prompt,.highlight.ruby .code .constant,.highlight.ruby .code .number,.highlight.ruby .code .subst .keyword,.highlight.ruby .code .symbol{color:var(--cde-code-cyan)}
+.highlight.ruby .code .parent,.highlight.ruby .code .title{color:var(--cde-code-func)}
+.highlight.sql .code .number{color:var(--cde-code-cyan)}
+.highlight.sql .code .built_in{color:var(--cde-code-violet)}
+.highlight.xml .code .tag{color:var(--cde-input-text)}
+.highlight.xml .code .value{color:var(--cde-code-deepblue)}
+.highlight.xml .code .title,.highlight.xml .code .name{color:var(--cde-code-green)}
+.highlight.xml .code .attribute,.highlight.xml .code .attr{color:var(--cde-code-func)}
+.highlight.puppet .code .title{color:var(--cde-code-func)}
+.highlight.puppet .code .name{color:var(--cde-code-violet)}
+.highlight.puppet .code .function{color:var(--cde-code-cyan)}
+.highlight.puppet .code .attr{color:var(--cde-code-cyan)}
+.highlight.less .code .number,.highlight.less .code .hexcolor,.highlight.less .code .function,.highlight.less .code .attribute{color:var(--cde-code-cyan)}
+.highlight.less .code .id,.highlight.less .code .pseudo,.highlight.less .code .class,.highlight.less .code .selector-id,.highlight.less .code .selector-class,.highlight.less .code .selector-tag{color:var(--cde-code-func)}
+.highlight.less .code .tag,.highlight.less .code .at_rule{color:var(--cde-code-violet)}
+.highlight.less .code .built_in{color:var(--cde-code-red)}
+.highlight.sass .code .number,.highlight.sass .code .hexcolor,.highlight.sass .code .function,.highlight.sass .code .attribute{color:var(--cde-code-cyan)}
+.highlight.sass .code .tag,.highlight.sass .code .selector-tag{color:var(--cde-code-green)}
+.highlight.sass .code .built_in{color:var(--cde-code-red)}
+.highlight.sass .code .tag,.highlight.sass .code .at_rule,.highlight.sass .code .important{color:var(--cde-code-violet)}
+.highlight.sass .code .id,.highlight.sass .code .pseudo,.highlight.sass .code .class,.highlight.sass .code .preprocessor,.highlight.sass .code .selector-class,.highlight.sass .code .selector-id{color:var(--cde-code-func)}
+.highlight.sass .code .variable{color:var(--cde-input-text)}
+.highlight.stylus .code .tag,.highlight.stylus .code .selector-tag{color:var(--cde-code-green)}
+.highlight.stylus .code .at_rule{color:var(--cde-code-violet)}
+.highlight.stylus .code .class,.highlight.stylus .code .id,.highlight.stylus .code .pseudo,.highlight.stylus .code .title,.highlight.stylus .code .selector-id,.highlight.stylus .code .selector-pseudo,.highlight.stylus .code .selector-class{color:var(--cde-code-func)}
+.highlight.stylus .code .number,.highlight.stylus .code .hexcolor,.highlight.stylus .code .attribute,.highlight.stylus .code .params{color:var(--cde-code-cyan)}
+.highlight.go .code .built_in,.highlight.go .code .constant{color:var(--cde-code-cyan)}
+.highlight.go .code .typename{color:var(--cde-code-violet)}
+.highlight.swift .code .preprocessor{color:var(--cde-code-violet)}
+.highlight.swift .code .title{color:var(--cde-code-func)}
+.highlight.swift .code .built_in,.highlight.swift .code .number,.highlight.swift .code .type{color:var(--cde-code-cyan)}
+.highlight.yml .code .number{color:var(--cde-code-amber)}
+.highlight.yml .code .line,.highlight.yml .code .attr{color:var(--cde-code-func)}
+.highlight.yml .code .line,.highlight.yml .code .string,.highlight.yml .code .type,.highlight.yml .code .literal,.highlight.yml .code .meta{color:var(--cde-code-green)}
+
+/* ============================================================
+ * Code tools — drawn as CDE push buttons
+ * ============================================================ */
+figure.highlight {
+  position: relative;
+}
+
+figure.highlight .code-copy-btn,
+figure.highlight .code-toggle {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--cde-face-text, #000000);
+  background: var(--cde-face, #c5b2a8);
+  border: 1px solid var(--cde-border, #000000);
+  border-radius: 0;
+  cursor: pointer;
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-light, #e6deda),
+    inset -1px -1px 0 var(--cde-face-shadow, #6b615b);
+}
+
+figure.highlight .code-copy-btn {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  line-height: 18px;
+  opacity: 0.92;
+}
+
+figure.highlight .code-copy-btn .cc-check,
+figure.highlight .code-copy-btn .cc-x {
+  display: none;
+}
+
+figure.highlight .code-copy-btn:hover,
+figure.highlight .code-copy-btn:focus-visible {
+  background: var(--cde-face-sel, #a8978f);
+  opacity: 1;
+}
+
+figure.highlight .code-copy-btn.copied {
+  color: var(--cde-menu-text, #ffffff);
+  background: var(--cde-menu, #4991a6);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-menu-light, #adced7),
+    inset -1px -1px 0 var(--cde-menu-shadow, #244953);
+}
+
+figure.highlight .code-copy-btn.copied .cc-copy {
+  display: none;
+}
+
+figure.highlight .code-copy-btn.copied .cc-check {
+  display: block;
+}
+
+figure.highlight .code-copy-btn.copy-failed {
+  color: #ffffff;
+  background: #c0574c;
+  box-shadow:
+    inset 1px 1px 0 #e0a49c,
+    inset -1px -1px 0 #6b2f27;
+}
+
+figure.highlight .code-copy-btn.copy-failed .cc-copy {
+  display: none;
+}
+
+figure.highlight .code-copy-btn.copy-failed .cc-x {
+  display: block;
+}
+
+figure.highlight .code-lang {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  z-index: 2;
+  padding: 1px 7px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.03em;
+  color: var(--cde-menu-text, #ffffff);
+  background: var(--cde-menu, #4991a6);
+  border: 1px solid var(--cde-border, #000000);
+  border-top: none;
+}
+
+figure.highlight .code-toggle {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 4px 0;
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-light, #e6deda),
+    inset 0 -1px 0 var(--cde-face-shadow, #6b615b);
+}
+
+figure.highlight .code-toggle:hover {
+  background: var(--cde-face-sel, #a8978f);
+}
+
+figure.highlight.code-collapsed > table {
+  max-height: 340px;
+  overflow: hidden;
+}
