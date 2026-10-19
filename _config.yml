@@ -80,8 +80,8 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-theme: BlueLake
-#theme: cde-window
+#theme: BlueLake
+theme: cde-window
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
