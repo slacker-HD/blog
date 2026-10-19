@@ -1311,6 +1311,7 @@ html.read-sans .author-page {
 .fp-rail {
   display: flex;
   align-items: stretch;
+  gap: 2px;
   height: var(--fp-h);
   width: fit-content;
   max-width: 100%;
@@ -1321,7 +1322,7 @@ html.read-sans .author-page {
   flex: 0 0 auto;
   align-items: stretch;
   height: var(--fp-h);
-  margin: 0 2px 1px;
+  margin: 0 0 1px;
   padding: 2px;
   gap: 2px;
   background: var(--cde-panel);
@@ -2422,7 +2423,7 @@ html.read-sans .author-page {
    independently scrolling desktop panes. */
 @media print {
   @page {
-    margin: 16mm;
+    margin: 16mm 22mm;
   }
 
   html,
@@ -2476,7 +2477,8 @@ html.read-sans .author-page {
     height: auto;
     overflow: visible;
     margin: 0;
-    padding: 0;
+    padding: 0 10mm;
+    box-sizing: border-box;
     border: 0;
     box-shadow: none;
     background: #fff;
@@ -2499,8 +2501,7 @@ html.read-sans .author-page {
     line-height: 1.55;
   }
 
-  body.post-page .post-content pre,
-  body.post-page .post-content figure.highlight {
+  body.post-page .post-content pre {
     max-height: none;
     overflow: visible;
     white-space: pre-wrap;
@@ -2510,6 +2511,70 @@ html.read-sans .author-page {
     color: #000;
     background: #fff;
     box-shadow: none;
+  }
+
+  body.post-page .post-content figure.highlight {
+    max-height: none;
+    overflow: visible;
+    white-space: normal;
+    break-inside: auto;
+    page-break-inside: auto;
+    color: #000;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  body.post-page .post-content figure.highlight > table {
+    display: block;
+    width: auto;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+
+  body.post-page .post-content figure.highlight > table > tbody {
+    display: block;
+  }
+
+  body.post-page .post-content figure.highlight > table > tbody > tr {
+    display: block;
+  }
+
+  body.post-page .post-content figure.highlight .gutter {
+    display: none !important;
+  }
+
+  body.post-page .post-content figure.highlight .code {
+    display: block;
+    width: auto;
+  }
+
+  body.post-page .post-content figure.highlight td.code pre {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    counter-reset: print-code-line;
+  }
+
+  body.post-page .post-content figure.highlight td.code pre > .line {
+    display: block;
+    padding-left: 3.5em;
+    text-indent: -3.5em;
+  }
+
+  body.post-page .post-content figure.highlight td.code pre > .line::before {
+    display: inline-block;
+    width: 3em;
+    margin-right: 0.5em;
+    color: #666;
+    text-align: right;
+    counter-increment: print-code-line;
+    content: counter(print-code-line);
+  }
+
+  body.post-page .post-content figure.highlight td.code pre > br {
+    display: none;
   }
 
   body.post-page .post-content figure.highlight.code-collapsed > table {
@@ -2579,7 +2644,7 @@ html.read-sans .author-page {
 
   .fp-launcher-group {
     height: var(--fp-h);
-    margin: 0 1px 1px;
+    margin: 0 0 1px;
     padding: 1px;
     gap: 1px;
   }

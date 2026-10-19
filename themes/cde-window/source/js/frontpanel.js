@@ -124,6 +124,12 @@ function init() {
   startClock();
   wireStrips();
   initCalendar();
+  var printButton = document.getElementById('print-toggle');
+  if (printButton) {
+    printButton.addEventListener('click', function () {
+      window.print();
+    });
+  }
 }
 
 if (document.readyState === 'loading') {

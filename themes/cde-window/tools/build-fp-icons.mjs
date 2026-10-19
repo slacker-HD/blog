@@ -66,6 +66,11 @@ const ICONS = [
     note: "the Front Panel Calendar Manager launcher — the MonthDay applet's page",
   },
   {
+    slug: 'print',
+    file: 'FpPrtmg.l.pm',
+    note: 'the Front Panel Print Manager launcher — a printer feeding a sheet',
+  },
+  {
     slug: 'arrow',
     file: 'Fpup.l.pm',
     /* Hand-drawn vector.  The back-to-top button shows NsCDE's "go-up" action

@@ -50,6 +50,8 @@ const RAW = `${MIRROR}/raw/master/data/icons/NsCDE`;
  *                  one icon in this set whose roles are *not* the panel's.
  *   DtColor.l.pm   the Style Manager's "Colour" module  — a colour wheel
  *   DtFont.l.pm    the Style Manager's "Font" module    — the letters A a
+ *   FpPrtmg.l.pm   the Front Panel's Print Manager launcher — a printer with
+ *                  a sheet feeding out of it.  Used by the 打印 button.
  *
  * Sizes: ".l" (large) is 48x48 and ".m" (medium) 32x32.  The front panel
  * button is 63x62 with 48x48 of artwork, so ".l" is the right set — the
@@ -62,6 +64,7 @@ const RAW = `${MIRROR}/raw/master/data/icons/NsCDE`;
  */
 const ICONS = [
   'FpCM.l.pm',
+  'FpPrtmg.l.pm',
   'Fpup.l.pm',
   'FPSubArrowUp.xpm',
   'DtColor.l.pm',
