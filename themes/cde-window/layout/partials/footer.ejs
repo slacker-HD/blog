@@ -217,14 +217,12 @@
         </button>
       </div>
 
-      <% if (is_post()){ %>
       <div class="fp-slot">
         <div class="fp-strip fp-strip-3d" aria-hidden="true"></div>
-        <button id="print-toggle" class="fp-cell" type="button" title="打印文章" aria-label="打印文章">
+        <button id="print-toggle" class="fp-cell" type="button" title="打印文章" aria-label="打印文章"<% if (!is_post()){ %> disabled<% } %>>
           <%- partial('partials/fp-icon-print') %>
         </button>
       </div>
-      <% } %>
 
       <!-- 阅读设置 — the Style Manager's Font module -->
       <div class="fp-slot">

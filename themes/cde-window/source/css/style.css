@@ -510,9 +510,24 @@ img {
  *   Window Menu Button = "the frame box with a horizontal bar in it"
  *   Minimize Button    = "the frame box with a small square in it"
  *   Maximize Button    = "the frame box with a large square in it"
- * The buttons sit flush against each other and their faces are just the
- * titlebar colour; each glyph is a hollow box drawn with Motif's two-tone
- * bevel: the top/left edges catch the light, the bottom/right fall into
+ *
+ * Measuring the reference (`NsCDE.png`, the active window at y=831..846): the
+ * title band is 16px, and the buttons are exactly that tall — they fill the
+ * band top to bottom.  Reading the light columns across the button end gives
+ * the cells and the rules between them:
+ *
+ *   x1336-1337  2px light   -- separator
+ *   x1342-1343  2px light   -- separator
+ *   x1348-1349  2px light   -- separator
+ *   x1352-1353  2px light   -- the last cell's inner edge
+ *   ...                                      and the band runs to the frame
+ *
+ * So the separators are 2px wide, drawn in the title colourset's light step,
+ * and the outermost ones are the buttons' own raised edges.  There is no gap
+ * between cells and the title text: the buttons run right up to the frame.
+ *
+ * The faces are the titlebar colour; each glyph is a hollow box drawn with
+ * Motif's two-tone bevel — top/left catch the light, bottom/right fall into
  * shadow. Two custom properties carry that pair through the states. */
 .titlebar-btn {
   --cde-btn-hi: var(--cde-title-light);
@@ -521,6 +536,8 @@ img {
   flex: 0 0 auto;
   width: 20px;
   height: 20px;
+  margin: 0;
+  box-sizing: border-box;
   background: var(--cde-title);
   border: 1px solid;
   border-top-color: var(--cde-btn-hi);
@@ -534,6 +551,10 @@ img {
   --cde-btn-hi: var(--cde-ti-light);
   --cde-btn-lo: var(--cde-ti-shadow);
   background: var(--cde-ti);
+  border-top-color: var(--cde-ti-light);
+  border-bottom-color: var(--cde-ti-shadow);
+  border-left-color: var(--cde-ti-light);
+  border-right-color: var(--cde-ti-shadow);
 }
 
 .titlebar-btn:active {
@@ -563,28 +584,31 @@ img {
   border-bottom: 1px solid var(--cde-btn-lo);
 }
 
-/* window menu button: a horizontal bar, set slightly below centre */
+/* window menu button: a wide, low frame box, centred in the cell.
+ * NsCDE draws it as a 12x6 rectangle in a 20px cell, so at our 24px cell
+ * it scales to 14x8.  It is a copy of the window, not a menu bar. */
 .titlebar-btn.menu::before {
-  left: 5px;
-  top: 8px;
-  width: 10px;
-  height: 4px;
+  left: 4px;
+  top: 7px;
+  width: 14px;
+  height: 8px;
 }
 
 /* minimize: a small square in the middle of the frame box */
 .titlebar-btn.min::before {
   left: 7px;
   top: 7px;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
-/* maximize: a large square in the middle of the frame box */
+/* maximize: a large square in the middle of the frame box.
+ * NsCDE uses 11x11 in a 20px cell (55%); centred 12px in our 24px cell. */
 .titlebar-btn.max::before {
   left: 5px;
   top: 5px;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 
 .titlebar-title {
@@ -608,7 +632,7 @@ img {
 .titlebar-controls {
   display: flex;
   gap: 0;
-  align-items: center;
+  align-items: stretch;
 }
 
 /* ---------------- Menu bar (top navigation) ---------------- */
@@ -720,12 +744,18 @@ img {
 }
 
 .widget-list li {
-  padding: 2px 6px;
   border-bottom: 1px dotted var(--cde-face-shadow);
 }
 
 .widget-list li:last-child {
   border-bottom: none;
+}
+
+.widget-list li a {
+  display: block;
+  padding: 2px 6px;
+  color: var(--cde-face-text);
+  text-decoration: none;
 }
 
 /* 目录（TOC）—— 侧边栏小工具，随侧栏一起滚动 */
@@ -769,8 +799,27 @@ img {
   white-space: nowrap;
 }
 
-#toc a.toc-link:hover {
+/* NsCDE menu items highlight with the selection colour and a 1px inset
+ * bevel (top/left bottom-shadow, right/bottom top-shadow).  The sidebar TOC,
+ * category/tag/archive rows, article titles and the Links widget all share
+ * that one state. */
+#toc a.toc-link:hover,
+#toc a.toc-link:focus-visible,
+.widget-list li a:hover,
+.widget-list li a:focus-visible,
+.archive-list li a:hover,
+.archive-list li a:focus-visible,
+.tagcloud a:hover,
+.tagcloud a:focus-visible,
+.tagcloud-page .tagcloud-item:hover,
+.tagcloud-page .tagcloud-item:focus-visible {
   background: var(--cde-face-sel);
+  color: var(--cde-face-text);
+  text-decoration: none;
+  box-shadow:
+    inset 1px 1px 0 var(--cde-face-shadow),
+    inset -1px -1px 0 var(--cde-face-light);
+  outline: none;
 }
 
 #toc li.active > a.toc-link,
@@ -778,6 +827,15 @@ img {
   background: var(--cde-menu);
   color: var(--cde-menu-text);
   font-weight: bold;
+}
+
+#toc li.active > a.toc-link:hover,
+#toc li.active > a.toc-link:focus-visible,
+#toc a.toc-link.active:hover,
+#toc a.toc-link.active:focus-visible {
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  box-shadow: none;
 }
 
 /* Old sidebar nav removed; kept for safety if a template still emits it */
@@ -813,37 +871,13 @@ img {
 }
 
 /* ---------------- Generic CDE button ---------------- */
-.cde-button,
-.tagcloud a,
-.pagination .page-number,
-.pagination .prev,
-.pagination .next,
-.tagcloud-page .tagcloud-item {
-  display: inline-block;
-  padding: 2px 8px;
-  background: var(--cde-face);
-  color: var(--cde-face-text);
-  border: 1px solid;
-  border-top-color: var(--cde-face-light);
-  border-left-color: var(--cde-face-light);
-  border-right-color: var(--cde-face-shadow);
-  border-bottom-color: var(--cde-face-shadow);
-  text-decoration: none;
-}
-
-.cde-button:active,
-.tagcloud a:active,
-.pagination .page-number:active,
-.tagcloud-page .tagcloud-item:active {
-  border-top-color: var(--cde-face-shadow);
-  border-left-color: var(--cde-face-shadow);
-  border-right-color: var(--cde-face-light);
-  border-bottom-color: var(--cde-face-light);
-}
-
 .tagcloud a,
 .tagcloud-page .tagcloud-item {
   margin: 2px;
+  display: inline-block;
+  padding: 2px 6px;
+  color: var(--cde-face-text);
+  text-decoration: none;
 }
 
 .pagination .current {
@@ -907,6 +941,17 @@ img {
 .category-list-item {
   padding: 3px 6px;
   border-bottom: 1px dotted var(--cde-face-shadow);
+}
+
+/* Let the title fill the rest of the row so the shared menu-highlight state
+ * spans the same area as the sidebar rows; the negative margins expand the
+ * background over the list padding without changing the row's geometry. */
+.archive-list li a {
+  flex: 1;
+  padding: 3px 0;
+  margin: -3px -6px -3px 0;
+  color: var(--cde-face-text);
+  text-decoration: none;
 }
 
 .category-list-count,
@@ -989,12 +1034,13 @@ img {
   line-height: var(--read-line-height, 1.77);
 }
 
-/* Optional sans-serif reading mode (阅读设置 → 无衬线字体) */
-html.read-sans .post-content,
-html.read-sans .post-excerpt,
-html.read-sans .archive-list,
-html.read-sans .category-list,
-html.read-sans .author-page {
+/* Optional sans-serif reading mode (阅读设置 → 无衬线字体).
+ * The preference switches the typeface of the whole page: article text,
+ * archive/category lists, navigation and window chrome all follow it.
+ * Elements with a face of their own — code blocks (mono) and icons —
+ * keep that face. The font faces themselves are untouched. */
+html.read-sans,
+html.read-sans body {
   font-family: var(--cde-font-sans);
 }
 
@@ -1220,20 +1266,28 @@ html.read-sans .author-page {
   -webkit-user-select: none;
   caret-color: transparent;
 
-  /* 79/15, 63/15, 62/15, 16/15, 48/15, 21/15, 14/15 of the reading size */
-  --fp-h: calc(var(--cde-ui-size) * 5.267);
-  --fp-cell-w: calc(var(--cde-ui-size) * 4.2);
-  --fp-cell-h: calc(var(--cde-ui-size) * 4.133);
-  --fp-strip-h: calc(var(--cde-ui-size) * 1.067);
-  --fp-group-inset: 8px;
-  --fp-launcher-size: min(
-    var(--fp-cell-w),
-    calc(var(--fp-h) - var(--fp-strip-h) - var(--fp-group-inset))
-  );
-  --fp-icon: calc(var(--cde-ui-size) * 3.2);
+  /* NsCDE's front panel at the 15px reading size:
+   *
+   *   61x60 launcher cells, a 2px seam between columns, a 405px work area
+   *   (341px inside), 22px handles, and a 14px subpanel face over a 2px
+   *   groove.  The panel itself is as wide as the controls it actually
+   *   carries, so pages with fewer launchers get a narrower panel rather
+   *   than empty cells.
+   *
+   * Every value is still a multiple of the reading size so the panel grows
+   * with the rest of the chrome. */
+  --fp-h: calc(var(--cde-ui-size) * 79 / 15);
+  --fp-cell-w: calc(var(--cde-ui-size) * 61 / 15);
+  --fp-cell-h: calc(var(--cde-ui-size) * 60 / 15);
+  --fp-strip-h: calc(var(--cde-ui-size) * 16 / 15);
+  --fp-gap: calc(var(--cde-ui-size) * 2 / 15);
+  --fp-group-inset: 0px;
+  --fp-launcher-size: var(--fp-cell-w);
+  --fp-icon: calc(var(--cde-ui-size) * 48 / 15);
   --fp-dial: var(--fp-icon);
-  --fp-end-w: calc(var(--cde-ui-size) * 1.4);
-  --fp-endbtn-h: calc(var(--cde-ui-size) * 0.933);
+  --fp-end-w: calc(var(--cde-ui-size) * 22 / 15);
+  --fp-endbtn-h: calc(var(--cde-ui-size) * 14 / 15);
+  --fp-work-w: calc(var(--cde-ui-size) * 405 / 15);
 
   /* Motif derives an eight-step grey ramp from the background colour of every
      colourset, and CDE's bitmaps paint their bevels from it — iconGray1 is the
@@ -1260,6 +1314,13 @@ html.read-sans .author-page {
 
      and there is no black outline anywhere — Motif draws the frame from the
      colourset's own shadows, never from a border colour. */
+  /* NsCDE's front panel is one shade lighter than the sampled chrome in the
+   * reference; keep that correction local so the approved window chrome is
+   * untouched. */
+  --cde-ti: #999999;
+  --cde-ti-light: #d2d2d3;
+  --cde-panel: #93abbf;
+
   background: var(--cde-ti);
   color: var(--cde-panel-text);
   margin: 0 auto;
@@ -1311,10 +1372,9 @@ html.read-sans .author-page {
 .fp-rail {
   display: flex;
   align-items: stretch;
-  gap: 2px;
+  gap: 0;
   height: var(--fp-h);
-  width: fit-content;
-  max-width: 100%;
+  width: 100%;
 }
 
 .fp-launcher-group {
@@ -1322,18 +1382,14 @@ html.read-sans .author-page {
   flex: 0 0 auto;
   align-items: stretch;
   height: var(--fp-h);
-  margin: 0 0 1px;
-  padding: 2px;
-  gap: 2px;
+  margin: 0;
+  padding: 0;
+  gap: var(--fp-gap);
   background: var(--cde-panel);
-  border: 2px solid;
-  border-top-color: var(--cde-panel-light);
-  border-left-color: var(--cde-panel-light);
-  border-right-color: var(--cde-panel-shadow);
-  border-bottom-color: var(--cde-panel-shadow);
-  box-shadow:
-    inset 1px 1px 0 var(--cde-panel-light),
-    inset -1px -1px 0 var(--cde-panel-shadow);
+  border: 0;
+  border-top: 1px solid var(--cde-ti-light);
+  border-bottom: 2px solid var(--cde-ti-shadow);
+  box-shadow: none;
 }
 
 /* ---- one launcher column: a subpanel cell above, a launcher below ----
@@ -1346,7 +1402,41 @@ html.read-sans .author-page {
 }
 
 .fp-launcher-group .fp-slot {
+  position: relative;
   width: var(--fp-launcher-size);
+}
+
+/* The 2px column between two launchers is a vertical continuation of the
+ * band's engraved rule: one ti-shadow column followed by one ti-light column.
+ * It is painted over the flex gap so the panel body underneath stays one
+ * unbroken blue field. */
+.fp-launcher-group .fp-slot:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: calc(var(--fp-gap) * -1);
+  width: var(--fp-gap);
+  height: var(--fp-strip-h);
+  background:
+    linear-gradient(
+      to right,
+      var(--cde-ti-shadow) 0 1px,
+      var(--cde-ti-light) 1px 2px
+    )
+    left top / 2px 14px no-repeat,
+    linear-gradient(
+      to right,
+      var(--cde-ti-shadow) 0 1px,
+      var(--cde-ti-shadow) 1px 2px
+    )
+    left 14px / 2px 1px no-repeat,
+    linear-gradient(
+      to right,
+      var(--cde-ti-light) 0 1px,
+      var(--cde-ti-light) 1px 2px
+    )
+    left 15px / 2px 1px no-repeat;
+  pointer-events: none;
 }
 
 /* the subpanel strip — empty except above a launcher that opens a panel */
@@ -1358,17 +1448,15 @@ html.read-sans .author-page {
   width: 100%;
   height: var(--fp-strip-h);
   background: var(--cde-ti);
-  box-shadow:
-    inset 1px 1px 0 var(--cde-ti-light),
-    inset -1px -1px 0 var(--cde-ti-shadow);
+  border-bottom: 1px solid var(--cde-ti-light);
+  box-shadow: inset 0 -1px 0 var(--cde-ti-shadow);
 }
 
 /* 3D strip like CDE subpanel bar (raised) */
 .fp-strip-3d {
-  box-shadow:
-    inset 1px 1px 0 var(--cde-ti-light),
-    inset -1px -1px 0 var(--cde-ti-shadow);
   background: var(--cde-ti);
+  border-bottom: 1px solid var(--cde-ti-light);
+  box-shadow: inset 0 -1px 0 var(--cde-ti-shadow);
 }
 
 /* The small up-triangle above a launcher is `FPSubArrowUp.xpm` (12x6). The
@@ -1385,20 +1473,18 @@ html.read-sans .author-page {
   margin: 0;
   background: var(--cde-ti);
   border: none;
+  border-bottom: 1px solid var(--cde-ti-light);
   color: var(--cde-panel-text);
   font-family: inherit;
   cursor: pointer;
-  box-shadow:
-    inset 1px 1px 0 var(--cde-ti-light),
-    inset -1px -1px 0 var(--cde-ti-shadow);
+  box-shadow: inset 0 -1px 0 var(--cde-ti-shadow);
 }
 
 .fp-strip-empty {
   height: var(--fp-strip-h);
   background: var(--cde-ti);
-  box-shadow:
-    inset 1px 1px 0 var(--cde-ti-light),
-    inset -1px -1px 0 var(--cde-ti-shadow);
+  border-bottom: 1px solid var(--cde-ti-light);
+  box-shadow: inset 0 -1px 0 var(--cde-ti-shadow);
 }
 
 .fp-icon.fp-subarrow {
@@ -1427,31 +1513,27 @@ html.read-sans .author-page {
 .fp-workspace {
   display: flex;
   flex-direction: row;
-  flex: 1 1 auto;
-  width: calc(var(--fp-cell-w) * 9.6);
+  flex: 0 0 var(--fp-work-w);
+  width: var(--fp-work-w);
   min-width: 0;
 }
 
 .fp-work {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   align-items: stretch;
   justify-content: center;
   width: 100%;
+  height: var(--fp-h);
   min-width: 0;
-  margin: 0 0 1px;
+  margin: 0;
   gap: 2px;
-  padding: 2px;
+  padding: 5px 2px;
   overflow: hidden;
   background: var(--cde-panel);
-  border: 2px solid;
-  border-top-color: var(--cde-panel-light);
-  border-left-color: var(--cde-panel-light);
-  border-right-color: var(--cde-panel-shadow);
-  border-bottom-color: var(--cde-panel-shadow);
-  box-shadow:
-    inset 1px 1px 0 var(--cde-panel-light),
-    inset -1px -1px 0 var(--cde-panel-shadow);
+  border: 0;
+  border-top: 1px solid var(--cde-ti-light);
+  border-bottom: 2px solid var(--cde-ti-shadow);
 }
 
 /* ---- launcher cells stay square inside the framed side groups ---- */
@@ -1477,12 +1559,21 @@ html.read-sans .author-page {
 }
 
 .fp-launcher-group .fp-cell {
-  flex: 0 0 var(--fp-launcher-size);
-  width: var(--fp-launcher-size);
-  min-width: var(--fp-launcher-size);
-  height: var(--fp-launcher-size);
-  min-height: var(--fp-launcher-size);
-  margin-block: auto;
+  flex: 0 0 var(--fp-cell-h);
+  width: var(--fp-cell-w);
+  min-width: var(--fp-cell-w);
+  height: var(--fp-cell-h);
+  min-height: var(--fp-cell-h);
+  margin: 0;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+.fp-launcher-group .fp-cell:hover,
+.fp-launcher-group .fp-cell:active,
+.fp-launcher-group .fp-cell[aria-expanded="true"] {
+  box-shadow: none;
 }
 
 /* middle slots: each has a 3D strip on top and a flat cell below (like CDE panel bars) */
@@ -1532,13 +1623,199 @@ html.read-sans .author-page {
   outline-offset: -4px;
 }
 
+/* The clock / calendar / search launchers in the LEFT group are flat: no
+   top/bottom bevel and no hover/press bevel either (NsCDE paints those three
+   buttons without a frame, so they read as plain colour patches in the panel).
+
+   All THREE panels are flat — the two end groups and the middle work area —
+   and they sit flush (the rail gap is dropped) so an internal seam is one
+   shared engraved divider rather than two rules with a gutter between them.
+   Every panel keeps its grey rule on the top and bottom edge, and the left
+   group keeps its outer-left edge while the right group keeps its outer-right
+   edge.  The cells inside all three panels are flat too — the four right-hand
+   launchers (back-to-top / print / read / palette) match the three on the left. */
+.fp-rail {
+  gap: 0;
+}
+
+.fp-launcher-group-left,
+.fp-launcher-group-right,
+.fp-work {
+  box-shadow: none;
+}
+
+/* The end groups are the two flat blue fields.  Their outer rules belong to
+ * the handles (light on the left, shadow on the right), so the groups carry no
+ * left/right border of their own. */
+.fp-launcher-group-left,
+.fp-launcher-group-right {
+  border-left: 0;
+  border-right: 0;
+}
+
+/* middle panel: flat, and it owns both internal seams.  It carries the same
+   definite height as the two groups so its bottom edge lines up with theirs.
+
+   The seam is the engraved `DtABsep.pm` groove — a 1px ti-shadow column with a
+   1px ti-light column beside it.  Two 2px gradient strips are painted on the
+   panel's left and right edges; the panel keeps no left/right border so the
+   seam stays 2px, not 3px. */
+.fp-work {
+  border-top: 1px solid var(--cde-ti-light);
+  border-bottom: 2px solid var(--cde-ti-shadow);
+  border-left: none;
+  border-right: none;
+  background-image:
+    linear-gradient(to right, var(--cde-ti-shadow) 0 1px, var(--cde-ti-light) 1px 2px),
+    linear-gradient(to right, var(--cde-ti-shadow) 0 1px, var(--cde-ti-light) 1px 2px);
+  background-position: left top, right top;
+  background-size: 2px 100%, 2px 100%;
+  background-repeat: no-repeat;
+  height: var(--fp-h);
+}
+
+/* ---- the grey subpanel bar across the top of the end panels --------------
+ * NsCDE puts the subpanel launchers in one `Frame 0` container that spans the
+ * whole launcher set (LeftLnchWidth × 16), sitting flush on the panel's top
+ * edge — it is a single grey band, not a row of little raised boxes with a
+ * gutter between them.  So the band here reaches the panel's top and both
+ * sides, the slot gaps open up, and the empty `.fp-strip` / `.fp-strip-3d`
+ * bars go flat so they read as one continuous band.  The arrow buttons on it
+ * (`FPSubArrowUp.xpm`, `Frame 1`) keep their own raised bevel.
+ *
+ * One engraved rule — the same dark-then-light `DtABsep.pm` groove the panel
+ * seams use — divides the band from the icon row underneath it. */
+.fp-launcher-group-left,
+.fp-launcher-group-right {
+  padding: 0;
+  gap: var(--fp-gap);
+}
+
+.fp-launcher-group-left .fp-slot,
+.fp-launcher-group-right .fp-slot {
+  width: var(--fp-launcher-size);
+}
+
+/* Every cell of the band wears the same raised bevel — the arrow buttons have
+   it, and the empty positions above the clock / back-to-top must match; they
+   simply draw no triangle.  So the empty `.fp-strip` / `.fp-strip-3d` bars take
+   `FPSubArrowUp.xpm`'s own bevel instead of going flat.
+
+   The band closes with the dark-then-light `DtABsep.pm` rule that divides it
+   from the icon row: a 1px iconGray8 line (the inset shadow, listed first so it
+   wins over the bevel's own bottom edge) with the 1px iconGray1 highlight right
+   below it (the border). */
+.fp-launcher-group-left .fp-strip,
+.fp-launcher-group-right .fp-strip,
+.fp-launcher-group-left .fp-strip-3d,
+.fp-launcher-group-right .fp-strip-3d {
+  border-bottom: 1px solid var(--cde-ti-light);
+  box-shadow: inset 0 -1px 0 var(--cde-ti-shadow);
+}
+
+/* the arrow buttons close with the same dark-then-light rule, so the band's
+   bottom line is one continuous groove across every cell */
+.fp-launcher-group-left .fp-strip-btn,
+.fp-launcher-group-right .fp-strip-btn {
+  border-bottom: 1px solid var(--cde-ti-light);
+  box-shadow: inset 0 -1px 0 var(--cde-ti-shadow);
+}
+
+/* The little decorative buttons at the two top corners (`FpMenu.xpm` over the
+   left grip, `FpIconify.xpm` over the right) are the same kind of cell as the
+   band: a raised `Frame 1` box scaled up from a bitmap.  They get the band's
+   own width treatment — the handle's 1px side padding is dropped so the button
+   spans the whole handle column — and the band's own height, so the corner
+   block and the strip cells finish on the same row with the same dark-then-light
+   rule: the top shelf runs unbroken from grip to grip.  Scoped by the handle so
+   it outranks the base `.fp-cap` / `.fp-capbox` further down the sheet. */
+.fp-cap.fp-cap-l,
+.fp-cap.fp-cap-r {
+  padding: 0;
+}
+
+/* The corner block is exactly as tall as the band's 14px face.  It starts on
+ * the group's top light rule and closes where the grip starts; the band's 2px
+ * groove underneath is a separate row. */
+.fp-cap-l .fp-capbox,
+.fp-cap-r .fp-capbox {
+  height: var(--fp-endbtn-h);
+  background: var(--cde-ti);
+  border-bottom: 0;
+  box-shadow: inset 0 2px 0 var(--cde-ti-light);
+}
+
+/* the grip picks up right under the taller corner button */
+.fp-cap-l .fp-grip,
+.fp-cap-r .fp-grip {
+  margin-top: 0;
+}
+
+/* The corner block is now the same cell as the band, so it sits flush against
+   it too — the group's own 1px rule is the only seam, just as between the band
+   cells themselves.  (The handles only needed a gutter back when their button
+   was narrower than the band.) */
+.fp-cap-l {
+  margin-right: 0;
+}
+
+.fp-cap-r {
+  margin-left: 0;
+}
+
+/* keep the band arrow's press feedback: the group-scoped bevel above outranks
+   the base `.fp-strip-btn:active`, so restate the sunken state at equal scope */
+.fp-launcher-group-left .fp-strip-btn:active,
+.fp-launcher-group-right .fp-strip-btn:active,
+.fp-launcher-group-left .fp-strip-btn[aria-expanded="true"],
+.fp-launcher-group-right .fp-strip-btn[aria-expanded="true"] {
+  box-shadow:
+    inset 0 -1px 0 var(--fp-g8),
+    inset 1px 1px 0 var(--cde-ti-shadow),
+    inset -1px -1px 0 var(--cde-ti-light);
+}
+
+.fp-cell-clock,
+.fp-cell-cal,
+#search-toggle,
+.fp-cell-top,
+#print-toggle,
+#read-toggle,
+#palette-toggle {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.fp-cell-clock:hover,
+.fp-cell-cal:hover,
+#search-toggle:hover,
+.fp-cell-top:hover,
+#print-toggle:hover,
+#read-toggle:hover,
+#palette-toggle:hover,
+.fp-cell-clock:active,
+.fp-cell-cal:active,
+#search-toggle:active,
+.fp-cell-top:active,
+#print-toggle:active,
+#read-toggle:active,
+#palette-toggle:active,
+.fp-cell-clock[aria-expanded="true"],
+.fp-cell-cal[aria-expanded="true"],
+#search-toggle[aria-expanded="true"],
+.fp-cell-top[aria-expanded="true"],
+#print-toggle[aria-expanded="true"],
+#read-toggle[aria-expanded="true"],
+#palette-toggle[aria-expanded="true"] {
+  box-shadow: none;
+}
+
 /* no subpanel arrow strip above totop */
 .fp-slot .fp-strip-empty {
   height: var(--fp-strip-h);
   background: var(--cde-ti);
-  box-shadow:
-    inset 1px 1px 0 var(--cde-ti-light),
-    inset -1px -1px 0 var(--cde-ti-shadow);
+  border-bottom: 1px solid var(--cde-ti-light);
+  box-shadow: inset 0 -1px 0 var(--cde-ti-shadow);
   width: var(--fp-cell-w);
   min-width: var(--fp-cell-w);
 }
@@ -1656,9 +1933,11 @@ html.read-sans .author-page {
 
 .fp-cap-l {
   border-left: 1px solid var(--cde-ti-light);
+  border-right: 1px solid var(--cde-ti-light);
 }
 
 .fp-cap-r {
+  border-left: 1px solid var(--cde-ti-shadow);
   border-right: 1px solid var(--cde-ti-shadow);
 }
 
@@ -1767,35 +2046,44 @@ html.read-sans .author-page {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  min-width: 128px;
   padding: 4px 16px;
   font-family: inherit;
   font-size: var(--cde-ui-size);
-  background: var(--cde-face);
-  color: var(--cde-face-text);
-  /* CDE raised button: black outer border + 1px inset bevel (light top/left, dark bottom/right) */
-  border: 1px solid var(--cde-border);
+  color: var(--cde-panel-text);
+  background: var(--cde-panel);
+  border: 2px solid;
+  border-top-color: var(--cde-panel-light);
+  border-left-color: var(--cde-panel-light);
+  border-right-color: var(--cde-panel-shadow);
+  border-bottom-color: var(--cde-panel-shadow);
   box-shadow:
-    inset 1px 1px 0 var(--cde-face-light),
-    inset -1px -1px 0 var(--cde-face-shadow);
+    inset 1px 1px 0 var(--cde-panel-light),
+    inset -1px -1px 0 var(--cde-panel-shadow);
   cursor: pointer;
 }
 
 #reward-btn:hover {
   box-shadow:
-    inset 2px 2px 0 var(--cde-face-light),
-    inset -2px -2px 0 var(--cde-face-shadow);
+    inset 2px 2px 0 var(--cde-panel-light),
+    inset -2px -2px 0 var(--cde-panel-shadow);
 }
 
 #reward-btn:active {
-  /* Pressed: invert the bevel (dark top/left, light bottom/right) */
+  border-top-color: var(--cde-panel-shadow);
+  border-left-color: var(--cde-panel-shadow);
+  border-right-color: var(--cde-panel-light);
+  border-bottom-color: var(--cde-panel-light);
   box-shadow:
-    inset 1px 1px 0 var(--cde-face-shadow),
-    inset -1px -1px 0 var(--cde-face-light);
+    inset 1px 1px 0 var(--cde-panel-shadow),
+    inset -1px -1px 0 var(--cde-panel-light);
 }
 
 #reward-btn svg {
   display: block;
+  width: 20px;
+  height: 20px;
 }
 
 #reward-modal {
@@ -1823,14 +2111,11 @@ html.read-sans .author-page {
   max-width: 440px;
   max-height: 88vh;
   overflow-y: auto;
-  padding: 4px;
   text-align: center;
-  background: var(--cde-face);
   color: var(--cde-face-text);
-  border: 1px solid var(--cde-border);
-  box-shadow:
-    inset 2px 2px 0 var(--cde-face-light),
-    inset -2px -2px 0 var(--cde-face-shadow);
+  /* The 5px frame and the raised face body are painted by the shared CDE
+   * dialog frame rules further down, the same ones the front-panel dialogs
+   * use. */
 }
 
 /* 对话框标题栏 —— 直接复用主窗口的 .titlebar / .titlebar-btn / .titlebar-title，
@@ -1882,24 +2167,37 @@ html.read-sans .author-page {
 
 #reward-close {
   min-width: 88px;
-  padding: 4px 16px;
+  padding: 3px 16px;
   font-family: inherit;
   font-size: var(--cde-ui-size);
-  color: var(--cde-face-text);
-  background: var(--cde-face);
-  border: 1px solid;
-  border-top-color: var(--cde-face-light);
-  border-left-color: var(--cde-face-light);
-  border-right-color: var(--cde-face-shadow);
-  border-bottom-color: var(--cde-face-shadow);
+  color: var(--cde-panel-text);
+  background: var(--cde-panel);
+  border: 2px solid;
+  border-top-color: var(--cde-panel-light);
+  border-left-color: var(--cde-panel-light);
+  border-right-color: var(--cde-panel-shadow);
+  border-bottom-color: var(--cde-panel-shadow);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-light),
+    inset -1px -1px 0 var(--cde-panel-shadow);
+  border-radius: 0;
   cursor: pointer;
 }
 
+#reward-close:hover {
+  box-shadow:
+    inset 2px 2px 0 var(--cde-panel-light),
+    inset -2px -2px 0 var(--cde-panel-shadow);
+}
+
 #reward-close:active {
-  border-top-color: var(--cde-face-shadow);
-  border-left-color: var(--cde-face-shadow);
-  border-right-color: var(--cde-face-light);
-  border-bottom-color: var(--cde-face-light);
+  border-top-color: var(--cde-panel-shadow);
+  border-left-color: var(--cde-panel-shadow);
+  border-right-color: var(--cde-panel-light);
+  border-bottom-color: var(--cde-panel-light);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-shadow),
+    inset -1px -1px 0 var(--cde-panel-light);
 }
 
 /* ============================================================
@@ -1956,37 +2254,49 @@ html.read-sans .author-page {
     inset -1px -1px 0 var(--cde-input-shadow);
 }
 
-/* Buttons - CDE raised button */
+/* Buttons - CDE button like fp-ws-cell */
 #gitalk-container .gt-container .gt-btn {
   border-radius: 0;
   font-family: inherit;
   font-size: var(--cde-ui-size);
-  background: var(--cde-face);
-  color: var(--cde-face-text);
-  border: 1px solid var(--cde-border);
+  background: var(--cde-panel);
+  color: var(--cde-panel-text);
+  border: 2px solid;
+  border-top-color: var(--cde-panel-light);
+  border-left-color: var(--cde-panel-light);
+  border-right-color: var(--cde-panel-shadow);
+  border-bottom-color: var(--cde-panel-shadow);
   box-shadow:
-    inset 1px 1px 0 var(--cde-face-light),
-    inset -1px -1px 0 var(--cde-face-shadow);
+    inset 1px 1px 0 var(--cde-panel-light),
+    inset -1px -1px 0 var(--cde-panel-shadow);
   cursor: pointer;
 }
 
 #gitalk-container .gt-container .gt-btn:hover {
   box-shadow:
-    inset 2px 2px 0 var(--cde-face-light),
-    inset -2px -2px 0 var(--cde-face-shadow);
+    inset 2px 2px 0 var(--cde-panel-light),
+    inset -2px -2px 0 var(--cde-panel-shadow);
 }
 
 #gitalk-container .gt-container .gt-btn:active {
+  border-top-color: var(--cde-panel-shadow);
+  border-left-color: var(--cde-panel-shadow);
+  border-right-color: var(--cde-panel-light);
+  border-bottom-color: var(--cde-panel-light);
   box-shadow:
-    inset 1px 1px 0 var(--cde-face-shadow),
-    inset -1px -1px 0 var(--cde-face-light);
+    inset 1px 1px 0 var(--cde-panel-shadow),
+    inset -1px -1px 0 var(--cde-panel-light);
 }
 
 /* Preview button variation */
 #gitalk-container .gt-container .gt-btn-preview {
-  background: var(--cde-face);
-  color: var(--cde-face-text);
-  border-color: var(--cde-border);
+  background: var(--cde-panel);
+  color: var(--cde-panel-text);
+  border: 2px solid;
+  border-top-color: var(--cde-panel-light);
+  border-left-color: var(--cde-panel-light);
+  border-right-color: var(--cde-panel-shadow);
+  border-bottom-color: var(--cde-panel-shadow);
 }
 
 /* Links */
@@ -2007,6 +2317,157 @@ html.read-sans .author-page {
 #gitalk-container .gt-container .gt-meta,
 #gitalk-container .gt-container .gt-counts {
   color: var(--cde-face-text);
+}
+
+/* ---- the window frame encloses the whole window -------------------------
+ * A CDE window is one raised frame with the titlebar, menu bar and body all
+ * *inside* it, the way the front panel wraps its own contents.  The titlebar
+ * used to escape the frame's padding and sit on its outer edge, so nothing
+ * was really enclosed; it now sits inside the frame again.
+ *
+ * NsCDE's frame is measured from `NsCDE.png` (the active window at the top
+ * right, and the inactive windows at the left):
+ *
+ *   top/left   2px title-light | 2px title | 1px title-shadow
+ *   bottom/right  1px title-light | 2px title | 2px title-shadow
+ *
+ * The 2px band between the bevels is the *title* colourset, not the face
+ * colourset: the frame belongs to the titlebar, so an active window carries
+ * an orange frame and an inactive one carries a grey frame.  The 1px line on
+ * the inside of the band is a groove — title-shadow down the top and left,
+ * title-light up the bottom and right — which is the rule that separates the
+ * frame from the titlebar / menu bar / body.  There is no black rule in a
+ * Motif frame.  `padding` gives the frame its exact width; `border: none`
+ * lets the bevel reach the outer edge.
+ *
+ * The titlebar, menu bar and body each carry their own colourset's edge: a
+ * light step across the top and a shadow step across the bottom, the way a
+ * CDE band is drawn.  The titlebar's shadow is the rule under the title, the
+ * menu bar's is the rule under the menu; the frame never draws those, it
+ * only wraps the outside of all three.  The body is a raised face panel
+ * (1px light across the top, 1px shadow down the bottom and right), not the
+ * black-ruled sunken panel it used to be. */
+.window-frame {
+  position: relative;
+  border: none;
+  padding: 5px;
+  box-shadow: none;
+  background:
+    /* 2px outer bevel: light down the top/left, shadow down the bottom/right */
+    linear-gradient(var(--cde-title-light), var(--cde-title-light)) top left / 100% 2px no-repeat,
+    linear-gradient(var(--cde-title-shadow), var(--cde-title-shadow)) bottom left / 100% 2px no-repeat,
+    linear-gradient(var(--cde-title-light), var(--cde-title-light)) top left / 2px 100% no-repeat,
+    linear-gradient(var(--cde-title-shadow), var(--cde-title-shadow)) top right / 2px 100% no-repeat,
+    /* 2px title band showing between the bevel and the inner groove */
+    var(--cde-title);
+}
+
+/* The inner groove around the content: 1px shadow top/left, 1px light
+ * bottom/right, meeting the content exactly at the frame's padding edge. */
+.window-frame::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--cde-title-shadow), var(--cde-title-shadow)) top left / 100% 1px no-repeat,
+    linear-gradient(var(--cde-title-light), var(--cde-title-light)) bottom left / 100% 1px no-repeat,
+    linear-gradient(var(--cde-title-shadow), var(--cde-title-shadow)) top left / 1px 100% no-repeat,
+    linear-gradient(var(--cde-title-light), var(--cde-title-light)) top right / 1px 100% no-repeat;
+}
+
+.titlebar {
+  margin: 0;
+  width: auto;
+  min-height: 24px;
+  height: 24px;
+  padding: 0;
+  gap: 0;
+  background: var(--cde-title);
+  box-shadow:
+    inset 0 1px 0 var(--cde-title-light),
+    inset 0 -1px 0 var(--cde-title-shadow);
+  align-items: stretch;
+}
+
+.titlebar.is-inactive {
+  background: var(--cde-ti);
+  box-shadow:
+    inset 0 1px 0 var(--cde-ti-light),
+    inset 0 -1px 0 var(--cde-ti-shadow);
+}
+
+.titlebar-controls {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  height: 100%;
+}
+
+/* The title area is one more bevelled cell, exactly as in NsCDE: its left
+ * edge catches the light and its right edge falls into shadow, so it meets
+ * the neighbouring button cells with a dark/light groove instead of a bare
+ * seam. */
+.titlebar-title {
+  border-left: 1px solid var(--cde-title-light);
+  border-right: 1px solid var(--cde-title-shadow);
+}
+
+.titlebar.is-inactive .titlebar-title {
+  border-left-color: var(--cde-ti-light);
+  border-right-color: var(--cde-ti-shadow);
+}
+
+.titlebar-btn {
+  --cde-btn-hi: var(--cde-title-light);
+  --cde-btn-lo: var(--cde-title-shadow);
+  position: relative;
+  flex: 0 0 auto;
+  width: 24px;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  background: var(--cde-title);
+  border: 1px solid;
+  border-top-color: var(--cde-btn-hi);
+  border-left-color: var(--cde-btn-hi);
+  border-right-color: var(--cde-btn-lo);
+  border-bottom-color: var(--cde-btn-lo);
+  cursor: default;
+}
+
+/* ---- the body is part of the window, not a panel of its own -------------
+ * The pane and the content column were inset 2px from the frame's content box,
+ * which left them standing narrower than the titlebar and menu bar above them.
+ * The window-body now runs the full content width, so the three bands share one
+ * left and right edge — the frame is the only thing enclosing them.
+ *
+ * The body itself is a raised face panel, not a black-ruled box: measured
+ * against NsCDE.png, the work area carries a 1px face-light highlight across
+ * its top and a 1px face-shadow down its bottom and right.  That is the
+ * inverse of the old sunken well (dark top, light bottom/right), and it is
+ * what keeps the body reading as the *inside* of the frame rather than a
+ * second frame wrapped around the content.
+ *
+ * The posts, archive listings and sidebar widgets were each wearing a
+ * `cde-panel` — a black 1px rule around a sunken box — which is what read as a
+ * second frame around the body.  A CDE window's body carries no such rule:
+ * the window frame is the frame, so those panels go flat.  Only the panels
+ * inside the body are touched; the front panel's dialogs and the other
+ * out-of-frame dialogs keep theirs. */
+.window-body {
+  margin: 0;
+  padding: 4px;
+  background: var(--cde-face);
+  box-shadow:
+    inset 0 1px 0 var(--cde-face-light),
+    inset 0 -1px 0 var(--cde-face-shadow),
+    inset -1px 0 0 var(--cde-face-shadow);
+}
+
+.window-body .cde-panel {
+  border: none;
+  box-shadow: none;
 }
 
 /* ============================================================
@@ -2054,17 +2515,84 @@ html.read-sans .author-page {
   z-index: 61;
   width: 244px;
   display: none;
-  padding: 3px 3px 5px;
-  background: var(--cde-face);
   color: var(--cde-face-text);
-  border: 1px solid var(--cde-border);
-  box-shadow:
-    inset 2px 2px 0 var(--cde-face-light),
-    inset -2px -2px 0 var(--cde-face-shadow);
+  /* The frame and face body are painted by the shared CDE dialog rules
+   * below, so the reward dialog and these dialogs read as the same window
+   * type as the main window. */
 }
 
 .fp-dialog.open {
   display: block;
+}
+
+/* ============================================================
+ * CDE dialog frame
+ *
+ * The front-panel dialogs and the reward dialog are small windows, so they
+ * get the main window's 5px title-coloured frame verbatim:
+ *
+ *   top/left     2px title-light + 2px title + 1px title-shadow
+ *   right/bottom 1px title-light + 2px title + 2px title-shadow
+ *
+ * The 24px titlebar is flush with the frame's content box.  Everything
+ * below it is a raised face body (1px face-light top, 1px face-shadow
+ * bottom/right), so the titlebar and body are separated by the same
+ * dark/light seam as the main window, not by a black rule.
+ * ============================================================ */
+.fp-dialog,
+#reward-panel {
+  padding: 5px;
+  border: none;
+  color: var(--cde-face-text);
+  background:
+    linear-gradient(var(--cde-title-light), var(--cde-title-light)) top left / 100% 2px no-repeat,
+    linear-gradient(var(--cde-title-shadow), var(--cde-title-shadow)) bottom left / 100% 2px no-repeat,
+    linear-gradient(var(--cde-title-light), var(--cde-title-light)) top left / 2px 100% no-repeat,
+    linear-gradient(var(--cde-title-shadow), var(--cde-title-shadow)) top right / 2px 100% no-repeat,
+    var(--cde-title);
+  box-shadow: none;
+}
+
+/* inner groove: 1px shadow top/left, 1px light bottom/right, at the
+ * padding edge, exactly as on .window-frame::before */
+.fp-dialog::before,
+#reward-panel::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--cde-title-shadow), var(--cde-title-shadow)) top left / 100% 1px no-repeat,
+    linear-gradient(var(--cde-title-light), var(--cde-title-light)) bottom left / 100% 1px no-repeat,
+    linear-gradient(var(--cde-title-shadow), var(--cde-title-shadow)) top left / 1px 100% no-repeat,
+    linear-gradient(var(--cde-title-light), var(--cde-title-light)) top right / 1px 100% no-repeat;
+}
+
+/* the body panel starts directly under the 24px titlebar (5px padding +
+ * 24px titlebar); negative z-index puts it above the dialog's title-coloured
+ * frame background but below the in-flow form controls */
+.fp-dialog::after,
+#reward-panel::after {
+  content: "";
+  position: absolute;
+  top: calc(5px + 24px);
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--cde-face);
+  box-shadow:
+    inset 0 1px 0 var(--cde-face-light),
+    inset 0 -1px 0 var(--cde-face-shadow),
+    inset -1px 0 0 var(--cde-face-shadow);
+}
+
+/* keep a small face-coloured gap between the titlebar and the first control,
+ * the way the main window's titlebar and body are separated */
+.fp-dialog .titlebar,
+#reward-panel .titlebar {
+  margin-bottom: 6px;
 }
 
 .fp-dialog-wide {
@@ -2111,22 +2639,34 @@ html.read-sans .author-page {
   padding: 2px 9px;
   font-family: inherit;
   font-size: var(--cde-ui-size);
-  color: var(--cde-face-text);
-  background: var(--cde-face);
-  border: 1px solid;
-  border-top-color: var(--cde-face-light);
-  border-left-color: var(--cde-face-light);
-  border-right-color: var(--cde-face-shadow);
-  border-bottom-color: var(--cde-face-shadow);
+  color: var(--cde-panel-text);
+  background: var(--cde-panel);
+  border: 2px solid;
+  border-top-color: var(--cde-panel-light);
+  border-left-color: var(--cde-panel-light);
+  border-right-color: var(--cde-panel-shadow);
+  border-bottom-color: var(--cde-panel-shadow);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-light),
+    inset -1px -1px 0 var(--cde-panel-shadow);
   border-radius: 0;
   cursor: pointer;
 }
 
+#search-clear:hover {
+  box-shadow:
+    inset 2px 2px 0 var(--cde-panel-light),
+    inset -2px -2px 0 var(--cde-panel-shadow);
+}
+
 #search-clear:active {
-  border-top-color: var(--cde-face-shadow);
-  border-left-color: var(--cde-face-shadow);
-  border-right-color: var(--cde-face-light);
-  border-bottom-color: var(--cde-face-light);
+  border-top-color: var(--cde-panel-shadow);
+  border-left-color: var(--cde-panel-shadow);
+  border-right-color: var(--cde-panel-light);
+  border-bottom-color: var(--cde-panel-light);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-shadow),
+    inset -1px -1px 0 var(--cde-panel-light);
 }
 
 #search-status {
@@ -2459,6 +2999,12 @@ html.read-sans .author-page {
     color: #000;
   }
 
+  /* The frame's inner groove is drawn by a pseudo-element; printing resets the
+     frame itself, so the groove has to be removed too. */
+  body.post-page #wrapper::before {
+    display: none;
+  }
+
   body.post-page #titlebar,
   body.post-page .menubar,
   body.post-page .window-pane,
@@ -2625,12 +3171,14 @@ html.read-sans .author-page {
  *
  * The square launcher cells shrink rather than wrap to fit between the handles.
  * ============================================================ */
-@media (max-width: 720px) {
+@media (max-width: 850px) {
   .front-panel {
     --fp-cell-w: calc(var(--cde-ui-size) * 3.15);
     --fp-icon: calc(var(--cde-ui-size) * 2.2);
     --fp-group-inset: 6px;
     --fp-h: calc(var(--fp-strip-h) + var(--fp-cell-w) + var(--fp-group-inset));
+    width: calc(100% - 12px);
+    max-width: calc(100% - 12px);
   }
 
   .fp-rail {
@@ -2643,10 +3191,17 @@ html.read-sans .author-page {
   }
 
   .fp-launcher-group {
+    flex: 1 1 0;
     height: var(--fp-h);
     margin: 0 0 1px;
     padding: 1px;
     gap: 1px;
+  }
+
+  .fp-launcher-group .fp-slot {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
   }
 
   .fp-cell {
@@ -2657,11 +3212,18 @@ html.read-sans .author-page {
   }
 
   .fp-launcher-group .fp-cell {
-    flex: 0 0 var(--fp-launcher-size);
-    width: var(--fp-launcher-size);
-    min-width: var(--fp-launcher-size);
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
     height: var(--fp-launcher-size);
     min-height: var(--fp-launcher-size);
+  }
+
+  .fp-launcher-group .fp-strip,
+  .fp-launcher-group .fp-strip-3d,
+  .fp-launcher-group .fp-strip-btn {
+    width: 100%;
+    min-width: 0;
   }
 
   /* the work area drops to its own row, under the launchers */
@@ -2671,6 +3233,27 @@ html.read-sans .author-page {
     width: auto;
     margin: 0 0 1px;
     padding: 2px;
+  }
+
+  /* stacked, the panels are no longer side by side, so there is no seam to
+     share — every panel gets its full 1px grey rule back, and the middle
+     panel drops the edge gradients it used for the shared divider */
+  .fp-launcher-group-left,
+  .fp-launcher-group-right,
+  .fp-work {
+    border: 1px solid var(--cde-panel-shadow);
+  }
+
+  .fp-work {
+    background-image: none;
+  }
+
+  .fp-cap-l {
+    margin-right: 0;
+  }
+
+  .fp-cap-r {
+    margin-left: 0;
   }
 
   .fp-workspace {
@@ -2712,112 +3295,88 @@ html.read-sans .author-page {
 }
 
 /* ============================================================
- * 滚动条 — Motif 风格
+ * 10. Scrollbars — NsCDE/Motif trough, thumb and arrow glyphs
  *
- * CDE/Motif 的滚动条是方形的：凹陷的滑槽 + 立体凸起的滑块 +
- * 两端各一个带箭头的方形按钮。滑块和按钮都用面色的明暗两条边
- * 做出 3D 效果，而不是系统默认的圆角悬浮样式。
+ * Reference (NsCDE.png, the two scrolled windows):
+ *   12px wide; 1px dark left/top groove; 11px face-sel trough;
+ *   the thumb is face with a 1px dark outer edge, a 1px light
+ *   inset top/left and a 1px dark inset bottom/right;
+ *   each end carries a 3x3 face-coloured arrow glyph, 4px in.
  * ============================================================ */
 
-/* 标准属性（Firefox 用）—— 必须只在“不认识 ::-webkit-scrollbar”的浏览器里生效。
- *
- * Chromium（Chrome / Edge / 各类双核浏览器）只要看到 scrollbar-color ——
- * 哪怕是从 html 继承来的 —— 就会完全忽略 ::-webkit-scrollbar 的样式，
- * 回退成系统默认滚动条。这正是之前“滚动条还是系统默认样式”的原因。
- * Firefox 不支持 ::-webkit-scrollbar，所以用 @supports 把它单独隔离，
- * 两个引擎才能各走各的：Chromium 走下面的伪元素，Firefox 走这里。 */
+/* Standard properties (Firefox).  Chromium ignores ::-webkit-scrollbar
+ * completely as soon as it inherits scrollbar-color, so this must stay
+ * behind @supports and never leak into Blink. */
 @supports not selector(::-webkit-scrollbar) {
   html {
-    scrollbar-color: var(--cde-face-shadow) var(--cde-face);
+    scrollbar-color: var(--cde-face) var(--cde-face-sel);
   }
 }
 
-/* WebKit / Blink（Chromium、Safari、Edge） */
+/* WebKit / Blink (Chromium, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 16px;
-  height: 16px;
-  background: var(--cde-face);
+  width: calc(var(--cde-ui-size) * 0.8);
+  height: calc(var(--cde-ui-size) * 0.8);
+  background: var(--cde-face-sel);
 }
 
-/* 滑槽：凹陷（左上暗、右下亮） */
+/* the trough is flat face-sel with one dark groove on the leading edge */
 ::-webkit-scrollbar-track {
-  background: var(--cde-face);
-  box-shadow:
-    inset 1px 1px 0 var(--cde-face-shadow),
-    inset -1px -1px 0 var(--cde-face-light);
+  background: var(--cde-face-sel);
+}
+::-webkit-scrollbar-track:vertical {
+  border-left: 1px solid var(--cde-face-shadow);
+}
+::-webkit-scrollbar-track:horizontal {
+  border-top: 1px solid var(--cde-face-shadow);
 }
 
-/* 滑块：凸起（左上亮、右下暗） */
+/* the thumb is a raised face rectangle, flush with the trough's dark edge */
 ::-webkit-scrollbar-thumb {
   background: var(--cde-face);
+  background-clip: padding-box;
   box-shadow:
     inset 1px 1px 0 var(--cde-face-light),
     inset -1px -1px 0 var(--cde-face-shadow);
+}
+::-webkit-scrollbar-thumb:vertical {
+  border-left: 1px solid var(--cde-face-shadow);
+}
+::-webkit-scrollbar-thumb:horizontal {
+  border-top: 1px solid var(--cde-face-shadow);
 }
 
 ::-webkit-scrollbar-corner {
   background: var(--cde-face);
 }
 
-/* 两端的箭头按钮 */
+/* end buttons: flat face-sel with one 3x3 face pixel-glyph, 4px in */
 ::-webkit-scrollbar-button {
   display: block;
-  background-color: var(--cde-face);
+  background-color: var(--cde-face-sel);
   background-repeat: no-repeat;
-  box-shadow:
-    inset 1px 1px 0 var(--cde-face-light),
-    inset -1px -1px 0 var(--cde-face-shadow);
+  border: 0;
+  box-shadow: none;
+}
+::-webkit-scrollbar-button:vertical {
+  height: calc(var(--cde-ui-size) * 11 / 15);
+  border-left: 1px solid var(--cde-face-shadow);
+  background-image: linear-gradient(var(--cde-face), var(--cde-face));
+  background-size: 3px 3px;
+  background-position: center 4px;
+}
+::-webkit-scrollbar-button:horizontal {
+  width: calc(var(--cde-ui-size) * 11 / 15);
+  border-top: 1px solid var(--cde-face-shadow);
+  background-image: linear-gradient(var(--cde-face), var(--cde-face));
+  background-size: 3px 3px;
+  background-position: 4px center;
 }
 
-/* 滚动条内部其实给每条轴准备了四个按钮位（start/end 各一个双向箭头）。
- * 只保留“起点向上 / 终点向下”两个，否则每端会多出一个箭头。 */
+/* WebKit exposes start/end variants; keep one arrow at each end. */
 ::-webkit-scrollbar-button:vertical:decrement:end,
 ::-webkit-scrollbar-button:vertical:increment:start,
 ::-webkit-scrollbar-button:horizontal:decrement:end,
 ::-webkit-scrollbar-button:horizontal:increment:start {
   display: none;
-}
-
-/* 上箭头：左右各半个三角（先画左半格，再画右半格） */
-::-webkit-scrollbar-button:vertical:decrement {
-  background-image:
-    linear-gradient(to top left, var(--cde-face-text) 50%, transparent 50%),
-    linear-gradient(to top right, var(--cde-face-text) 50%, transparent 50%);
-  background-size: 4px 8px;
-  background-position:
-    4px 4px,
-    8px 4px;
-}
-
-/* 下箭头 */
-::-webkit-scrollbar-button:vertical:increment {
-  background-image:
-    linear-gradient(to bottom left, var(--cde-face-text) 50%, transparent 50%),
-    linear-gradient(to bottom right, var(--cde-face-text) 50%, transparent 50%);
-  background-size: 4px 8px;
-  background-position:
-    4px 4px,
-    8px 4px;
-}
-
-/* 左箭头 */
-::-webkit-scrollbar-button:horizontal:decrement {
-  background-image:
-    linear-gradient(to top left, var(--cde-face-text) 50%, transparent 50%),
-    linear-gradient(to bottom left, var(--cde-face-text) 50%, transparent 50%);
-  background-size: 8px 4px;
-  background-position:
-    4px 4px,
-    4px 8px;
-}
-
-/* 右箭头 */
-::-webkit-scrollbar-button:horizontal:increment {
-  background-image:
-    linear-gradient(to top right, var(--cde-face-text) 50%, transparent 50%),
-    linear-gradient(to bottom right, var(--cde-face-text) 50%, transparent 50%);
-  background-size: 8px 4px;
-  background-position:
-    4px 4px,
-    4px 8px;
 }

@@ -1644,7 +1644,9 @@ body.night-theme
         background: #24364a
 
 /* ===== 阅读个性化：字号 / 行距 / 衬线 / 主题色 ===== */
-body.read-serif .post-content
+/* 衬线开关作用于整个页面（正文、归档/分类列表、侧栏、导航、页眉页脚），
+   而不是只改正文。字体本身不变：代码块（等宽）与 iconfont 保留自身字体。 */
+body.read-serif
   font-family: Georgia, "Songti SC", "STSong", "SimSun", "Noto Serif SC", serif
 
 #float-actions
