@@ -3,8 +3,10 @@
  *
  * Colors are the exact Motif-derived values for NsCDE palettes.
  * They come from data/palettes/*.dp run through nscde_tools/palette_colorgen
- * (the same maths Motif uses to derive topShadow / bottomShadow / select).
- * Reference: https://github.com/NsCDE/NsCDE
+ * (the same maths Motif uses to derive topShadow / bottomShadow / select),
+ * shortened to the high byte X11 paints.  Broica is the :root fallback;
+ * every other official palette is generated into palettes.css.
+ * Reference: https://gitee.com/mirrors/NsCDE
  *
  * Palette roles (per Motif Colorset conventions):
  *   active  -> Colorset 2 : focused window / titlebar      (bg_1)
@@ -22,335 +24,55 @@
  * 1. Palette: Broica  (NsCDE's shipped default, 8 colours)
  * ============================================================ */
 :root {
-  --cde-face: #c5b2a8;
-  --cde-face-light: #e6deda;
-  --cde-face-shadow: #6b615b;
+  --cde-face: #c6b2a8;
+  --cde-face-light: #e7deda;
+  --cde-face-shadow: #6b605b;
   --cde-face-text: #000000;
   --cde-face-sel: #a8978f;
 
-  --cde-title: #eca770;
-  --cde-title-light: #f7d9c1;
+  --cde-title: #eda870;
+  --cde-title-light: #f7dac1;
   --cde-title-shadow: #7f5a3c;
   --cde-title-text: #ffffff;
   --cde-title-sel: #c98e5f;
 
-  --cde-ti: #989999;
-  --cde-ti-light: #d2d2d2;
+  --cde-ti: #999999;
+  --cde-ti-light: #d2d2d3;
   --cde-ti-shadow: #4f4f50;
   --cde-ti-text: #ffffff;
 
-  --cde-menu: #4991a6;
+  --cde-menu: #4992a7;
   --cde-menu-light: #adced7;
   --cde-menu-shadow: #244953;
   --cde-menu-text: #ffffff;
   --cde-menu-sel: #3e7c8d;
 
-  --cde-panel: #93abbe;
-  --cde-panel-light: #d0dae3;
+  --cde-panel: #93abbf;
+  --cde-panel-light: #d0dbe3;
   --cde-panel-shadow: #4e5b65;
   --cde-panel-text: #ffffff;
   --cde-panel-sel: #7d91a2;
 
-  --cde-input: #686f81;
+  --cde-input: #686f82;
   --cde-input-light: #babdc6;
-  --cde-input-shadow: #33363f;
+  --cde-input-shadow: #32363f;
   --cde-input-text: #ffffff;
 
-  --cde-ws-1: #8997a9;
-  --cde-ws-1-light: #cbd1d9;
-  --cde-ws-1-shadow: #474f58;
+  --cde-ws-1: #8998aa;
+  --cde-ws-1-light: #cbd2da;
+  --cde-ws-1-shadow: #474e58;
   --cde-ws-1-text: #ffffff;
-  --cde-ws-2: #c5b2a8;
-  --cde-ws-2-light: #e6deda;
-  --cde-ws-2-shadow: #6b615b;
+  --cde-ws-2: #c6b2a8;
+  --cde-ws-2-light: #e7deda;
+  --cde-ws-2-shadow: #6b605b;
   --cde-ws-2-text: #ffffff;
-  --cde-ws-3: #4991a6;
+  --cde-ws-3: #4992a7;
   --cde-ws-3-light: #adced7;
   --cde-ws-3-shadow: #244953;
   --cde-ws-3-text: #ffffff;
-  --cde-ws-4: #b6868c;
+  --cde-ws-4: #b7878d;
   --cde-ws-4-light: #dfcacd;
-  --cde-ws-4-shadow: #5f4649;
-  --cde-ws-4-text: #ffffff;
-}
-
-/* ============================================================
- * 2. Palette: BeigeRose  (grey/beige window + teal titlebar)
- * ============================================================ */
-html[data-palette="BeigeRose"] {
-  --cde-face: #909090;
-  --cde-face-light: #cecece;
-  --cde-face-shadow: #4a4a4a;
-  --cde-face-text: #ffffff;
-  --cde-face-sel: #7b7b7b;
-
-  --cde-title: #618787;
-  --cde-title-light: #b7c9c9;
-  --cde-title-shadow: #304343;
-  --cde-title-text: #ffffff;
-  --cde-title-sel: #527373;
-
-  --cde-ti: #d0c0ae;
-  --cde-ti-light: #ebe4dd;
-  --cde-ti-shadow: #736a60;
-  --cde-ti-text: #000000;
-
-  --cde-menu: #b8b8b8;
-  --cde-menu-light: #e1e1e1;
-  --cde-menu-shadow: #646464;
-  --cde-menu-text: #000000;
-  --cde-menu-sel: #9d9d9d;
-
-  --cde-panel: #90afac;
-  --cde-panel-light: #cfdcdb;
-  --cde-panel-shadow: #4c5d5b;
-  --cde-panel-text: #ffffff;
-  --cde-panel-sel: #7a9592;
-
-  --cde-input: #efebea;
-  --cde-input-light: #f9f7f7;
-  --cde-input-shadow: #8c8a89;
-  --cde-input-text: #000000;
-
-  --cde-ws-1: #b68989;
-  --cde-ws-1-light: #dfcbcb;
-  --cde-ws-1-shadow: #5f4747;
-  --cde-ws-1-text: #ffffff;
-  --cde-ws-2: #909090;
-  --cde-ws-2-light: #cecece;
-  --cde-ws-2-shadow: #4a4a4a;
-  --cde-ws-2-text: #ffffff;
-  --cde-ws-3: #b8b8b8;
-  --cde-ws-3-light: #e1e1e1;
-  --cde-ws-3-shadow: #646464;
-  --cde-ws-3-text: #ffffff;
-  --cde-ws-4: #8693ad;
-  --cde-ws-4-light: #cad0db;
-  --cde-ws-4-shadow: #464c5a;
-  --cde-ws-4-text: #ffffff;
-}
-
-/* ============================================================
- * 3. Palette: Delphinium  (light grey window + sky-blue titlebar)
- * ============================================================ */
-html[data-palette="Delphinium"] {
-  --cde-face: #78b3bd;
-  --cde-face-light: #c4dee2;
-  --cde-face-shadow: #3f5f64;
-  --cde-face-text: #ffffff;
-  --cde-face-sel: #6698a1;
-
-  --cde-title: #84c3ec;
-  --cde-title-light: #cbe5f7;
-  --cde-title-shadow: #486b81;
-  --cde-title-text: #000000;
-  --cde-title-sel: #71a6c9;
-
-  --cde-ti: #c7c7c7;
-  --cde-ti-light: #e7e7e7;
-  --cde-ti-shadow: #6f6f6f;
-  --cde-ti-text: #000000;
-
-  --cde-menu: #5586c2;
-  --cde-menu-light: #b3c9e4;
-  --cde-menu-shadow: #2b4462;
-  --cde-menu-text: #ffffff;
-  --cde-menu-sel: #4972a5;
-
-  --cde-panel: #8f9fbd;
-  --cde-panel-light: #ced5e2;
-  --cde-panel-shadow: #4c5464;
-  --cde-panel-text: #ffffff;
-  --cde-panel-sel: #7a87a1;
-
-  --cde-input: #fefee5;
-  --cde-input-light: #ffffff;
-  --cde-input-shadow: #989889;
-  --cde-input-text: #000000;
-
-  --cde-ws-1: #848bd8;
-  --cde-ws-1-light: #c9ccee;
-  --cde-ws-1-shadow: #454971;
-  --cde-ws-1-text: #ffffff;
-  --cde-ws-2: #78b3bd;
-  --cde-ws-2-light: #c4dee2;
-  --cde-ws-2-shadow: #3f5f64;
-  --cde-ws-2-text: #ffffff;
-  --cde-ws-3: #5586c2;
-  --cde-ws-3-light: #b3c9e4;
-  --cde-ws-3-shadow: #2b4462;
-  --cde-ws-3-text: #ffffff;
-  --cde-ws-4: #b99c90;
-  --cde-ws-4-light: #e1d4cf;
-  --cde-ws-4-shadow: #62524c;
-  --cde-ws-4-text: #ffffff;
-}
-
-/* ============================================================
- * 4. Palette: Regal  (slate window + blue titlebar)
- * ============================================================ */
-html[data-palette="Regal"] {
-  --cde-face: #6a6a8c;
-  --cde-face-light: #bbbbcb;
-  --cde-face-shadow: #343445;
-  --cde-face-text: #ffffff;
-  --cde-face-sel: #5a5a77;
-
-  --cde-title: #94b4eb;
-  --cde-title-light: #d1dff6;
-  --cde-title-shadow: #516280;
-  --cde-title-text: #000000;
-  --cde-title-sel: #7e99c8;
-
-  --cde-ti: #8691a3;
-  --cde-ti-light: #cacfd6;
-  --cde-ti-shadow: #454b54;
-  --cde-ti-text: #ffffff;
-
-  --cde-menu: #6881b0;
-  --cde-menu-light: #bbc7dc;
-  --cde-menu-shadow: #344159;
-  --cde-menu-text: #ffffff;
-  --cde-menu-sel: #586e96;
-
-  --cde-panel: #7c97d2;
-  --cde-panel-light: #c6d1eb;
-  --cde-panel-shadow: #414f6e;
-  --cde-panel-text: #ffffff;
-  --cde-panel-sel: #6980b3;
-
-  --cde-input: #5470a9;
-  --cde-input-light: #b1bed8;
-  --cde-input-shadow: #293753;
-  --cde-input-text: #ffffff;
-
-  --cde-ws-1: #7e88ab;
-  --cde-ws-1-light: #c6cada;
-  --cde-ws-1-shadow: #404658;
-  --cde-ws-1-text: #ffffff;
-  --cde-ws-2: #6a6a8c;
-  --cde-ws-2-light: #bbbbcb;
-  --cde-ws-2-shadow: #343445;
-  --cde-ws-2-text: #ffffff;
-  --cde-ws-3: #6881b0;
-  --cde-ws-3-light: #bbc7dc;
-  --cde-ws-3-shadow: #344159;
-  --cde-ws-3-text: #ffffff;
-  --cde-ws-4: #516d94;
-  --cde-ws-4-light: #b0bdce;
-  --cde-ws-4-shadow: #283548;
-  --cde-ws-4-text: #ffffff;
-}
-
-/* ============================================================
- * 5. Palette: SeaFoam  (pale sea-green / smoke)
- * ============================================================ */
-html[data-palette="SeaFoam"] {
-  --cde-face: #afbeba;
-  --cde-face-light: #dde3e2;
-  --cde-face-shadow: #5f6865;
-  --cde-face-text: #000000;
-  --cde-face-sel: #94a29e;
-
-  --cde-title: #a9cbda;
-  --cde-title-light: #dbe9ef;
-  --cde-title-shadow: #5e7079;
-  --cde-title-text: #000000;
-  --cde-title-sel: #90acb9;
-
-  --cde-ti: #a7a7a7;
-  --cde-ti-light: #d9d9d9;
-  --cde-ti-shadow: #595959;
-  --cde-ti-text: #ffffff;
-
-  --cde-menu: #c4afa4;
-  --cde-menu-light: #e6dcd8;
-  --cde-menu-shadow: #6a5e59;
-  --cde-menu-text: #000000;
-  --cde-menu-sel: #a7948b;
-
-  --cde-panel: #c7ada0;
-  --cde-panel-light: #e7dcd6;
-  --cde-panel-shadow: #6c5d56;
-  --cde-panel-text: #ffffff;
-  --cde-panel-sel: #a99388;
-
-  --cde-input: #97b0b1;
-  --cde-input-light: #d2dddd;
-  --cde-input-shadow: #505e5e;
-  --cde-input-text: #ffffff;
-
-  --cde-ws-1: #7db7ba;
-  --cde-ws-1-light: #c6e0e1;
-  --cde-ws-1-shadow: #426163;
-  --cde-ws-1-text: #ffffff;
-  --cde-ws-2: #afbeba;
-  --cde-ws-2-light: #dde3e2;
-  --cde-ws-2-shadow: #5f6865;
-  --cde-ws-2-text: #ffffff;
-  --cde-ws-3: #c4afa4;
-  --cde-ws-3-light: #e6dcd8;
-  --cde-ws-3-shadow: #6a5e59;
-  --cde-ws-3-text: #ffffff;
-  --cde-ws-4: #98a9a5;
-  --cde-ws-4-light: #d2dad8;
-  --cde-ws-4-shadow: #505957;
-  --cde-ws-4-text: #ffffff;
-}
-
-/* ============================================================
- * 6. Palette: Crimson  (mauve window + crimson titlebar)
- * ============================================================ */
-html[data-palette="Crimson"] {
-  --cde-face: #68a5a0;
-  --cde-face-light: #bcd7d5;
-  --cde-face-shadow: #365552;
-  --cde-face-text: #ffffff;
-  --cde-face-sel: #598d88;
-
-  --cde-title: #b14d7a;
-  --cde-title-light: #dcaec3;
-  --cde-title-shadow: #58263c;
-  --cde-title-text: #ffffff;
-  --cde-title-sel: #974167;
-
-  --cde-ti: #adb1c2;
-  --cde-ti-light: #dcdee5;
-  --cde-ti-shadow: #5e6069;
-  --cde-ti-text: #000000;
-
-  --cde-menu: #8dacc6;
-  --cde-menu-light: #cddbe6;
-  --cde-menu-shadow: #4b5c6a;
-  --cde-menu-text: #ffffff;
-  --cde-menu-sel: #7892a8;
-
-  --cde-panel: #9793b4;
-  --cde-panel-light: #d1d0de;
-  --cde-panel-shadow: #4f4d5e;
-  --cde-panel-text: #ffffff;
-  --cde-panel-sel: #807d99;
-
-  --cde-input: #fef6e8;
-  --cde-input-light: #ffffff;
-  --cde-input-shadow: #98948b;
-  --cde-input-text: #000000;
-
-  --cde-ws-1: #718aa4;
-  --cde-ws-1-light: #bfcbd7;
-  --cde-ws-1-shadow: #394653;
-  --cde-ws-1-text: #ffffff;
-  --cde-ws-2: #68a5a0;
-  --cde-ws-2-light: #bcd7d5;
-  --cde-ws-2-shadow: #365552;
-  --cde-ws-2-text: #ffffff;
-  --cde-ws-3: #8dacc6;
-  --cde-ws-3-light: #cddbe6;
-  --cde-ws-3-shadow: #4b5c6a;
-  --cde-ws-3-text: #ffffff;
-  --cde-ws-4: #d29697;
-  --cde-ws-4-light: #ecd2d2;
-  --cde-ws-4-shadow: #705051;
+  --cde-ws-4-shadow: #5e4649;
   --cde-ws-4-text: #ffffff;
 }
 

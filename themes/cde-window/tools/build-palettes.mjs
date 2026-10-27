@@ -2,8 +2,10 @@
 /*
  * build-palettes.mjs
  * ------------------
- * Generate the extra NsCDE palettes for the cde-window theme from the cached
- * CDE palette files (tools/nscde/palettes/*.dp).
+ * Generate every NsCDE palette for the cde-window theme from the cached CDE
+ * palette files (tools/nscde/palettes/*.dp).  Broica, the upstream default,
+ * stays hand-written as the :root fallback in style.css; all other palettes
+ * are emitted into palettes.css.
  *
  *   node themes/cde-window/tools/build-palettes.mjs
  *
@@ -16,24 +18,14 @@
  * (nscde_tools/palette_colorgen.in, a port of Jos Van Riswick's motifcolors.py):
  * a CDE palette file holds eight colours as #RRRRGGGGBBBB, and Motif derives
  * the top shadow / bottom shadow / select colours from each of them using the
- * XmCOLOR_* factors and thresholds declared in Motif's Xm.h.  All sixteen-bit
- * values are folded back to eight bits with round(v / 257), which is what the
- * hand-written palettes in style.css use.
+ * XmCOLOR_* factors and thresholds declared in Motif's Xm.h.
  *
- * Two deliberate deviations from palette_colorgen, both needed because this
- * theme paints a Motif bevel out of --cde-<role>-light / --cde-<role>-shadow:
- *
- *   light background  palette_colorgen's top shadow is 0.8 * bg, i.e. DARKER
- *                     than the background, which would invert the bevel.  The
- *                     highlight is forced to white instead (this is what the
- *                     hand-written Delphinium / Crimson blocks do).
- *   dark background   palette_colorgen's bottom shadow is brighter than the
- *                     background for the same reason, in reverse.  A darker
- *                     shade (0.5 * bg) is used so the bevel keeps pointing the
- *                     right way.
- *
- * Neither branch triggers for any of the palettes shipped in style.css, so the
- * six hand-written palettes are reproduced bit for bit; the script asserts it.
+ * Sixteen-bit channels are folded back to the eight bits X11 actually paints
+ * by taking the high byte, not by rounding v / 257.  The high byte is what the
+ * NsCDE screenshot shows: e.g. Broica's #ed00a8007000 titlebar renders as
+ * #eda870.  The dark/light branches are reproduced exactly as palette_colorgen
+ * computes them (including its red-channel quirk in the dark bottom shadow),
+ * so bevels follow NsCDE even for very dark or very light palettes.
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -75,11 +67,15 @@ function derive(c) {
   const text = b > FG_THRESHOLD ? [0, 0, 0] : [MAX, MAX, MAX];
 
   if (b < DARK_THRESHOLD) {
+    /* palette_colorgen uses bg[0] for both the red and green bottom shadow,
+     * so reproduce that quirk rather than inventing a different colour. */
+    const bsRed = c[0] + 30 * (MAX - c[0]) / 100; // XmCOLOR_DARK_BS_FACTOR
+    const bsBlue = c[2] + 30 * (MAX - c[2]) / 100;
     return {
       branch: 'dark',
       text,
       light: c.map((v) => v + 50 * (MAX - v) / 100), // XmCOLOR_DARK_TS_FACTOR
-      shadow: c.map((v) => v * 0.5), // see header note
+      shadow: [bsRed, bsRed, bsBlue],
       sel: c.map((v) => v + 15 * (MAX - v) / 100) // XmCOLOR_DARK_SEL_FACTOR
     };
   }
@@ -88,7 +84,7 @@ function derive(c) {
     return {
       branch: 'light',
       text,
-      light: [MAX, MAX, MAX], // see header note
+      light: c.map((v) => v - v * 20 / 100), // XmCOLOR_LITE_TS_FACTOR
       shadow: c.map((v) => v - v * 40 / 100), // XmCOLOR_LITE_BS_FACTOR
       sel: c.map((v) => v - v * 15 / 100) // XmCOLOR_LITE_SEL_FACTOR
     };
@@ -106,7 +102,7 @@ function derive(c) {
   };
 }
 
-const to8 = (v) => Math.max(0, Math.min(255, Math.round(v / 257)));
+const to8 = (v) => Math.max(0, Math.min(255, Math.floor(v / 256)));
 const hex = (v) => to8(v).toString(16).padStart(2, '0');
 const rgbHex = (c) => '#' + c.map(hex).join('');
 
@@ -131,46 +127,21 @@ const EMIT_ORDER = ['face', 'title', 'ti', 'menu', 'panel', 'input'];
 const HAS_SEL = new Set(['face', 'title', 'menu', 'panel']);
 const WORKSPACE_LINES = [3, 5, 6, 7];
 
-/* the six palettes already hand-written in style.css — reproduced, not emitted */
-const EXISTING = ['Broica', 'BeigeRose', 'Delphinium', 'Regal', 'SeaFoam', 'Crimson'];
+/* Broica is the only palette kept in style.css, as the :root fallback.  Every
+ * other palette — including the five that used to be duplicated there — is
+ * emitted from the official NsCDE cache. */
+const EXISTING = ['Broica'];
 
-const ORDER = [
-  ...EXISTING,
-  'Alpine',
-  'Autumn',
-  'BlueNight',
-  'Cabernet',
-  'Charcoal',
-  'Chocolate',
-  'Cinnamon',
-  'CoralReef',
-  'Dakota',
-  'DarkBlue',
-  'DarkGold',
-  'Desert',
-  'Dierra',
-  'Equinox',
-  'Forest',
-  'Golden',
-  'GrayScale',
-  'Iris',
-  'Lilac',
-  'Metro',
-  'Mocha',
-  'Neptune',
-  'Nordic',
-  'NorthernSky',
-  'Olive',
-  'Orchid',
-  'Pastel',
-  'RainForest',
-  'Sand',
-  'SantaFe',
-  'Savannah',
-  'SoftBlue',
-  'SouthWest',
-  'Terracotta'
-];
+const CACHED = (await fs.readdir(CACHE))
+  .filter((file) => file.endsWith('.dp'))
+  .map((file) => file.slice(0, -3))
+  .sort();
+
+if (!CACHED.includes('Broica')) {
+  throw new Error('Broica.dp is missing from the cache, run fetch-nscde-palettes.mjs');
+}
+
+const ORDER = [...EXISTING, ...CACHED.filter((name) => !EXISTING.includes(name))];
 
 /* the two syntax-highlighting token sets from highlight.css */
 const CODE_LIGHT = {
@@ -246,8 +217,8 @@ function buildPalette(name, lines) {
 async function main() {
   const css = await fs.readFile(STYLE_CSS, 'utf8');
 
-  /* pick up what style.css already defines so the six built-ins can be
-   * verified against the generated values — Broica is the :root default */
+  /* Broica is the :root fallback in style.css; verify it against the
+   * generated value so the fallback cannot drift from palettes.css. */
   const declared = {};
   const addVars = (name, text) => {
     const vars = declared[name] || (declared[name] = {});
@@ -260,7 +231,7 @@ async function main() {
   if (rootBlock) addVars('Broica', rootBlock[1]);
   for (const m of css.matchAll(/html\[data-palette="([^"]+)"\]\s*\{([^}]*)\}/g)) addVars(m[1], m[2]);
   for (const name of EXISTING) {
-    if (!declared[name]) throw new Error(`style.css has no html[data-palette="${name}"] block`);
+    if (!declared[name]) throw new Error(`style.css has no :root block for ${name}`);
   }
 
   const palettes = [];
@@ -274,7 +245,7 @@ async function main() {
     palettes.push(buildPalette(name, parseDP(text, name)));
   }
 
-  /* --- verify the six built-ins ------------------------------------- */
+  /* --- verify the :root fallback ------------------------------------ */
   const problems = [];
   for (const p of palettes) {
     const want = declared[p.name];
@@ -382,23 +353,22 @@ async function main() {
   const cssOut = `/* ============================================================
  * palettes.css — GENERATED FILE, DO NOT EDIT BY HAND
  *
- * The extra CDE palettes, on top of the six that style.css defines
- * in :root / html[data-palette="..."] (Broica, BeigeRose, Delphinium,
- * Regal, SeaFoam, Crimson).
+ * Every official NsCDE / CDE palette except Broica.  Broica is the
+ * hand-written :root fallback in style.css and is loaded first.
  *
  * Generated by:
  *     node themes/cde-window/tools/build-palettes.mjs
  * from the official NsCDE palette files (data/palettes/*.dp):
- *     https://github.com/NsCDE/NsCDE
+ *     https://gitee.com/mirrors/NsCDE
  *
  * The colours are a palette file's eight colours — each line of a .dp
  * file is #RRRRGGGGBBBB — mapped onto the Motif coloursets this theme
  * uses (line 1 titlebar, 2 unfocused window, 4 text field, 5 general UI,
  * 6 menus, 8 front panel, and 3/5/6/7 for the four workspace buttons),
  * plus the top shadow / bottom shadow / select / foreground Motif derives
- * from each of them. The maths is NsCDE's own
- * (nscde_tools/palette_colorgen.in).  See the script for the two places
- * where the bevel direction is forced back the right way.
+ * from each of them.  The maths is NsCDE's own
+ * (nscde_tools/palette_colorgen.in), and 16-bit channels are shortened to
+ * the high byte X11 paints, exactly matching the NsCDE screenshot.
  *
  * The --cde-code-* tokens pick one of the two syntax-highlighting sets
  * from highlight.css, according to whether the text field is dark or

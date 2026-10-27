@@ -21,8 +21,9 @@ menu:
     url: /atom.xml
 
 # CDE 配色方案（NsCDE 调色板名）
-# 可选：Broica（NsCDE 出厂默认）、BeigeRose、Delphinium、Regal、SeaFoam、Crimson
+# 可选：NsCDE 官方全部 77 套配色（Broica 为出厂默认）
 # 颜色是 Motif 从 data/palettes/*.dp 推导出来的原始值，见 source/css/style.css 顶部说明
+# Broica 写在 style.css 的 :root 中，其余配色由 tools/build-palettes.mjs 生成到 palettes.css
 palette: Broica
 
 # 是否显示文章摘要
