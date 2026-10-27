@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# 内部映射：tools.hudi.site/api/Feihua_gbk.php 直接读取 /tools/api/Feihua_gbk.php，无跳转
+RewriteCond %{HTTP_HOST} ^tools\.hudi\.site$ [NC]
+RewriteRule ^api/Feihua_gbk\.php$ /tools/api/Feihua_gbk.php [L]
+
 # 基础设置：确保所有请求都使用HTTPS和www前缀（保持不变）
 RewriteCond %{HTTP_HOST} ^hudi\.site$ [NC]
 RewriteRule ^(.*)$ https://www.hudi.site/$1 [L,R=301]
