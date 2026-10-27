@@ -2048,6 +2048,9 @@ html.read-sans body {
   justify-content: center;
   gap: 8px;
   min-width: 128px;
+  /* Same height as Gitalk's .gt-btn: 1em line-height + 0.75em vertical
+   * padding on each side + the 2px CDE border = 2.5em + 4px. */
+  height: calc(var(--cde-ui-size) * 2.5 + 4px);
   padding: 4px 16px;
   font-family: inherit;
   font-size: var(--cde-ui-size);
