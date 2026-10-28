@@ -108,12 +108,8 @@
 
   /* CDE window chrome (menus, titlebar, footer, dialogs, buttons).
    * Motif uses one UI font for all of it, so every piece of chrome shares
-   * this single size.
-   *
-   * It is derived from the reading size rather than pinned to 14px: when
-   * 阅读设置 raised --read-font-size the chrome stayed behind and the menu /
-   * titlebar / footer ended up visibly smaller than the article text. */
-  --cde-ui-size: var(--read-font-size);
+   * this single size. */
+  --cde-ui-size: 15px;
 }
 
 * {
