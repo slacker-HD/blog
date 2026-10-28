@@ -7,6 +7,14 @@ function startClock() {
   var m = document.getElementById('fp-hand-m');
   var s = document.getElementById('fp-hand-s');
   var t = document.getElementById('fp-time');
+  var clock = document.getElementById('fp-clock');
+  function setClockTitle() {
+    if (!clock) return;
+    var now = new Date();
+    var hr = now.getHours();
+    var mi = String(now.getMinutes()).padStart(2, '0');
+    clock.setAttribute('title', hr + ':' + mi);
+  }
   function tick() {
     var now = new Date();
     var hh = now.getHours() % 12;
@@ -23,7 +31,9 @@ function startClock() {
     }
   }
   tick();
+  setClockTitle();
   setInterval(tick, 1000);
+  setInterval(setClockTitle, 60000);
 }
 
 function wireStrips() {

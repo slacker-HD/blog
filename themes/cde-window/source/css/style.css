@@ -2481,30 +2481,42 @@ html.read-sans body {
 }
 
 #read-panel .rp-actions {
-  padding: 4px 6px 0;
+  padding: 6px 8px 8px;
   text-align: right;
 }
 
 #read-panel .rp-actions button {
-  padding: 2px 10px;
+  padding: 2px 9px;
   font-family: inherit;
   font-size: var(--cde-ui-size);
-  color: var(--cde-face-text);
-  background: var(--cde-face);
-  border: 1px solid;
-  border-top-color: var(--cde-face-light);
-  border-left-color: var(--cde-face-light);
-  border-right-color: var(--cde-face-shadow);
-  border-bottom-color: var(--cde-face-shadow);
+  color: var(--cde-panel-text);
+  background: var(--cde-panel);
+  border: 2px solid;
+  border-top-color: var(--cde-panel-light);
+  border-left-color: var(--cde-panel-light);
+  border-right-color: var(--cde-panel-shadow);
+  border-bottom-color: var(--cde-panel-shadow);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-light),
+    inset -1px -1px 0 var(--cde-panel-shadow);
   border-radius: 0;
   cursor: pointer;
 }
 
+#read-panel .rp-actions button:hover {
+  box-shadow:
+    inset 2px 2px 0 var(--cde-panel-light),
+    inset -2px -2px 0 var(--cde-panel-shadow);
+}
+
 #read-panel .rp-actions button:active {
-  border-top-color: var(--cde-face-shadow);
-  border-left-color: var(--cde-face-shadow);
-  border-right-color: var(--cde-face-light);
-  border-bottom-color: var(--cde-face-light);
+  border-top-color: var(--cde-panel-shadow);
+  border-left-color: var(--cde-panel-shadow);
+  border-right-color: var(--cde-panel-light);
+  border-bottom-color: var(--cde-panel-light);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-shadow),
+    inset -1px -1px 0 var(--cde-panel-light);
 }
 
 /* ============================================================
