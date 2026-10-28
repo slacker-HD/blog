@@ -1006,7 +1006,7 @@ html.read-sans body {
   --fp-group-inset: 0px;
   --fp-launcher-size: var(--fp-cell-w);
   --fp-icon: calc(var(--cde-ui-size) * 48 / 15);
-  --fp-dial: var(--fp-icon);
+  --fp-dial: calc(var(--fp-icon) * 1.15);
   --fp-end-w: calc(var(--cde-ui-size) * 22 / 15);
   --fp-endbtn-h: calc(var(--cde-ui-size) * 14 / 15);
   --fp-work-w: calc(var(--cde-ui-size) * 405 / 15);
