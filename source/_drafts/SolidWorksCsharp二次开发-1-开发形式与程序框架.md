@@ -15,34 +15,48 @@ category: SolidWorks二次开发
 SolidWorks二次开发常见的有三种形式：
 
 - add-in插件：编译成dll，注册成COM组件，可以往Ribbon、菜单、任务窗格、属性管理器页里加界面，随SolidWorks启动加载。
-- 独立程序：编译成exe，通过COM接口连到SolidWorks上，操作当前文档或者新建文档。适合批处理、导图、批量改属性这类不需要界面的任务。
+- 独立程序：编译成exe，通过COM接口启动或连接SolidWorks，操作当前文档或者新建文档。适合批处理、导图、批量改属性这类不需要界面的任务。
 - 宏：用SolidWorks自带的VBA编辑器（.swp/.swb）或VSTA宏，适合录制操作和临时脚本。C#也可以通过RunMacro2调用宏文件。
 
-三种形式最终调用的都是同一套API，区别主要在于谁来加载、有没有界面、怎么拿到`ISldWorks`对象。对比如下：
+三种形式的起始点都是拿到`ISldWorks`对象，区别主要在于谁来加载、有没有界面等，对比如下：
 
 | 形式 | 产物 | 加载方式 | 获取ISldWorks |
 | --- | --- | --- | --- |
 | add-in | dll | regasm注册，SolidWorks启动时加载 | `ConnectToSW`的`ThisSW`参数 |
-| 独立程序 | exe | 用户手动运行 | `Marshal.GetActiveObject`或`Activator.CreateInstance` |
+| 独立程序 | exe | 用户手动运行 | `new SldWorks()` |
 | 宏 | .swp/.swb | 在SolidWorks中运行 | `Application.SldWorks` |
 
 ## 2.独立程序框架
 
-独立程序获取`ISldWorks`的代码如下，先尝试连接正在运行的SolidWorks，连不上再新建一个：
+独立程序不需要注册，直接用`SolidWorks.Interop.sldworks`里的`SldWorks`创建实例即可，`new`一个就相当于启动一个SolidWorks进程。所以实例一般保存到字段里，用的时候先判断是否为空，避免重复启动多个SolidWorks：
 
 ```c#
-ISldWorks swApp = null;
-try
+// 全局SolidWorks实例，整个程序生命周期共用
+private SldWorks _swApp = null;
+
+// 如果实例不存在才新建，避免重复启动多个SW进程
+if (_swApp == null)
 {
-    swApp = (ISldWorks)Marshal.GetActiveObject("SldWorks.Application");
+    _swApp = new SldWorks();
 }
-catch (COMException)
-{
-    swApp = (ISldWorks)Activator.CreateInstance(
-        Type.GetTypeFromProgID("SldWorks.Application"));
-}
-swApp.Visible = true;
 ```
+
+这里容易误会的是`SldWorks`的类型。它在互操作程序集里其实是个接口，继承自`ISldWorks`，另外带上了SolidWorks的事件；真正被实例化的是`SldWorksClass`。`new SldWorks()`能编译，是因为`SldWorks`接口上标了`[CoClass(typeof(SldWorksClass))]`，编译器会转成创建`SldWorksClass`。所以`_swApp`是`ISldWorks`的派生接口，直接当`ISldWorks`用、赋给`ISldWorks`变量都没问题：
+
+```c#
+ISldWorks swApp = new SldWorks();
+```
+
+拿到实例后就可以调用它的方法和属性，比如打开文档、设置可见：
+
+```c#
+int error = 0;
+int warning = 0;
+_swApp.OpenDoc6(filePath, docType, 1, "", ref error, ref warning);
+_swApp.Visible = true;
+```
+
+**需要注意的是，`new SldWorks()`每次都会启动一个新的SolidWorks进程。**如果程序里有多处要用到实例，不要在每处都`new`，统一从一个字段或属性里取。如果要连接已经打开的SolidWorks，则用`Marshal.GetActiveObject("SldWorks.Application")`，而不是`new`。
 
 ## 3.add-in的必需成员
 
