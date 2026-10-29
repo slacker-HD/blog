@@ -45,7 +45,7 @@ category: 人工智能
 
 C#中逐行读取，用 `JsonDocument` 解析出 `message.content` 即可，并根据 `done` 判断是否结束。
 
-**P.S. qwen2.5-coder:latest是我本机下载的模型，可以根据本机配置替换更好的模型。**
+**P.S. qwen2.5-coder:latest是我本机下载的模型，可以根据实际配置替换更好的模型。**
 
 ## 3. 系统提示词设计
 
