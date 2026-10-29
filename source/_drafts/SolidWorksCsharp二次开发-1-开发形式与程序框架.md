@@ -18,13 +18,13 @@ SolidWorks二次开发常见的有三种形式：
 - 独立程序：编译成exe，通过COM接口启动或连接SolidWorks，操作当前文档或者新建文档。适合批处理、导图、批量改属性这类不需要界面的任务。
 - 宏：用SolidWorks自带的VBA编辑器（.swp/.swb）或VSTA宏，适合录制操作和临时脚本。C#也可以通过RunMacro2调用宏文件。
 
-三种形式的起始点都是拿到`ISldWorks`对象，区别主要在于谁来加载、有没有界面等，对比如下：
+三种形式的起始点都是拿到SolidWorks主程序对象，后续调用的API都一样，区别主要在于谁来加载、有没有界面等。这个对象在add-in里是`ISldWorks`（`ThisSW`强转），在独立程序里是`new SldWorks()`得到的`SldWorks`，在VBA宏里是`Application.SldWorks`返回的`SldWorks`类。`SldWorks`和`ISldWorks`是派生关系，在.NET里可以互相转换，用法上没有区别。对比如下：
 
-| 形式 | 产物 | 加载方式 | 获取ISldWorks |
+| 形式 | 产物 | 加载方式 | 主程序对象 |
 | --- | --- | --- | --- |
-| add-in | dll | regasm注册，SolidWorks启动时加载 | `ConnectToSW`的`ThisSW`参数 |
-| 独立程序 | exe | 用户手动运行 | `new SldWorks()` |
-| 宏 | .swp/.swb | 在SolidWorks中运行 | `Application.SldWorks` |
+| add-in | dll | regasm注册，SolidWorks启动时加载 | `ConnectToSW`的`ThisSW`，强转为`ISldWorks` |
+| 独立程序 | exe | 用户手动运行 | `new SldWorks()`，可赋给`ISldWorks` |
+| 宏 | .swp/.swb | 在SolidWorks中运行 | `Application.SldWorks`，VBA里是`SldWorks`类 |
 
 ## 2.独立程序框架
 
@@ -41,7 +41,7 @@ if (_swApp == null)
 }
 ```
 
-这里容易误会的是`SldWorks`的类型。它在互操作程序集里其实是个接口，继承自`ISldWorks`，另外带上了SolidWorks的事件；真正被实例化的是`SldWorksClass`。`new SldWorks()`能编译，是因为`SldWorks`接口上标了`[CoClass(typeof(SldWorksClass))]`，编译器会转成创建`SldWorksClass`。所以`_swApp`是`ISldWorks`的派生接口，直接当`ISldWorks`用、赋给`ISldWorks`变量都没问题：
+这里容易误会的是`SldWorks`的类型。它在互操作程序集里其实是个接口，继承自`ISldWorks`，另外带上了SolidWorks的事件；真正被实例化的是`SldWorksClass`。`new SldWorks()`能编译，是因为`SldWorks`接口上标了`[CoClass(typeof(SldWorksClass))]`，编译器会转成创建`SldWorksClass`。VBA的对象浏览器里显示为`Class SldWorks`的，就是这个coclass。所以`_swApp`的类型`SldWorks`是`ISldWorks`的派生接口，直接当`ISldWorks`用、赋给`ISldWorks`变量都没问题：
 
 ```c#
 ISldWorks swApp = new SldWorks();
@@ -50,9 +50,6 @@ ISldWorks swApp = new SldWorks();
 拿到实例后就可以调用它的方法和属性，比如打开文档、设置可见：
 
 ```c#
-int error = 0;
-int warning = 0;
-_swApp.OpenDoc6(filePath, docType, 1, "", ref error, ref warning);
 _swApp.Visible = true;
 ```
 
