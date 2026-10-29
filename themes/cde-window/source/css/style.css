@@ -1439,34 +1439,62 @@ html.read-sans body {
   box-shadow: inset 0 -1px 0 var(--cde-ti-shadow);
 }
 
-/* The little decorative buttons at the two top corners (`FpMenu.xpm` over the
-   left grip, `FpIconify.xpm` over the right) are the same kind of cell as the
-   band: a raised `Frame 1` box scaled up from a bitmap.  They get the band's
-   own width treatment — the handle's 1px side padding is dropped so the button
-   spans the whole handle column — and the band's own height, so the corner
-   block and the strip cells finish on the same row with the same dark-then-light
-   rule: the top shelf runs unbroken from grip to grip.  Scoped by the handle so
-   it outranks the base `.fp-cap` / `.fp-capbox` further down the sheet. */
+/* The two decorative corner buttons (`FpMenu.xpm` over the left grip,
+   `FpIconify.xpm` over the right) are ordinary `Frame 1` cells in CDE, not
+   filled bars.  In FrontPanel.fvwmconf they are:
+
+     (19x14+1+1, Id PanelMenu, Frame 1, Icon NsCDE/FpMenu.xpm)
+     (20x14+0+1, Id PanelIconify, Frame 1, Icon NsCDE/FpIconify.xpm)
+
+   framed by two 1px `Colorset 14` gap rows -- `MenuBtnGapH1` above and
+   `MenuBtnGapH2` below -- plus a 1px `MenuBtnGapV` column on the handle's
+   outer edge.  Colorset 14 is `#d2aad2b6d31a`, the panel's own top shadow,
+   so those gaps read as two thin light rules sandwiching a grey button whose
+   Frame 1 is 1px light on the top/left and 1px dark on the bottom/right. */
 .fp-cap.fp-cap-l,
 .fp-cap.fp-cap-r {
   padding: 0;
+  /* Colorset 14 behind everything: the gap rows and the gap column. */
+  background: var(--cde-ti-light);
 }
 
-/* The corner block is exactly as tall as the band's 14px face.  It starts on
- * the group's top light rule and closes where the grip starts; the band's 2px
- * groove underneath is a separate row. */
+/* The corner block is exactly the 14px `Frame 1` cell.  Its 1px top and bottom
+   gaps come from the margins, which leave the handle 1 + 14 + 1 = 16px in,
+   exactly as CDE places the 63px grip at y=16. */
 .fp-cap-l .fp-capbox,
 .fp-cap-r .fp-capbox {
   height: var(--fp-endbtn-h);
+  margin: 1px 0;
   background: var(--cde-ti);
-  border-bottom: 0;
-  box-shadow: inset 0 2px 0 var(--cde-ti-light);
+  border: 0;
+  box-shadow:
+    inset 1px 1px 0 var(--cde-ti-light),
+    inset -1px -1px 0 var(--cde-ti-shadow);
 }
 
-/* the grip picks up right under the taller corner button */
+/* the 1px `MenuBtnGapV` column sits on the handle's outer edge only, so the
+   button is inset from the outside and flush against the panel body */
+.fp-cap-l .fp-capbox {
+  margin-left: 1px;
+}
+
+.fp-cap-r .fp-capbox {
+  margin-right: 1px;
+}
+
+/* the grip starts on the row after `MenuBtnGapH2` and keeps the button's
+   horizontal inset, so the corrugation lines up under the corner block */
 .fp-cap-l .fp-grip,
 .fp-cap-r .fp-grip {
   margin-top: 0;
+}
+
+.fp-cap-l .fp-grip {
+  margin-left: 1px;
+}
+
+.fp-cap-r .fp-grip {
+  margin-right: 1px;
 }
 
 /* The corner block is now the same cell as the band, so it sits flush against
@@ -1649,13 +1677,13 @@ html.read-sans body {
   padding: 1px;
 }
 
-.fp-cap-l {
-  border-left: 1px solid var(--cde-ti-light);
-  border-right: 1px solid var(--cde-ti-light);
-}
-
+/* The handle container is a `Frame 1` box too, so both ends carry the same
+   Motif edge: 1px of top shadow down the left, 1px of bottom shadow down the
+   right — the light rule always faces the page, the dark rule always faces the
+   panel body. */
+.fp-cap-l,
 .fp-cap-r {
-  border-left: 1px solid var(--cde-ti-shadow);
+  border-left: 1px solid var(--cde-ti-light);
   border-right: 1px solid var(--cde-ti-shadow);
 }
 
@@ -1663,7 +1691,7 @@ html.read-sans body {
   flex: 0 0 auto;
   height: var(--fp-endbtn-h);
   background: var(--cde-ti);
-  border-bottom: 1px solid var(--cde-ti-light);
+  border: 0;
   box-shadow:
     inset 1px 1px 0 var(--cde-ti-light),
     inset -1px -1px 0 var(--cde-ti-shadow);
@@ -1671,12 +1699,25 @@ html.read-sans body {
 
 .fp-grip {
   flex: 1 1 auto;
+  min-height: 0;
   margin-top: 1px;
-  background: repeating-linear-gradient(
+  /* FpHandle.xpm: 1px of bottomShadow over 1px of the panel's own grey,
+     repeated — the corrugated handle reads as low-key fine lines rather than
+     stark black-and-white bars.  The pattern is pinned to an exact 2px tile so
+     the phase never drifts with the element's (possibly fractional) height,
+     and the layer is rasterised as-is so 1px stays 1px instead of being
+     resampled into uneven bands. */
+  background-color: var(--cde-ti);
+  background-image: repeating-linear-gradient(
     to bottom,
     var(--cde-ti-shadow) 0 1px,
-    var(--cde-ti-light) 1px 2px
+    var(--cde-ti) 1px 2px
   );
+  background-size: 100% 2px;
+  background-position: 0 0;
+  background-repeat: repeat;
+  image-rendering: pixelated;
+  transform: translateZ(0);
 }
 
 /* ---- the footer's own text, in the panel's work area ----
