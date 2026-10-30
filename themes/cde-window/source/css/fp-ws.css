@@ -203,7 +203,9 @@
   left: 50%;
   transform: translateX(-50%);
   font-family: inherit;
-  font-size: calc(var(--cde-ui-size) - 1px);
+  /* Scale with the icon: 14px on the 48px bitmap, but the narrow layout
+     shrinks --fp-icon to 33px, and a fixed 14px would spill out of the page. */
+  font-size: calc(var(--fp-icon) * 0.2917);
   font-weight: bold;
   color: var(--cde-panel-shadow);
   line-height: 1;

@@ -13,6 +13,7 @@
       </div>
     </div>
     <%- partial('partials/footer') %>
+    <%- partial('partials/shortcut-help') %>
 
     <script src="<%- url_for('/js/copycode.js') %>"></script>
     <script src="<%- url_for('/js/codeblock.js') %>"></script>
@@ -24,6 +25,9 @@
     <script src="<%- url_for('/js/personalize.js') %>"></script>
     <script src="<%- url_for('/js/palette.js') %>"></script>
     <script src="<%- url_for('/js/frontpanel.js') %>"></script>
+    <script src="<%- url_for('/js/panel-menu.js') %>"></script>
+    <script src="<%- url_for('/js/progress.js') %>"></script>
+    <script src="<%- url_for('/js/shortcuts.js') %>"></script>
     <script src="<%- url_for('/js/article-controls.js') %>"></script>
     <% if (page.math){ %>
     <script defer src="<%- url_for('/libs/katex/katex.min.js') %>"></script>

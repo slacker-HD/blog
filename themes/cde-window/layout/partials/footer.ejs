@@ -74,8 +74,8 @@
   <div class="fp-rail">
 
     <!-- left handle: menu button over the grip -->
-    <div class="fp-cap fp-cap-l" aria-hidden="true">
-      <span class="fp-capbox"></span>
+    <div class="fp-cap fp-cap-l">
+      <button id="fp-menu-btn" class="fp-capbox" type="button" title="面板菜单" aria-label="面板菜单" aria-haspopup="menu" aria-expanded="false"></button>
       <span class="fp-grip"></span>
     </div>
 
@@ -246,8 +246,9 @@
     </div>
 
     <!-- right handle: grip under the iconify button -->
-    <div class="fp-cap fp-cap-r" aria-hidden="true">
-      <span class="fp-capbox"></span>
+    <span class="fp-shade-label" aria-hidden="true">前面板已收起</span>
+    <div class="fp-cap fp-cap-r">
+      <button id="fp-iconify" class="fp-capbox" type="button" title="收起前面板" aria-label="收起前面板" aria-pressed="false"></button>
       <span class="fp-grip"></span>
     </div>
 
@@ -313,6 +314,25 @@
     </form>
     <p id="search-status" role="status" aria-live="polite">输入关键词开始搜索。</p>
     <ul id="search-results" aria-label="搜索结果"></ul>
+  </div>
+
+  <!--
+    Panel menu — the menu NsCDE opens from the left handle (`m_FrontPanelWinMenu`).
+    It is shared by the handle button and the titlebar's window-menu button, and
+    is positioned next to whichever one opened it.
+  -->
+  <div id="fp-menu" class="cde-menu" role="menu" aria-label="站点菜单" hidden>
+    <% (theme.menu || []).forEach(function (item) { %>
+    <a class="cde-menu-item" role="menuitem" href="<%- url_for(item.url) %>"><%= item.name %></a>
+    <% }); %>
+    <div class="cde-menu-sep" role="separator"></div>
+    <button class="cde-menu-item" type="button" role="menuitem" data-menu-action="random">随机一篇文章</button>
+    <button class="cde-menu-item" type="button" role="menuitem" data-menu-action="search">站内搜索</button>
+    <button class="cde-menu-item" type="button" role="menuitem" data-menu-action="top">回到顶部</button>
+    <div class="cde-menu-sep" role="separator"></div>
+    <button class="cde-menu-item" type="button" role="menuitem" data-menu-action="palette">配色方案</button>
+    <button class="cde-menu-item" type="button" role="menuitem" data-menu-action="read">阅读设置</button>
+    <button class="cde-menu-item" type="button" role="menuitem" data-menu-action="help">键盘快捷键</button>
   </div>
 </footer>
 <% if (showBusuanzi){ %>

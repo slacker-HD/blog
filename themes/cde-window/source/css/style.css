@@ -527,6 +527,8 @@ img {
 .widget-list li a:focus-visible,
 .archive-list li a:hover,
 .archive-list li a:focus-visible,
+.category-list li a:hover,
+.category-list li a:focus-visible,
 .tagcloud a:hover,
 .tagcloud a:focus-visible,
 .tagcloud-page .tagcloud-item:hover,
@@ -554,38 +556,6 @@ img {
   background: var(--cde-menu);
   color: var(--cde-menu-text);
   box-shadow: none;
-}
-
-/* Old sidebar nav removed; kept for safety if a template still emits it */
-.cde-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 6px 0;
-  background: var(--cde-face);
-  border: 1px solid var(--cde-border);
-  box-shadow:
-    inset 1px 1px 0 var(--cde-face-shadow),
-    inset -1px -1px 0 var(--cde-face-light);
-}
-
-.cde-menu li {
-  border-bottom: 1px solid var(--cde-face-shadow);
-}
-
-.cde-menu li:last-child {
-  border-bottom: none;
-}
-
-.cde-menu a {
-  display: block;
-  padding: 4px 10px;
-  color: var(--cde-face-text);
-}
-
-.cde-menu a:hover {
-  background: var(--cde-menu);
-  color: var(--cde-menu-text);
-  text-decoration: none;
 }
 
 /* ---------------- Generic CDE button ---------------- */
@@ -657,8 +627,19 @@ img {
 }
 
 .category-list-item {
+  display: flex;
+  align-items: baseline;
   padding: 3px 6px;
   border-bottom: 1px dotted var(--cde-face-shadow);
+}
+
+/* Same full-row hit area and highlight as the archive rows. */
+.category-list-link {
+  flex: 1;
+  padding: 3px 0;
+  margin: -3px -6px;
+  color: var(--cde-face-text);
+  text-decoration: none;
 }
 
 /* Let the title fill the rest of the row so the shared menu-highlight state
@@ -3154,3 +3135,368 @@ html.read-sans body {
 ::-webkit-scrollbar-button:horizontal:increment:start {
   display: none;
 }
+
+/* ============================================================
+ * Live controls: panel menu, titlebar buttons, reading gauge, help window
+ *
+ * Up to here the front panel and the titlebar were pictures of a CDE desktop.
+ * These rules make the pictures work: the handle button opens the panel menu,
+ * the iconify button rolls the panel up, the titlebar's min/max collapse the
+ * pane and the chrome, and the titlebar's bottom edge carries a reading gauge.
+ * ============================================================ */
+
+/* ---- titlebar buttons --------------------------------------------------- */
+
+/* the three glyphs were spans before; as real buttons they need the UA's
+ * button skin removed but keep the Motif cell drawn by .titlebar-btn */
+.titlebar-btn {
+  appearance: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: default;
+}
+
+/* a pressed toggle (minimise / focus mode) sinks in, like any Motif button */
+.titlebar-btn[aria-pressed="true"] {
+  border-top-color: var(--cde-btn-lo);
+  border-left-color: var(--cde-btn-lo);
+  border-right-color: var(--cde-btn-hi);
+  border-bottom-color: var(--cde-btn-hi);
+}
+
+.titlebar-btn[aria-pressed="true"]::before {
+  border-top-color: var(--cde-btn-lo);
+  border-left-color: var(--cde-btn-lo);
+  border-right-color: var(--cde-btn-hi);
+  border-bottom-color: var(--cde-btn-hi);
+}
+
+.titlebar-btn:focus-visible {
+  outline: 1px dotted var(--cde-title-light);
+  outline-offset: -4px;
+}
+
+/* ---- reading gauge ----------------------------------------------------- */
+
+.titlebar {
+  position: relative;
+}
+
+/* A 3px trough along the titlebar's bottom edge: the CDE progress indicator.
+ * It is invisible at the top of the page and fades in as soon as the reader
+ * moves, so the titlebar still reads as a plain CDE title band at rest. */
+.titlebar-progress {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: 0;
+  height: 3px;
+  background: var(--cde-title-shadow);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: opacity 0.18s linear;
+  pointer-events: none;
+}
+
+.titlebar-progress.is-active {
+  opacity: 1;
+}
+
+#titlebar-progress-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--cde-title-light);
+  box-shadow: inset 0 -1px 0 var(--cde-title-shadow);
+}
+
+/* ---- panel menu -------------------------------------------------------- */
+
+.cde-menu {
+  position: fixed;
+  z-index: 500;
+  min-width: 184px;
+  padding: 2px 0;
+  font-family: var(--cde-font);
+  font-size: var(--cde-ui-size);
+  background: var(--cde-menu);
+  color: var(--cde-menu-text);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-menu-light),
+    inset -1px -1px 0 var(--cde-menu-shadow),
+    0 0 0 1px var(--cde-menu-shadow);
+}
+
+.cde-menu[hidden] {
+  display: none;
+}
+
+.cde-menu-item {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 3px 22px;
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1.3;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.cde-menu-item:link,
+.cde-menu-item:visited {
+  color: inherit;
+  background-color: transparent;
+}
+
+#fp-menu a.cde-menu-item:hover,
+#fp-menu button.cde-menu-item:hover,
+#fp-menu .cde-menu-item:hover,
+#fp-menu a.cde-menu-item:focus,
+#fp-menu button.cde-menu-item:focus,
+#fp-menu .cde-menu-item:focus {
+  background-color: var(--cde-menu-sel) !important;
+  color: var(--cde-menu-text) !important;
+  text-decoration: none !important;
+  outline: none;
+}
+
+.cde-menu-sep {
+  height: 2px;
+  margin: 3px 4px;
+  border-top: 1px solid var(--cde-menu-shadow);
+  border-bottom: 1px solid var(--cde-menu-light);
+}
+
+/* ---- the corner buttons are real buttons now --------------------------- */
+
+.fp-capbox {
+  appearance: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: default;
+  position: relative;
+}
+
+/* FpMenu: a small horizontal bar */
+#fp-menu-btn::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  width: 11px;
+  height: 2px;
+  border: 1px solid;
+  border-top-color: var(--cde-ti-light);
+  border-left-color: var(--cde-ti-light);
+  border-right-color: var(--cde-ti-shadow);
+  border-bottom-color: var(--cde-ti-shadow);
+}
+
+/* FpIconify: a small square dot */
+#fp-iconify::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  width: 6px;
+  height: 6px;
+  border: 1px solid;
+  border-top-color: var(--cde-ti-light);
+  border-left-color: var(--cde-ti-light);
+  border-right-color: var(--cde-ti-shadow);
+  border-bottom-color: var(--cde-ti-shadow);
+}
+
+/* Frame 1 sinks when pressed: the bevel swaps to shadow top/left. */
+.fp-capbox:active {
+  box-shadow:
+    inset -1px -1px 0 var(--cde-ti-light),
+    inset 1px 1px 0 var(--cde-ti-shadow);
+}
+
+.fp-capbox:active::before {
+  border-top-color: var(--cde-ti-shadow);
+  border-left-color: var(--cde-ti-shadow);
+  border-right-color: var(--cde-ti-light);
+  border-bottom-color: var(--cde-ti-light);
+}
+
+.fp-capbox:focus-visible {
+  outline: 1px dotted var(--cde-ti-shadow);
+  outline-offset: -3px;
+}
+
+/* ---- shaded front panel (the iconify button) --------------------------- */
+
+.fp-shade-label {
+  display: none;
+}
+
+html.cde-panel-shaded #window-footer {
+  --fp-h: calc(var(--cde-ui-size) * 19 / 15);
+}
+
+html.cde-panel-shaded #window-footer .fp-launcher-group,
+html.cde-panel-shaded #window-footer .fp-workspace {
+  display: none;
+}
+
+html.cde-panel-shaded #window-footer .fp-rail {
+  height: var(--fp-h);
+  flex-wrap: nowrap;
+  background: var(--cde-ti);
+  box-shadow:
+    inset 0 1px 0 var(--cde-ti-light),
+    inset 0 -1px 0 var(--cde-ti-shadow);
+}
+
+html.cde-panel-shaded #window-footer .fp-shade-label {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--cde-ui-size);
+  color: var(--cde-ti-text);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* ---- titlebar: collapse the pane / drop the chrome --------------------- */
+
+html.cde-pane-hidden #sidebar {
+  display: none;
+}
+
+html.cde-focus .menubar,
+html.cde-focus #sidebar,
+html.cde-focus #window-footer {
+  display: none;
+}
+
+/* ---- help window ------------------------------------------------------- */
+
+.cde-help-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.cde-help-overlay[hidden] {
+  display: none;
+}
+
+/* the frame and titlebar come from the shared .fp-dialog rules; only the
+ * placement changes, because this window is centred rather than docked to
+ * the front panel */
+#cde-help-window {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  z-index: 1;
+  display: block;
+  width: min(440px, calc(100vw - 32px));
+  margin: 0;
+}
+
+.cde-help-body {
+  padding: 2px 10px 6px;
+  font-size: var(--cde-ui-size);
+}
+
+.cde-help-actions {
+  display: flex;
+  justify-content: center;
+  padding: 2px 0 6px;
+}
+
+/* same key as the reward dialog's close button and the reading dialog's
+ * buttons: blue panel face, 2px Motif bevel, sunk on press */
+.cde-help-btn {
+  min-width: 88px;
+  padding: 3px 16px;
+  font-family: inherit;
+  font-size: var(--cde-ui-size);
+  color: var(--cde-panel-text);
+  background: var(--cde-panel);
+  border: 2px solid;
+  border-top-color: var(--cde-panel-light);
+  border-left-color: var(--cde-panel-light);
+  border-right-color: var(--cde-panel-shadow);
+  border-bottom-color: var(--cde-panel-shadow);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-light),
+    inset -1px -1px 0 var(--cde-panel-shadow);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.cde-help-btn:hover {
+  box-shadow:
+    inset 2px 2px 0 var(--cde-panel-light),
+    inset -2px -2px 0 var(--cde-panel-shadow);
+}
+
+.cde-help-btn:active {
+  border-top-color: var(--cde-panel-shadow);
+  border-left-color: var(--cde-panel-shadow);
+  border-right-color: var(--cde-panel-light);
+  border-bottom-color: var(--cde-panel-light);
+  box-shadow:
+    inset 1px 1px 0 var(--cde-panel-shadow),
+    inset -1px -1px 0 var(--cde-panel-light);
+}
+
+.cde-help-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  align-items: center;
+}
+
+.cde-help-list > div {
+  display: contents;
+}
+
+.cde-help-list dt {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.cde-help-list dd {
+  margin: 0;
+}
+
+.cde-help-list kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 4px;
+  font-family: var(--cde-font-mono);
+  font-size: 0.92em;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--cde-face-text);
+  background: var(--cde-face);
+  border: 1px solid;
+  border-top-color: var(--cde-face-light);
+  border-left-color: var(--cde-face-light);
+  border-right-color: var(--cde-face-shadow);
+  border-bottom-color: var(--cde-face-shadow);
+}
+

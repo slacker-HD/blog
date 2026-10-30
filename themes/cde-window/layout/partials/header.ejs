@@ -1,6 +1,6 @@
 <header id="titlebar" class="titlebar">
   <div class="titlebar-controls left">
-    <span class="titlebar-btn menu" title="窗口菜单 (Window Menu)"></span>
+    <button id="tb-menu" class="titlebar-btn menu" type="button" title="窗口菜单" aria-label="窗口菜单" aria-haspopup="menu" aria-expanded="false"></button>
   </div>
   <div id="titlebar-inner" class="titlebar-title">
     <a href="<%= url_for('/') %>">
@@ -12,7 +12,8 @@
     </a>
   </div>
   <div class="titlebar-controls right">
-    <span class="titlebar-btn min" title="最小化 (Minimize)"></span>
-    <span class="titlebar-btn max" title="最大化 (Maximize)"></span>
+    <button id="tb-min" class="titlebar-btn min" type="button" title="收起 / 展开侧栏" aria-label="收起或展开侧栏" aria-pressed="false"></button>
+    <button id="tb-max" class="titlebar-btn max" type="button" title="专注模式（隐藏侧栏、菜单和前面板）" aria-label="专注模式" aria-pressed="false"></button>
   </div>
+  <div class="titlebar-progress" role="progressbar" aria-label="阅读进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="titlebar-progress-fill"></span></div>
 </header>

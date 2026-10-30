@@ -22,6 +22,7 @@
       if (p.sans) r.classList.add('read-sans');
       var pal = localStorage.getItem('cdePalette');
       if (pal && /^[A-Za-z]{2,24}$/.test(pal)) r.setAttribute('data-palette', pal);
+      if (localStorage.getItem('cdePanelShaded') === '1') r.classList.add('cde-panel-shaded');
     } catch (e) {}
   })();
   </script>

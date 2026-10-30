@@ -1,0 +1,28 @@
+<!--
+  Keyboard shortcut cheat sheet — a small CDE window, opened with `?`
+  (or the panel menu).  The left titlebar button closes it, like the other
+  front-panel dialogs.
+-->
+<div id="cde-help" class="cde-help-overlay" hidden>
+  <div id="cde-help-window" class="fp-dialog cde-help-window" role="dialog" aria-modal="true" aria-labelledby="cde-help-title">
+    <div class="titlebar rp-titlebar">
+      <div class="titlebar-controls left">
+        <button class="titlebar-btn menu" type="button" id="cde-help-menu" title="关闭 (Esc)" aria-label="关闭"></button>
+      </div>
+      <div class="titlebar-title" id="cde-help-title">键盘快捷键</div>
+    </div>
+    <div class="cde-help-body">
+      <dl class="cde-help-list">
+        <div><dt><kbd>/</kbd></dt><dd>站内搜索</dd></div>
+        <div><dt><kbd>?</kbd></dt><dd>本帮助窗口</dd></div>
+        <div><dt><kbd>t</kbd></dt><dd>跳到目录</dd></div>
+        <div><dt><kbd>j</kbd> <kbd>k</kbd></dt><dd>下一篇 / 上一篇</dd></div>
+        <div><dt><kbd>g</kbd> <kbd>g</kbd></dt><dd>回到顶部</dd></div>
+        <div><dt><kbd>p</kbd></dt><dd>配色方案</dd></div>
+        <div><dt><kbd>r</kbd></dt><dd>阅读设置</dd></div>
+        <div><dt><kbd>Esc</kbd></dt><dd>关闭窗口或菜单</dd></div>
+      </dl>
+    </div>
+    <div class="cde-help-actions"><button id="cde-help-ok" type="button" class="cde-help-btn">关闭</button></div>
+  </div>
+</div>
