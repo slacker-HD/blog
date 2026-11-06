@@ -6,7 +6,9 @@ tags:
   - SolidWorks二次开发
 comments: true
 category: SolidWorks二次开发
+date: 2026-11-06 10:41:09
 ---
+
 本文介绍SolidWorks C# add-in二次开发环境的搭建。
 
 ## 1.开发环境介绍
@@ -20,7 +22,7 @@ category: SolidWorks二次开发
 
 ## 2. Visual Studio工程设置
 
-新建项目，选择Visual C#分类下的类库Class Library(.NET Framework)模板**（注意类库有两个选项，要选择带.NET Framework的）**，设置项目存储路径与项目名称，如图1所示：
+新建项目，选择Visual C#分类下的类库Class Library(.NET Framework)模板 **（注意类库有两个选项，要选择带.NET Framework的）**，设置项目存储路径与项目名称，如图1所示：
 
 
 <div align="center">
@@ -55,7 +57,7 @@ category: SolidWorks二次开发
     <p>图5 设置调试</p>
 </div>
 
-此步可选，只是为了让开发更快捷一些。由于SolidWorks插件通过注册COM组件的方式运行，插件注册要求插件dll必须使用`/codebase`标志。由于注册组件需要管理员权限，所以建议使用**以管理员权限启动Visual Studio**，在项目“生成事件”选项中设置“生成后命令行”，添加`"%windir%\Microsoft.NET\Framework64\v4.0.30319\regasm" /codebase "$(TargetPath)"`，这样每次重新编译都会重新注册组件，防止因为大变动导致COM组件注册出错。
+此步可选，只是为了让开发更快捷一些。SolidWorks插件通过注册COM组件的方式运行，插件注册要求插件dll必须使用`/codebase`标志。由于注册组件需要管理员权限，所以建议使用**以管理员权限启动Visual Studio**，在项目“生成事件”选项中设置“生成后命令行”，添加`"%windir%\Microsoft.NET\Framework64\v4.0.30319\regasm" /codebase "$(TargetPath)"`，这样每次重新编译都会重新注册组件，防止因为大变动导致COM组件注册出错。
 
 <div align="center">
     <img src="/img/solid/Soild6.png" style="width:50%" align="center"/>
